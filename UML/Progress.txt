@@ -1,0 +1,12 @@
++-------------------------------+
+|            Progress           |
++-------------------------------+
+| - Progress_ID : Integer       |
+| - User_ID : Integer           |
+| - Lesson_ID : Integer         |
+| - Completion_Status : String  |
+| - Score : Integer             |
+| - Date_Completed : Date       |
++-------------------------------+
+|                               |
+|                               |

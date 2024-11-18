@@ -1,0 +1,19 @@
++-------------------------------+
+|            User               |
++-------------------------------+
+| - User_ID : Integer           |
+| - Name : String               |
+| - Email : String              |
+| - Age : Integer               |
+| - Preferred_Language : String |
+| - Current_Level : Integer     |
+| - Progress_Level : Integer    |
+| - Achievements : String       |
+| - Registration_Date : Date    |
+| - School_ID : Integer         |
++-------------------------------+
+| + login(): void               |
+| + logout(): void              |
+| + register(): void            |
+| + updateProfile(): void       |
++-------------------------------+
