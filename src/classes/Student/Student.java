@@ -13,7 +13,7 @@ public class Student extends Person {  // Class declaration
 
     // Constructor
     public Student(int Student_ID, String name, int age, String email, String preferred_Language, Integer current_Level, Integer progress_Level, String achievements, Integer school_ID) {
-        super(Student_ID, name, age, email, new Date());
+        super(Student_ID, name, age, email);
         this.Preferred_Language = preferred_Language;
         this.Current_Level = current_Level;
         this.Progress_Level = progress_Level;
