@@ -1,11 +1,9 @@
 package classes.Student;  // This must be the first statement in the file
-import java.util.Date;  // Imports come after the package declaration
+import classes.person.Person;  // Imports come after the package declaration
+import java.util.Date;  // Importing the Person class from the person package
 
-public class Student {
+public class Student extends Person {  // Class declaration
     private Integer Student_ID;
-    private String Name;
-    private String Email;
-    private Integer Age;
     private String Preferred_Language;
     private Integer Current_Level;
     private Integer Progress_Level;
@@ -14,8 +12,13 @@ public class Student {
     private Integer School_ID;
 
     // Constructor
-    public Student() {
-        // Initialize with default values if needed
+    public Student(int Student_ID, String name, int age, String email, String preferred_Language, Integer current_Level, Integer progress_Level, String achievements, Integer school_ID) {
+        super(Student_ID, name, age, email, new Date());
+        this.Preferred_Language = preferred_Language;
+        this.Current_Level = current_Level;
+        this.Progress_Level = progress_Level;
+        this.Achievements = achievements;
+        this.School_ID = school_ID;
     }
 
     // Implementations for the methods
@@ -42,30 +45,6 @@ public class Student {
 
     public void setStudent_ID(Integer Student_ID) {
        this.Student_ID = Student_ID;
-    }
-
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String email) {
-        Email = email;
-    }
-
-    public Integer getAge() {
-        return Age;
-    }
-
-    public void setAge(Integer age) {
-        Age = age;
     }
 
     public String getPreferred_Language() {

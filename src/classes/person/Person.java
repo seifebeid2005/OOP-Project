@@ -3,14 +3,15 @@ we have a lot of similarities in the attributes.
 We can create a superclass called Human and have the Admin, User, and Tutor classes inherit 
 from the Human class. This way we can avoid code duplication and make our code more maintainable.*/
 package classes.person;
+import java.util.Date;
 public class Person {
     private int id;
     private String name;
     private int age;
     private String email;
-    private int DateAdded;
+    private Date DateAdded;
 
-    public Person(int id, String name, int age, String email, int DateAdded) {
+    public Person(int id, String name, int age, String email, Date DateAdded) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -35,7 +36,7 @@ public class Person {
     }
 
 
-    public int getDateAdded() {
+    public Date getDateAdded() {
         return DateAdded;
     }
 
@@ -55,7 +56,7 @@ public class Person {
         this.email = email;
     }
 
-    public void setDateAdded(int DateAdded) {
+    public void setDateAdded(Date DateAdded) {
         this.DateAdded = DateAdded;
     }
 
