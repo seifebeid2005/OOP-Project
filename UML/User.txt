@@ -1,19 +1,46 @@
-+-------------------------------+
-|            User               |
-+-------------------------------+
-| - User_ID : Integer           |
-| - Name : String               |
-| - Email : String              |
-| - Age : Integer               |
-| - Preferred_Language : String |
-| - Current_Level : Integer     |
-| - Progress_Level : Integer    |
-| - Achievements : String       |
-| - Registration_Date : Date    |
-| - School_ID : Integer         |
-+-------------------------------+
-| + login(): void               |
-| + logout(): void              |
-| + register(): void            |
-| + updateProfile(): void       |
-+-------------------------------+
+
++-----------------------------------+
+|           Student           `     |
++-----------------------------------+
+| -preferredLanguage : String       |
+| -currentLevel : Integer           |
+| -progressLevel : Integer          |
+| -achievements : String            |
+| -registrationDate : LocalDateTime |
+| -schoolID : Integer               |
++-----------------------------------+
+| +generateAutoID() : int           |
+| +Student(name : String, age : int,|            
+|  email : String,                  |
+|  preferredLanguage : String,      |    
+|  currentLevel : Integer,          |
+|  progressLevel : Integer,         |    
+|  achievements : String,           |
+|  schoolID : Integer)              |
+| +login() : void                   |
+| +logout() : void                  |
+| +register() : void                |
+| +updateProfile() : void           |
+| +getPreferredLanguage() : String  |
+| +setPreferredLanguage             |            
+| (preferredLanguage : String)      |        
+| : void                            |                            
+| +getCurrentLevel() : Integer      |
+| +setCurrentLevel(currentLevel :   | 
+|  Integer) : void                  |    
+| +getProgressLevel() : Integer     |
+| +setProgressLevel(progressLevel : |
+|  Integer) : void                  |
+| +getAchievements() : String       |
+| +setAchievements(achievements     |
+| : String) : void                  |
+| +getRegistrationDate()            |    
+| : LocalDateTime                   |
+| +setRegistrationDate              |    
+| (registrationDate : LocalDateTime)|
+|   : void                          |
+| +getSchoolID() : Integer          |
+| +setSchoolID(schoolID : Integer)  |
+| : void                            |
+| +toString() : String              |
++-----------------------------------+

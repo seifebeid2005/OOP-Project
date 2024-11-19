@@ -2,6 +2,8 @@
 we have a lot of similarities in the attributes. 
 We can create a superclass called Human and have the Admin, User, and Tutor classes inherit 
 from the Human class. This way we can avoid code duplication and make our code more maintainable.*/
+//UML Diagram
+
 package classes.person;
 import java.util.Date;
 public class Person {
@@ -23,6 +25,9 @@ public class Person {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getName() {
         return name;
     }
@@ -40,9 +45,6 @@ public class Person {
         return DateAdded;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
     
     public void setName(String name) {
         this.name = name;
@@ -62,7 +64,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Human{" +
+        return "Person { " +
                 "name='" + name + '\'' +
                 ", age=" + age +
                 ", email='" + email + '\'' +

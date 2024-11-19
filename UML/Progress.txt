@@ -1,12 +1,24 @@
-+-------------------------------+
-|            Progress           |
-+-------------------------------+
-| - Progress_ID : Integer       |
-| - User_ID : Integer           |
-| - Lesson_ID : Integer         |
-| - Completion_Status : String  |
-| - Score : Integer             |
-| - Date_Completed : Date       |
-+-------------------------------+
-|                               |
-|                               |
++------------------------------------+
+|              Progress              |
++------------------------------------+
+| - Progress_ID                      |
+| - student                          |
+| - Lesson_ID                        |
+| - Completion_Status                |
+| - Score                            |
+| - Date_Completed                   |
++------------------------------------+
+| + Progress(lesson_ID: Integer,     |
+|   completion_Status:               |
+|   String, score: Integer,          |
+|   date_Completed: Date,            |
+|   student: Student)                |
+| + getProgress_ID(): Integer        |
+| + getUser_ID(): int                |
+| + getLesson_ID(): Integer          |
+| + getCompletion_Status(): String   |
+| + getScore(): Integer              |
+| + setScore(score: Integer): void   |
+| + getDate_Completed(): Date        |
+| + toString(): String               |
++------------------------------------+

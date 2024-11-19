@@ -1,97 +1,105 @@
-package classes.Student;  // This must be the first statement in the file
-import classes.person.Person;  // Imports come after the package declaration
-import java.util.Date;  // Importing the Person class from the person package
+package classes.Student; // Ensure this matches the directory structure
+import classes.person.Person; // Import the parent class
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public class Student extends Person {  // Class declaration
-    private Integer Student_ID;
-    private String Preferred_Language;
-    private Integer Current_Level;
-    private Integer Progress_Level;
-    private String Achievements;
-    private Date Registration_Date;
-    private Integer School_ID;
+public class Student extends Person {
+    private String preferredLanguage;
+    private Integer currentLevel;
+    private Integer progressLevel;
+    private String achievements;
+    private LocalDateTime registrationDate;
+    private Integer schoolID;
+
+    // Static method to generate a unique ID
+    private static int generateAutoID() {
+        String year = String.valueOf(LocalDateTime.now().getYear()).substring(2); // Get last two digits of the year
+        int randomNum = (int) (Math.random() * 1000000); // Generate a random number with 6 digits
+        return Integer.parseInt(year + String.format("%06d", randomNum)); // Combine year and random number
+    }
 
     // Constructor
-    public Student(int Student_ID, String name, int age, String email, String preferred_Language, Integer current_Level, Integer progress_Level, String achievements, Integer school_ID) {
-        super(Student_ID, name, age, email);
-        this.Preferred_Language = preferred_Language;
-        this.Current_Level = current_Level;
-        this.Progress_Level = progress_Level;
-        this.Achievements = achievements;
-        this.School_ID = school_ID;
+    public Student(String name, int age, String email, String preferredLanguage, Integer currentLevel,Integer progressLevel, String achievements, Integer schoolID) {
+        super(generateAutoID(), name, age, email); // Pass generated ID to the superclass
+        this.preferredLanguage = preferredLanguage;
+        this.currentLevel = currentLevel;
+        this.progressLevel = progressLevel;
+        this.achievements = achievements;
+        this.registrationDate = LocalDateTime.now(); // Set the registration date to the current date and time
+        this.schoolID = schoolID;
     }
 
     // Implementations for the methods
     public void login() {
-        // Implementation for login
+        System.out.println(getName() + " logged in.");
     }
 
     public void logout() {
-        // Implementation for logout
+        System.out.println(getName() + " logged out.");
     }
 
     public void register() {
-        // Implementation for register
+        System.out.println(getName() + " registered.");
     }
 
     public void updateProfile() {
-        // Implementation for updateProfile
+        System.out.println(getName() + " updated their profile.");
     }
 
-    // Getters and Setters for each field
-    public Integer getStudent_ID() {
-        return Student_ID;
+    // Getters and Setters
+    public String getPreferredLanguage() {
+        return preferredLanguage;
     }
 
-    public void setStudent_ID(Integer Student_ID) {
-       this.Student_ID = Student_ID;
+    public void setPreferredLanguage(String preferredLanguage) {
+        this.preferredLanguage = preferredLanguage;
     }
 
-    public String getPreferred_Language() {
-        return Preferred_Language;
+    public Integer getCurrentLevel() {
+        return currentLevel;
     }
 
-    public void setPreferred_Language(String preferred_Language) {
-        Preferred_Language = preferred_Language;
+    public void setCurrentLevel(Integer currentLevel) {
+        this.currentLevel = currentLevel;
     }
 
-    public Integer getCurrent_Level() {
-        return Current_Level;
+    public Integer getProgressLevel() {
+        return progressLevel;
     }
 
-    public void setCurrent_Level(Integer current_Level) {
-        Current_Level = current_Level;
-    }
-
-    public Integer getProgress_Level() {
-        return Progress_Level;
-    }
-
-    public void setProgress_Level(Integer progress_Level) {
-        Progress_Level = progress_Level;
+    public void setProgressLevel(Integer progressLevel) {
+        this.progressLevel = progressLevel;
     }
 
     public String getAchievements() {
-        return Achievements;
+        return achievements;
     }
 
     public void setAchievements(String achievements) {
-        Achievements = achievements;
+        this.achievements = achievements;
     }
 
-    public Date getRegistration_Date() {
-        return Registration_Date;
+    public LocalDateTime getRegistrationDate() {
+        return registrationDate;
     }
 
-    public void setRegistration_Date(Date registration_Date) {
-        Registration_Date = registration_Date;
+    public void setRegistrationDate(LocalDateTime registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
-    public Integer getSchool_ID() {
-        return School_ID;
+    public Integer getSchoolID() {
+        return schoolID;
     }
 
-    public void setSchool_ID(Integer school_ID) {
-        School_ID = school_ID;
+    public void setSchoolID(Integer schoolID) {
+        this.schoolID = schoolID;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Student{id=%d, name='%s', email='%s', preferredLanguage='%s', currentLevel=%d, " +
+                        "progressLevel=%d, achievements='%s', registrationDate='%s', schoolID=%d}",
+                getId(), getName(), getEmail(), preferredLanguage, currentLevel, progressLevel, achievements,
+                registrationDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), schoolID);
     }
 }

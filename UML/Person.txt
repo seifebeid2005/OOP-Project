@@ -1,0 +1,23 @@
++--------------------------------+
+|              Human             |
++--------------------------------+
+| - id: int                      |
+| - name: String                 |
+| - age: int                     |
+| - email: String                |
+| - DateAdded: Date              |
++--------------------------------+
+| + Person(id: int, name: String,|
+| age: int, email: String)       |
+| + getId(): int                 |
+| + getName(): String            |
+| + getAge(): int                |
+| + getEmail(): String           |
+| + getDateAdded(): Date         |
+| + setId(id: int): void         |
+| + setName(name: String): void  |
+| + setAge(age: int): void       |
+| + setEmail(email: String): void|
+| + setDateAdded(DateAdded: Date)|
+| + toString(): String           |
++--------------------------------+
