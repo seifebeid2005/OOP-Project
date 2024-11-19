@@ -8,15 +8,13 @@ public class Person {
     private String name;
     private int age;
     private String email;
-    private int schoolID;
     private int DateAdded;
 
-    public Person(int id, String name, int age, String email, int schoolID, int DateAdded) {
+    public Person(int id, String name, int age, String email, int DateAdded) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.email = email;
-        this.schoolID = schoolID;
         this.DateAdded = DateAdded;
     }
 
@@ -36,9 +34,6 @@ public class Person {
         return email;
     }
 
-    public int getSchoolID() {
-        return schoolID;
-    }
 
     public int getDateAdded() {
         return DateAdded;
@@ -60,10 +55,6 @@ public class Person {
         this.email = email;
     }
 
-    public void setSchoolID(int schoolID) {
-        this.schoolID = schoolID;
-    }
-
     public void setDateAdded(int DateAdded) {
         this.DateAdded = DateAdded;
     }
@@ -74,7 +65,6 @@ public class Person {
                 "name='" + name + '\'' +
                 ", age=" + age +
                 ", email='" + email + '\'' +
-                ", schoolID=" + schoolID +
                 ", DateAdded=" + DateAdded +
                 '}';
     }

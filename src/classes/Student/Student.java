@@ -1,8 +1,8 @@
-package classes.user;  // This must be the first statement in the file
+package classes.Student;  // This must be the first statement in the file
 import java.util.Date;  // Imports come after the package declaration
 
-public class User {
-    private Integer User_ID;
+public class Student {
+    private Integer Student_ID;
     private String Name;
     private String Email;
     private Integer Age;
@@ -14,7 +14,7 @@ public class User {
     private Integer School_ID;
 
     // Constructor
-    public User() {
+    public Student() {
         // Initialize with default values if needed
     }
 
@@ -36,12 +36,12 @@ public class User {
     }
 
     // Getters and Setters for each field
-    public Integer getUser_ID() {
-        return User_ID;
+    public Integer getStudent_ID() {
+        return Student_ID;
     }
 
-    public void setUser_ID(Integer user_ID) {
-        User_ID = user_ID;
+    public void setStudent_ID(Integer Student_ID) {
+       this.Student_ID = Student_ID;
     }
 
     public String getName() {
