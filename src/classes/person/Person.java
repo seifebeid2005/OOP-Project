@@ -9,7 +9,7 @@ public class Person {
     private String name;
     private int age;
     private String email;
-    private int DateAdded;
+    private Date DateAdded;
 
     public Person(int id, String name, int age, String email, Date DateAdded) {
         this.id = id;
