@@ -1,4 +1,5 @@
 package classes.Admin;
+import classes.Student.Student;
 import classes.person.Person;
 public class Admin extends Person {
 
@@ -18,6 +19,6 @@ public class Admin extends Person {
     }
 
     public void updateStudent(Student student) {
-        student.setStudent_ID();
+        // student.setStudent_ID();
     }
 }
