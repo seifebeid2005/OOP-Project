@@ -5,7 +5,7 @@ public class Admin extends Person {
     private String role;
 
     public Admin(int id, String name, int age, String email, int schoolID, int DateAdded, String role) {
-        super(id, name, age, email, schoolID, DateAdded);
+        super(id, name, age, email, DateAdded);
         this.role = role;
     }
 
@@ -17,8 +17,4 @@ public class Admin extends Person {
         this.role = role;
     }
 
-    public void updateStudent(Student student) {
-        
-         
-    }
 }
