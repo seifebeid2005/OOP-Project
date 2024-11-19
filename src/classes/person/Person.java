@@ -2,7 +2,7 @@
 we have a lot of similarities in the attributes. 
 We can create a superclass called Human and have the Admin, User, and Tutor classes inherit 
 from the Human class. This way we can avoid code duplication and make our code more maintainable.*/
-package classes.person.Person;
+package classes.person;
 public class Person {
     private int id;
     private String name;
