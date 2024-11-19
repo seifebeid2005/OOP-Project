@@ -11,12 +11,12 @@ public class Person {
     private String email;
     private Date DateAdded;
 
-    public Person(int id, String name, int age, String email, Date DateAdded) {
+    public Person(int id, String name, int age, String email) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.email = email;
-        this.DateAdded = DateAdded;
+        this.DateAdded = new Date();
     }
 
     public int getId() {
