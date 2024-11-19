@@ -36,7 +36,7 @@ public class Person {
     }
 
 
-    public int getDateAdded() {
+    public Date getDateAdded() {
         return DateAdded;
     }
 
@@ -56,7 +56,7 @@ public class Person {
         this.email = email;
     }
 
-    public void setDateAdded(int DateAdded) {
+    public void setDateAdded(Date DateAdded) {
         this.DateAdded = DateAdded;
     }
 
