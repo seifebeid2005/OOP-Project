@@ -1,5 +1,6 @@
 package classes.Student; // Ensure this matches the directory structure
 import classes.person.Person; // Import the parent class
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,8 +20,8 @@ public class Student extends Person {
     }
 
     // Constructor
-    public Student(String name, int age, String email, String preferredLanguage, Integer currentLevel,Integer progressLevel, String achievements, Integer schoolID) {
-        super(generateAutoID(), name, age, email); // Pass generated ID to the superclass
+    public Student(int id,String name, String email, String preferredLanguage, Integer currentLevel,Integer progressLevel, String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate, String phone, String address) {
+        super(generateAutoID(), name, email, dateOfBirth, phone,address); // Pass generated ID to the superclass
         this.preferredLanguage = preferredLanguage;
         this.currentLevel = currentLevel;
         this.progressLevel = progressLevel;
