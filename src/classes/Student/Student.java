@@ -11,6 +11,8 @@ public class Student extends Person {
     private String achievements;
     private LocalDateTime registrationDate;
     private Integer schoolID;
+    private String username;
+    private String password;
 
     // Static method to generate a unique ID
     private static int generateAutoID() {
@@ -20,7 +22,7 @@ public class Student extends Person {
     }
 
     // Constructor
-    public Student(int id,String name, String email, String preferredLanguage, Integer currentLevel,Integer progressLevel, String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate, String phone, String address) {
+    public Student(int id,String name, String email, String preferredLanguage, Integer currentLevel,Integer progressLevel, String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate, String phone, String address, String username, String password) {
         super(generateAutoID(), name, email, dateOfBirth, phone,address); // Pass generated ID to the superclass
         this.preferredLanguage = preferredLanguage;
         this.currentLevel = currentLevel;
@@ -28,6 +30,8 @@ public class Student extends Person {
         this.achievements = achievements;
         this.registrationDate = LocalDateTime.now(); // Set the registration date to the current date and time
         this.schoolID = schoolID;
+        this.username = username;
+        this.password = password;
     }
 
     // Implementations for the methods
