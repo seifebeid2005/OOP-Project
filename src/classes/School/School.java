@@ -1,0 +1,135 @@
+package classes.School;
+public class School {
+    // Attributes
+    private int schoolID;
+    private String schoolName;
+    private String address;
+    private String city;
+    private String contactPerson;
+    private String email;
+    private String phoneNumber;
+
+    // Default constructor
+    public School() {}
+
+    // Parameterized constructor
+    public School(int schoolID, String schoolName, String address, String city, 
+                  String contactPerson, String email, String phoneNumber) {
+        this.schoolID = schoolID;
+        this.schoolName = schoolName;
+        this.address = address;
+        this.city = city;
+        this.contactPerson = contactPerson;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
+    // Getters and Setters
+    public int getSchoolID() {
+        return schoolID;
+    }
+
+    public void setSchoolID(int schoolID) {
+        this.schoolID = schoolID;
+    }
+
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getContactPerson() {
+        return contactPerson;
+    }
+
+    public void setContactPerson(String contactPerson) {
+        this.contactPerson = contactPerson;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    // Update contact details
+    public void updateContactDetails(String contactPerson, String email, String phoneNumber) {
+        this.contactPerson = contactPerson;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
+    // Get full address
+    public String getFullAddress() {
+        return address + ", " + city;
+    }
+
+    // String representation of the object
+    @Override
+    public String toString() {
+        return "School ID: " + schoolID +
+               "\nSchool Name: " + schoolName +
+               "\nAddress: " + getFullAddress() +
+               "\nContact Person: " + contactPerson +
+               "\nEmail: " + email +
+               "\nPhone Number: " + phoneNumber;
+    }
+
+    // Validate email format
+    public boolean validateEmail(String email) {
+        return email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
+    }
+
+    // Validate phone number format (basic example)
+    public boolean validatePhoneNumber(String phoneNumber) {
+        return phoneNumber.matches("\\d{10}"); // Assuming 10-digit phone numbers
+    }
+
+    // Main method (for testing purposes)
+    public static void main(String[] args) {
+        // Create a new school object
+        School school = new School(1, "Green Valley High", "123 Elm St", "Springfield",
+                                    "John Doe", "admin@greenvalley.com", "1234567890");
+
+        // Print school details
+        System.out.println(school);
+
+        // Update contact details
+        school.updateContactDetails("Jane Smith", "info@greenvalley.com", "0987654321");
+        System.out.println("\nUpdated Contact Details:");
+        System.out.println(school);
+
+        // Validate email and phone number
+        System.out.println("\nEmail valid: " + school.validateEmail(school.getEmail()));
+        System.out.println("Phone Number valid: " + school.validatePhoneNumber(school.getPhoneNumber()));
+    }
+}
