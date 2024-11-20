@@ -1,0 +1,36 @@
++--------------------------------+
+|           School               |
++--------------------------------+
+| - schoolID: int                |
+| - schoolName: String           |
+| - address: String              |
+| - city: String                 |
+| - contactPerson: String        |
+| - email: String                |
+| - phoneNumber: String          |
++--------------------------------+
+| + School()                     |
+| + School(schoolID, schoolName, |
+|          address, city,        |
+|          contactPerson,        |
+|          email, phoneNumber)   |
+| + getSchoolID(): int           |
+| + setSchoolID(schoolID: int)   |
+| + getSchoolName(): String      |
+| + setSchoolName(schoolName: String) |
+| + getAddress(): String         |
+| + setAddress(address: String)  |
+| + getCity(): String            |
+| + setCity(city: String)        |
+| + getContactPerson(): String   |
+| + setContactPerson(contactPerson: String) |
+| + getEmail(): String           |
+| + setEmail(email: String)      |
+| + getPhoneNumber(): String     |
+| + setPhoneNumber(phoneNumber: String) |
+| + updateContactDetails(contactPerson: String, email: String, phoneNumber: String): void |
+| + getFullAddress(): String     |
+| + toString(): String           |
+| + validateEmail(email: String): boolean |
+| + validatePhoneNumber(phoneNumber: String): boolean |
++--------------------------------+
