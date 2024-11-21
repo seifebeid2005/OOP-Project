@@ -11,7 +11,7 @@ public class Admin extends Person {
         ADMIN, SUPER_ADMIN, MODERATOR
     }
 
-    public Admin(int id, String name, String email, Role roleEnum, ArrayList<Student> students, LocalDate dateOfBirth) {
+    public Admin(Long id, String name, String email, Role roleEnum, ArrayList<Student> students, LocalDate dateOfBirth) {
         super(id, name, email, dateOfBirth, null, null);
         this.roleEnum = roleEnum;
         this.students = students != null ? students : new ArrayList<>();
