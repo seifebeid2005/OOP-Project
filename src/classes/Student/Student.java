@@ -28,7 +28,7 @@ public class Student extends Person {
                    String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate, 
                    String phone, String address, String username, String password) {
 
-        super(generateAutoID(), name, email, dateOfBirth, phone, address); // Pass generated ID to the superclass
+        super(generateAutoID(), name, email, dateOfBirth, phone, address, username, password); // Pass generated ID to the superclass
         validatePreferredLanguage(preferredLanguage);
         validateCurrentLevel(currentLevel);
         validateProgressLevel(progressLevel);
