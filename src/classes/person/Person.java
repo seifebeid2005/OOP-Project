@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 public class Person {
 
-    private UUID id;
+    private Long id;
     private String name;
     private String email;
     private Date dateAdded;
@@ -25,7 +25,7 @@ public class Person {
     private String password;
 
     // Constructor with validation
-    public Person(String name, String email, LocalDate dateOfBirth, String phone, String address, String username, String password) {
+    public Person(Long id, String name, String email, LocalDate dateOfBirth, String phone, String address, String username, String password) {
         validateName(name);
         validateEmail(email);
         validateDateOfBirth(dateOfBirth);
@@ -34,7 +34,7 @@ public class Person {
         validateUsername(username);
         validatePassword(password);
 
-        this.id = UUID.randomUUID();
+        this.id = id;
         this.name = name;
         this.email = email;
         this.dateAdded = new Date();
@@ -99,7 +99,7 @@ public class Person {
     }
 
     // Getters and Setters
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
