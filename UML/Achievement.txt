@@ -1,29 +1,25 @@
 +-----------------------------------+
-|           Achievement             |
+|            Achievement            |
 +-----------------------------------+
-| -id : Integer                     |
-| -title : String                   |
-| -description : String             |
-| -dateAchieved : LocalDateTime     |
-| -studentID : Integer              |
+| - idCounter: long                 |
+| - achievementNames: Set<String>   |
+| - achievementID: long             |
+| - achievementName: String         |
+| - achievementDescription: String  |
+| - achievementDateAchieved: LocalDateTime |
+| - studentID: long                 |
 +-----------------------------------+
-| +Achievement(id : Integer,        |
-|   title : String,                 |
-|   description : String,           |
-|   dateAchieved : LocalDateTime,   |
-|   studentID : Integer)            |
-| +getID() : Integer                |
-| +setID(id : Integer) : void       |
-| +getTitle() : String              |
-| +setTitle(title : String) : void  |
-| +getDescription() : String        |
-| +setDescription(description       |
-|  : String) : void                 |
-| +getDateAchieved() : LocalDateTime|
-| +setDateAchieved(dateAchieved     |
-|  : LocalDateTime) : void          |
-| +getStudentID() : Integer         |
-| +setStudentID(studentID : Integer)|
-|  : void                           |
-| +toString() : String              |
+| + Achievement(achievementName: String, achievementDescription: String, achievementDateAchieved: LocalDateTime, studentID: long) |
+| + generateUniqueID(): long        |
+| + getAchievementID(): long        |
+| + getAchievementName(): String    |
+| + setAchievementName(achievementName: String): void |
+| + getAchievementDescription(): String |
+| + setAchievementDescription(achievementDescription: String): void |
+| + getAchievementDateAchieved(): LocalDateTime |
+| + setAchievementDateAchieved(achievementDateAchieved: LocalDateTime): void |
+| + getStudentID(): long            |
+| + setStudentID(studentID: long): void |
+| + toString(): String              |
 +-----------------------------------+
+
