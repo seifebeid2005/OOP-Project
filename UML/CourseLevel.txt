@@ -1,0 +1,30 @@
++-----------------------------------+
+|           CourseLevel             |
++-----------------------------------+
+| -id : Integer                     |
+| -name : String                    |
+| -description : String             |
+| -requiredProgress : Integer       |
+| -isActive : Boolean               |
++-----------------------------------+
+| +CourseLevel(id : Integer,        |
+|   name : String,                  |
+|   description : String,           |
+|   requiredProgress : Integer,     |
+|   isActive : Boolean)             |
+| +getID() : Integer                |
+| +setID(id : Integer) : void       |
+| +getName() : String               |
+| +setName(name : String) : void    |
+| +getDescription() : String        |
+| +setDescription(description       |
+|  : String) : void                 |
+| +getRequiredProgress() : Integer  |
+| +setRequiredProgress              |
+| (requiredProgress : Integer) :    |
+|  void                             |
+| +getIsActive() : Boolean          |
+| +setIsActive(isActive : Boolean)  |
+|  : void                           |
+| +toString() : String              |
++-----------------------------------+
