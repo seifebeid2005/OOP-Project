@@ -3,6 +3,7 @@ import classes.person.Person; // Import the parent class
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.regex.Pattern;
 
 public class Student extends Person {
     private String preferredLanguage;
@@ -13,25 +14,76 @@ public class Student extends Person {
     private Integer schoolID;
     private String username;
     private String password;
+    private static int lastGeneratedID = 0;
 
     // Static method to generate a unique ID
-    private static int generateAutoID() {
+    private static long generateAutoID() {
         String year = String.valueOf(LocalDateTime.now().getYear()).substring(2); // Get last two digits of the year
-        int randomNum = (int) (Math.random() * 1000000); // Generate a random number with 6 digits
-        return Integer.parseInt(year + String.format("%06d", randomNum)); // Combine year and random number
-    }
+        lastGeneratedID++; // Increment the last generated ID
+        return Long.parseLong(year + String.format("%04d", lastGeneratedID)); // Combine year and incremented number
+    }   
 
     // Constructor
-    public Student(int id,String name, String email, String preferredLanguage, Integer currentLevel,Integer progressLevel, String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate, String phone, String address, String username, String password) {
-        super(generateAutoID(), name, email, dateOfBirth, phone,address); // Pass generated ID to the superclass
+    public Student(String name, String email, String preferredLanguage, Integer currentLevel, Integer progressLevel,
+                   String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate, 
+                   String phone, String address, String username, String password) {
+
+        super(generateAutoID(), name, email, dateOfBirth, phone, address); // Pass generated ID to the superclass
+        validatePreferredLanguage(preferredLanguage);
+        validateCurrentLevel(currentLevel);
+        validateProgressLevel(progressLevel);
+        validateSchoolID(schoolID);
+        validateUsername(username);
+        validatePassword(password);
         this.preferredLanguage = preferredLanguage;
         this.currentLevel = currentLevel;
         this.progressLevel = progressLevel;
-        this.achievements = achievements;
-        this.registrationDate = LocalDateTime.now(); // Set the registration date to the current date and time
+        this.achievements = achievements != null ? achievements : ""; // Allow achievements to be null
+        this.registrationDate = (registrationDate != null) ? registrationDate : LocalDateTime.now(); // Use passed registrationDate or default to now
         this.schoolID = schoolID;
         this.username = username;
         this.password = password;
+    }
+
+    // Validation Methods
+
+    private void validatePreferredLanguage(String preferredLanguage) {
+        if (preferredLanguage == null || preferredLanguage.isEmpty()) {
+            throw new IllegalArgumentException("Preferred language cannot be null or empty.");
+        }
+    }
+
+    private void validateCurrentLevel(Integer currentLevel) {
+        if (currentLevel == null || currentLevel <= 0) {
+            throw new IllegalArgumentException("Current level must be a positive integer.");
+        }
+    }
+
+    private void validateProgressLevel(Integer progressLevel) {
+        if (progressLevel < 0 || progressLevel > 100) {
+            throw new IllegalArgumentException("Progress level must be between 0 and 100.");
+        }
+    }
+
+    private void validateSchoolID(Integer schoolID) {
+        if (schoolID == null || schoolID <= 0) {
+            throw new IllegalArgumentException("School ID must be a positive integer.");
+        }
+    }
+
+    private void validateUsername(String username) {
+        if (username == null || username.isEmpty()) {
+            throw new IllegalArgumentException("Username cannot be null or empty.");
+        }
+    }
+
+    private void validatePassword(String password) {
+        if (password == null || password.isEmpty()) {
+            throw new IllegalArgumentException("Password cannot be null or empty.");
+        }
+        if (password.length() < 8) {
+            throw new IllegalArgumentException("Password must be at least 8 characters long.");
+        }
     }
 
     // Implementations for the methods
