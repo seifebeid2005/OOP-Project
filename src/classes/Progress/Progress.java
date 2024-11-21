@@ -67,7 +67,7 @@ public class Progress {
         return Progress_ID;
     }
 
-    public int getUser_ID() {
+    public Long getUser_ID() {
         return student.getId();
     }
 

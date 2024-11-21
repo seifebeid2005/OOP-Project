@@ -20,6 +20,11 @@ public class Person {
     private String address;
 
     public Person(Long id, String name, String email, LocalDate dateOfBirth, String phone, String address) {
+        validateName(name);
+        validateEmail(email);
+        validateDateOfBirth(dateOfBirth);
+        validatePhone(phone);
+        validateAddress(address);
         this.id = id;
         this.name = name;
         this.email = email;
@@ -28,6 +33,35 @@ public class Person {
         this.phone = phone;
         this.address = address;
     }
+    
+    private void validateName(String name) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be null or empty.");
+        }
+    }
+
+    private void validateEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        if (email == null || !pattern.matcher(email).matches()) {
+            throw new IllegalArgumentException("Invalid email format.");
+        }
+    }
+
+    private void validateDateOfBirth(LocalDate dateOfBirth) {
+        if (dateOfBirth == null || dateOfBirth.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("Date of birth cannot be in the future.");
+        }
+    }
+
+    private void validatePhone(String phone) {
+        String phoneRegex = "^[0-9]{10}$"; // Validate 10-digit phone number
+        Pattern pattern = Pattern.compile(phoneRegex);
+        if (phone == null || !pattern.matcher(phone).matches()) {
+            throw new IllegalArgumentException("Invalid phone number format. It must be 10 digits.");
+        }
+    }
+
 
     public Long getId() {
         return id;

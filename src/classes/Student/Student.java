@@ -3,6 +3,7 @@ import classes.person.Person; // Import the parent class
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.regex.Pattern;
 
 public class Student extends Person {
     private String preferredLanguage;
@@ -23,18 +24,68 @@ public class Student extends Person {
     }   
 
     // Constructor
-    public Student(String name, String email, String preferredLanguage, Integer currentLevel, Integer progressLevel,String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate, String phone,String address, String username, String password) {
+    public Student(String name, String email, String preferredLanguage, Integer currentLevel, Integer progressLevel,
+                   String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate, 
+                   String phone, String address, String username, String password) {
+
         super(generateAutoID(), name, email, dateOfBirth, phone, address); // Pass generated ID to the superclass
+
+        validatePreferredLanguage(preferredLanguage);
+        validateCurrentLevel(currentLevel);
+        validateProgressLevel(progressLevel);
+        validateSchoolID(schoolID);
+        validateUsername(username);
+        validatePassword(password);
         this.preferredLanguage = preferredLanguage;
         this.currentLevel = currentLevel;
         this.progressLevel = progressLevel;
-        this.achievements = achievements;
-        this.registrationDate = LocalDateTime.now(); // Set the registration date to the current date and time
+        this.achievements = achievements != null ? achievements : ""; // Allow achievements to be null
+        this.registrationDate = (registrationDate != null) ? registrationDate : LocalDateTime.now(); // Use passed registrationDate or default to now
         this.schoolID = schoolID;
         this.username = username;
         this.password = password;
     }
-    
+
+    // Validation Methods
+
+    private void validatePreferredLanguage(String preferredLanguage) {
+        if (preferredLanguage == null || preferredLanguage.isEmpty()) {
+            throw new IllegalArgumentException("Preferred language cannot be null or empty.");
+        }
+    }
+
+    private void validateCurrentLevel(Integer currentLevel) {
+        if (currentLevel == null || currentLevel <= 0) {
+            throw new IllegalArgumentException("Current level must be a positive integer.");
+        }
+    }
+
+    private void validateProgressLevel(Integer progressLevel) {
+        if (progressLevel < 0 || progressLevel > 100) {
+            throw new IllegalArgumentException("Progress level must be between 0 and 100.");
+        }
+    }
+
+    private void validateSchoolID(Integer schoolID) {
+        if (schoolID == null || schoolID <= 0) {
+            throw new IllegalArgumentException("School ID must be a positive integer.");
+        }
+    }
+
+    private void validateUsername(String username) {
+        if (username == null || username.isEmpty()) {
+            throw new IllegalArgumentException("Username cannot be null or empty.");
+        }
+    }
+
+    private void validatePassword(String password) {
+        if (password == null || password.isEmpty()) {
+            throw new IllegalArgumentException("Password cannot be null or empty.");
+        }
+        if (password.length() < 8) {
+            throw new IllegalArgumentException("Password must be at least 8 characters long.");
+        }
+    }
 
     // Implementations for the methods
     public void login() {
