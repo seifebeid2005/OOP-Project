@@ -154,21 +154,15 @@ public class Admin extends Person {
     }
 
     public void setUsername(String username) {
-        if (Person.validateUsername(username)) {
-            this.username = username;
-            System.out.println("Username updated successfully.");
-        } else {
-            System.out.println("Invalid username. Please try again.");
-        }
+        Person.validateUsername(username); // Static method call
+        this.username = username;
+        System.out.println("Username updated successfully.");
     }
 
     public void setPassword(String password) {
-        if (Person.validatePassword(password)) {
-            this.password = password;
-            System.out.println("Password updated successfully.");
-        } else {
-            System.out.println("Invalid password. Please try again.");
-        }
+        Person.validatePassword(password); // Static method call
+        this.password = password;
+        System.out.println("Password updated successfully.");
     }
 
     public String getUsername() {
