@@ -1,5 +1,4 @@
 package classes.UserAchievement;
-
 import classes.person.Person;
 import java.time.LocalDate;
 import java.util.Date;
@@ -12,7 +11,7 @@ public class UserAchievement extends Person {
     private Date dateAwarded;
 
     // Constructor
-    public UserAchievement(int id, String name, String email, LocalDate dateOfBirth, String phone, String address, 
+    public UserAchievement(Long id, String name, String email, LocalDate dateOfBirth, String phone, String address, 
                            int userAchievementID, int achievementID, Date dateAwarded) {
         super(id, name, email, dateOfBirth, phone, address); // Call to superclass constructor (Person)
         this.userAchievementID = userAchievementID;
