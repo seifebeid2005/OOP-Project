@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 public class Person {
-    private int id;
+    private Long id;
     private String name;
     private String email;
     private Date DateAdded;
@@ -19,7 +19,7 @@ public class Person {
     private String phone;
     private String address;
 
-    public Person(int id, String name, String email, LocalDate dateOfBirth, String phone, String address) {
+    public Person(Long id, String name, String email, LocalDate dateOfBirth, String phone, String address) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -29,11 +29,11 @@ public class Person {
         this.address = address;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getName() {

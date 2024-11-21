@@ -13,17 +13,18 @@ public class Student extends Person {
     private Integer schoolID;
     private String username;
     private String password;
+    private static int lastGeneratedID = 0;
 
     // Static method to generate a unique ID
-    private static int generateAutoID() {
+    private static long generateAutoID() {
         String year = String.valueOf(LocalDateTime.now().getYear()).substring(2); // Get last two digits of the year
-        int randomNum = (int) (Math.random() * 1000000); // Generate a random number with 6 digits
-        return Integer.parseInt(year + String.format("%06d", randomNum)); // Combine year and random number
-    }
+        lastGeneratedID++; // Increment the last generated ID
+        return Long.parseLong(year + String.format("%04d", lastGeneratedID)); // Combine year and incremented number
+    }   
 
     // Constructor
-    public Student(int id,String name, String email, String preferredLanguage, Integer currentLevel,Integer progressLevel, String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate, String phone, String address, String username, String password) {
-        super(generateAutoID(), name, email, dateOfBirth, phone,address); // Pass generated ID to the superclass
+    public Student(String name, String email, String preferredLanguage, Integer currentLevel, Integer progressLevel,String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate, String phone,String address, String username, String password) {
+        super(generateAutoID(), name, email, dateOfBirth, phone, address); // Pass generated ID to the superclass
         this.preferredLanguage = preferredLanguage;
         this.currentLevel = currentLevel;
         this.progressLevel = progressLevel;
@@ -33,6 +34,7 @@ public class Student extends Person {
         this.username = username;
         this.password = password;
     }
+    
 
     // Implementations for the methods
     public void login() {
