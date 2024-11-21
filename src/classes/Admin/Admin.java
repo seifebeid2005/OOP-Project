@@ -6,13 +6,15 @@ import java.util.ArrayList;
 public class Admin extends Person {
     private Role roleEnum;
     private ArrayList<Student> students;
+    private String username;
+    private String password;
 
     public enum Role {
         ADMIN, SUPER_ADMIN, MODERATOR
     }
 
-    public Admin(Long id, String name, String email, Role roleEnum, ArrayList<Student> students, LocalDate dateOfBirth) {
-        super(id, name, email, dateOfBirth, null, null);
+    public Admin(Long id, String name, String email, Role roleEnum, ArrayList<Student> students, LocalDate dateOfBirth, String phone, String address, String username, String password) {
+        super(id, name, email, dateOfBirth, null, null, null, null);
         this.roleEnum = roleEnum;
         this.students = students != null ? students : new ArrayList<>();
     }
@@ -150,6 +152,27 @@ public class Admin extends Person {
             }
         }
     }
+
+    public void setUsername(String username) {
+        Person.validateUsername(username); // Static method call
+        this.username = username;
+        System.out.println("Username updated successfully.");
+    }
+
+    public void setPassword(String password) {
+        Person.validatePassword(password); // Static method call
+        this.password = password;
+        System.out.println("Password updated successfully.");
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password; // For simplicity; in real systems, don't return passwords.
+    }
+
 
     
 
