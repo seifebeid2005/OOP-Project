@@ -4,10 +4,10 @@ import java.util.Date;
 public class Progress {
     private final Integer Progress_ID;
     private final Student student;
-    private Integer Lesson_ID;
-    private String Completion_Status;
+    private final Integer Lesson_ID;
+    private final String Completion_Status;
     private Integer Score;
-    private Date Date_Completed;
+    private final Date Date_Completed;
 
 
     // Constructor with validation
@@ -25,7 +25,7 @@ public class Progress {
         this.Score = score;
         this.Date_Completed = date_Completed;
     }
-    
+
     // Method to generate auto ID
     private Integer generateAutoID() {
         int randomNum = (int) (Math.random() * 1000000); // Generate a random number with 6 digits

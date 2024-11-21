@@ -1,19 +1,17 @@
 package classes.UserAchievement;
-import classes.person.Person;
-import java.time.LocalDate;
 import java.util.Date;
 
-public class UserAchievement extends Person {
+public class UserAchievement {
 
     // Attributes specific to UserAchievement
+    private Long StudentID;
     private int userAchievementID;
     private int achievementID;
     private Date dateAwarded;
 
     // Constructor
-    public UserAchievement(Long id, String name, String email, LocalDate dateOfBirth, String phone, String address, 
-                           int userAchievementID, int achievementID, Date dateAwarded) {
-        super(id, name, email, dateOfBirth, phone, address); // Call to superclass constructor (Person)
+    public UserAchievement(int userAchievementID, int achievementID, Date dateAwarded, Long StudentID) {
+        this.StudentID = StudentID;
         this.userAchievementID = userAchievementID;
         this.achievementID = achievementID;
         this.dateAwarded = dateAwarded;
@@ -44,11 +42,14 @@ public class UserAchievement extends Person {
         this.dateAwarded = dateAwarded;
     }
 
-    // Utility Methods
-    public boolean isValidAchievement() {
-        // Placeholder for validation logic (e.g., check database for user and achievement IDs)
-        return getId() > 0 && achievementID > 0; // Reusing getId() from Person class
+    public Long getStudentID() {
+        return StudentID;
     }
+
+    public void setStudentID(Long StudentID) {
+        this.StudentID = StudentID;
+    }
+
 
     @Override
     public String toString() {
@@ -56,12 +57,8 @@ public class UserAchievement extends Person {
                 "userAchievementID=" + userAchievementID +
                 ", achievementID=" + achievementID +
                 ", dateAwarded=" + dateAwarded +
-                ", name=" + getName() + // Reusing methods from Person class
-                ", email=" + getEmail() +
-                ", phone=" + getPhone() +
-                ", address=" + getAddress() +
-                ", dateOfBirth=" + getDateOfBirth() +
-                ", age=" + getAge() + 
+                ", StudentID=" + StudentID +
                 " }";
     }
+
 }
