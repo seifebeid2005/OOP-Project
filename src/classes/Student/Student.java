@@ -3,8 +3,6 @@ import classes.person.Person; // Import the parent class
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.regex.Pattern;
-
 public class Student extends Person {
     private String preferredLanguage;
     private Integer currentLevel;
@@ -152,6 +150,21 @@ public class Student extends Person {
         this.schoolID = schoolID;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
     @Override
     public String toString() {
         return String.format("Student{id=%d, name='%s', email='%s', preferredLanguage='%s', currentLevel=%d, " +
@@ -159,4 +172,5 @@ public class Student extends Person {
                 getId(), getName(), getEmail(), preferredLanguage, currentLevel, progressLevel, achievements,
                 registrationDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), schoolID);
     }
+
 }
