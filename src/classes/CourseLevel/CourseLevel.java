@@ -1,68 +1,89 @@
 package classes.CourseLevel;
 
 public class CourseLevel {
-    private Integer id;
-    private String name;
-    private String description;
-    private Integer requiredProgress;
-    private Boolean isActive;
+    private Long courseLevelId;
+    private String courseLevelName;
+    private String courseLevelDescription;
+    private Integer courseLevelRequiredProgress;
+    private Boolean courseLevelIsActive;
 
-    public CourseLevel(Integer id, String name, String description, Integer requiredProgress, Boolean isActive) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.requiredProgress = requiredProgress;
-        this.isActive = isActive;
+    public CourseLevel(Long courseLevelId, String courseLevelName, String courseLevelDescription, Integer courseLevelRequiredProgress, Boolean courseLevelIsActive) {
+        setCourseLevelId(courseLevelId);
+        setCourseLevelName(courseLevelName);
+        setCourseLevelDescription(courseLevelDescription);
+        setCourseLevelRequiredProgress(courseLevelRequiredProgress);
+        setCourseLevelIsActive(courseLevelIsActive);
     }
 
-    public Integer getID() {
-        return id;
+    public Long getCourseLevelId() {
+        return courseLevelId;
     }
 
-    public void setID(Integer id) {
-        this.id = id;
+    public void setCourseLevelId(Long courseLevelId) {
+        if (courseLevelId == null || courseLevelId <= 0) {
+            throw new IllegalArgumentException("Course Level ID must be a positive number.");
+        }
+        this.courseLevelId = courseLevelId;
     }
 
-    public String getName() {
-        return name;
+    public String getCourseLevelName() {
+        return courseLevelName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCourseLevelName(String courseLevelName) {
+        if (courseLevelName == null || courseLevelName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Course Level Name cannot be null or empty.");
+        }
+        if (courseLevelName.length() > 100) {
+            throw new IllegalArgumentException("Course Level Name cannot exceed 100 characters.");
+        }
+        this.courseLevelName = courseLevelName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getCourseLevelDescription() {
+        return courseLevelDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCourseLevelDescription(String courseLevelDescription) {
+        if (courseLevelDescription == null || courseLevelDescription.trim().isEmpty()) {
+            throw new IllegalArgumentException("Course Level Description cannot be null or empty.");
+        }
+        if (courseLevelDescription.length() > 500) {
+            throw new IllegalArgumentException("Course Level Description cannot exceed 500 characters.");
+        }
+        this.courseLevelDescription = courseLevelDescription;
     }
 
-    public Integer getRequiredProgress() {
-        return requiredProgress;
+    public Integer getCourseLevelRequiredProgress() {
+        return courseLevelRequiredProgress;
     }
 
-    public void setRequiredProgress(Integer requiredProgress) {
-        this.requiredProgress = requiredProgress;
+    public void setCourseLevelRequiredProgress(Integer courseLevelRequiredProgress) {
+        if (courseLevelRequiredProgress == null || courseLevelRequiredProgress < 0) {
+            throw new IllegalArgumentException("Required Progress must be zero or a positive number.");
+        }
+        this.courseLevelRequiredProgress = courseLevelRequiredProgress;
     }
 
-    public Boolean getIsActive() {
-        return isActive;
+    public Boolean getCourseLevelIsActive() {
+        return courseLevelIsActive;
     }
 
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
+    public void setCourseLevelIsActive(Boolean courseLevelIsActive) {
+        if (courseLevelIsActive == null) {
+            throw new IllegalArgumentException("Course Level Active status cannot be null.");
+        }
+        this.courseLevelIsActive = courseLevelIsActive;
     }
 
     @Override
     public String toString() {
         return "CourseLevel {" +
-               "id=" + id +
-               ", name='" + name + '\'' +
-               ", description='" + description + '\'' +
-               ", requiredProgress=" + requiredProgress +
-               ", isActive=" + isActive +
+               "courseLevelId=" + courseLevelId +
+               ", courseLevelName='" + courseLevelName + '\'' +
+               ", courseLevelDescription='" + courseLevelDescription + '\'' +
+               ", courseLevelRequiredProgress=" + courseLevelRequiredProgress +
+               ", courseLevelIsActive=" + courseLevelIsActive +
                '}';
     }
 }
