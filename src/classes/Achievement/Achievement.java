@@ -1,70 +1,105 @@
 package classes.Achievement;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Achievement {
-    private Integer id;
-    private String title;
-    private String description;
-    private LocalDateTime dateAchieved;
-    private Integer studentID;
+    private static long idCounter = 1000L; // Starting sequence for IDs
+    private static final Set<String> achievementNames = new HashSet<>(); // Unique names
 
-    public Achievement(Integer id, String title, String description, LocalDateTime dateAchieved, Integer studentID) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.dateAchieved = dateAchieved;
-        this.studentID = studentID;
+    private long achievementID;
+    private String achievementName;
+    private String achievementDescription;
+    private LocalDateTime achievementDateAchieved;
+    private long studentID;
+
+    public Achievement(String achievementName, String achievementDescription, LocalDateTime achievementDateAchieved, long studentID) {
+        this.achievementID = generateUniqueID();
+        setAchievementName(achievementName);
+        setAchievementDescription(achievementDescription);
+        setAchievementDateAchieved(achievementDateAchieved);
+        setStudentID(studentID);
     }
 
-    public Integer getID() {
-        return id;
+    public static synchronized long generateUniqueID() {
+        return idCounter++;
     }
 
-    public void setID(Integer id) {
-        this.id = id;
+    public long getAchievementID() {
+        return achievementID;
     }
 
-    public String getTitle() {
-        return title;
+    public String getAchievementName() {
+        return achievementName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setAchievementName(String achievementName) {
+        if (achievementName == null || achievementName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Achievement name cannot be null or empty.");
+        }
+        if (achievementName.length() > 100) {
+            throw new IllegalArgumentException("Achievement name cannot exceed 100 characters.");
+        }
+        if (achievementNames.contains(achievementName)) {
+            throw new IllegalArgumentException("Achievement name must be unique. '" + achievementName + "' is already in use.");
+        }
+        
+        if (this.achievementName != null) {
+            achievementNames.remove(this.achievementName);
+        }
+        achievementNames.add(achievementName);
+        this.achievementName = achievementName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAchievementDescription() {
+        return achievementDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAchievementDescription(String achievementDescription) {
+        if (achievementDescription == null || achievementDescription.trim().isEmpty()) {
+            throw new IllegalArgumentException("Description cannot be null or empty.");
+        }
+        if (achievementDescription.length() > 500) {
+            throw new IllegalArgumentException("Description cannot exceed 500 characters.");
+        }
+        this.achievementDescription = achievementDescription;
     }
 
-    public LocalDateTime getDateAchieved() {
-        return dateAchieved;
+    public LocalDateTime getAchievementDateAchieved() {
+        return achievementDateAchieved;
     }
 
-    public void setDateAchieved(LocalDateTime dateAchieved) {
-        this.dateAchieved = dateAchieved;
+    public void setAchievementDateAchieved(LocalDateTime achievementDateAchieved) {
+        if (achievementDateAchieved == null) {
+            throw new IllegalArgumentException("Date achieved cannot be null.");
+        }
+        if (achievementDateAchieved.isAfter(LocalDateTime.now())) {
+            throw new IllegalArgumentException("Date achieved cannot be in the future.");
+        }
+        this.achievementDateAchieved = achievementDateAchieved;
     }
 
-    public Integer getStudentID() {
+    public long getStudentID() {
         return studentID;
     }
 
-    public void setStudentID(Integer studentID) {
+    public void setStudentID(long studentID) {
+        if ( studentID <= 0) {
+            throw new IllegalArgumentException("Student ID must be a positive integer.");
+        }
         this.studentID = studentID;
     }
 
     @Override
     public String toString() {
         return "Achievement {" +
-               "id=" + id +
-               ", title='" + title + '\'' +
-               ", description='" + description + '\'' +
-               ", dateAchieved=" + dateAchieved +
+               "achievementID=" + achievementID +
+               ", achievementName='" + achievementName + '\'' +
+               ", achievementDescription='" + achievementDescription + '\'' +
+               ", achievementDateAchieved=" + achievementDateAchieved +
                ", studentID=" + studentID +
                '}';
     }
 }
+
 
