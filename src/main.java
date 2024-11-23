@@ -1,8 +1,8 @@
-import java.util.Scanner;
+/*import classes.Student.Student;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import classes.Student.Student;
+import java.util.Scanner;
 public class main {
     public static void main(String[] args) {    
         Scanner scanner = new Scanner(System.in);
@@ -82,5 +82,34 @@ public class main {
                 System.out.println("Invalid date format. Please use yyyy-MM-dd.");
             }
         }
+    }
+}*/
+
+import classes.Teacher.Tutor;
+import java.time.LocalDate;
+
+public class main {
+
+    public static void main(String[] args) {
+        // Create a Tutor instance
+        Tutor tutor = new Tutor(
+                1L, // ID
+                "John Doe", // Name
+                "john.doe@example.com", // Email
+                LocalDate.of(1990, 5, 20), // Date of Birth
+                "1234567890", // Phone
+                "123 Main St, Springfield", // Address
+                "johndoe", // Username
+                "Secure@123", // Password
+                "Mathematics", // Subject Area
+                LocalDate.of(2015, 9, 1), // Date Joined
+                "Lead Tutor" // Role
+        );
+
+        // Print Tutor details
+        System.out.println(tutor);
+
+        // Print Tutor's years of experience
+        System.out.println("Years of Experience: " + tutor.getYearsOfExperience());
     }
 }
