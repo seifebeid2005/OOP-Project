@@ -1,13 +1,18 @@
 package classes.Teacher;
 
 import classes.person.Person;
+import classes.Lesson.Chapter;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Tutor extends Person {
 
     private String subjectArea;       // Primary subject expertise
     private LocalDate dateJoined;     // Date the tutor joined the institution
     private String role;              // Tutor's role (e.g., Lead Tutor, Assistant Tutor)
+    private List<Chapter> chapters;   // List of chapters the tutor teaches
 
     // Constructor
     public Tutor(Long id, String name, String email, LocalDate dateOfBirth, String phone, String address, String username, String password,
@@ -17,6 +22,7 @@ public class Tutor extends Person {
         this.subjectArea = subjectArea;
         this.dateJoined = dateJoined != null ? dateJoined : LocalDate.now(); // Default to current date if null
         this.role = role != null ? role : "Tutor"; // Default to "Tutor" if role is null
+        this.chapters = new ArrayList<>(); // Initialize chapters list
     }
 
     // Getters and Setters
@@ -45,6 +51,57 @@ public class Tutor extends Person {
         this.role = role;
     }
 
+    public List<Chapter> getChapters() {
+        return new ArrayList<>(chapters); // Return a copy for encapsulation
+    }
+
+    public void setChapters(List<Chapter> chapters) {
+        if (chapters != null) {
+            this.chapters = new ArrayList<>(chapters);
+        }
+    }
+
+    // Methods for Managing Chapters
+    public void addChapter(Chapter chapter) {
+        if (chapter != null) {
+            chapters.add(chapter);
+            System.out.println("Chapter added successfully.");
+        } else {
+            System.out.println("Chapter cannot be null.");
+        }
+    }
+
+    public void removeChapter(Chapter chapter) {
+        if (chapters.remove(chapter)) {
+            System.out.println("Chapter removed successfully.");
+        } else {
+            System.out.println("Chapter not found.");
+        }
+    }
+
+    public void viewAllChapters() {
+        if (chapters.isEmpty()) {
+            System.out.println("No chapters to display.");
+        } else {
+            for (Chapter chapter : chapters) {
+                System.out.println(chapter);
+            }
+        }
+    }
+
+    public void viewChapterByTopic(String topic) {
+        boolean found = false;
+        for (Chapter chapter : chapters) {
+            if (chapter.getTopic().equalsIgnoreCase(topic)) {
+                System.out.println(chapter);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No chapters found for the topic: " + topic);
+        }
+    }
+
     // Calculate years of experience based on dateJoined
     public int getYearsOfExperience() {
         return LocalDate.now().getYear() - dateJoined.getYear();
@@ -64,6 +121,7 @@ public class Tutor extends Person {
                 + ", SubjectArea='" + subjectArea + '\''
                 + ", DateJoined=" + dateJoined
                 + ", Role='" + role + '\''
-                + ", YearsOfExperience=" + getYearsOfExperience();
+                + ", YearsOfExperience=" + getYearsOfExperience()
+                + ", ChaptersCount=" + chapters.size();
     }
 }
