@@ -1,192 +1,419 @@
 package classes.Admin;
+
 import classes.Student.Student;
+import classes.Teacher.Tutor;
 import classes.person.Person;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class Admin extends Person {
+
     private Role roleEnum;
     private ArrayList<Student> students;
-    private String username;
-    private String password;
+    private ArrayList<Tutor> tutors;
 
     public enum Role {
         ADMIN, SUPER_ADMIN, MODERATOR
     }
 
-    public Admin(Long id, String name, String email, Role roleEnum, ArrayList<Student> students, LocalDate dateOfBirth, String phone, String address, String username, String password) {
-        super(id, name, email, dateOfBirth, null, null, null, null);
+    public Admin(Long id, String name, String email, Role roleEnum, ArrayList<Student> students, ArrayList<Tutor> tutors,
+            LocalDate dateOfBirth, String phone, String address, String username, String password) {
+        super(id, name, email, dateOfBirth, phone, address, username, password);
         this.roleEnum = roleEnum;
         this.students = students != null ? students : new ArrayList<>();
+        this.tutors = tutors != null ? tutors : new ArrayList<>();
     }
 
-    public Role getRole() {
-        return roleEnum;
+    // Getters and Setters
+    public List<Tutor> getTutors() {
+        return new ArrayList<>(tutors); // Return a copy to preserve encapsulation
     }
 
-    public void setRole(Role roleEnum) {
-        this.roleEnum = roleEnum;
+    public void setTutors(ArrayList<Tutor> tutors) {
+        this.tutors = tutors != null ? tutors : new ArrayList<>();
     }
 
-    public ArrayList<Student> getStudents() {
-        return students;
+    // Add a Tutor
+    public void addTutor(Tutor tutor) {
+        if (tutor != null) {
+            tutors.add(tutor);
+            System.out.println("Tutor added successfully.");
+        } else {
+            System.out.println("Tutor cannot be null.");
+        }
     }
 
-    public void setStudents(ArrayList<Student> students) {
-        this.students = students;
+    // Remove a Tutor
+    public void removeTutor(Tutor tutor) {
+        if (tutors.remove(tutor)) {
+            System.out.println("Tutor removed successfully.");
+        } else {
+            System.out.println("Tutor not found.");
+        }
     }
 
+    // Update Tutor Information
+    public void updateTutor(Long tutorId, String newName, String newEmail, String newPhone, String newAddress, String newSubjectArea) {
+        for (Tutor tutor : tutors) {
+            if (tutor.getId().equals(tutorId)) {
+                if (newName != null) {
+                    tutor.setName(newName);
+                }
+                if (newEmail != null) {
+                    tutor.setEmail(newEmail);
+                }
+                if (newPhone != null) {
+                    tutor.setPhone(newPhone);
+                }
+                if (newAddress != null) {
+                    tutor.setAddress(newAddress);
+                }
+                if (newSubjectArea != null) {
+                    tutor.setSubjectArea(newSubjectArea);
+                }
+                System.out.println("Tutor updated successfully.");
+                return;
+            }
+        }
+        System.out.println("Tutor not found.");
+    }
+
+    // Assign Role to a Tutor
+    public void assignTutorRole(Long tutorId, String role) {
+        for (Tutor tutor : tutors) {
+            if (tutor.getId().equals(tutorId)) {
+                tutor.setRole(role);
+                System.out.println("Role updated successfully for Tutor ID: " + tutorId);
+                return;
+            }
+        }
+        System.out.println("Tutor not found.");
+    }
+
+    // Generalized Search for Tutors
+    public void viewTutorsByCriteria(String criteria, Object value) {
+        List<Tutor> filteredTutors = new ArrayList<>();
+        for (Tutor tutor : tutors) {
+            if (matchesCriteria(tutor, criteria, value)) {
+                filteredTutors.add(tutor);
+            }
+        }
+
+        if (filteredTutors.isEmpty()) {
+            System.out.println("No tutors found for the given criteria.");
+        } else {
+            for (Tutor tutor : filteredTutors) {
+                System.out.println(tutor);
+            }
+        }
+    }
+
+    private boolean matchesCriteria(Tutor tutor, String criteria, Object value) {
+        switch (criteria.toLowerCase()) {
+            case "id":
+                return tutor.getId().equals(value);
+            case "name":
+                return tutor.getName().equalsIgnoreCase((String) value);
+            case "email":
+                return tutor.getEmail().equalsIgnoreCase((String) value);
+            case "dateofbirth":
+                return tutor.getDateOfBirth().equals(value);
+            case "age":
+                return tutor.getAge() == (int) value;
+            case "phone":
+                return tutor.getPhone().equals(value);
+            case "address":
+                return tutor.getAddress().equalsIgnoreCase((String) value);
+            case "username":
+                return tutor.getUsername().equals(value);
+            case "subjectarea":
+                return tutor.getSubjectArea().equalsIgnoreCase((String) value);
+            case "datejoined":
+                return tutor.getDateJoined().equals(value);
+            case "role":
+                return tutor.getRole().equalsIgnoreCase((String) value);
+            case "yearsofexperience":
+                return tutor.getYearsOfExperience() == (int) value;
+            default:
+                return false;
+        }
+    }
+
+    // View All Tutors
+    public void viewTutors() {
+        if (tutors.isEmpty()) {
+            System.out.println("No tutors to display.");
+        } else {
+            for (Tutor tutor : tutors) {
+                System.out.println(tutor);
+            }
+        }
+    }
+
+    // View Tutors by Experience
+    public void viewTutorsByExperience(int minYears) {
+        for (Tutor tutor : tutors) {
+            if (tutor.getYearsOfExperience() >= minYears) {
+                System.out.println(tutor);
+            }
+        }
+    }
+
+    // Assign Subjects to a Tutor
+    public void assignSubjectToTutor(Long tutorId, String subject) {
+        for (Tutor tutor : tutors) {
+            if (tutor.getId().equals(tutorId)) {
+                tutor.setSubjectArea(subject);
+                System.out.println("Subject assigned successfully to Tutor ID: " + tutorId);
+                return;
+            }
+        }
+        System.out.println("Tutor not found.");
+    }
+
+    // View Tutors by Subject
+    public void viewTutorsBySubject(String subject) {
+        for (Tutor tutor : tutors) {
+            if (tutor.getSubjectArea().equalsIgnoreCase(subject)) {
+                System.out.println(tutor);
+            }
+        }
+    }
+
+    // Deactivate a Tutor
+    public void deactivateTutor(Long tutorId) {
+        for (Tutor tutor : tutors) {
+            if (tutor.getId().equals(tutorId)) {
+                tutors.remove(tutor);
+                System.out.println("Tutor with ID " + tutorId + " has been deactivated.");
+                return;
+            }
+        }
+        System.out.println("Tutor not found.");
+    }
+
+    // Account creation for Tutor
+    public void createTutorAccount() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Enter Tutor ID: ");
+        Long id = input.nextLong();
+        input.nextLine(); // Consume newline
+
+        System.out.println("Enter Tutor Name: ");
+        String name = input.nextLine();
+
+        System.out.println("Enter Tutor Email: ");
+        String email = input.nextLine();
+
+        System.out.println("Enter Tutor Date of Birth (YYYY-MM-DD): ");
+        LocalDate dateOfBirth = LocalDate.parse(input.nextLine());
+
+        System.out.println("Enter Tutor Phone: ");
+        String phone = input.nextLine();
+
+        System.out.println("Enter Tutor Address: ");
+        String address = input.nextLine();
+
+        System.out.println("Enter Tutor Username: ");
+        String username = input.nextLine();
+
+        System.out.println("Enter Tutor Password: ");
+        String password = input.nextLine();
+
+        System.out.println("Enter Tutor Subject Area: ");
+        String subjectArea = input.nextLine();
+
+        System.out.println("Enter Tutor Role: ");
+        String role = input.nextLine();
+
+        System.out.println("Enter Tutor Date Joined (YYYY-MM-DD): ");
+        LocalDate dateJoined = LocalDate.parse(input.nextLine());
+
+        // Create Tutor object and add to the list
+        Tutor tutor = new Tutor(id, name, email, dateOfBirth, phone, address, username, password, subjectArea, dateJoined, role);
+        addTutor(tutor);
+        System.out.println("Tutor account created successfully!");
+    }
+
+    // Account creation for Student
+    public void createStudentAccount() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Enter Student ID: ");
+        Long id = input.nextLong();
+        input.nextLine(); // Consume newline
+
+        System.out.println("Enter Student Name: ");
+        String name = input.nextLine();
+
+        System.out.println("Enter Student Email: ");
+        String email = input.nextLine();
+
+        System.out.println("Enter Student Date of Birth (YYYY-MM-DD): ");
+        LocalDate dateOfBirth = LocalDate.parse(input.nextLine());
+
+        System.out.println("Enter Student Phone: ");
+        String phone = input.nextLine();
+
+        System.out.println("Enter Student Address: ");
+        String address = input.nextLine();
+
+        System.out.println("Enter Student Username: ");
+        String username = input.nextLine();
+
+        System.out.println("Enter Student Password: ");
+        String password = input.nextLine();
+
+        System.out.println("Enter Student School ID: ");
+        int schoolID = input.nextInt();
+        input.nextLine(); // Consume newline
+
+        System.out.println("Enter Student Current Level: ");
+        int currentLevel = input.nextInt();
+        input.nextLine(); // Consume newline
+
+        System.out.println("Enter Student Registration Date (YYYY-MM-DD): ");
+        LocalDate registrationDate = LocalDate.parse(input.nextLine());
+
+        // Create Student object and add to the list
+        Student student = new Student(name, email, phone, schoolID, currentLevel, address, id.intValue(), dateOfBirth, registrationDate.atStartOfDay(), username, password, "", "", "");
+        addStudent(student);
+        System.out.println("Student account created successfully!");
+    }
+
+    // Add a Student to the list
     public void addStudent(Student student) {
-        students.add(student);
+        if (student != null) {
+            students.add(student);
+            System.out.println("Student added successfully.");
+        } else {
+            System.out.println("Student cannot be null.");
+        }
     }
 
+    // Remove a Student from the list
     public void removeStudent(Student student) {
-        students.remove(student);
+        if (students.remove(student)) {
+            System.out.println("Student removed successfully.");
+        } else {
+            System.out.println("Student not found.");
+        }
     }
 
+    // Update Student Information
+    public void updateStudent(Long studentId, String newName, String newEmail, String newPhone, String newAddress, int newSchoolID, int newCurrentLevel) {
+        for (Student student : students) {
+            if (student.getId() == studentId) {
+                if (newName != null) {
+                    student.setName(newName);
+                }
+                if (newEmail != null) {
+                    student.setEmail(newEmail);
+                }
+                if (newPhone != null) {
+                    student.setPhone(newPhone);
+                }
+                if (newAddress != null) {
+                    student.setAddress(newAddress);
+                }
+                if (newSchoolID != 0) {
+                    student.setSchoolID(newSchoolID);
+                }
+                if (newCurrentLevel != 0) {
+                    student.setCurrentLevel(newCurrentLevel);
+                }
+                System.out.println("Student updated successfully.");
+                return;
+            }
+        }
+        System.out.println("Student not found.");
+    }
+
+    // Generalized Search for Students
+    public void viewStudentsByCriteria(String criteria, Object value) {
+        List<Student> filteredStudents = new ArrayList<>();
+        for (Student student : students) {
+            if (matchesCriteria(student, criteria, value)) {
+                filteredStudents.add(student);
+            }
+        }
+
+        if (filteredStudents.isEmpty()) {
+            System.out.println("No students found for the given criteria.");
+        } else {
+            for (Student student : filteredStudents) {
+                System.out.println(student);
+            }
+        }
+    }
+
+    private boolean matchesCriteria(Student student, String criteria, Object value) {
+        switch (criteria.toLowerCase()) {
+            case "id":
+                return student.getId() == (int) value;
+            case "name":
+                return student.getName().equalsIgnoreCase((String) value);
+            case "email":
+                return student.getEmail().equalsIgnoreCase((String) value);
+            case "dateofbirth":
+                return student.getDateOfBirth().equals(value);
+            case "age":
+                return student.getAge() == (int) value;
+            case "phone":
+                return student.getPhone().equals(value);
+            case "address":
+                return student.getAddress().equalsIgnoreCase((String) value);
+            case "username":
+                return student.getUsername().equals(value);
+            case "schoolid":
+                return student.getSchoolID() == (int) value;
+            case "currentlevel":
+                return student.getCurrentLevel() == (int) value;
+            case "registrationdate":
+                return student.getRegistrationDate().equals(value);
+            case "role":
+                return student.getRole().equalsIgnoreCase((String) value);
+            default:
+                return false;
+        }
+    }
+
+    // View All Students
     public void viewStudents() {
-        for (Student student : students) {
-            System.out.println(student);
-        }
-    }
-
-    public void viewStudentById(int id) {
-        for (Student student : students) {
-            if (student.getId() == id) {
+        if (students.isEmpty()) {
+            System.out.println("No students to display.");
+        } else {
+            for (Student student : students) {
                 System.out.println(student);
             }
         }
     }
 
-    public void viewStudentByEmail(String email) {
+    // Deactivate a Student
+    public void deactivateStudent(Long studentId) {
         for (Student student : students) {
-            if (student.getEmail().equals(email)) {
-                System.out.println(student);
+            if (student.getId() == studentId) {
+                students.remove(student);
+                System.out.println("Student with ID " + studentId + " has been deactivated.");
+                return;
             }
         }
+        System.out.println("Student not found.");
     }
 
-    public void viewStudentByName(String name) {
-        for (Student student : students) {
-            if (student.getName().equals(name)) {
-                System.out.println(student);
-            }
-        }
+    // toString override to include Admin-specific details
+    @Override
+    public String toString() {
+        return "Admin { "
+                + "roleEnum = " + roleEnum
+                + ", Email = " + getEmail()
+                + ", Name = " + getName()
+                + ", Age = " + getAge()
+                + ", ID = " + getId()
+                + ", DateAdded = " + getDateAdded()
+                + " }";
     }
-
-    public void viewStudentByDateOfBirth(LocalDate dateOfBirth) {
-        for (Student student : students) {
-            if (student.getDateOfBirth().equals(dateOfBirth)) {
-                System.out.println(student);
-            }
-        }
-    }
-
-    public void viewStudentByAge(int age) {
-        for (Student student : students) {
-            if (student.getAge() == age) {
-                System.out.println(student);
-            }
-        }
-    }
-
-    public void viewStudentBySchoolID(int schoolID) {
-        for (Student student : students) {
-            if (student.getSchoolID() == schoolID) {
-                System.out.println(student);
-            }
-        }
-    }
-
-    public void viewStudentByRegistrationDate(LocalDate registrationDate) {
-        for (Student student : students) {
-            if (student.getRegistrationDate().equals(registrationDate)) {
-                System.out.println(student);
-            }
-        }
-    }
-
-    public void viewStudentByCurrentLevel(int currentLevel) {
-        for (Student student : students) {
-            if (student.getCurrentLevel() == currentLevel) {
-                System.out.println(student);
-            }
-        }
-    }
-
-    public void viewStudentByProgressLevel(int progressLevel) {
-        for (Student student : students) {
-            if (student.getProgressLevel() == progressLevel) {
-                System.out.println(student);
-            }
-        }
-    }
-
-    public void viewStudentByAchievements(String achievements) {
-        for (Student student : students) {
-            if (student.getAchievements().equals(achievements)) {
-                System.out.println(student);
-            }
-        }
-    }
-
-    public void viewStudentByPreferredLanguage(String preferredLanguage) {
-        for (Student student : students) {
-            if (student.getPreferredLanguage().equals(preferredLanguage)) {
-                System.out.println(student);
-            }
-        }
-    }
-
-    public void viewStudentByPhone(String phone) {
-        for (Student student : students) {
-            if (student.getPhone().equals(phone)) {
-                System.out.println(student);
-            }
-        }
-    }
-
-    public void viewStudentByAddress(String address) {
-        for (Student student : students) {
-            if (student.getAddress().equals(address)) {
-                System.out.println(student);
-            }
-        }
-    }
-
-    public void setUsername(String username) {
-        Person.validateUsername(username); // Static method call
-        this.username = username;
-        System.out.println("Username updated successfully.");
-    }
-
-    public void setPassword(String password) {
-        Person.validatePassword(password); // Static method call
-        this.password = password;
-        System.out.println("Password updated successfully.");
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password; // For simplicity; in real systems, don't return passwords.
-    }
-
-
-    
-
-
-        @Override
-        public String toString() {
-          return "Admin { " +
-        "roleEnum = " + roleEnum +
-        ", Email = " + getEmail() +
-        ", Name = " + getName() +
-        ", Age = " + getAge() + 
-        ", ID = " + getId() +
-        ", DateAdded = " + getDateAdded() +
-        " }";
-        }
-
 }
