@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 public class Admin extends Person {
 
-    private Role roleEnum;
-    private ArrayList<Student> students;
+    private final Role roleEnum;
+    private final ArrayList<Student> students;
     private ArrayList<Tutor> tutors;
 
     public enum Role {
@@ -111,34 +111,21 @@ public class Admin extends Person {
     }
 
     private boolean matchesCriteria(Tutor tutor, String criteria, Object value) {
-        switch (criteria.toLowerCase()) {
-            case "id":
-                return tutor.getId().equals(value);
-            case "name":
-                return tutor.getName().equalsIgnoreCase((String) value);
-            case "email":
-                return tutor.getEmail().equalsIgnoreCase((String) value);
-            case "dateofbirth":
-                return tutor.getDateOfBirth().equals(value);
-            case "age":
-                return tutor.getAge() == (int) value;
-            case "phone":
-                return tutor.getPhone().equals(value);
-            case "address":
-                return tutor.getAddress().equalsIgnoreCase((String) value);
-            case "username":
-                return tutor.getUsername().equals(value);
-            case "subjectarea":
-                return tutor.getSubjectArea().equalsIgnoreCase((String) value);
-            case "datejoined":
-                return tutor.getDateJoined().equals(value);
-            case "role":
-                return tutor.getRole().equalsIgnoreCase((String) value);
-            case "yearsofexperience":
-                return tutor.getYearsOfExperience() == (int) value;
-            default:
-                return false;
-        }
+        return switch (criteria.toLowerCase()) {
+            case "id" -> tutor.getId().equals(value);
+            case "name" -> tutor.getName().equalsIgnoreCase((String) value);
+            case "email" -> tutor.getEmail().equalsIgnoreCase((String) value);
+            case "dateofbirth" -> tutor.getDateOfBirth().equals(value);
+            case "age" -> tutor.getAge() == (int) value;
+            case "phone" -> tutor.getPhone().equals(value);
+            case "address" -> tutor.getAddress().equalsIgnoreCase((String) value);
+            case "username" -> tutor.getUsername().equals(value);
+            case "subjectarea" -> tutor.getSubjectArea().equalsIgnoreCase((String) value);
+            case "datejoined" -> tutor.getDateJoined().equals(value);
+            case "role" -> tutor.getRole().equalsIgnoreCase((String) value);
+            case "yearsofexperience" -> tutor.getYearsOfExperience() == (int) value;
+            default -> false;
+        };
     }
 
     // View All Tutors
@@ -279,7 +266,8 @@ public class Admin extends Person {
         LocalDate registrationDate = LocalDate.parse(input.nextLine());
 
         // Create Student object and add to the list
-        Student student = new Student(name, email, phone, schoolID, currentLevel, address, id.intValue(), dateOfBirth, registrationDate.atStartOfDay(), username, password, "", "", "");
+        Student student = new Student(name, email, phone, schoolID, currentLevel, 
+        address, id.intValue(), dateOfBirth, registrationDate.atStartOfDay(), username, password, "", "");
         addStudent(student);
         System.out.println("Student account created successfully!");
     }
@@ -306,7 +294,7 @@ public class Admin extends Person {
     // Update Student Information
     public void updateStudent(Long studentId, String newName, String newEmail, String newPhone, String newAddress, int newSchoolID, int newCurrentLevel) {
         for (Student student : students) {
-            if (student.getId() == studentId) {
+            if (student.getId().equals(studentId)) {
                 if (newName != null) {
                     student.setName(newName);
                 }
@@ -351,34 +339,20 @@ public class Admin extends Person {
     }
 
     private boolean matchesCriteria(Student student, String criteria, Object value) {
-        switch (criteria.toLowerCase()) {
-            case "id":
-                return student.getId() == (int) value;
-            case "name":
-                return student.getName().equalsIgnoreCase((String) value);
-            case "email":
-                return student.getEmail().equalsIgnoreCase((String) value);
-            case "dateofbirth":
-                return student.getDateOfBirth().equals(value);
-            case "age":
-                return student.getAge() == (int) value;
-            case "phone":
-                return student.getPhone().equals(value);
-            case "address":
-                return student.getAddress().equalsIgnoreCase((String) value);
-            case "username":
-                return student.getUsername().equals(value);
-            case "schoolid":
-                return student.getSchoolID() == (int) value;
-            case "currentlevel":
-                return student.getCurrentLevel() == (int) value;
-            case "registrationdate":
-                return student.getRegistrationDate().equals(value);
-            case "role":
-                return student.getRole().equalsIgnoreCase((String) value);
-            default:
-                return false;
-        }
+        return switch (criteria.toLowerCase()) {
+            case "id" -> student.getId() == (int) value;
+            case "name" -> student.getName().equalsIgnoreCase((String) value);
+            case "email" -> student.getEmail().equalsIgnoreCase((String) value);
+            case "dateofbirth" -> student.getDateOfBirth().equals(value);
+            case "age" -> student.getAge() == (int) value;
+            case "phone" -> student.getPhone().equals(value);
+            case "address" -> student.getAddress().equalsIgnoreCase((String) value);
+            case "username" -> student.getUsername().equals(value);
+            case "schoolid" -> student.getSchoolID() == (int) value;
+            case "currentlevel" -> student.getCurrentLevel() == (int) value;
+            case "registrationdate" -> student.getRegistrationDate().equals(value);
+            default -> false;
+        };
     }
 
     // View All Students
@@ -395,7 +369,7 @@ public class Admin extends Person {
     // Deactivate a Student
     public void deactivateStudent(Long studentId) {
         for (Student student : students) {
-            if (student.getId() == studentId) {
+            if (student.getId().equals(studentId)) {
                 students.remove(student);
                 System.out.println("Student with ID " + studentId + " has been deactivated.");
                 return;

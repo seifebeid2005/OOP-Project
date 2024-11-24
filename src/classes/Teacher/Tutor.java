@@ -1,8 +1,7 @@
 package classes.Teacher;
 
+import classes.lesson.Chapter;
 import classes.person.Person;
-import classes.Lesson.Chapter;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,24 +60,6 @@ public class Tutor extends Person {
         }
     }
 
-    // Methods for Managing Chapters
-    public void addChapter(Chapter chapter) {
-        if (chapter != null) {
-            chapters.add(chapter);
-            System.out.println("Chapter added successfully.");
-        } else {
-            System.out.println("Chapter cannot be null.");
-        }
-    }
-
-    public void removeChapter(Chapter chapter) {
-        if (chapters.remove(chapter)) {
-            System.out.println("Chapter removed successfully.");
-        } else {
-            System.out.println("Chapter not found.");
-        }
-    }
-
     public void viewAllChapters() {
         if (chapters.isEmpty()) {
             System.out.println("No chapters to display.");
@@ -92,7 +73,7 @@ public class Tutor extends Person {
     public void viewChapterByTopic(String topic) {
         boolean found = false;
         for (Chapter chapter : chapters) {
-            if (chapter.getTopic().equalsIgnoreCase(topic)) {
+            if (chapter.get_lesson_title().equalsIgnoreCase(topic)) {
                 System.out.println(chapter);
                 found = true;
             }

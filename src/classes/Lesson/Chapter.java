@@ -1,3 +1,4 @@
+package classes.lesson;
 
 public class Chapter {
 
@@ -112,6 +113,8 @@ public class Chapter {
 
         materials = temp;
     }
+
+
 
     @Override
     public String toString() {

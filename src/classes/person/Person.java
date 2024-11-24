@@ -13,10 +13,10 @@ import java.util.regex.Pattern;
 
 public class Person {
 
-    private Long id;
+    private final Long id;
     private String name;
     private String email;
-    private Date dateAdded;
+    private final  Date dateAdded;
     private LocalDate dateOfBirth;
     private String phone;
     private String address;
