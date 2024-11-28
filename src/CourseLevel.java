@@ -6,6 +6,9 @@ public class CourseLevel {
     private Integer courseLevelRequiredProgress;
     private Boolean courseLevelIsActive;
 
+    public CourseLevel() {
+    }
+
     public CourseLevel(Long courseLevelId, String courseLevelName, String courseLevelDescription, Integer courseLevelRequiredProgress, Boolean courseLevelIsActive) {
         setCourseLevelId(courseLevelId);
         setCourseLevelName(courseLevelName);
@@ -75,6 +78,17 @@ public class CourseLevel {
         }
         this.courseLevelIsActive = courseLevelIsActive;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        CourseLevel that = (CourseLevel) o;
+        return courseLevelId.equals(that.courseLevelId);
+    }
+
 
     @Override
     public String toString() {
