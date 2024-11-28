@@ -1,5 +1,12 @@
 package classes.School;
+
+import java.util.ArrayList;
+
 public class School {
+
+    public static Iterable<School> getSchools() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     // Attributes
     private int schoolID;
     private String schoolName;
@@ -8,6 +15,7 @@ public class School {
     private String contactPerson;
     private String email;
     private String phoneNumber;
+    private static ArrayList<School> schools = new ArrayList<>();
 
     // Default constructor
     public School() {}
@@ -26,6 +34,10 @@ public class School {
 
     // Getters and Setters
     public int getSchoolID() {
+        return schoolID;
+    }
+
+    public Integer getId() {
         return schoolID;
     }
 
@@ -79,6 +91,25 @@ public class School {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    // Add a new school
+    public void addSchool(int schoolID, String schoolName, String address, String city, 
+        String contactPerson, String email, String phoneNumber) {
+        School school = new School(schoolID, schoolName, address, city, contactPerson, email, phoneNumber);
+    }
+
+    // Remove a school from a list of schools
+    public static boolean removeSchool(ArrayList<School> schools, Long schoolId) {
+        for (School school : schools) {
+            if (school.getId().equals(schoolId)) {
+                schools.remove(school);
+                System.out.println("School removed successfully: " + school);
+                return true;
+            }
+        }
+        System.out.println("School with ID " + schoolId + " not found.");
+        return false;
     }
 
     // Update contact details

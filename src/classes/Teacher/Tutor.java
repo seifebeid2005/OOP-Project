@@ -12,16 +12,18 @@ public class Tutor extends Person {
     private LocalDate dateJoined;     // Date the tutor joined the institution
     private String role;              // Tutor's role (e.g., Lead Tutor, Assistant Tutor)
     private List<Chapter> chapters;   // List of chapters the tutor teaches
+    private final int schoolID;       // School ID where the tutor is employed
 
     // Constructor
     public Tutor(Long id, String name, String email, LocalDate dateOfBirth, String phone, String address, String username, String password,
-            String subjectArea, LocalDate dateJoined, String role) {
+            String subjectArea, LocalDate dateJoined, String role, int schoolID) {
         super(id, name, email, dateOfBirth, phone, address, username, password);
         validateSubjectArea(subjectArea);
         this.subjectArea = subjectArea;
         this.dateJoined = dateJoined != null ? dateJoined : LocalDate.now(); // Default to current date if null
         this.role = role != null ? role : "Tutor"; // Default to "Tutor" if role is null
         this.chapters = new ArrayList<>(); // Initialize chapters list
+        this.schoolID = schoolID;
     }
 
     // Getters and Setters
@@ -58,6 +60,10 @@ public class Tutor extends Person {
         if (chapters != null) {
             this.chapters = new ArrayList<>(chapters);
         }
+    }
+
+    public int getSchoolID() {
+        return schoolID;
     }
 
     public void viewAllChapters() {

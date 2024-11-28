@@ -1,5 +1,6 @@
 package classes.Admin;
 
+import classes.School.School;
 import classes.Student.Student;
 import classes.Teacher.Tutor;
 import classes.person.Person;
@@ -10,9 +11,10 @@ import java.util.Scanner;
 
 public class Admin extends Person {
 
-    private Role roleEnum;
+    private final Role roleEnum;
     private ArrayList<Student> students;
     private ArrayList<Tutor> tutors;
+    private static ArrayList<School> schools = new ArrayList<>();
 
     public enum Role {
         ADMIN, SUPER_ADMIN, MODERATOR
@@ -33,6 +35,26 @@ public class Admin extends Person {
 
     public void setTutors(ArrayList<Tutor> tutors) {
         this.tutors = tutors != null ? tutors : new ArrayList<>();
+    }
+
+    public static List<School> getSchools() {
+        return schools;
+    }
+
+    public static void setSchools(ArrayList<School> schools) {
+        Admin.schools = schools != null ? schools : new ArrayList<>();
+    }
+
+    public Role getRoleEnum() {
+        return roleEnum;
+    }
+
+    public List<Student> getStudents() {
+        return new ArrayList<>(students); // Return a copy to preserve encapsulation
+    }
+
+    public void setStudents(ArrayList<Student> students) {
+        this.students = students != null ? students : new ArrayList<>();
     }
 
     // Add a Tutor
@@ -111,37 +133,22 @@ public class Admin extends Person {
     }
 
     private boolean matchesCriteria(Tutor tutor, String criteria, Object value) {
-        switch (criteria.toLowerCase()) {
-            case "id":
-                return tutor.getId().equals(value);
-            case "name":
-                return tutor.getName().equalsIgnoreCase((String) value);
-            case "email":
-                return tutor.getEmail().equalsIgnoreCase((String) value);
-            case "dateofbirth":
-                return tutor.getDateOfBirth().equals(value);
-            case "age":
-                return tutor.getAge() == (int) value;
-            case "phone":
-                return tutor.getPhone().equals(value);
-            case "address":
-                return tutor.getAddress().equalsIgnoreCase((String) value);
-            case "username":
-                return tutor.getUsername().equals(value);
-            case "subjectarea":
-                return tutor.getSubjectArea().equalsIgnoreCase((String) value);
-            case "datejoined":
-                return tutor.getDateJoined().equals(value);
-            case "role":
-                return tutor.getRole().equalsIgnoreCase((String) value);
-            case "yearsofexperience":
-                return tutor.getYearsOfExperience() == (int) value;
-            default:
-                return false;
-        }
+        return switch (criteria.toLowerCase()) {
+            case "id" -> tutor.getId().equals(value);
+            case "name" -> tutor.getName().equalsIgnoreCase((String) value);
+            case "email" -> tutor.getEmail().equalsIgnoreCase((String) value);
+            case "dateofbirth" -> tutor.getDateOfBirth().equals(value);
+            case "age" -> tutor.getAge() == (int) value;
+            case "phone" -> tutor.getPhone().equals(value);
+            case "address" -> tutor.getAddress().equalsIgnoreCase((String) value);
+            case "username" -> tutor.getUsername().equals(value);
+            case "subjectarea" -> tutor.getSubjectArea().equalsIgnoreCase((String) value);
+            case "datejoined" -> tutor.getDateJoined().equals(value);
+            case "role" -> tutor.getRole().equalsIgnoreCase((String) value);
+            case "yearsofexperience" -> tutor.getYearsOfExperience() == (int) value;
+            default -> false;
+        };
     }
-
-    // 
 
     // View All Tutors
     public void viewTutors() {
@@ -149,36 +156,6 @@ public class Admin extends Person {
             System.out.println("No tutors to display.");
         } else {
             for (Tutor tutor : tutors) {
-                System.out.println(tutor);
-            }
-        }
-    }
-
-    // View Tutors by Experience
-    public void viewTutorsByExperience(int minYears) {
-        for (Tutor tutor : tutors) {
-            if (tutor.getYearsOfExperience() >= minYears) {
-                System.out.println(tutor);
-            }
-        }
-    }
-
-    // Assign Subjects to a Tutor
-    public void assignSubjectToTutor(Long tutorId, String subject) {
-        for (Tutor tutor : tutors) {
-            if (tutor.getId().equals(tutorId)) {
-                tutor.setSubjectArea(subject);
-                System.out.println("Subject assigned successfully to Tutor ID: " + tutorId);
-                return;
-            }
-        }
-        System.out.println("Tutor not found.");
-    }
-
-    // View Tutors by Subject
-    public void viewTutorsBySubject(String subject) {
-        for (Tutor tutor : tutors) {
-            if (tutor.getSubjectArea().equalsIgnoreCase(subject)) {
                 System.out.println(tutor);
             }
         }
@@ -235,7 +212,7 @@ public class Admin extends Person {
         LocalDate dateJoined = LocalDate.parse(input.nextLine());
 
         // Create Tutor object and add to the list
-        Tutor tutor = new Tutor(id, name, email, dateOfBirth, phone, address, username, password, subjectArea, dateJoined, role);
+        Tutor tutor = new Tutor(id, name, email, dateOfBirth, phone, address, username, password, subjectArea, dateJoined, role, 0); // Add the missing int parameter
         addTutor(tutor);
         System.out.println("Tutor account created successfully!");
     }
@@ -308,7 +285,7 @@ public class Admin extends Person {
     // Update Student Information
     public void updateStudent(Long studentId, String newName, String newEmail, String newPhone, String newAddress, int newSchoolID, int newCurrentLevel) {
         for (Student student : students) {
-            if (student.getId() == studentId) {
+            if (student.getId().equals(studentId)) {
                 if (newName != null) {
                     student.setName(newName);
                 }
@@ -353,34 +330,20 @@ public class Admin extends Person {
     }
 
     private boolean matchesCriteria(Student student, String criteria, Object value) {
-        switch (criteria.toLowerCase()) {
-            case "id":
-                return student.getId() == (int) value;
-            case "name":
-                return student.getName().equalsIgnoreCase((String) value);
-            case "email":
-                return student.getEmail().equalsIgnoreCase((String) value);
-            case "dateofbirth":
-                return student.getDateOfBirth().equals(value);
-            case "age":
-                return student.getAge() == (int) value;
-            case "phone":
-                return student.getPhone().equals(value);
-            case "address":
-                return student.getAddress().equalsIgnoreCase((String) value);
-            case "username":
-                return student.getUsername().equals(value);
-            case "schoolid":
-                return student.getSchoolID() == (int) value;
-            case "currentlevel":
-                return student.getCurrentLevel() == (int) value;
-            case "registrationdate":
-                return student.getRegistrationDate().equals(value);
-            case "role":
-                return student.getRole().equalsIgnoreCase((String) value);
-            default:
-                return false;
-        }
+        return switch (criteria.toLowerCase()) {
+            case "id" -> student.getId() == (int) value;
+            case "name" -> student.getName().equalsIgnoreCase((String) value);
+            case "email" -> student.getEmail().equalsIgnoreCase((String) value);
+            case "dateofbirth" -> student.getDateOfBirth().equals(value);
+            case "age" -> student.getAge() == (int) value;
+            case "phone" -> student.getPhone().equals(value);
+            case "address" -> student.getAddress().equalsIgnoreCase((String) value);
+            case "username" -> student.getUsername().equals(value);
+            case "schoolid" -> student.getSchoolID() == (int) value;
+            case "currentlevel" -> student.getCurrentLevel() == (int) value;
+            case "registrationdate" -> student.getRegistrationDate().equals(value);
+            default -> false;
+        };
     }
 
     // View All Students
@@ -397,13 +360,196 @@ public class Admin extends Person {
     // Deactivate a Student
     public void deactivateStudent(Long studentId) {
         for (Student student : students) {
-            if (student.getId() == studentId) {
+            if (student.getId().equals(studentId)) {
                 students.remove(student);
                 System.out.println("Student with ID " + studentId + " has been deactivated.");
                 return;
             }
         }
         System.out.println("Student not found.");
+    }
+
+    //Create School
+    public void createSchool() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Enter School ID: ");
+        int schoolID = input.nextInt();
+        input.nextLine(); // Consume newline
+
+        System.out.println("Enter School Name: ");
+        String schoolName = input.nextLine();
+
+        System.out.println("Enter School Address: ");
+        String address = input.nextLine();
+
+        System.out.println("Enter School City: ");
+        String city = input.nextLine();
+
+        System.out.println("Enter Contact Person: ");
+        String contactPerson = input.nextLine();
+
+        System.out.println("Enter Contact Email: ");
+        String email = input.nextLine();
+
+        System.out.println("Enter Contact Phone: ");
+        String phoneNumber = input.nextLine();
+
+        // Create School object and add to the list
+        School school = new School(schoolID, schoolName, address, city, contactPerson, email, phoneNumber);
+        addSchool(school);
+        System.out.println("School created successfully!");
+    }
+
+    // View All Schools
+    public void viewSchools() {
+        if (Admin.getSchools().isEmpty()) {
+            System.out.println("No schools to display.");
+        } else {
+            for (School school : Admin.getSchools()) {
+                System.out.println(school);
+            }
+        }
+    }
+
+    //Add School
+    public void addSchool(School school) {
+        if (school != null) {
+            Admin.getSchools().add(school);
+            System.out.println("School added successfully.");
+        } else {
+            System.out.println("School cannot be null.");
+        }
+    }
+
+    // Remove a School
+    public void removeSchool(School school) {
+        if (Admin.getSchools().remove(school)) {
+            System.out.println("School removed successfully.");
+        } else {
+            System.out.println("School not found.");
+        }
+    }
+
+    // Update School Information
+    public void updateSchool(int schoolID, String newName, String newAddress, String newCity, String newContactPerson, String newEmail, String newPhoneNumber) {
+        for (School school : School.getSchools()) {
+            if (school.getSchoolID() == schoolID) {
+                if (newName != null) {
+                    school.setSchoolName(newName);
+                }
+                if (newAddress != null) {
+                    school.setAddress(newAddress);
+                }
+                if (newCity != null) {
+                    school.setCity(newCity);
+                }
+                if (newContactPerson != null) {
+                    school.setContactPerson(newContactPerson);
+                }
+                if (newEmail != null) {
+                    school.setEmail(newEmail);
+                }
+                if (newPhoneNumber != null) {
+                    school.setPhoneNumber(newPhoneNumber);
+                }
+                System.out.println("School updated successfully.");
+                return;
+            }
+        }
+        System.out.println("School not found.");
+    }
+
+    // Generalized Search for Schools
+    public void viewSchoolsByCriteria(String criteria, Object value) {
+        List<School> filteredSchools = new ArrayList<>();
+        for (School school : School.getSchools()) {
+            if (matchesCriteria(school, criteria, value)) {
+                filteredSchools.add(school);
+            }
+        }
+
+        if (filteredSchools.isEmpty()) {
+            System.out.println("No schools found for the given criteria.");
+        } else {
+            for (School school : filteredSchools) {
+                System.out.println(school);
+            }
+        }
+    }
+
+    // Search for Schools by Criteria
+    private boolean matchesCriteria(School school, String criteria, Object value) {
+        return switch (criteria.toLowerCase()) {
+            case "schoolid" -> school.getSchoolID() == (int) value;
+            case "schoolname" -> school.getSchoolName().equalsIgnoreCase((String) value);
+            case "address" -> school.getAddress().equalsIgnoreCase((String) value);
+            case "city" -> school.getCity().equalsIgnoreCase((String) value);
+            case "contactperson" -> school.getContactPerson().equalsIgnoreCase((String) value);
+            case "email" -> school.getEmail().equalsIgnoreCase((String) value);
+            case "phonenumber" -> school.getPhoneNumber().equals(value);
+            default -> false;
+        };
+    }
+
+    // Deactivate a School
+    public void deactivateSchool(int schoolID) {
+        for (School school : School.getSchools()) {
+            if (school.getSchoolID() == schoolID) {
+                ((List<School>) School.getSchools()).remove(school);
+                System.out.println("School with ID " + schoolID + " has been deactivated.");
+                return;
+            }
+        }
+        System.out.println("School not found.");
+    }
+
+    //activate a School
+    public void activateSchool(int schoolID) {
+        for (School school : School.getSchools()) {
+            if (school.getSchoolID() == schoolID) {
+                ((List<School>) School.getSchools()).add(school);
+                System.out.println("School with ID " + schoolID + " has been activated.");
+                return;
+            }
+        }
+        System.out.println("School not found.");
+    }
+
+    // View All Students by School
+    public void viewStudentsBySchool(int schoolID) {
+        List<Student> filteredStudents = new ArrayList<>();
+        for (Student student : students) {
+            if (student.getSchoolID() == schoolID) {
+                filteredStudents.add(student);
+            }
+        }
+
+        if (filteredStudents.isEmpty()) {
+            System.out.println("No students found for the given school ID.");
+        } else {
+            for (Student student : filteredStudents) {
+                System.out.println(student);
+            }
+        }
+    }
+
+    // View All Tutors by School
+    public void viewTutorsBySchool(int schoolID) {
+        List<Tutor> filteredTutors = new ArrayList<>();
+        for (Tutor tutor : tutors) {
+            if (tutor.getSchoolID() == schoolID) {
+                filteredTutors.add(tutor);
+            }
+        }
+
+        if (filteredTutors.isEmpty()) {
+            System.out.println("No tutors found for the given school ID.");
+        } else {
+            for (Tutor tutor : filteredTutors) {
+                System.out.println(tutor);
+            }
+        }
     }
 
     // toString override to include Admin-specific details
