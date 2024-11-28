@@ -1,5 +1,3 @@
-package classes.Progress;
-import classes.Student.Student;
 import java.util.Date;
 public class Progress {
     private final Integer Progress_ID;

@@ -1,5 +1,3 @@
-package classes.Lesson;
-
 public class Chapter {
 
     private int lesson_id;

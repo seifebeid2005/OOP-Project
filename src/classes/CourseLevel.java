@@ -1,4 +1,3 @@
-package classes.CourseLevel;
 
 public class CourseLevel {
     private Long courseLevelId;

@@ -1,4 +1,3 @@
-package classes.School;
 
 import java.util.ArrayList;
 

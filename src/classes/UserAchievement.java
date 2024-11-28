@@ -1,4 +1,3 @@
-package classes.UserAchievement;
 import java.util.Date;
 
 public class UserAchievement {

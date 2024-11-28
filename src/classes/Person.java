@@ -4,8 +4,6 @@ We can create a superclass called Human and have the Admin, User, and Tutor clas
 from the Human class. This way we can avoid code duplication and make our code more maintainable.*/
 //UML Diagram
 
-package classes.person;
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Date;
