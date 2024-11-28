@@ -1,0 +1,52 @@
+//UML
+// +---------------------------------------------------+
+// |                   Admin                           |
+// +---------------------------------------------------+
+// | - roleEnum: Role                                  |
+// | - schools: ArrayList<School>                      |
+// +---------------------------------------------------+
+// | + Admin(id: Long, name: String, email: String,    |
+// | roleEnum: Role, dateOfBirth: LocalDate, phone:    |
+// | String, address: String, username: String,       |
+// | password: String)                                |
+// | + getRoleEnum(): Role                            |
+// | + getSchools(): List<School>                      |
+// | + addTutorToSchool(tutor: Tutor, schoolID: int)   |
+// | + createTutorAccount()                           |
+// | + removeTutorByCriteria()                        |
+// | + removeTutorById(id: Long, schoolID: int)        |
+// | + removeTutorByName(name: String, schoolID: int)  |
+// | + removeTutorByEmail(email: String, schoolID: int)|
+// | + removeTutorByUsername(username: String,         |
+// | schoolID: int)                                    |
+// | + updateTutor(tutorId: Long, newName: String,     |
+// | newEmail: String, newPhone: String, newAddress:  |
+// | String, newSubjectArea: String)                   |
+// | + updateTutorById()                              |
+// | + assignTutorRole(tutorId: Long, roleEnum: Role,  |
+// | schoolID: int)                                   |
+// | + viewTutorsByCriteria(criteria: String, value:  |
+// | Object, schoolID: int)                           |
+// | + viewTutors()                                   |
+// | + removeTutor(tutorId: Long)                     |
+// | + createStudentAccount()                         |
+// |--------------------------------------------------|
+// | + createSchool()                                  |
+// | + addSchool(school: School)                       |
+// | + viewSchools()                                   |
+// | + updateSchool(schoolID: int, newName: String,    |
+// | newAddress: String, newCity: String,              |
+// | newContactPerson: String, newEmail: String,       |
+// | newPhoneNumber: String)                           |
+// | + updateSchoolByCriteria()                        |
+// | + viewSchoolsByCriteria(criteria: String, value:  |
+// | Object)                                           |
+// | + removeSchool(schoolID: int)                     |
+// | + activateSchool(schoolID: int)                   |
+// | + viewStudentsBySchool(schoolID: int)             |
+// | + viewTutorsBySchool(schoolID: int)               |
+// | + viewStudentsByCriteria(criteria: String, value: |
+// | Object)                                           |
+// | + viewChaptersByTutor(tutorId: Long)              |
+// | + toString(): String                             |
+// +---------------------------------------------------+
