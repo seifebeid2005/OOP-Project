@@ -552,6 +552,41 @@ public class Admin extends Person {
         }
     }
 
+    // Add chapter to a tutor
+    public void addChapterToTutor(Long tutorId, String chapterTitle, String chapterContent) {
+        for (Tutor tutor : tutors) {
+            if (tutor.getId().equals(tutorId)) {
+                tutor.addChapter(chapterTitle, chapterContent);
+                System.out.println("Chapter added successfully.");
+                return;
+            }
+        }
+        System.out.println("Tutor not found.");
+    }
+
+    // Remove chapter from a tutor
+    public void removeChapterFromTutor(Long tutorId, String chapterTitle) {
+        for (Tutor tutor : tutors) {
+            if (tutor.getId().equals(tutorId)) {
+                tutor.removeChapter(chapterTitle);
+                System.out.println("Chapter removed successfully.");
+                return;
+            }
+        }
+        System.out.println("Tutor not found.");
+    }
+
+    // View all chapters of a tutor
+    public void viewChaptersByTutor(Long tutorId) {
+        for (Tutor tutor : tutors) {
+            if (tutor.getId().equals(tutorId)) {
+                tutor.viewAllChapters();
+                return;
+            }
+        }
+        System.out.println("Tutor not found.");
+    }
+
     // toString override to include Admin-specific details
     @Override
     public String toString() {

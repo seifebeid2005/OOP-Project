@@ -101,6 +101,117 @@ public class Tutor extends Person {
         }
     }
 
+    // Add a chapter to the tutor's list of chapters
+    public void addChapter(Chapter chapter) {
+        if (chapter != null) {
+            chapters.add(chapter);
+        }
+    }
+
+    // Remove a chapter from the tutor's list of chapters
+    public void removeChapter(Chapter chapter) {
+        if (chapter != null) {
+            chapters.remove(chapter);
+        }
+    }
+
+    // Remove all chapters from the tutor's list of chapters
+    public void removeAllChapters() {
+        chapters.clear();
+    }
+
+    // Assign a chapter for students to study
+    public void assignChapter(Chapter chapter) {
+        if (chapter != null) {
+            chapter.setAssigned(true);
+        }
+    }
+
+    // Unassign a chapter for students to study
+    public void unassignChapter(Chapter chapter) {
+        if (chapter != null) {
+            chapter.setAssigned(false);
+        }
+    }
+
+    // Unassign all chapters for students to study
+    public void unassignAllChapters() {
+        for (Chapter chapter : chapters) {
+            chapter.setAssigned(false);
+        }
+    }
+
+    // Check if a chapter is assigned for students to study
+    public boolean isChapterAssigned(Chapter chapter) {
+        return chapter != null && chapter.isAssigned();
+    }
+
+    // Check if all chapters are assigned for students to study
+    public boolean areAllChaptersAssigned() {
+        for (Chapter chapter : chapters) {
+            if (!chapter.isAssigned()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Upload quiz to the student portal
+    public void uploadQuiz(Chapter chapter, String quiz) {
+        if (chapter != null && quiz != null && !quiz.trim().isEmpty()) {
+            chapter.setQuiz(quiz);
+        }
+    }
+
+    // Upload assignment to the student portal
+    public void uploadAssignment(Chapter chapter, String assignment) {
+        if (chapter != null && assignment != null && !assignment.trim().isEmpty()) {
+            chapter.setAssignment(assignment);
+        }
+    }
+
+    // See the students' progress on a chapter quiz of his same school
+    public void viewStudentsProgress(Chapter chapter) {
+        if (chapter != null) {
+            chapter.viewStudentsProgress(schoolID);
+        }
+    }
+
+    // See the students' progress on a chapter quiz of his same school
+    public void viewStudentsProgress(String topic) {
+        boolean found = false;
+        for (Chapter chapter : chapters) {
+            if (chapter.get_lesson_title().equalsIgnoreCase(topic)) {
+                chapter.viewStudentsProgress(schoolID);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No chapters found for the topic: " + topic);
+        }
+    }
+
+    //  See the students' achievements on a chapter quiz of his same school
+    public void viewStudentsAchievements(Chapter chapter) {
+        if (chapter != null) {
+            chapter.viewStudentsAchievements(schoolID);
+        }
+    }
+
+    // See the students' achievements on a chapter quiz of his same school
+    public void viewStudentsAchievements(String topic) {
+        boolean found = false;
+        for (Chapter chapter : chapters) {
+            if (chapter.get_lesson_title().equalsIgnoreCase(topic)) {
+                chapter.viewStudentsAchievements(schoolID);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No chapters found for the topic: " + topic);
+        }
+    }
+
     // toString override to include Tutor-specific details
     @Override
     public String toString() {
