@@ -1,4 +1,4 @@
-package classes.Quiz;
+
 public class quiz {
     private int quiz_id;
     private String quiz_title;

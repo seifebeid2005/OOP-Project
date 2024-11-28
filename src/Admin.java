@@ -1,9 +1,4 @@
-package classes.Admin;
 
-import classes.School.School;
-import classes.Student.Student;
-import classes.Teacher.Tutor;
-import classes.person.Person;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

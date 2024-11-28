@@ -85,25 +85,27 @@ public class main {
     }
 }*/
 
-import classes.Teacher.Tutor;
 import java.time.LocalDate;
 
 public class main {
 
     public static void main(String[] args) {
+        //    public Tutor(Long id, String name, String email, LocalDate dateOfBirth, String phone, String address, String username, String password,
+        //    String subjectArea, LocalDate dateJoined, String role, int schoolID)
         // Create a Tutor instance
         Tutor tutor = new Tutor(
-                1L, // ID
-                "John Doe", // Name
-                "john.doe@example.com", // Email
-                LocalDate.of(1990, 5, 20), // Date of Birth
-                "1234567890", // Phone
-                "123 Main St, Springfield", // Address
-                "johndoe", // Username
-                "Secure@123", // Password
-                "Mathematics", // Subject Area
-                LocalDate.of(2015, 9, 1), // Date Joined
-                "Lead Tutor" // Role
+                1L,
+                "John Doe",
+                "seif@gmail.com",
+                LocalDate.of(1990, 1, 1),
+                "1234567890",
+                "123 Elm St",
+                "johndoe",
+                "123456789kjhbr!@SStu56e",
+                        "Math",
+                LocalDate.of(2020, 1, 1),
+                "Lead Tutor",
+                1
         );
 
         // Print Tutor details

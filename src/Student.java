@@ -1,5 +1,3 @@
-package classes.Student; // Ensure this matches the directory structure
-import classes.person.Person; // Import the parent class
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
