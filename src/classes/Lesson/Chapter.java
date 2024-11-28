@@ -1,4 +1,4 @@
-package classes.lesson;
+package classes.Lesson;
 
 public class Chapter {
 

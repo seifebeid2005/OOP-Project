@@ -1,6 +1,6 @@
 package classes.Teacher;
 
-import classes.lesson.Chapter;
+import classes.Lesson.Chapter;
 import classes.person.Person;
 import java.time.LocalDate;
 import java.util.ArrayList;

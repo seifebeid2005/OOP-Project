@@ -1,3 +1,4 @@
+package classes.Question;
 public class question {
     private int question_id;
     private int quiz_id;
