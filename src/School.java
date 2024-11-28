@@ -145,22 +145,4 @@ public class School {
         return phoneNumber.matches("\\d{10}"); // Assuming 10-digit phone numbers
     }
 
-    // Main method (for testing purposes)
-    public static void main(String[] args) {
-        // Create a new school object
-        School school = new School(1, "Green Valley High", "123 Elm St", "Springfield",
-                                    "John Doe", "admin@greenvalley.com", "1234567890");
-
-        // Print school details
-        System.out.println(school);
-
-        // Update contact details
-        school.updateContactDetails("Jane Smith", "info@greenvalley.com", "0987654321");
-        System.out.println("\nUpdated Contact Details:");
-        System.out.println(school);
-
-        // Validate email and phone number
-        System.out.println("\nEmail valid: " + school.validateEmail(school.getEmail()));
-        System.out.println("Phone Number valid: " + school.validatePhoneNumber(school.getPhoneNumber()));
-    }
 }
