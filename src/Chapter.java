@@ -1,123 +1,161 @@
-
+import java.util.List;
 
 public class Chapter {
 
-    private int lesson_id;
-    private String lesson_title;
-    private String lesson_description;
-    private int level_id;
+    private int lessonId;
+    private String lessonTitle;
+    private String lessonDescription;
+    private int levelId;
     private int duration;
     private String language;
-    private String lesson_type;
-    private int tutor_id;
+    private String lessonType;
+    private int tutorId;
     private String materials;
+    private boolean assigned;
+    private String quiz;
+    private String assignment;
 
-    public Chapter(int lesson_id, String lesson_title, String lesson_description, int level_id, int duration, String language, String lesson_type, int tutor_id) {
-        this.lesson_id = lesson_id;
-        this.lesson_title = lesson_title;
-        this.lesson_description = lesson_description;
-        this.level_id = level_id;
+    public Chapter(int lessonId, String lessonTitle, String lessonDescription, int levelId, int duration, String language, String lessonType, int tutorId) {
+        this.lessonId = lessonId;
+        this.lessonTitle = lessonTitle;
+        this.lessonDescription = lessonDescription;
+        this.levelId = levelId;
         this.duration = duration;
         this.language = language;
-        this.lesson_type = lesson_type;
-        this.tutor_id = tutor_id;
+        this.lessonType = lessonType;
+        this.tutorId = tutorId;
         this.materials = "";
+        this.assigned = false; // Default to unassigned
     }
 
-    public int get_lesson_id() {
-        return lesson_id;
+    // Getters and Setters
+    public int getLessonId() {
+        return lessonId;
     }
 
-    public void set_lesson_id(int lesson_id) {
-        this.lesson_id = lesson_id;
+    public void setLessonId(int lessonId) {
+        this.lessonId = lessonId;
     }
 
-    public String get_lesson_title() {
-        return lesson_title;
+    public String getLessonTitle() {
+        return lessonTitle;
     }
 
-    public void set_lesson_title(String lesson_title) {
-        this.lesson_title = lesson_title;
+    public void setLessonTitle(String lessonTitle) {
+        this.lessonTitle = lessonTitle;
     }
 
-    public String get_lesson_description() {
-        return lesson_description;
+    public String getLessonDescription() {
+        return lessonDescription;
     }
 
-    public void set_lesson_description(String lesson_description) {
-        this.lesson_description = lesson_description;
+    public void setLessonDescription(String lessonDescription) {
+        this.lessonDescription = lessonDescription;
     }
 
-    public int get_level_id() {
-        return level_id;
+    public int getLevelId() {
+        return levelId;
     }
 
-    public void set_level_id(int level_id) {
-        this.level_id = level_id;
+    public void setLevelId(int levelId) {
+        this.levelId = levelId;
     }
 
-    public int get_duration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void set_duration(int duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
-    public String get_language() {
+    public String getLanguage() {
         return language;
     }
 
-    public void set_language(String language) {
+    public void setLanguage(String language) {
         this.language = language;
     }
 
-    public String get_lesson_type() {
-        return lesson_type;
+    public String getLessonType() {
+        return lessonType;
     }
 
-    public void set_lesson_type(String lesson_type) {
-        this.lesson_type = lesson_type;
+    public void setLessonType(String lessonType) {
+        this.lessonType = lessonType;
     }
 
-    public int get_tutor_id() {
-        return tutor_id;
+    public int getTutorId() {
+        return tutorId;
     }
 
-    public void set_tutor_id(int tutor_id) {
-        this.tutor_id = tutor_id;
+    public void setTutorId(int tutorId) {
+        this.tutorId = tutorId;
     }
 
-    public String get_materials() {
+    public String getMaterials() {
         return materials;
     }
 
-    // Method to add material
-    public void add_material(String material) {
+    public void addMaterial(String material) {
+        if (!materials.isEmpty()) {
+            materials += ", ";
+        }
         materials += material;
     }
 
-    // Method to remove material
-    public void remove_material(String material) {
-        String[] material_array = materials.split(", ");
-        String temp = "";
-
-        for (String mat : material_array) {
-            if (!mat.equals(material)) {
-                if (!temp.isEmpty()) {
-                    temp += ", ";
-                }
-                temp += mat;
-            }
-        }
-
-        materials = temp;
+    public void removeMaterial(String material) {
+        materials = String.join(", ",
+                List.of(materials.split(", "))
+                        .stream()
+                        .filter(mat -> !mat.equals(material))
+                        .toArray(String[]::new));
     }
 
+    public boolean isAssigned() {
+        return assigned;
+    }
 
+    public void setAssigned(boolean assigned) {
+        this.assigned = assigned;
+    }
+
+    public String getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(String quiz) {
+        this.quiz = quiz;
+    }
+
+    public String getAssignment() {
+        return assignment;
+    }
+
+    public void setAssignment(String assignment) {
+        this.assignment = assignment;
+    }
+
+    // Methods for viewing student progress/achievements (stub implementation)
+    public void viewStudentsProgress(int schoolID) {
+        // Implementation here
+    }
+
+    public void viewStudentsAchievements(int schoolID) {
+        // Implementation here
+    }
 
     @Override
     public String toString() {
-        return "lesson ID:" + lesson_id + ", lesson Title:" + lesson_title + ", lesson Description:" + lesson_description + ", level ID:" + level_id + ", duration:" + duration + ", language:" + language + ", lesson Type:" + lesson_type + ", tutor ID:" + tutor_id + ", materials:" + materials;
+        return "Lesson ID: " + lessonId +
+                ", Lesson Title: " + lessonTitle +
+                ", Description: " + lessonDescription +
+                ", Level ID: " + levelId +
+                ", Duration: " + duration +
+                ", Language: " + language +
+                ", Type: " + lessonType +
+                ", Tutor ID: " + tutorId +
+                ", Materials: " + materials +
+                ", Assigned: " + assigned;
     }
 }

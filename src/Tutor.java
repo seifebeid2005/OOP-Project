@@ -1,4 +1,3 @@
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,17 +9,34 @@ public class Tutor extends Person {
     private String role;              // Tutor's role (e.g., Lead Tutor, Assistant Tutor)
     private List<Chapter> chapters;   // List of chapters the tutor teaches
     private final int schoolID;       // School ID where the tutor is employed
+    // Enum for Role
+    public enum Role {
+        LEAD_TUTOR,
+        ASSISTANT_TUTOR,
+        TUTOR
+    }
+
+    // Update role to use the enum
+    private Role roleEnum;
 
     // Constructor
     public Tutor(Long id, String name, String email, LocalDate dateOfBirth, String phone, String address, String username, String password,
-            String subjectArea, LocalDate dateJoined, String role, int schoolID) {
+                 String subjectArea, LocalDate dateJoined, Role roleEnum, int schoolID) {
         super(id, name, email, dateOfBirth, phone, address, username, password);
-        validateSubjectArea(subjectArea);
-        this.subjectArea = subjectArea;
+        this.subjectArea = validateNotEmpty(subjectArea, "Subject area cannot be null or empty.");
         this.dateJoined = dateJoined != null ? dateJoined : LocalDate.now(); // Default to current date if null
-        this.role = role != null ? role : "Tutor"; // Default to "Tutor" if role is null
+        this.roleEnum = roleEnum != null ? roleEnum : Role.TUTOR; // Default to "TUTOR" if roleEnum is null
         this.chapters = new ArrayList<>(); // Initialize chapters list
         this.schoolID = schoolID;
+    }
+
+    // Getter and Setter for roleEnum
+    public Role getRoleEnum() {
+        return roleEnum;
+    }
+
+    public void setRoleEnum(Role roleEnum) {
+        this.roleEnum = roleEnum;
     }
 
     // Getters and Setters
@@ -29,8 +45,7 @@ public class Tutor extends Person {
     }
 
     public void setSubjectArea(String subjectArea) {
-        validateSubjectArea(subjectArea);
-        this.subjectArea = subjectArea;
+        this.subjectArea = validateNotEmpty(subjectArea, "Subject area cannot be null or empty.");
     }
 
     public LocalDate getDateJoined() {
@@ -63,160 +78,123 @@ public class Tutor extends Person {
         return schoolID;
     }
 
-    public void viewAllChapters() {
-        if (chapters.isEmpty()) {
-            System.out.println("No chapters to display.");
-        } else {
-            for (Chapter chapter : chapters) {
-                System.out.println(chapter);
-            }
-        }
-    }
-
-    public void viewChapterByTopic(String topic) {
-        boolean found = false;
-        for (Chapter chapter : chapters) {
-            if (chapter.get_lesson_title().equalsIgnoreCase(topic)) {
-                System.out.println(chapter);
-                found = true;
-            }
-        }
-        if (!found) {
-            System.out.println("No chapters found for the topic: " + topic);
-        }
-    }
-
     // Calculate years of experience based on dateJoined
     public int getYearsOfExperience() {
         return LocalDate.now().getYear() - dateJoined.getYear();
     }
 
-    // Validation for subject area
-    private void validateSubjectArea(String subjectArea) {
-        if (subjectArea == null || subjectArea.trim().isEmpty()) {
-            throw new IllegalArgumentException("Subject area cannot be null or empty.");
+    // Helper method to validate non-empty fields
+    private String validateNotEmpty(String value, String errorMessage) {
+        if (value == null || value.trim().isEmpty()) {
+            throw new IllegalArgumentException(errorMessage);
         }
+        return value;
     }
 
-    // Add a chapter to the tutor's list of chapters
+    // Chapter Management Methods
     public void addChapter(Chapter chapter) {
         if (chapter != null) {
             chapters.add(chapter);
         }
     }
 
-    // Remove a chapter from the tutor's list of chapters
-    public void removeChapter(Chapter chapter) {
-        if (chapter != null) {
-            chapters.remove(chapter);
-        }
+    public void removeChapter(int chapter_ID) {
+        chapters.removeIf(chapter -> chapter.getLessonId() == chapter_ID);
     }
 
-    // Remove all chapters from the tutor's list of chapters
     public void removeAllChapters() {
         chapters.clear();
     }
 
-    // Assign a chapter for students to study
-    // public void assignChapter(Chapter chapter) {
-    //     if (chapter != null) {
-    //         chapter.setAssigned(true);
-    //     }
-    // }
+    public void viewAllChapters() {
+        if (chapters.isEmpty()) {
+            System.out.println("No chapters to display.");
+        } else {
+            chapters.forEach(System.out::println);
+        }
+    }
 
-    // // Unassign a chapter for students to study
-    // public void unassignChapter(Chapter chapter) {
-    //     if (chapter != null) {
-    //         chapter.setAssigned(false);
-    //     }
-    // }
+    public void viewChapterByTopic(String topic) {
+        if (chapters.stream().noneMatch(chapter -> chapter.getLessonTitle().equalsIgnoreCase(topic))) {
+            System.out.println("No chapters found for the topic: " + topic);
+        } else {
+            chapters.stream()
+                    .filter(chapter -> chapter.getLessonTitle().equalsIgnoreCase(topic))
+                    .forEach(System.out::println);
+        }
+    }
 
-    // // Unassign all chapters for students to study
-    // public void unassignAllChapters() {
-    //     for (Chapter chapter : chapters) {
-    //         chapter.setAssigned(false);
-    //     }
-    // }
+    // Assign/Unassign Chapter Methods
+    public void assignChapter(Chapter chapter) {
+        if (chapter != null) {
+            chapter.setAssigned(true);
+        }
+    }
 
-    // // Check if a chapter is assigned for students to study
-    // public boolean isChapterAssigned(Chapter chapter) {
-    //     return chapter != null && chapter.isAssigned();
-    // }
+    public void unassignChapter(Chapter chapter) {
+        if (chapter != null) {
+            chapter.setAssigned(false);
+        }
+    }
 
-    // // Check if all chapters are assigned for students to study
-    // public boolean areAllChaptersAssigned() {
-    //     for (Chapter chapter : chapters) {
-    //         if (!chapter.isAssigned()) {
-    //             return false;
-    //         }
-    //     }
-    //     return true;
-    // }
+    public void unassignAllChapters() {
+        chapters.forEach(chapter -> chapter.setAssigned(false));
+    }
 
-    // // Upload quiz to the student portal
-    // public void uploadQuiz(Chapter chapter, String quiz) {
-    //     if (chapter != null && quiz != null && !quiz.trim().isEmpty()) {
-    //         chapter.setQuiz(quiz);
-    //     }
-    // }
+    public boolean isChapterAssigned(Chapter chapter) {
+        return chapter != null && chapter.isAssigned();
+    }
 
-    // // Upload assignment to the student portal
-    // public void uploadAssignment(Chapter chapter, String assignment) {
-    //     if (chapter != null && assignment != null && !assignment.trim().isEmpty()) {
-    //         chapter.setAssignment(assignment);
-    //     }
-    // }
+    public boolean areAllChaptersAssigned() {
+        return chapters.stream().allMatch(Chapter::isAssigned);
+    }
 
-    // // See the students' progress on a chapter quiz of his same school
-    // public void viewStudentsProgress(Chapter chapter) {
-    //     if (chapter != null) {
-    //         chapter.viewStudentsProgress(schoolID);
-    //     }
-    // }
+    // Quiz and Assignment Methods
+    public void uploadQuiz(Chapter chapter, String quiz) {
+        if (chapter != null && quiz != null && !quiz.trim().isEmpty()) {
+            chapter.setQuiz(quiz);
+        }
+    }
 
-    // // See the students' progress on a chapter quiz of his same school
-    // public void viewStudentsProgress(String topic) {
-    //     boolean found = false;
-    //     for (Chapter chapter : chapters) {
-    //         if (chapter.get_lesson_title().equalsIgnoreCase(topic)) {
-    //             chapter.viewStudentsProgress(schoolID);
-    //             found = true;
-    //         }
-    //     }
-    //     if (!found) {
-    //         System.out.println("No chapters found for the topic: " + topic);
-    //     }
-    // }
+    public void uploadAssignment(Chapter chapter, String assignment) {
+        if (chapter != null && assignment != null && !assignment.trim().isEmpty()) {
+            chapter.setAssignment(assignment);
+        }
+    }
 
-    // //  See the students' achievements on a chapter quiz of his same school
-    // public void viewStudentsAchievements(Chapter chapter) {
-    //     if (chapter != null) {
-    //         chapter.viewStudentsAchievements(schoolID);
-    //     }
-    // }
+    // Student Progress and Achievement Viewing
+    public void viewStudentsProgress(Chapter chapter) {
+        if (chapter != null) {
+            chapter.viewStudentsProgress(schoolID);
+        }
+    }
 
-    // // See the students' achievements on a chapter quiz of his same school
-    // public void viewStudentsAchievements(String topic) {
-    //     boolean found = false;
-    //     for (Chapter chapter : chapters) {
-    //         if (chapter.get_lesson_title().equalsIgnoreCase(topic)) {
-    //             chapter.viewStudentsAchievements(schoolID);
-    //             found = true;
-    //         }
-    //     }
-    //     if (!found) {
-    //         System.out.println("No chapters found for the topic: " + topic);
-    //     }
-    // }
+    public void viewStudentsProgress(String topic) {
+        chapters.stream()
+                .filter(chapter -> chapter.getLessonTitle().equalsIgnoreCase(topic))
+                .forEach(chapter -> chapter.viewStudentsProgress(schoolID));
+    }
+
+    public void viewStudentsAchievements(Chapter chapter) {
+        if (chapter != null) {
+            chapter.viewStudentsAchievements(schoolID);
+        }
+    }
+
+    public void viewStudentsAchievements(String topic) {
+        chapters.stream()
+                .filter(chapter -> chapter.getLessonTitle().equalsIgnoreCase(topic))
+                .forEach(chapter -> chapter.viewStudentsAchievements(schoolID));
+    }
 
     // toString override to include Tutor-specific details
     @Override
     public String toString() {
-        return super.toString()
-                + ", SubjectArea='" + subjectArea + '\''
-                + ", DateJoined=" + dateJoined
-                + ", Role='" + role + '\''
-                + ", YearsOfExperience=" + getYearsOfExperience()
-                + ", ChaptersCount=" + chapters.size();
+        return super.toString() +
+                ", SubjectArea='" + subjectArea + '\'' +
+                ", DateJoined=" + dateJoined +
+                ", Role='" + role + '\'' +
+                ", YearsOfExperience=" + getYearsOfExperience() +
+                ", ChaptersCount=" + chapters.size();
     }
 }

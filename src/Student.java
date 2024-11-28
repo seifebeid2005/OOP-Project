@@ -20,9 +20,7 @@ public class Student extends Person {
     }
 
     // Constructor
-    public Student(String name, String email, String preferredLanguage, Integer currentLevel, Integer progressLevel,
-                   String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate, 
-                   String phone, String address, String username, String password) {
+    public Student(String name, String email, String preferredLanguage, Integer currentLevel, Integer progressLevel,String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate, String phone, String address, String username, String password) {
 
         super(generateAutoID(), name, email, dateOfBirth, phone, address, username, password); // Pass generated ID to the superclass
         validatePreferredLanguage(preferredLanguage);
