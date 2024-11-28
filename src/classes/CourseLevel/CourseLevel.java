@@ -22,6 +22,7 @@ public class CourseLevel {
     public void setCourseLevelId(Long courseLevelId) {
         if (courseLevelId == null || courseLevelId <= 0) {
             throw new IllegalArgumentException("Course Level ID must be a positive number.");
+            //print error message
         }
         this.courseLevelId = courseLevelId;
     }
