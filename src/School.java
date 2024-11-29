@@ -18,13 +18,13 @@ public class School {
     private String phoneNumber;
     private ArrayList<Student> students = new ArrayList<>();
     private ArrayList<Tutor> tutors = new ArrayList<>();
-
+    private int capacity;
 
     // Default constructor
     public School() {}
 
     // Parameterized constructor
-    public School(int schoolID, String schoolName, String address, String city, String contactPerson, String email, String phoneNumber ) {
+    public School(int schoolID, String schoolName, String address, String city, String contactPerson, String email, String phoneNumber, int capacity) {
         this.schoolID = schoolID;
         this.schoolName = schoolName;
         this.address = address;
@@ -32,6 +32,7 @@ public class School {
         this.contactPerson = contactPerson;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.capacity = capacity;
     }
 
     // Getters and Setters
@@ -94,6 +95,20 @@ public class School {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public int getStudentCount() {
+        return students.size();
+    }
+
+
     // Get all students
     public List<Student> getStudents() {
         return new ArrayList<>(students);
@@ -167,12 +182,16 @@ public class School {
   
     // Add a Student to the list
     public void addStudent(Student student) {
-        if (student != null) {
-            students.add(student);
-            System.out.println("Student added successfully.");
-        } else {
+        if (student == null) {
             System.out.println("Student cannot be null.");
+            return;
         }
+        if (students.size() < capacity) {
+            students.add(student);
+            System.out.println("Student added successfully!");
+        }
+        else
+        System.out.println("Maximum capacity reached!");
     }
 
     // Remove a Student from the list

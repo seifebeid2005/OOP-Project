@@ -28,6 +28,9 @@
 | + setEmail(email: String)      |
 | + getPhoneNumber(): String     |
 | + setPhoneNumber(phoneNumber: String) |
+| + getCapacity(): int           |
+| + setCapacity(int capacity): void           |
+| + getStudentCount(): int       |
 | + updateContactDetails(contactPerson: String, email: String, phoneNumber: String): void |
 | + getFullAddress(): String     |
 | + toString(): String           |
