@@ -19,6 +19,7 @@ public class School {
     private ArrayList<Student> students = new ArrayList<>();
     private ArrayList<Tutor> tutors = new ArrayList<>();
     private int capacity;
+    private int maxTutors;
 
     // Default constructor
     public School() {}
@@ -128,6 +129,18 @@ public class School {
     // Get full address
     public String getFullAddress() {
         return address + ", " + city;
+    }
+    
+    public int getMaxTutors() {
+        return maxTutors;
+    }
+
+    public void setMaxTutors(int maxTutors) {
+        this.maxTutors = maxTutors;
+    }
+
+    public int getTutorCount() {
+        return tutors.size();
     }
     
     // ------------------- Student Method -------------------
@@ -419,11 +432,16 @@ public class School {
     
     // Add a Tutor
     public void addTutor(Tutor tutor) {
-        if (tutor != null) {
+        if (tutor == null) {
+            System.out.println("Tutor cannot be null.");
+            return;
+        }
+
+        if (tutors.size() < maxTutors) {
             tutors.add(tutor);
             System.out.println("Tutor added successfully.");
         } else {
-            System.out.println("Tutor cannot be null.");
+            System.out.println("Cannot add tutor: Max number of tutors reached.");
         }
     }
     

@@ -29,8 +29,11 @@
 | + getPhoneNumber(): String     |
 | + setPhoneNumber(phoneNumber: String) |
 | + getCapacity(): int           |
-| + setCapacity(int capacity): void           |
+| + setCapacity(int capacity): void |
 | + getStudentCount(): int       |
+| + getMaxTutors(): int          |
+| + setMaxTutors(int maxTutors): void |
+| + gettutorCount(): int         |
 | + updateContactDetails(contactPerson: String, email: String, phoneNumber: String): void |
 | + getFullAddress(): String     |
 | + toString(): String           |
