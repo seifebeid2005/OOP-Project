@@ -99,6 +99,8 @@ public class School {
         return students.size();
     }
 
+    
+
 
     // Get all students
     public List<Student> getStudents() {
@@ -169,7 +171,7 @@ public class School {
 
         // Create Student object and add to the list
         Student student = new Student(name, email, phone, schoolID, currentLevel, address, id.intValue(), dateOfBirth,
-                registrationDate.atStartOfDay(), username, password, "", "");
+                registrationDate.atStartOfDay(), username, password, "", "", null);
         addStudent(student);
         System.out.println("Student account created successfully!");
         input.close();

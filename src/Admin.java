@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Admin extends Person {
 
     private final Role roleEnum;
-    private static ArrayList<School> schools = new ArrayList<>();
+    private static final ArrayList<School> schools = new ArrayList<>();
 
     public enum Role {
         ADMIN, SUPER_ADMIN, MODERATOR
@@ -431,7 +431,7 @@ public class Admin extends Person {
 
         // Create Student object and add to the list
         Student student = new Student(name, email, phone, schoolID, currentLevel, address, id.intValue(), dateOfBirth,
-                registrationDate.atStartOfDay(), username, password, "", "");
+                registrationDate.atStartOfDay(), username, password, null, null, null);
         addStudent(student , schoolID);
         System.out.println("Student account created successfully!");
         input.close();

@@ -9,6 +9,7 @@ public class Tutor extends Person {
     private String role;              // Tutor's role (e.g., Lead Tutor, Assistant Tutor)
     private List<Chapter> chapters;   // List of chapters the tutor teaches
     private final int schoolID;       // School ID where the tutor is employed
+    private List<Student> assignedStudents; // List of students assigned to the tutor
     // Enum for Role
     public enum Role {
         LEAD_TUTOR,
@@ -76,6 +77,12 @@ public class Tutor extends Person {
 
     public int getSchoolID() {
         return schoolID;
+    }
+        
+    public List<Student> getAssignedStudents() {
+        // Assuming there's a list of assigned students in the Tutor class
+        return new ArrayList<>(assignedStudents);
+
     }
 
     // Calculate years of experience based on dateJoined

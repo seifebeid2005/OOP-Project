@@ -9,6 +9,7 @@ public class Student extends Person {
     private String achievements;
     private LocalDateTime registrationDate;
     private Integer schoolID;
+    private Tutor tutor;
     
     private static int lastGeneratedID = 0;
 
@@ -20,7 +21,7 @@ public class Student extends Person {
     }
 
     // Constructor
-    public Student(String name, String email, String preferredLanguage, Integer currentLevel, Integer progressLevel,String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate, String phone, String address, String username, String password) {
+    public Student(String name, String email, String preferredLanguage, Integer currentLevel, Integer progressLevel,String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate, String phone, String address, String username, String password, Tutor tutor) {
 
         super(generateAutoID(), name, email, dateOfBirth, phone, address, username, password); // Pass generated ID to the superclass
         validatePreferredLanguage(preferredLanguage);
@@ -34,6 +35,7 @@ public class Student extends Person {
         this.achievements = achievements != null ? achievements : ""; // Allow achievements to be null
         this.registrationDate = (registrationDate != null) ? registrationDate : LocalDateTime.now(); // Use passed registrationDate or default to now
         this.schoolID = schoolID;
+        this.tutor = tutor;
     }
 
     // Validation Methods
@@ -127,6 +129,15 @@ public class Student extends Person {
     public void setSchoolID(Integer schoolID) {
         this.schoolID = schoolID;
     }
+
+    public Tutor getTutor() {
+        return tutor;
+    }
+
+    public void setTutor(Tutor tutor) {
+        this.tutor = tutor;
+    }
+    
 
     @Override
     public String toString() {
