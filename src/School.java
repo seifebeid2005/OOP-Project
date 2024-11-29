@@ -703,6 +703,180 @@ public class School {
         }
         System.out.println("Tutor not found.");
     }
+
+    // Add chapter to a tutor
+    public void addChapterToTutor(Long tutorId, Chapter chapter) {
+        for (Tutor tutor : tutors) {
+            if (tutor.getId().equals(tutorId)) {
+                tutor.addChapter(chapter);
+                System.out.println("Chapter added successfully to Tutor ID: " + tutorId);
+                return;
+            }
+        }
+        System.out.println("Tutor not found.");
+    }
+
+    // Remove chapter from a tutor
+    public void removeChapterFromTutor(Long tutorId, Chapter chapter) {
+        for (Tutor tutor : tutors) {
+            if (tutor.getId().equals(tutorId)) {
+                tutor.removeChapter(chapter);
+                System.out.println("Chapter removed successfully from Tutor ID: " + tutorId);
+                return;
+            }
+        }
+        System.out.println("Tutor not found.");
+    }
+
+    // Assign Tutor to a Student
+    public void assignTutorToStudent(Long tutorId, Long studentId) {
+        Tutor tutor = null;
+        Student student = null;
+
+        for (Tutor t : tutors) {
+            if (t.getId().equals(tutorId)) {
+                tutor = t;
+                break;
+            }
+        }
+
+        for (Student s : students) {
+            if (s.getId().equals(studentId)) {
+                student = s;
+                break;
+            }
+        }
+
+        if (tutor == null || student == null) {
+            System.out.println("Tutor or Student not found.");
+            return;
+        }
+
+        student.setTutor(tutor);
+        System.out.println("Tutor assigned successfully to Student ID: " + studentId);
+    }
+
+    // Unassign Tutor from a Student
+    public void unassignTutorFromStudent(Long studentId) {
+        for (Student student : students) {
+            if (student.getId().equals(studentId)) {
+                student.setTutor(null);
+                System.out.println("Tutor unassigned successfully from Student ID: " + studentId);
+                return;
+            }
+        }
+        System.out.println("Student not found.");
+    }
+
+    // View Tutor of a Student
+    public void viewTutorOfStudent(Long studentId) {
+        for (Student student : students) {
+            if (student.getId().equals(studentId)) {
+                Tutor tutor = student.getTutor();
+                if (tutor != null) {
+                    System.out.println("Tutor of Student ID " + studentId + ": " + tutor);
+                } else {
+                    System.out.println("No tutor assigned to Student ID " + studentId);
+                }
+                return;
+            }
+        }
+        System.out.println("Student not found.");
+    }
+
+    // View Students of a Tutor
+    public void viewStudentsOfTutor(Long tutorId) {
+        for (Tutor tutor : tutors) {
+            if (tutor.getId().equals(tutorId)) {
+                List<Student> assignedStudents = tutor.getAssignedStudents();
+                if (assignedStudents.isEmpty()) {
+                    System.out.println("No students assigned to Tutor ID " + tutorId);
+                } else {
+                    for (Student student : assignedStudents) {
+                        System.out.println(student);
+                    }
+                }
+                return;
+            }
+        }
+        System.out.println("Tutor not found.");
+    }
+
+    // View Chapters of a Tutor
+    public void viewChaptersOfTutor(Long tutorId) {
+        for (Tutor tutor : tutors) {
+            if (tutor.getId().equals(tutorId)) {
+                tutor.viewAllChapters();
+                return;
+            }
+        }
+        System.out.println("Tutor not found.");
+    }
+
+    // View Chapters by Topic of a Tutor
+    public void viewChaptersByTopicOfTutor(Long tutorId, String topic) {
+        for (Tutor tutor : tutors) {
+            if (tutor.getId().equals(tutorId)) {
+                tutor.viewChapterByTopic(topic);
+                return;
+            }
+        }
+        System.out.println("Tutor not found.");
+    }
+
+    // Assign Chapter to a Tutor
+    public void assignChapterToTutor(Long tutorId, Chapter chapter) {
+        for (Tutor tutor : tutors) {
+            if (tutor.getId().equals(tutorId)) {
+                tutor.assignChapter(chapter);
+                System.out.println("Chapter assigned successfully to Tutor ID: " + tutorId);
+                return;
+            }
+        }
+        System.out.println("Tutor not found.");
+    }
+
+    // Unassign Chapter from a Tutor
+    public void unassignChapterFromTutor(Long tutorId, Chapter chapter) {
+        for (Tutor tutor : tutors) {
+            if (tutor.getId().equals(tutorId)) {
+                tutor.unassignChapter(chapter);
+                System.out.println("Chapter unassigned successfully from Tutor ID: " + tutorId);
+                return;
+            }
+        }
+        System.out.println("Tutor not found.");
+    }
+
+    // Unassign all Chapters from a Tutor
+    public void unassignAllChaptersFromTutor(Long tutorId) {
+        for (Tutor tutor : tutors) {
+            if (tutor.getId().equals(tutorId)) {
+                tutor.unassignAllChapters();
+                System.out.println("All chapters unassigned successfully from Tutor ID: " + tutorId);
+                return;
+            }
+        }
+        System.out.println("Tutor not found.");
+    }
+
+    // Check if a Chapter is assigned to a Tutor
+    public void isChapterAssignedToTutor(Long tutorId, Chapter chapter) {
+        for (Tutor tutor : tutors) {
+            if (tutor.getId().equals(tutorId)) {
+                System.out.println("Chapter assigned to Tutor ID " + tutorId + ": " + tutor.isChapterAssigned(chapter));
+                return;
+            }
+        }
+        System.out.println("Tutor not found.");
+    }
+
+    // Check if all Chapters are assigned to at least one Tutor
+    public void areAllChaptersAssignedToTutors() {
+        for (Tutor tutor : tutors) {
+            System.out.println("All chapters assigned to Tutor ID " + tutor.getId() + ": " + tutor.areAllChaptersAssigned());
+        }
+    }
     
     // String representation of the object
     @Override

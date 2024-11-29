@@ -1014,6 +1014,146 @@ public class Admin extends Person {
         System.out.println("Tutor not found.");
     }
 
+    // View all chapters of a tutor by school
+    public void viewChaptersByTutorAndSchool(Long tutorId, int schoolID) {
+        for (School school : schools) {
+            if (school.getSchoolID() == schoolID) {
+                for (Tutor tutor : school.getTutors()) {
+                    if (tutor.getId().equals(tutorId)) {
+                        tutor.viewAllChapters();
+                        return;
+                    }
+                }
+                System.out.println("Tutor not found in the specified school.");
+                return;
+            }
+        }
+        System.out.println("School not found.");
+    }
+
+    //...........Admin Class.............
+
+    // view how many students are in a school
+    public void viewStudentCountBySchool(int schoolID) {
+        for (School school : schools) {
+            if (school.getSchoolID() == schoolID) {
+                System.out.println("Number of students in school ID " + schoolID + ": " + school.getStudents().size());
+                return;
+            }
+        }
+        System.out.println("School not found.");
+    }
+
+    // view how many tutors are in a school
+    public void viewTutorCountBySchool(int schoolID) {
+        for (School school : schools) {
+            if (school.getSchoolID() == schoolID) {
+                System.out.println("Number of tutors in school ID " + schoolID + ": " + school.getTutors().size());
+                return;
+            }
+        }
+        System.out.println("School not found.");
+    }
+
+    // view how many schools are in the system
+    public void viewSchoolCount() {
+        System.out.println("Number of schools in the system: " + schools.size());
+    }
+
+    // view how many chapters are in a tutor
+    public void viewChapterCountByTutor(Long tutorId, int schoolID) {
+        for (School school : schools) {
+            if (school.getSchoolID() == schoolID) {
+                for (Tutor tutor : school.getTutors()) {
+                    if (tutor.getId().equals(tutorId)) {
+                        System.out.println("Number of chapters for tutor ID " + tutorId + " in school ID " + schoolID + ": " + tutor.getChapters().size());
+                        return;
+                    }
+                }
+                System.out.println("Tutor not found in the specified school.");
+                return;
+            }
+        }
+        System.out.println("School not found.");
+    }
+
+    // view how many chapters are in the system
+    public void viewChapterCount() {
+        int totalChapters = 0;
+        for (School school : schools) {
+            for (Tutor tutor : school.getTutors()) {
+                totalChapters += tutor.getChapters().size();
+            }
+        }
+        System.out.println("Number of chapters in the system: " + totalChapters);
+    }
+
+    // view how many students are in the system
+    public void viewStudentCount() {
+        int totalStudents = 0;
+        for (School school : schools) {
+            totalStudents += school.getStudents().size();
+        }
+        System.out.println("Number of students in the system: " + totalStudents);
+    }
+
+    // view how many tutors are in the system
+    public void viewTutorCount() {
+        int totalTutors = 0;
+        for (School school : schools) {
+            totalTutors += school.getTutors().size();
+        }
+        System.out.println("Number of tutors in the system: " + totalTutors);
+    }   
+
+    // Compare the number of student accounts in a specified school with the number the admin will enter
+    public void compareStudentCountBySchool(int schoolID, int studentCount) {
+        for (School school : schools) {
+            if (school.getSchoolID() == schoolID) {
+                int actualCount = school.getStudents().size();
+                if (actualCount == studentCount) {
+                    System.out.println("The number of students in school ID " + schoolID + " matches the expected count.");
+                } else if (actualCount > studentCount) {
+                    System.out.println("The number of students in school ID " + schoolID + " is more than the expected count by " + (actualCount - studentCount) + ".");
+                } else {
+                    System.out.println("The number of students in school ID " + schoolID + " is less than the expected count by " + (studentCount - actualCount) + ".");
+                }
+                return;
+            }
+        }
+        System.out.println("School not found.");
+    }
+
+    // Compare the number of tutor accounts in a specified school with the number the admin will enter
+    public void compareTutorCountBySchool(int schoolID, int tutorCount) {
+        for (School school : schools) {
+            if (school.getSchoolID() == schoolID) {
+                int actualCount = school.getTutors().size();
+                if (actualCount == tutorCount) {
+                    System.out.println("The number of tutors in school ID " + schoolID + " matches the expected count.");
+                } else if (actualCount > tutorCount) {
+                    System.out.println("The number of tutors in school ID " + schoolID + " is more than the expected count by " + (actualCount - tutorCount) + ".");
+                } else {
+                    System.out.println("The number of tutors in school ID " + schoolID + " is less than the expected count by " + (tutorCount - actualCount) + ".");
+                }
+                return;
+            }
+        }
+        System.out.println("School not found.");
+    }
+
+    // Compare the number of schools in the system with the number the admin will enter
+    public void compareSchoolCount(int schoolCount) {
+        int actualCount = schools.size();
+        if (actualCount == schoolCount) {
+            System.out.println("The number of schools in the system matches the expected count.");
+        } else if (actualCount > schoolCount) {
+            System.out.println("The number of schools in the system is more than the expected count by " + (actualCount - schoolCount) + ".");
+        } else {
+            System.out.println("The number of schools in the system is less than the expected count by " + (schoolCount - actualCount) + ".");
+        }
+    }
+
     // toString override to include Admin-specific details
     @Override
     public String toString() {
