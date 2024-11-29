@@ -5,27 +5,26 @@ import java.util.Scanner;
 
 public class School {
 
-    public static Iterable<School> getSchools() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    // Attributes
-    private int schoolID;
-    private String schoolName;
-    private String address;
-    private String city;
-    private String contactPerson;
-    private String email;
-    private String phoneNumber;
-    private ArrayList<Student> students = new ArrayList<>();
-    private ArrayList<Tutor> tutors = new ArrayList<>();
-    private int capacity;
-    private int maxTutors;
+        public static Iterable<School> getSchools() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+        // Attributes
+        private int schoolID;
+        private String schoolName;
+        private String address;
+        private String city;
+        private String contactPerson;
+        private String email;
+        private String phoneNumber;
+        private ArrayList<Student> students = new ArrayList<>();
+        private ArrayList<Tutor> tutors = new ArrayList<>();
 
-    // Default constructor
+
+        // Default constructor
     public School() {}
 
     // Parameterized constructor
-    public School(int schoolID, String schoolName, String address, String city, String contactPerson, String email, String phoneNumber, int capacity) {
+    public School(int schoolID, String schoolName, String address, String city, String contactPerson, String email, String phoneNumber) {
         this.schoolID = schoolID;
         this.schoolName = schoolName;
         this.address = address;
@@ -33,7 +32,6 @@ public class School {
         this.contactPerson = contactPerson;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.capacity = capacity;
     }
 
     // Getters and Setters
@@ -97,14 +95,6 @@ public class School {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
     public int getStudentCount() {
         return students.size();
     }
@@ -129,14 +119,6 @@ public class School {
     // Get full address
     public String getFullAddress() {
         return address + ", " + city;
-    }
-    
-    public int getMaxTutors() {
-        return maxTutors;
-    }
-
-    public void setMaxTutors(int maxTutors) {
-        this.maxTutors = maxTutors;
     }
 
     public int getTutorCount() {
@@ -199,12 +181,8 @@ public class School {
             System.out.println("Student cannot be null.");
             return;
         }
-        if (students.size() < capacity) {
-            students.add(student);
-            System.out.println("Student added successfully!");
-        }
-        else
-        System.out.println("Maximum capacity reached!");
+        students.add(student);
+        System.out.println("Student added successfully!");
     }
 
     // Remove a Student from the list
@@ -436,15 +414,10 @@ public class School {
             System.out.println("Tutor cannot be null.");
             return;
         }
-
-        if (tutors.size() < maxTutors) {
-            tutors.add(tutor);
-            System.out.println("Tutor added successfully.");
-        } else {
-            System.out.println("Cannot add tutor: Max number of tutors reached.");
-        }
+        tutors.add(tutor);
+        System.out.println("Tutor added successfully.");
     }
-    
+   
     // Create Tutor Account
     public void createTutorAccount() {
         Scanner input = new Scanner(System.in);

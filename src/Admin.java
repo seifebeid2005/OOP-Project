@@ -7,6 +7,16 @@ public class Admin extends Person {
 
     private final Role roleEnum;
     private static ArrayList<School> schools = new ArrayList<>();
+    private static int[][] schoolMaxCapacity = new int[100][2]; // Assuming a maximum of 100 schools
+
+    public static void setSchoolMaxCapacity(int schoolID, int maxStudents, int maxTutors) {
+        schoolMaxCapacity[schoolID][0] = maxStudents;
+        schoolMaxCapacity[schoolID][1] = maxTutors;
+    }
+
+    public static int[] getSchoolMaxCapacity(int schoolID) {
+        return schoolMaxCapacity[schoolID];
+    }
 
     public enum Role {
         ADMIN, SUPER_ADMIN, MODERATOR
@@ -369,15 +379,22 @@ public class Admin extends Person {
     }
     
     // remove a Tutor
-    public void removeTutor(Long tutorId) {
-        for (Tutor tutor : tutors) {
-            if (tutor.getId().equals(tutorId)) {
-                tutors.remove(tutor);
-                System.out.println("Tutor with ID " + tutorId + " has been removed.");
+    public void removeTutor(Long tutorId, int schoolID) {
+        for (School school : schools) {
+            if (school.getSchoolID() == schoolID) {
+                List<Tutor> schoolTutors = school.getTutors();
+                for (Tutor tutor : schoolTutors) {
+                    if (tutor.getId().equals(tutorId)) {
+                        schoolTutors.remove(tutor);
+                        System.out.println("Tutor with ID " + tutorId + " has been removed from school ID " + schoolID);
+                        return;
+                    }
+                }
+                System.out.println("Tutor not found in the specified school.");
                 return;
             }
         }
-        System.out.println("Tutor not found.");
+        System.out.println("School not found.");
     }
     
     // ------------------- Student Method -------------------
@@ -425,16 +442,22 @@ public class Admin extends Person {
         // Create Student object and add to the list
         Student student = new Student(name, email, phone, schoolID, currentLevel, address, id.intValue(), dateOfBirth,
                 registrationDate.atStartOfDay(), username, password, "", "");
-        addStudent(student);
+        addStudent(student , schoolID);
         System.out.println("Student account created successfully!");
         input.close();
     }
   
-    // Add a Student to the list
-    public void addStudent(Student student) {
+    // Add a Student to a specific school
+    public void addStudent(Student student, int schoolID) {
         if (student != null) {
-            students.add(student);
-            System.out.println("Student added successfully.");
+            for (School school : schools) {
+                if (school.getSchoolID() == schoolID) {
+                    school.getStudents().add(student);
+                    System.out.println("Student added successfully to school ID " + schoolID);
+                    return;
+                }
+            }
+            System.out.println("School not found.");
         } else {
             System.out.println("Student cannot be null.");
         }
@@ -446,6 +469,8 @@ public class Admin extends Person {
 
         System.out.println("Choose criteria to remove Student (1: ID, 2: Name, 3: Email, 4: Username): ");
         int criteria = input.nextInt();
+        System.out.println("Enter School ID: ");
+        int schoolID = input.nextInt();
         input.nextLine(); // Consume newline
 
         switch (criteria) {
@@ -453,22 +478,22 @@ public class Admin extends Person {
                 System.out.println("Enter Student ID: ");
                 Long id = input.nextLong();
                 input.nextLine(); // Consume newline
-                removeStudentById(id);
+                removeStudentById(id , schoolID);
             }
             case 2 -> {
                 System.out.println("Enter Student Name: ");
                 String name = input.nextLine();
-                removeStudentByName(name);
+                removeStudentByName(name , schoolID);
             }
             case 3 -> {
                 System.out.println("Enter Student Email: ");
                 String email = input.nextLine();
-                removeStudentByEmail(email);
+                removeStudentByEmail(email , schoolID);
             }
             case 4 -> {
                 System.out.println("Enter Student Username: ");
                 String username = input.nextLine();
-                removeStudentByUsername(username);
+                removeStudentByUsername(username , schoolID);
             }
             default -> System.out.println("Invalid criteria. Please choose 1, 2, 3, or 4.");
         }
@@ -476,77 +501,110 @@ public class Admin extends Person {
     }
 
     // Remove a Student by ID
-    private void removeStudentById(Long id) {
-        for (Student student : students) {
-            if (student.getId().equals(id)) {
-                students.remove(student);
-                System.out.println("Student removed successfully.");
+    private void removeStudentById(Long id, int schoolID) {
+        for (School school : schools) {
+            if (school.getSchoolID() == schoolID) {
+                List<Student> schoolStudents = school.getStudents();
+                for (Student student : schoolStudents) {
+                    if (student.getId().equals(id)) {
+                        schoolStudents.remove(student);
+                        System.out.println("Student removed successfully from school ID " + schoolID + " with student ID " + id);
+                        return;
+                    }
+                }
+                System.out.println("Student not found in the specified school.");
                 return;
             }
         }
-        System.out.println("Student not found.");
+        System.out.println("School not found.");
     }
 
     // Remove a Student by Name
-    private void removeStudentByName(String name) {
-        for (Student student : students) {
-            if (student.getName().equalsIgnoreCase(name)) {
-                students.remove(student);
-                System.out.println("Student removed successfully.");
+    private void removeStudentByName(String name, int schoolID) {
+        for (School school : schools) {
+            if (school.getSchoolID() == schoolID) {
+                List<Student> schoolStudents = school.getStudents();
+                for (Student student : schoolStudents) {
+                    if (student.getName().equalsIgnoreCase(name)) {
+                        schoolStudents.remove(student);
+                        System.out.println("Student removed successfully from school ID " + schoolID + " with name " + name);
+                        return;
+                    }
+                }
+                System.out.println("Student not found in the specified school.");
                 return;
             }
         }
-        System.out.println("Student not found.");
+        System.out.println("School not found.");
     }
 
     // Remove a Student by Email
-    private void removeStudentByEmail(String email) {
-        for (Student student : students) {
-            if (student.getEmail().equalsIgnoreCase(email)) {
-                students.remove(student);
-                System.out.println("Student removed successfully.");
+    private void removeStudentByEmail(String email, int schoolID) {
+        for (School school : schools) {
+            if (school.getSchoolID() == schoolID) {
+                List<Student> schoolStudents = school.getStudents();
+                for (Student student : schoolStudents) {
+                    if (student.getEmail().equalsIgnoreCase(email)) {
+                        schoolStudents.remove(student);
+                        System.out.println("Student removed successfully from school ID " + schoolID + " with email " + email);
+                        return;
+                    }
+                }
+                System.out.println("Student not found in the specified school.");
                 return;
             }
         }
-        System.out.println("Student not found.");
+        System.out.println("School not found.");
     }
 
     // Remove a Student by Username
-    private void removeStudentByUsername(String username) {
-        for (Student student : students) {
-            if (student.getUsername().equalsIgnoreCase(username)) {
-                students.remove(student);
-                System.out.println("Student removed successfully.");
+    private void removeStudentByUsername(String username, int schoolID) {
+        for (School school : schools) {
+            if (school.getSchoolID() == schoolID) {
+                List<Student> schoolStudents = school.getStudents();
+                for (Student student : schoolStudents) {
+                    if (student.getUsername().equalsIgnoreCase(username)) {
+                        schoolStudents.remove(student);
+                        System.out.println("Student removed successfully from school ID " + schoolID + " with username " + username);
+                        return;
+                    }
+                }
+                System.out.println("Student not found in the specified school.");
                 return;
             }
         }
-        System.out.println("Student not found.");
+        System.out.println("School not found.");
     }
 
     // Update Student Information
-    public void updateStudent(Long studentId, String newName, String newEmail, String newPhone, String newAddress, int newSchoolID, int newCurrentLevel) {
-        for (Student student : students) {
-            if (student.getId().equals(studentId)) {
-                if (newName != null) {
-                    student.setName(newName);
+    public void updateStudent(Long studentId, String newName, String newEmail, String newPhone, String newAddress,
+            int newSchoolID, int newCurrentLevel , int schoolID) {
+        for (School school : schools) {
+            for (Student student : school.getStudents()) {
+                if (school.getSchoolID() == schoolID) {
+                    if (student.getId().equals(studentId)) {
+                        if (newName != null) {
+                            student.setName(newName);
+                        }
+                        if (newEmail != null) {
+                            student.setEmail(newEmail);
+                        }
+                        if (newPhone != null) {
+                            student.setPhone(newPhone);
+                        }
+                        if (newAddress != null) {
+                            student.setAddress(newAddress);
+                        }
+                        if (newSchoolID != 0) {
+                            student.setSchoolID(newSchoolID);
+                        }
+                        if (newCurrentLevel != 0) {
+                            student.setCurrentLevel(newCurrentLevel);
+                        }
+                        System.out.println("Student updated successfully.");
+                        return;
+                    }
                 }
-                if (newEmail != null) {
-                    student.setEmail(newEmail);
-                }
-                if (newPhone != null) {
-                    student.setPhone(newPhone);
-                }
-                if (newAddress != null) {
-                    student.setAddress(newAddress);
-                }
-                if (newSchoolID != 0) {
-                    student.setSchoolID(newSchoolID);
-                }
-                if (newCurrentLevel != 0) {
-                    student.setCurrentLevel(newCurrentLevel);
-                }
-                System.out.println("Student updated successfully.");
-                return;
             }
         }
         System.out.println("Student not found.");
@@ -558,7 +616,9 @@ public class Admin extends Person {
 
         System.out.println("Enter Student ID to update: ");
         Long studentId = input.nextLong();
-        input.nextLine(); // Consume newline
+        
+        System.out.println("Enter School ID: ");
+        int SchoolID = input.nextInt();
 
         System.out.println("Choose what to update (1: Name, 2: Email, 3: Phone, 4: Address, 5: School ID, 6: Current Level): ");
         int choice = input.nextInt();
@@ -568,34 +628,35 @@ public class Admin extends Person {
         case 1 -> {
             System.out.println("Enter new Name: ");
             String newName = input.nextLine();
-            updateStudent(studentId, newName, null, null, null, 0, 0);
+
+            updateStudent(studentId, newName, null, null, null, 0, 0 , SchoolID);
         }
         case 2 -> {
             System.out.println("Enter new Email: ");
             String newEmail = input.nextLine();
-            updateStudent(studentId, null, newEmail, null, null, 0, 0);
+            updateStudent(studentId, null, newEmail, null, null, 0, 0 , SchoolID);
         }
         case 3 -> {
             System.out.println("Enter new Phone: ");
             String newPhone = input.nextLine();
-            updateStudent(studentId, null, null, newPhone, null, 0, 0);
+            updateStudent(studentId, null, null, newPhone, null, 0, 0 , SchoolID);
         }
         case 4 -> {
             System.out.println("Enter new Address: ");
             String newAddress = input.nextLine();
-            updateStudent(studentId, null, null, null, newAddress, 0, 0);
+            updateStudent(studentId, null, null, null, newAddress, 0, 0, SchoolID);
         }
         case 5 -> {
             System.out.println("Enter new School ID: ");
             int newSchoolID = input.nextInt();
             input.nextLine(); // Consume newline
-            updateStudent(studentId, null, null, null, null, newSchoolID, 0);
+            updateStudent(studentId, null, null, null, null, newSchoolID, 0 , SchoolID);
         }
         case 6 -> {
             System.out.println("Enter new Current Level: ");
             int newCurrentLevel = input.nextInt();
             input.nextLine(); // Consume newline
-            updateStudent(studentId, null, null, null, null, 0, newCurrentLevel);
+            updateStudent(studentId, null, null, null, null, 0, newCurrentLevel , SchoolID);
         }
         default -> System.out.println("Invalid choice. Please choose 1, 2, 3, 4, 5, or 6.");
     }
@@ -603,23 +664,27 @@ public class Admin extends Person {
 }
 
     // Generalized Search for Students
-    public void viewStudesByCriteria(String criteria, Object value) {
+    public void viewStudentsByCriteria(String criteria, Object value, int schoolID) {
         List<Student> filteredStudents = new ArrayList<>();
-        for (Student student : students) {
-            if (matchesCriteria(student, criteria, value)) {
-                filteredStudents.add(student);
+        for (School school : schools) {
+            if (school.getSchoolID() == schoolID) {
+                for (Student student : school.getStudents()) {
+                    if (matchesCriteria(student, criteria, value)) {
+                        filteredStudents.add(student);
+                    }
+                }
+                break;
             }
         }
 
         if (filteredStudents.isEmpty()) {
-            System.out.println("No students found for the given criteria.");
+            System.out.println("No students found for the given criteria in the specified school.");
         } else {
             for (Student student : filteredStudents) {
                 System.out.println(student);
             }
         }
     }
-    
     // Search for Students by Criteria
     private boolean matchesCriteria(Student student, String criteria, Object value) {
         return switch (criteria.toLowerCase()) {
@@ -640,27 +705,45 @@ public class Admin extends Person {
 
     // View All Students
     public void viewStudents() {
-        if (students.isEmpty()) {
-            System.out.println("No students to display.");
-        } else {
-            for (Student student : students) {
-                System.out.println(student);
+        boolean hasStudents = false;
+        for (School school : schools) {
+            if (!school.getStudents().isEmpty()) {
+                hasStudents = true;
+                for (Student student : school.getStudents()) {
+                    System.out.println(student);
+                }
             }
+        }
+        if (!hasStudents) {
+            System.out.println("No students to display.");
         }
     }
 
-    // remove a Student
-    public void removeStudent(Long studentId) {
-        for (Student student : students) {
-            if (student.getId().equals(studentId)) {
-                students.remove(student);
-                System.out.println("Student with ID " + studentId + " has been removed.");
-                return;
+    // Search for a specific school by ID
+    public School searchSchoolById(int schoolID) {
+        for (School school : schools) {
+            if (school.getSchoolID() == schoolID) {
+                return school;
             }
         }
-        System.out.println("Student not found.");
+        System.out.println("School not found.");
+        return null;
     }
-     
+
+    // Search for a specific student by ID within a specific school
+    public Student searchStudentById(Long studentId, int schoolID) {
+        School school = searchSchoolById(schoolID);
+        if (school != null) {
+            for (Student student : school.getStudents()) {
+                if (student.getId().equals(studentId)) {
+                    return student;
+                }
+            }
+            System.out.println("Student not found in the specified school.");
+        }
+        return null;
+    }
+   
     //------------------- School Method -------------------
 
     //Create School
@@ -688,6 +771,7 @@ public class Admin extends Person {
 
         System.out.println("Enter Contact Phone: ");
         String phoneNumber = input.nextLine();
+
 
         // Create School object and add to the list
         School school = new School(schoolID, schoolName, address, city, contactPerson, email, phoneNumber);
@@ -856,9 +940,12 @@ public class Admin extends Person {
     // View All Students by School
     public void viewStudentsBySchool(int schoolID) {
         List<Student> filteredStudents = new ArrayList<>();
-        for (Student student : students) {
-            if (student.getSchoolID() == schoolID) {
-                filteredStudents.add(student);
+        for (School school : schools) {
+            if (school.getSchoolID() == schoolID) {
+                for (Student student : school.getStudents()) {
+                    filteredStudents.add(student);
+                }
+                break;
             }
         }
 
@@ -873,57 +960,69 @@ public class Admin extends Person {
 
     // View All Tutors by School
     public void viewTutorsBySchool(int schoolID) {
-        List<Tutor> filteredTutors = new ArrayList<>();
-        for (Tutor tutor : tutors) {
-            if (tutor.getSchoolID() == schoolID) {
-                filteredTutors.add(tutor);
+        School school = searchSchoolById(schoolID);
+        if (school != null) {
+            List<Tutor> tutors = school.getTutors();
+            if (tutors.isEmpty()) {
+                System.out.println("No tutors found for the given school ID.");
+            } else {
+                for (Tutor tutor : tutors) {
+                    System.out.println(tutor);
+                }
             }
-        }
-
-        if (filteredTutors.isEmpty()) {
-            System.out.println("No tutors found for the given school ID.");
         } else {
-            for (Tutor tutor : filteredTutors) {
-                System.out.println(tutor);
-            }
+            System.out.println("School not found.");
         }
     }
-    
     //------------------- Chapter Method -------------------
     
-    // public void addChapterToTutor(Long tutorId,Chapter Chapter ) {
-    //     for (Tutor tutor : tutors) {
-    //         if (tutor.getId().equals(tutorId)) {
-    //             tutor.addChapter(Chapter);
-    //             System.out.println("Chapter added successfully.");
-    //             return;
-    //         }
-    //     }
-    //     System.out.println("Tutor not found.");
-    // }
+    public void addChapterToTutor(Long tutorId, int schoolID, Chapter chapter) {
+        for (School school : schools) {
+            if (school.getSchoolID() == schoolID) {
+                for (Tutor tutor : school.getTutors()) {
+                    if (tutor.getId().equals(tutorId)) {
+                        tutor.addChapter(chapter);
+                        System.out.println("Chapter added successfully to tutor ID " + tutorId + " in school ID " + schoolID);
+                        return;
+                    }
+                }
+                System.out.println("Tutor not found in the specified school.");
+                return;
+            }
+        }
+        System.out.println("School not found.");
+    }
 
-    // // Remove chapter from a tutor
-    // public void removeChapterFromTutor(Long tutorId, int Chapter) {
-    //     for (Tutor tutor : tutors) {
-    //         if (tutor.getId().equals(tutorId)) {
-    //             tutor.removeChapter(Chapter);
-    //             System.out.println("Chapter removed successfully.");
-    //             return;
-    //         }
-    //     }
-    //     System.out.println("Tutor not found.");
-    // }
+    // Remove chapter from a tutor
+    public void removeChapterFromTutor(Long tutorId, int schoolID, int chapterId) {
+        for (School school : schools) {
+            if (school.getSchoolID() == schoolID) {
+                for (Tutor tutor : school.getTutors()) {
+                    if (tutor.getId().equals(tutorId)) {
+                        tutor.removeChapter(chapterId);
+                        System.out.println("Chapter removed successfully from tutor ID " + tutorId + " in school ID " + schoolID);
+                        return;
+                    }
+                }
+                System.out.println("Tutor not found in the specified school.");
+                return;
+            }
+        }
+        System.out.println("School not found.");
+    }
 
-    // // View all chapters of a tutor
-    // public void viewChaptersByTutor(Long tutorId) {
-    //     for (Tutor tutor : tutors) {
-    //         if (tutor.getId().equals(tutorId)) {
-    //             tutor.viewAllChapters();
-    //             return;
-    //         }
-    //     }
-    //     System.out.println("Tutor not found.");
-    // }
+    // View all chapters of a tutor
+    public void viewChaptersByTutor(Long tutorId) {
+        for (School school : schools) {
+            for (Tutor tutor : school.getTutors()) {
+                if (tutor.getId().equals(tutorId)) {
+                    tutor.viewAllChapters();
+                    return;
+                }
+            }
+        }
+        System.out.println("Tutor not found.");
+    }
 
     // toString override to include Admin-specific details
     @Override
