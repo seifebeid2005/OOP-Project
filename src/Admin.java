@@ -7,16 +7,6 @@ public class Admin extends Person {
 
     private final Role roleEnum;
     private static ArrayList<School> schools = new ArrayList<>();
-    private static int[][] schoolMaxCapacity = new int[100][2]; // Assuming a maximum of 100 schools
-
-    public static void setSchoolMaxCapacity(int schoolID, int maxStudents, int maxTutors) {
-        schoolMaxCapacity[schoolID][0] = maxStudents;
-        schoolMaxCapacity[schoolID][1] = maxTutors;
-    }
-
-    public static int[] getSchoolMaxCapacity(int schoolID) {
-        return schoolMaxCapacity[schoolID];
-    }
 
     public enum Role {
         ADMIN, SUPER_ADMIN, MODERATOR
