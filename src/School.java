@@ -722,7 +722,7 @@ public class School {
     public void removeChapterFromTutor(Long tutorId, Chapter chapter) {
         for (Tutor tutor : tutors) {
             if (tutor.getId().equals(tutorId)) {
-                tutor.removeChapter(chapter);
+                tutor.removeChapter(chapter.getLessonId());
                 System.out.println("Chapter removed successfully from Tutor ID: " + tutorId);
                 return;
             }

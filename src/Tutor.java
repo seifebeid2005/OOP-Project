@@ -106,8 +106,14 @@ public class Tutor extends Person {
     }
 
     public void removeChapter(int chapter_ID) {
-        chapters.removeIf(chapter -> chapter.getLessonId() == chapter_ID);
+        for (Chapter chapter : chapters) {
+            if (chapter.getLessonId() == chapter_ID) {
+                chapters.remove(chapter);
+                break;
+            }
+        }
     }
+
 
     public void removeAllChapters() {
         chapters.clear();
