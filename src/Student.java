@@ -10,6 +10,7 @@ public class Student extends Person {
     private LocalDateTime registrationDate;
     private Integer schoolID;
     private Tutor tutor;
+    private int Grade; //Added Grade for every student
     
     private static int lastGeneratedID = 0;
 
@@ -21,7 +22,9 @@ public class Student extends Person {
     }
 
     // Constructor
-    public Student(String name, String email, String preferredLanguage, Integer currentLevel, Integer progressLevel,String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate, String phone, String address, String username, String password, Tutor tutor) {
+    public Student(String name, String email, String preferredLanguage, Integer currentLevel, Integer progressLevel,
+    String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate,
+    String phone, String address, String username, String password, Tutor tutor, int Grade) {
 
         super(generateAutoID(), name, email, dateOfBirth, phone, address, username, password); // Pass generated ID to the superclass
         validatePreferredLanguage(preferredLanguage);
@@ -36,6 +39,7 @@ public class Student extends Person {
         this.registrationDate = (registrationDate != null) ? registrationDate : LocalDateTime.now(); // Use passed registrationDate or default to now
         this.schoolID = schoolID;
         this.tutor = tutor;
+        this.Grade = Grade;
     }
 
     // Validation Methods
@@ -136,6 +140,18 @@ public class Student extends Person {
 
     public void setTutor(Tutor tutor) {
         this.tutor = tutor;
+    }
+
+    public int getGrade() {
+        return Grade;
+    }
+
+    public void setGrade(int Grade) {
+        if (Grade < 0 && Grade > 14) {
+            this.Grade = Grade;
+        }
+        else {
+            throw new IllegalArgumentException("Grade must be between Kg 1 and 12.");
     }
     
 
