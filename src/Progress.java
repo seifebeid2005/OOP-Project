@@ -92,6 +92,65 @@ public class Progress {
         return Date_Completed;
     }
 
+    // Calculate the progress of the student
+    public double calculateProgress() {
+        if (Score >= 80) {
+            return 100;
+        } else if (Score >= 60) {
+            return 75;
+        } else if (Score >= 40) {
+            return 50;
+        } else if (Score >= 20) {
+            return 25;
+        } else {
+            return 0;
+        }
+    }
+
+    // calculate the grade of the student
+    public String calculateGrade() {
+        if (Score >= 80) {
+            return "A";
+        } else if (Score >= 60) {
+            return "B";
+        } else if (Score >= 40) {
+            return "C";
+        } else if (Score >= 20) {
+            return "D";
+        } else {
+            return "F";
+        }
+    }
+
+    // show the progress of the student
+    public void showProgress() {
+        System.out.println("Student ID: " + student.getId());
+        System.out.println("Student Name: " + student.getName());
+        System.out.println("Lesson ID: " + Lesson_ID);
+        System.out.println("Completion Status: " + Completion_Status);
+        System.out.println("Score: " + Score);
+        System.out.println("Date Completed: " + Date_Completed);
+        System.out.println("Progress: " + calculateProgress() + "%");
+        System.out.println("Grade: " + calculateGrade());
+    }
+
+    // generate a report of the student as a file
+    public void generateReport() {
+        String report = "Student ID: " + student.getId() + "\n" +
+                "Student Name: " + student.getName() + "\n" +
+                "Lesson ID: " + Lesson_ID + "\n" +
+                "Completion Status: " + Completion_Status + "\n" +
+                "Score: " + Score + "\n" +
+                "Date Completed: " + Date_Completed + "\n" +
+                "Progress: " + calculateProgress() + "%" + "\n" +
+                "Grade: " + calculateGrade() + "\n";
+
+        FileIO fileIO = new FileIO();
+        fileIO.writeToFile("report_" + student.getId() + ".txt", report);
+    }
+
+
+
     @Override
     public String toString() {
         return "Progress{" +
