@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.ArrayList;
 
 public class Chapter {
 
@@ -6,9 +7,9 @@ public class Chapter {
     private String lessonTitle;
     private String lessonDescription;
     private int levelId;
-    //private int duration;
-    //private String language;
-    //private String lessonType;
+    private int duration;
+    private String language;
+    private String lessonType;
     private int tutorId;
     private String materials;
     private boolean assigned;
@@ -446,5 +447,11 @@ public class Chapter {
                 ", Tutor ID: " + tutorId +
                 ", Materials: " + materials +
                 ", Assigned: " + assigned;
+    }
+
+    private static class Quiz {
+
+        public Quiz() {
+        }
     }
 }
