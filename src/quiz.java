@@ -63,6 +63,7 @@ public class quiz {
     public void remove_question(String question) {
         number_of_questions--;
     }
+    @Override
     public String toString() {
         return  "Quiz ID=" + quiz_id + ", Quiz Title='" + quiz_title + ", Lesson ID=" + lesson_id + ", Number of Questions=" + number_of_questions + ", Passing Score=" + passing_score;
     }
