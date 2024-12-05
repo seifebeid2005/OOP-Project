@@ -1,12 +1,12 @@
 
-public class quiz {
+public class Quiz {
     private int quiz_id;
     private String quiz_title;
     private int lesson_id;
     private int number_of_questions;
     private float passing_score;
 
-    public quiz(int quiz_id, String quiz_title, int lesson_id, int number_of_questions, float passing_score) {
+    public Quiz(int quiz_id, String quiz_title, int lesson_id, int number_of_questions, float passing_score) {
         this.lesson_id = lesson_id;
         this.quiz_id = quiz_id;
         this.quiz_title = quiz_title;

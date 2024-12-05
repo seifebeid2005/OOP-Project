@@ -9,9 +9,6 @@ public class Student extends Person {
     private String achievements;
     private LocalDateTime registrationDate;
     private Integer schoolID;
-    private Tutor tutor;
-    private int Grade; //Added Grade for every student
-    
     private static int lastGeneratedID = 0;
 
     // Static method to generate a unique ID
@@ -23,8 +20,8 @@ public class Student extends Person {
 
     // Constructor
     public Student(String name, String email, String preferredLanguage, Integer currentLevel, Integer progressLevel,
-    String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate,
-    String phone, String address, String username, String password, Tutor tutor, int Grade) {
+            String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate,
+            String phone, String address, String username, String password, Tutor tutor) {
 
         super(generateAutoID(), name, email, dateOfBirth, phone, address, username, password); // Pass generated ID to the superclass
         validatePreferredLanguage(preferredLanguage);
@@ -38,8 +35,6 @@ public class Student extends Person {
         this.achievements = achievements != null ? achievements : ""; // Allow achievements to be null
         this.registrationDate = (registrationDate != null) ? registrationDate : LocalDateTime.now(); // Use passed registrationDate or default to now
         this.schoolID = schoolID;
-        this.tutor = tutor;
-        this.Grade = Grade;
     }
 
     // Validation Methods
@@ -134,30 +129,10 @@ public class Student extends Person {
         this.schoolID = schoolID;
     }
 
-    public Tutor getTutor() {
-        return tutor;
-    }
-
-    public void setTutor(Tutor tutor) {
-        this.tutor = tutor;
-    }
-
-    public int getGrade() {
-        return Grade;
-    }
-
-    public void setGrade(int Grade) {
-        if (Grade < 0 && Grade > 14) {
-            this.Grade = Grade;
-        }
-        else {
-            throw new IllegalArgumentException("Grade must be between Kg 1 and 12.");
-    }
     
-
-    @Override
     public String toString() {
-        return super.toString() + String.format(", preferredLanguage='%s', currentLevel=%d, progressLevel=%d, achievements='%s', " +
+        return super.toString() + String.format(
+                ", preferredLanguage='%s', currentLevel=%d, progressLevel=%d, achievements='%s', " +
                         "registrationDate='%s', schoolID=%d}",
                 preferredLanguage, currentLevel, progressLevel, achievements,
                 registrationDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), schoolID);

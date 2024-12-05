@@ -5,26 +5,28 @@ import java.util.Scanner;
 
 public class School {
 
-        public static Iterable<School> getSchools() {
-            throw new UnsupportedOperationException("Not supported yet.");
-        }
-        // Attributes
-        private int schoolID;
-        private String schoolName;
-        private String address;
-        private String city;
-        private String contactPerson;
-        private String email;
-        private String phoneNumber;
-        private ArrayList<Student> students = new ArrayList<>();
-        private ArrayList<Tutor> tutors = new ArrayList<>();
+    public static Iterable<School> getSchools() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
+    // Attributes
+    private int schoolID;
+    private String schoolName;
+    private String address;
+    private String city;
+    private String contactPerson;
+    private String email;
+    private String phoneNumber;
+    private ArrayList<Student> students = new ArrayList<>();
+    private ArrayList<Tutor> tutors = new ArrayList<>();
 
-        // Default constructor
-    public School() {}
+    // Default constructor
+    public School() {
+    }
 
     // Parameterized constructor
-    public School(int schoolID, String schoolName, String address, String city, String contactPerson, String email, String phoneNumber) {
+    public School(int schoolID, String schoolName, String address, String city, String contactPerson, String email,
+            String phoneNumber) {
         this.schoolID = schoolID;
         this.schoolName = schoolName;
         this.address = address;
@@ -99,13 +101,11 @@ public class School {
         return students.size();
     }
 
-    
-
-
     // Get all students
     public List<Student> getStudents() {
         return new ArrayList<>(students);
     }
+
     // Get all tutors
     public List<Tutor> getTutors() {
         return new ArrayList<>(tutors);
@@ -126,7 +126,7 @@ public class School {
     public int getTutorCount() {
         return tutors.size();
     }
-    
+
     // ------------------- Student Method -------------------
 
     // Account creation for Student
@@ -171,12 +171,12 @@ public class School {
 
         // Create Student object and add to the list
         Student student = new Student(name, email, phone, schoolID, currentLevel, address, id.intValue(), dateOfBirth,
-                registrationDate.atStartOfDay(), username, password, "", "", null);
+                registrationDate.atStartOfDay(), username, password, "", " ", null);
         addStudent(student);
         System.out.println("Student account created successfully!");
         input.close();
     }
-  
+
     // Add a Student to the list
     public void addStudent(Student student) {
         if (student == null) {
@@ -271,7 +271,8 @@ public class School {
     }
 
     // Update Student Information
-    public void updateStudent(Long studentId, String newName, String newEmail, String newPhone, String newAddress, int newSchoolID, int newCurrentLevel) {
+    public void updateStudent(Long studentId, String newName, String newEmail, String newPhone, String newAddress,
+            int newSchoolID, int newCurrentLevel) {
         for (Student student : students) {
             if (student.getId().equals(studentId)) {
                 if (newName != null) {
@@ -298,7 +299,7 @@ public class School {
         }
         System.out.println("Student not found.");
     }
-    
+
     // Update Student Information by ID with user input
     public void updateStudentById() {
         Scanner input = new Scanner(System.in);
@@ -307,47 +308,48 @@ public class School {
         Long studentId = input.nextLong();
         input.nextLine(); // Consume newline
 
-        System.out.println("Choose what to update (1: Name, 2: Email, 3: Phone, 4: Address, 5: School ID, 6: Current Level): ");
+        System.out.println(
+                "Choose what to update (1: Name, 2: Email, 3: Phone, 4: Address, 5: School ID, 6: Current Level): ");
         int choice = input.nextInt();
         input.nextLine(); // Consume newline
 
-    switch (choice) {
-        case 1 -> {
-            System.out.println("Enter new Name: ");
-            String newName = input.nextLine();
-            updateStudent(studentId, newName, null, null, null, 0, 0);
+        switch (choice) {
+            case 1 -> {
+                System.out.println("Enter new Name: ");
+                String newName = input.nextLine();
+                updateStudent(studentId, newName, null, null, null, 0, 0);
+            }
+            case 2 -> {
+                System.out.println("Enter new Email: ");
+                String newEmail = input.nextLine();
+                updateStudent(studentId, null, newEmail, null, null, 0, 0);
+            }
+            case 3 -> {
+                System.out.println("Enter new Phone: ");
+                String newPhone = input.nextLine();
+                updateStudent(studentId, null, null, newPhone, null, 0, 0);
+            }
+            case 4 -> {
+                System.out.println("Enter new Address: ");
+                String newAddress = input.nextLine();
+                updateStudent(studentId, null, null, null, newAddress, 0, 0);
+            }
+            case 5 -> {
+                System.out.println("Enter new School ID: ");
+                int newSchoolID = input.nextInt();
+                input.nextLine(); // Consume newline
+                updateStudent(studentId, null, null, null, null, newSchoolID, 0);
+            }
+            case 6 -> {
+                System.out.println("Enter new Current Level: ");
+                int newCurrentLevel = input.nextInt();
+                input.nextLine(); // Consume newline
+                updateStudent(studentId, null, null, null, null, 0, newCurrentLevel);
+            }
+            default -> System.out.println("Invalid choice. Please choose 1, 2, 3, 4, 5, or 6.");
         }
-        case 2 -> {
-            System.out.println("Enter new Email: ");
-            String newEmail = input.nextLine();
-            updateStudent(studentId, null, newEmail, null, null, 0, 0);
-        }
-        case 3 -> {
-            System.out.println("Enter new Phone: ");
-            String newPhone = input.nextLine();
-            updateStudent(studentId, null, null, newPhone, null, 0, 0);
-        }
-        case 4 -> {
-            System.out.println("Enter new Address: ");
-            String newAddress = input.nextLine();
-            updateStudent(studentId, null, null, null, newAddress, 0, 0);
-        }
-        case 5 -> {
-            System.out.println("Enter new School ID: ");
-            int newSchoolID = input.nextInt();
-            input.nextLine(); // Consume newline
-            updateStudent(studentId, null, null, null, null, newSchoolID, 0);
-        }
-        case 6 -> {
-            System.out.println("Enter new Current Level: ");
-            int newCurrentLevel = input.nextInt();
-            input.nextLine(); // Consume newline
-            updateStudent(studentId, null, null, null, null, 0, newCurrentLevel);
-        }
-        default -> System.out.println("Invalid choice. Please choose 1, 2, 3, 4, 5, or 6.");
+        input.close();
     }
-    input.close();
-}
 
     // Generalized Search for Students
     public void viewStudesByCriteria(String criteria, Object value) {
@@ -366,7 +368,7 @@ public class School {
             }
         }
     }
-    
+
     // Search for Students by Criteria
     private boolean matchesCriteria(Student student, String criteria, Object value) {
         return switch (criteria.toLowerCase()) {
@@ -407,9 +409,9 @@ public class School {
         }
         System.out.println("Student not found.");
     }
-    
+
     //------------------- Tutor Method -------------------
-    
+
     // Add a Tutor
     public void addTutor(Tutor tutor) {
         if (tutor == null) {
@@ -419,7 +421,7 @@ public class School {
         tutors.add(tutor);
         System.out.println("Tutor added successfully.");
     }
-   
+
     // Create Tutor Account
     public void createTutorAccount() {
         Scanner input = new Scanner(System.in);
@@ -480,7 +482,7 @@ public class School {
         System.out.println("Tutor account created successfully!");
         input.close();
     }
-  
+
     // Remove a Tutor
     public void removeTutorByCriteria() {
         Scanner input = new Scanner(System.in);
@@ -515,7 +517,7 @@ public class School {
         }
         input.close();
     }
-    
+
     // Remove a Tutor by ID
     private void removeTutorById(Long id) {
         for (Tutor tutor : tutors) {
@@ -527,7 +529,7 @@ public class School {
         }
         System.out.println("Tutor not found.");
     }
-  
+
     // Remove a Tutor by Name
     private void removeTutorByName(String name) {
         for (Tutor tutor : tutors) {
@@ -539,7 +541,7 @@ public class School {
         }
         System.out.println("Tutor not found.");
     }
-    
+
     // Remove a Tutor by Email
     private void removeTutorByEmail(String email) {
         for (Tutor tutor : tutors) {
@@ -551,7 +553,7 @@ public class School {
         }
         System.out.println("Tutor not found.");
     }
-  
+
     // Remove a Tutor by Username
     private void removeTutorByUsername(String username) {
         for (Tutor tutor : tutors) {
@@ -563,9 +565,10 @@ public class School {
         }
         System.out.println("Tutor not found.");
     }
-    
+
     // Update Tutor Information
-    public void updateTutor(Long tutorId, String newName, String newEmail, String newPhone, String newAddress, String newSubjectArea) {
+    public void updateTutor(Long tutorId, String newName, String newEmail, String newPhone, String newAddress,
+            String newSubjectArea) {
         for (Tutor tutor : tutors) {
             if (tutor.getId().equals(tutorId)) {
                 if (newName != null) {
@@ -589,7 +592,7 @@ public class School {
         }
         System.out.println("Tutor not found.");
     }
-  
+
     // Update Tutor Information by ID with user input
     public void updateTutorById() {
         Scanner input = new Scanner(System.in);
@@ -633,7 +636,7 @@ public class School {
         }
         input.close();
     }
-   
+
     // Assign Role to a Tutor using the current enum
     public void assignTutorRole(Long tutorId, Tutor.Role roleEnum) {
         for (Tutor tutor : tutors) {
@@ -645,7 +648,7 @@ public class School {
         }
         System.out.println("Tutor not found.");
     }
-   
+
     // Generalized Search for Tutors
     public void viewTutorsByCriteria(String criteria, Object value) {
         List<Tutor> filteredTutors = new ArrayList<>();
@@ -663,7 +666,7 @@ public class School {
             }
         }
     }
-   
+
     // Search for Tutors by Criteria
     private boolean matchesCriteria(Tutor tutor, String criteria, Object value) {
         return switch (criteria.toLowerCase()) {
@@ -682,7 +685,7 @@ public class School {
             default -> false;
         };
     }
-    
+
     // View All Tutors
     public void viewTutors() {
         if (tutors.isEmpty()) {
@@ -693,7 +696,7 @@ public class School {
             }
         }
     }
-   
+
     // remove a Tutor
     public void removeTutor(Long tutorId) {
         for (Tutor tutor : tutors) {
@@ -707,10 +710,10 @@ public class School {
     }
 
     // Add chapter to a tutor
-    public void addChapterToTutor(Long tutorId, Chapter chapter) {
+    public void addChapterToTutor(Long tutorId, Lesson Lesson) {
         for (Tutor tutor : tutors) {
             if (tutor.getId().equals(tutorId)) {
-                tutor.addChapter(chapter);
+                tutor.addLesson(Lesson);
                 System.out.println("Chapter added successfully to Tutor ID: " + tutorId);
                 return;
             }
@@ -718,83 +721,15 @@ public class School {
         System.out.println("Tutor not found.");
     }
 
-    // Remove chapter from a tutor
-    public void removeChapterFromTutor(Long tutorId, Chapter chapter) {
-        for (Tutor tutor : tutors) {
-            if (tutor.getId().equals(tutorId)) {
-                tutor.removeChapter(chapter.getLessonId());
-                System.out.println("Chapter removed successfully from Tutor ID: " + tutorId);
-                return;
-            }
-        }
-        System.out.println("Tutor not found.");
-    }
-
-    // Assign Tutor to a Student
-    public void assignTutorToStudent(Long tutorId, Long studentId) {
-        Tutor tutor = null;
-        Student student = null;
-
-        for (Tutor t : tutors) {
-            if (t.getId().equals(tutorId)) {
-                tutor = t;
-                break;
-            }
-        }
-
-        for (Student s : students) {
-            if (s.getId().equals(studentId)) {
-                student = s;
-                break;
-            }
-        }
-
-        if (tutor == null || student == null) {
-            System.out.println("Tutor or Student not found.");
-            return;
-        }
-
-        student.setTutor(tutor);
-        System.out.println("Tutor assigned successfully to Student ID: " + studentId);
-    }
-
-    // Unassign Tutor from a Student
-    public void unassignTutorFromStudent(Long studentId) {
-        for (Student student : students) {
-            if (student.getId().equals(studentId)) {
-                student.setTutor(null);
-                System.out.println("Tutor unassigned successfully from Student ID: " + studentId);
-                return;
-            }
-        }
-        System.out.println("Student not found.");
-    }
-
-    // View Tutor of a Student
-    public void viewTutorOfStudent(Long studentId) {
-        for (Student student : students) {
-            if (student.getId().equals(studentId)) {
-                Tutor tutor = student.getTutor();
-                if (tutor != null) {
-                    System.out.println("Tutor of Student ID " + studentId + ": " + tutor);
-                } else {
-                    System.out.println("No tutor assigned to Student ID " + studentId);
-                }
-                return;
-            }
-        }
-        System.out.println("Student not found.");
-    }
-
     // View Students of a Tutor
     public void viewStudentsOfTutor(Long tutorId) {
         for (Tutor tutor : tutors) {
             if (tutor.getId().equals(tutorId)) {
-                List<Student> assignedStudents = tutor.getAssignedStudents();
-                if (assignedStudents.isEmpty()) {
-                    System.out.println("No students assigned to Tutor ID " + tutorId);
+                List<Student> tutorStudents = tutor.getStudents();
+                if (tutorStudents.isEmpty()) {
+                    System.out.println("No students assigned to Tutor ID: " + tutorId);
                 } else {
-                    for (Student student : assignedStudents) {
+                    for (Student student : tutorStudents) {
                         System.out.println(student);
                     }
                 }
@@ -805,90 +740,74 @@ public class School {
     }
 
     // View Chapters of a Tutor
-    public void viewChaptersOfTutor(Long tutorId) {
-        for (Tutor tutor : tutors) {
-            if (tutor.getId().equals(tutorId)) {
-                tutor.viewAllChapters();
-                return;
-            }
-        }
-        System.out.println("Tutor not found.");
-    }
+    public void viewLessonsOfTutor(Long tutorId) {
 
-    // View Chapters by Topic of a Tutor
-    public void viewChaptersByTopicOfTutor(Long tutorId, String topic) {
-        for (Tutor tutor : tutors) {
-            if (tutor.getId().equals(tutorId)) {
-                tutor.viewChapterByTopic(topic);
-                return;
-            }
-        }
-        System.out.println("Tutor not found.");
     }
 
     // Assign Chapter to a Tutor
-    public void assignChapterToTutor(Long tutorId, Chapter chapter) {
-        for (Tutor tutor : tutors) {
-            if (tutor.getId().equals(tutorId)) {
-                tutor.assignChapter(chapter);
-                System.out.println("Chapter assigned successfully to Tutor ID: " + tutorId);
-                return;
-            }
-        }
-        System.out.println("Tutor not found.");
-    }
+    // public void assignChapterToTutor(Long tutorId, Chapter chapter) {
+    //     for (Tutor tutor : tutors) {
+    //         if (tutor.getId().equals(tutorId)) {
+    //             tutor.assignChapter(chapter);
+    //             System.out.println("Chapter assigned successfully to Tutor ID: " + tutorId);
+    //             return;
+    //         }
+    //     }
+    //     System.out.println("Tutor not found.");
+    // }
 
     // Unassign Chapter from a Tutor
-    public void unassignChapterFromTutor(Long tutorId, Chapter chapter) {
-        for (Tutor tutor : tutors) {
-            if (tutor.getId().equals(tutorId)) {
-                tutor.unassignChapter(chapter);
-                System.out.println("Chapter unassigned successfully from Tutor ID: " + tutorId);
-                return;
-            }
-        }
-        System.out.println("Tutor not found.");
-    }
+    // public void unassignChapterFromTutor(Long tutorId, Chapter chapter) {
+    //     for (Tutor tutor : tutors) {
+    //         if (tutor.getId().equals(tutorId)) {
+    //             tutor.unassignChapter(chapter);
+    //             System.out.println("Chapter unassigned successfully from Tutor ID: " + tutorId);
+    //             return;
+    //         }
+    //     }
+    //     System.out.println("Tutor not found.");
+    // }
 
     // Unassign all Chapters from a Tutor
-    public void unassignAllChaptersFromTutor(Long tutorId) {
-        for (Tutor tutor : tutors) {
-            if (tutor.getId().equals(tutorId)) {
-                tutor.unassignAllChapters();
-                System.out.println("All chapters unassigned successfully from Tutor ID: " + tutorId);
-                return;
-            }
-        }
-        System.out.println("Tutor not found.");
-    }
+    // public void unassignAllChaptersFromTutor(Long tutorId) {
+    //     for (Tutor tutor : tutors) {
+    //         if (tutor.getId().equals(tutorId)) {
+    //             tutor.unassignAllChapters();
+    //             System.out.println("All chapters unassigned successfully from Tutor ID: " + tutorId);
+    //             return;
+    //         }
+    //     }
+    //     System.out.println("Tutor not found.");
+    // }
 
     // Check if a Chapter is assigned to a Tutor
-    public void isChapterAssignedToTutor(Long tutorId, Chapter chapter) {
-        for (Tutor tutor : tutors) {
-            if (tutor.getId().equals(tutorId)) {
-                System.out.println("Chapter assigned to Tutor ID " + tutorId + ": " + tutor.isChapterAssigned(chapter));
-                return;
-            }
-        }
-        System.out.println("Tutor not found.");
-    }
+    // public void isChapterAssignedToTutor(Long tutorId, Chapter chapter) {
+    //     for (Tutor tutor : tutors) {
+    //         if (tutor.getId().equals(tutorId)) {
+    //             System.out.println("Chapter assigned to Tutor ID " + tutorId + ": " + tutor.isChapterAssigned(chapter));
+    //             return;
+    //         }
+    //     }
+    //     System.out.println("Tutor not found.");
+    // }
 
     // Check if all Chapters are assigned to at least one Tutor
     public void areAllChaptersAssignedToTutors() {
         for (Tutor tutor : tutors) {
-            System.out.println("All chapters assigned to Tutor ID " + tutor.getId() + ": " + tutor.areAllChaptersAssigned());
+            System.out.println(
+                    "All chapters assigned to Tutor ID " + tutor.getId() + ": " + tutor.areAllChaptersAssigned());
         }
     }
-    
+
     // String representation of the object
     @Override
     public String toString() {
         return "School ID: " + schoolID +
-               "\nSchool Name: " + schoolName +
-               "\nAddress: " + getFullAddress() +
-               "\nContact Person: " + contactPerson +
-               "\nEmail: " + email +
-               "\nPhone Number: " + phoneNumber;
+                "\nSchool Name: " + schoolName +
+                "\nAddress: " + getFullAddress() +
+                "\nContact Person: " + contactPerson +
+                "\nEmail: " + email +
+                "\nPhone Number: " + phoneNumber;
     }
 
     // Validate email format

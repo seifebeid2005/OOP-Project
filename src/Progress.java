@@ -145,8 +145,6 @@ public class Progress {
                 "Progress: " + calculateProgress() + "%" + "\n" +
                 "Grade: " + calculateGrade() + "\n";
 
-        FileIO fileIO = new FileIO();
-        fileIO.writeToFile("report_" + student.getId() + ".txt", report);
     }
 
 
