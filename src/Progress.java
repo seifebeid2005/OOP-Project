@@ -94,6 +94,7 @@ public class Progress {
 
     // Calculate the progress of the student
     public double calculateProgress() {
+        
         if (Score >= 80) {
             return 100;
         } else if (Score >= 60) {

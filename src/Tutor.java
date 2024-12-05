@@ -4,11 +4,11 @@ import java.util.List;
 
 public class Tutor extends Person {
 
-    private String subjectArea;       // Primary subject expertise
-    private LocalDate dateJoined;     // Date the tutor joined the institution
-    private String role;              // Tutor's role (e.g., Lead Tutor, Assistant Tutor)
-    private ArrayList<Lesson> lessons;     // List of Lessons the tutor teaches
-    private final int schoolID;       // School ID where the tutor is employed
+    private String subjectArea;            // Primary subject expertise
+    private LocalDate dateJoined;          // Date the tutor joined the institution
+    private Role roleEnum;                 // Tutor's role (enum type)
+    private final int schoolID;            // School ID where the tutor is employed
+    private ArrayList<Course> courses;     // Courses the tutor teaches
 
     public enum Role {
         LEAD_TUTOR,
@@ -16,30 +16,18 @@ public class Tutor extends Person {
         TUTOR
     }
 
-    // Update role to use the enum
-    private Role roleEnum;
-
     // Constructor
-    public Tutor(Long id, String name, String email, LocalDate dateOfBirth, String phone, String address, String username, String password,
-                 String subjectArea, LocalDate dateJoined, Role roleEnum, int schoolID) {
+    public Tutor(Long id, String name, String email, LocalDate dateOfBirth, String phone, String address,
+                 String username, String password, String subjectArea, LocalDate dateJoined, Role roleEnum, int schoolID) {
         super(id, name, email, dateOfBirth, phone, address, username, password);
         this.subjectArea = validateNotEmpty(subjectArea, "Subject area cannot be null or empty.");
         this.dateJoined = dateJoined != null ? dateJoined : LocalDate.now(); // Default to current date if null
         this.roleEnum = roleEnum != null ? roleEnum : Role.TUTOR; // Default to "TUTOR" if roleEnum is null
-        this.lessons = new ArrayList<>(); // Initialize Lessons list
+        this.courses = new ArrayList<>(); // Initialize courses list
         this.schoolID = schoolID;
     }
 
-    // Getter and Setter for roleEnum
-    public Role getRoleEnum() {
-        return roleEnum;
-    }
-
-    public void setRoleEnum(Role roleEnum) {
-        this.roleEnum = roleEnum;
-    }
-
-    // Getters and Setters
+    // Getter for subject area
     public String getSubjectArea() {
         return subjectArea;
     }
@@ -48,6 +36,7 @@ public class Tutor extends Person {
         this.subjectArea = validateNotEmpty(subjectArea, "Subject area cannot be null or empty.");
     }
 
+    // Getter for dateJoined
     public LocalDate getDateJoined() {
         return dateJoined;
     }
@@ -56,24 +45,16 @@ public class Tutor extends Person {
         this.dateJoined = dateJoined;
     }
 
-    public String getRole() {
-        return role;
+    // Getter for roleEnum
+    public Role getRoleEnum() {
+        return roleEnum;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleEnum(Role roleEnum) {
+        this.roleEnum = roleEnum;
     }
 
-    public List<Lesson> getLessons() {
-        return new ArrayList<>(lessons); // Return a copy for encapsulation
-    }
-
-    public void setLessons(List<Lesson> lessons) {
-        if (lessons != null) {
-            this.lessons = new ArrayList<>(lessons);
-        }
-    }
-
+    // Getter for schoolID
     public int getSchoolID() {
         return schoolID;
     }
@@ -81,6 +62,39 @@ public class Tutor extends Person {
     // Calculate years of experience based on dateJoined
     public int getYearsOfExperience() {
         return LocalDate.now().getYear() - dateJoined.getYear();
+    }
+
+    // Course Management Methods
+    public void addCourse(Course course) {
+        if (course == null) {
+            throw new IllegalArgumentException("Course cannot be null.");
+        }
+        courses.add(course);
+    }
+
+    public void removeCourse(long courseId) {
+        courses.removeIf(course -> course.getCourseId() == courseId);
+    }
+
+    public List<Course> getCourses() {
+        return new ArrayList<>(courses); // Return a copy for encapsulation
+    }
+
+    public void viewAllCourses() {
+        if (courses.isEmpty()) {
+            System.out.println("No courses to display.");
+        } else {
+            courses.forEach(System.out::println);
+        }
+    }
+
+    public Course findCourseById(long courseId) {
+        for (Course course : courses) {
+            if (course.getCourseId() == courseId) {
+                return course;
+            }
+        }
+        return null; // Return null if no course is found
     }
 
     // Helper method to validate non-empty fields
@@ -91,98 +105,14 @@ public class Tutor extends Person {
         return value;
     }
 
-    // Lesson Management Methods
-    public void addLesson(Lesson lesson) {
-        if (lesson != null) {
-            lessons.add(lesson);
-        }
-    }
-
-    public void removeLesson(int lessonId) {
-        lessons.removeIf(lesson -> lesson.getLessonId() == lessonId);
-    }
-
-    public void removeAllLessons() {
-        lessons.clear();
-    }
-
-    public void viewAllLessons() {
-        if (lessons.isEmpty()) {
-            System.out.println("No Lessons to display.");
-        } else {
-            lessons.forEach(System.out::println);
-        }
-    }
-
-    public void viewLessonByTopic(String topic) {
-        if (lessons.stream().noneMatch(lesson -> lesson.getLessonTitle().equalsIgnoreCase(topic))) {
-            System.out.println("No Lessons found for the topic: " + topic);
-        } else {
-            lessons.stream()
-                    .filter(lesson -> lesson.getLessonTitle().equalsIgnoreCase(topic))
-                    .forEach(System.out::println);
-        }
-    }
-
-    // Assign/Unassign Lesson Methods
-    public void assignLesson(Lesson lesson) {
-        if (lesson != null) {
-            lesson.setAssigned(true);
-        }
-    }
-
-    public void unassignLesson(Lesson lesson) {
-        if (lesson != null) {
-            lesson.setAssigned(false);
-        }
-    }
-
-    public void unassignAllLessons() {
-        lessons.forEach(lesson -> lesson.setAssigned(false));
-    }
-
-    public boolean isLessonAssigned(Lesson lesson) {
-        return lesson != null && lesson.isAssigned();
-    }
-
-    public boolean areAllLessonsAssigned() {
-        return lessons.stream().allMatch(Lesson::isAssigned);
-    }
-
-
-    // Student Progress and Achievement Viewing
-    public void viewStudentsProgress(Lesson lesson) {
-        if (lesson != null) {
-            lesson.viewStudentsProgress(schoolID);
-        }
-    }
-
-    public void viewStudentsProgress(String topic) {
-        lessons.stream()
-                .filter(lesson -> lesson.getLessonTitle().equalsIgnoreCase(topic))
-                .forEach(lesson -> lesson.viewStudentsProgress(schoolID));
-    }
-
-    public void viewStudentsAchievements(Lesson lesson) {
-        if (lesson != null) {
-            lesson.viewStudentsAchievements(schoolID);
-        }
-    }
-
-    public void viewStudentsAchievements(String topic) {
-        lessons.stream()
-                .filter(lesson -> lesson.getLessonTitle().equalsIgnoreCase(topic))
-                .forEach(lesson -> lesson.viewStudentsAchievements(schoolID));
-    }
-
-    // toString override to include Tutor-specific details
+    // Override toString to include Tutor-specific details
     @Override
     public String toString() {
         return super.toString() +
                 ", SubjectArea='" + subjectArea + '\'' +
                 ", DateJoined=" + dateJoined +
-                ", Role='" + role + '\'' +
+                ", Role='" + roleEnum + '\'' +
                 ", YearsOfExperience=" + getYearsOfExperience() +
-                ", LessonsCount=" + lessons.size();
+                ", CoursesCount=" + courses.size();
     }
 }

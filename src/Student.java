@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Student extends Person {
     private String preferredLanguage;
@@ -10,8 +11,8 @@ public class Student extends Person {
     private LocalDateTime registrationDate;
     private Integer schoolID;
     private static int lastGeneratedID = 0;
+    private ArrayList<Grade> marks;
 
-    // Static method to generate a unique ID
     private static long generateAutoID() {
         String year = String.valueOf(LocalDateTime.now().getYear()).substring(2); // Get last two digits of the year
         lastGeneratedID++; // Increment the last generated ID
@@ -127,6 +128,13 @@ public class Student extends Person {
 
     public void setSchoolID(Integer schoolID) {
         this.schoolID = schoolID;
+    }
+    public ArrayList<Grade> getMarks() {
+        return marks;
+    }
+
+    public void setMarks(ArrayList<Grade> marks) {
+        this.marks = marks;
     }
 
     
