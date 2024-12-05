@@ -349,7 +349,7 @@ public class Admin extends Person {
             case "username" -> tutor.getUsername().equals(value);
             case "subjectarea" -> tutor.getSubjectArea().equalsIgnoreCase((String) value);
             case "datejoined" -> tutor.getDateJoined().equals(value);
-            case "role" -> tutor.getRole().equalsIgnoreCase((String) value);
+            case "role" -> tutor.getRoleEnum().equals(Tutor.Role.valueOf((String) value));
             case "yearsofexperience" -> tutor.getYearsOfExperience() == (int) value;
             default -> false;
         };
@@ -966,12 +966,12 @@ public class Admin extends Person {
     }
     //------------------- Chapter Method -------------------
     
-    public void addChapterToTutor(Long tutorId, int schoolID, Chapter chapter) {
+    public void addChapterToTutor(Long tutorId, int schoolID, Course course) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
                 for (Tutor tutor : school.getTutors()) {
                     if (tutor.getId().equals(tutorId)) {
-                        tutor.addChapter(chapter);
+                        tutor.addCourse(course);
                         System.out.println("Chapter added successfully to tutor ID " + tutorId + " in school ID " + schoolID);
                         return;
                     }
@@ -989,7 +989,7 @@ public class Admin extends Person {
             if (school.getSchoolID() == schoolID) {
                 for (Tutor tutor : school.getTutors()) {
                     if (tutor.getId().equals(tutorId)) {
-                        tutor.removeChapter(chapterId);
+                        tutor.removeCourse(chapterId);
                         System.out.println("Chapter removed successfully from tutor ID " + tutorId + " in school ID " + schoolID);
                         return;
                     }
@@ -1006,7 +1006,7 @@ public class Admin extends Person {
         for (School school : schools) {
             for (Tutor tutor : school.getTutors()) {
                 if (tutor.getId().equals(tutorId)) {
-                    tutor.viewAllChapters();
+                    tutor.getCourses();
                     return;
                 }
             }
@@ -1020,7 +1020,7 @@ public class Admin extends Person {
             if (school.getSchoolID() == schoolID) {
                 for (Tutor tutor : school.getTutors()) {
                     if (tutor.getId().equals(tutorId)) {
-                        tutor.viewAllChapters();
+                        tutor.getCourses();
                         return;
                     }
                 }
@@ -1066,7 +1066,7 @@ public class Admin extends Person {
             if (school.getSchoolID() == schoolID) {
                 for (Tutor tutor : school.getTutors()) {
                     if (tutor.getId().equals(tutorId)) {
-                        System.out.println("Number of chapters for tutor ID " + tutorId + " in school ID " + schoolID + ": " + tutor.getChapters().size());
+                        System.out.println("Number of chapters for tutor ID " + tutorId + " in school ID " + schoolID + ": " + tutor.getCourses().size());
                         return;
                     }
                 }
@@ -1082,7 +1082,7 @@ public class Admin extends Person {
         int totalChapters = 0;
         for (School school : schools) {
             for (Tutor tutor : school.getTutors()) {
-                totalChapters += tutor.getChapters().size();
+                totalChapters += tutor.getCourses().size();
             }
         }
         System.out.println("Number of chapters in the system: " + totalChapters);
