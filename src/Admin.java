@@ -34,7 +34,7 @@ public class Admin extends Person {
     public void addTutorToSchool(Tutor tutor, int schoolID) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                school.getTutors().add(tutor);
+                school.getManage().getTutors().add(tutor);
                 System.out.println("Tutor added successfully to school ID " + schoolID);
                 return;
             }
@@ -146,7 +146,7 @@ public class Admin extends Person {
     private void removeTutorById(Long id , int schoolID) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-            List<Tutor> schoolTutors = school.getTutors();
+                List<Tutor> schoolTutors = school.getManage().getTutors();
             for (Tutor tutor : schoolTutors) {
                 if (tutor.getId().equals(id)) {
                 schoolTutors.remove(tutor);
@@ -165,7 +165,7 @@ public class Admin extends Person {
     private void removeTutorByName(String name, int schoolID) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                List<Tutor> schoolTutors = school.getTutors();
+                List<Tutor> schoolTutors = school.getManage().getTutors();
                 for (Tutor tutor : schoolTutors) {
                     if (tutor.getName().equalsIgnoreCase(name)) {
                         schoolTutors.remove(tutor);
@@ -185,7 +185,7 @@ public class Admin extends Person {
     private void removeTutorByEmail(String email, int schoolID) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                List<Tutor> schoolTutors = school.getTutors();
+                List<Tutor> schoolTutors = school.getManage().getTutors();
                 for (Tutor tutor : schoolTutors) {
                     if (tutor.getEmail().equalsIgnoreCase(email)) {
                         schoolTutors.remove(tutor);
@@ -205,7 +205,7 @@ public class Admin extends Person {
     private void removeTutorByUsername(String username, int schoolID) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                List<Tutor> schoolTutors = school.getTutors();
+                List<Tutor> schoolTutors = school.getManage().getTutors();
                 for (Tutor tutor : schoolTutors) {
                     if (tutor.getUsername().equalsIgnoreCase(username)) {
                         schoolTutors.remove(tutor);
@@ -222,10 +222,10 @@ public class Admin extends Person {
     }
    
     // Update Tutor Information
-    public void updateTutor(Long tutorId, String newName, String newEmail, String newPhone, String newAddress,
-            String newSubjectArea) {
+
+    public void updateTutor(Long tutorId, String newName, String newEmail, String newPhone, String newAddress,String newSubjectArea) {
         for (School school : schools) {
-            for (Tutor tutor : school.getTutors()) {
+            for (Tutor tutor : school.getManage().getTutors()) {
                 if (tutor.getId().equals(tutorId)) {
                     if (newName != null) {
                         tutor.setName(newName);
@@ -262,7 +262,7 @@ public class Admin extends Person {
         int choice = input.nextInt();
         input.nextLine(); // Consume newline
 
-        String newValue = null;
+        String newValue;
         switch (choice) {
             case 1 -> {
                 System.out.println("Enter new Name: ");
@@ -298,7 +298,7 @@ public class Admin extends Person {
     public void assignTutorRole(Long tutorId, Tutor.Role roleEnum, int schoolID) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                for (Tutor tutor : school.getTutors()) {
+                for (Tutor tutor : school.getManage().getTutors()) {
                     if (tutor.getId().equals(tutorId)) {
                         tutor.setRoleEnum(roleEnum);
                         System.out.println(
@@ -318,7 +318,7 @@ public class Admin extends Person {
         List<Tutor> filteredTutors = new ArrayList<>();
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                for (Tutor tutor : school.getTutors()) {
+                for (Tutor tutor : school.getManage().getTutors()) {
                     if (matchesCriteria(tutor, criteria, value)) {
                         filteredTutors.add(tutor);
                     }
@@ -361,7 +361,7 @@ public class Admin extends Person {
             System.out.println("No tutors to display.");
         } else {
             for (School school : schools) {
-                for (Tutor tutor : school.getTutors()) {
+                for (Tutor tutor : school.getManage().getTutors()) {
                     System.out.println(tutor.toString());
                 }
             }
@@ -372,7 +372,7 @@ public class Admin extends Person {
     public void removeTutor(Long tutorId, int schoolID) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                List<Tutor> schoolTutors = school.getTutors();
+                List<Tutor> schoolTutors = school.getManage().getTutors();
                 for (Tutor tutor : schoolTutors) {
                     if (tutor.getId().equals(tutorId)) {
                         schoolTutors.remove(tutor);
@@ -393,24 +393,17 @@ public class Admin extends Person {
     public void createStudentAccount() {
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Enter Student ID: ");
-        Long id = input.nextLong();
-        input.nextLine(); // Consume newline
-
         System.out.println("Enter Student Name: ");
         String name = input.nextLine();
 
         System.out.println("Enter Student Email: ");
-        String email = input.nextLine();
-
-        System.out.println("Enter Student Date of Birth (YYYY-MM-DD): ");
-        LocalDate dateOfBirth = LocalDate.parse(input.nextLine());
+        String studentEmail = input.nextLine();
 
         System.out.println("Enter Student Phone: ");
         String phone = input.nextLine();
 
         System.out.println("Enter Student Address: ");
-        String address = input.nextLine();
+        String studentAddress = input.nextLine();
 
         System.out.println("Enter Student Username: ");
         String username = input.nextLine();
@@ -419,30 +412,26 @@ public class Admin extends Person {
         String password = input.nextLine();
 
         System.out.println("Enter Student School ID: ");
-        int schoolID = input.nextInt();
-        input.nextLine(); // Consume newline
+        int studentSchoolID = input.nextInt();
+        input.nextLine(); // Consume newline after int input
 
-        System.out.println("Enter Student Current Level: ");
-        int currentLevel = input.nextInt();
-        input.nextLine(); // Consume newline
+        System.out.println("Enter Student Date of Birth (YYYY-MM-DD): ");
+        LocalDate dateOfBirth = LocalDate.parse(input.nextLine());
 
-        System.out.println("Enter Student Registration Date (YYYY-MM-DD): ");
-        LocalDate registrationDate = LocalDate.parse(input.nextLine());
-
-        // Create Student object and add to the list
-        Student student = new Student(name, email, phone, schoolID, currentLevel, address, id.intValue(), dateOfBirth,
-                registrationDate.atStartOfDay(), username, password, null, null, null);
-        addStudent(student , schoolID);
+        // Create the student object with the registration date handled by the constructor
+        Student student = new Student(name, studentEmail, dateOfBirth, studentSchoolID, phone, studentAddress, username, password);
+        addStudent(student, studentSchoolID);
         System.out.println("Student account created successfully!");
         input.close();
     }
   
     // Add a Student to a specific school
+
     public void addStudent(Student student, int schoolID) {
         if (student != null) {
             for (School school : schools) {
                 if (school.getSchoolID() == schoolID) {
-                    school.getStudents().add(student);
+                    school.getManage().getStudents().add(student);
                     System.out.println("Student added successfully to school ID " + schoolID);
                     return;
                 }
@@ -494,7 +483,7 @@ public class Admin extends Person {
     private void removeStudentById(Long id, int schoolID) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                List<Student> schoolStudents = school.getStudents();
+                List<Student> schoolStudents = school.getManage().getStudents();
                 for (Student student : schoolStudents) {
                     if (student.getId().equals(id)) {
                         schoolStudents.remove(student);
@@ -513,7 +502,7 @@ public class Admin extends Person {
     private void removeStudentByName(String name, int schoolID) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                List<Student> schoolStudents = school.getStudents();
+                List<Student> schoolStudents = school.getManage().getStudents();
                 for (Student student : schoolStudents) {
                     if (student.getName().equalsIgnoreCase(name)) {
                         schoolStudents.remove(student);
@@ -532,7 +521,7 @@ public class Admin extends Person {
     private void removeStudentByEmail(String email, int schoolID) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                List<Student> schoolStudents = school.getStudents();
+                List<Student> schoolStudents = school.getManage().getStudents();
                 for (Student student : schoolStudents) {
                     if (student.getEmail().equalsIgnoreCase(email)) {
                         schoolStudents.remove(student);
@@ -551,7 +540,7 @@ public class Admin extends Person {
     private void removeStudentByUsername(String username, int schoolID) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                List<Student> schoolStudents = school.getStudents();
+                List<Student> schoolStudents = school.getManage().getStudents();
                 for (Student student : schoolStudents) {
                     if (student.getUsername().equalsIgnoreCase(username)) {
                         schoolStudents.remove(student);
@@ -567,10 +556,9 @@ public class Admin extends Person {
     }
 
     // Update Student Information
-    public void updateStudent(Long studentId, String newName, String newEmail, String newPhone, String newAddress,
-            int newSchoolID, int newCurrentLevel , int schoolID) {
+    public void updateStudent(Long studentId, String newName, String newEmail, String newPhone, String newAddress,int newSchoolID, int newCurrentLevel , int schoolID) {
         for (School school : schools) {
-            for (Student student : school.getStudents()) {
+            for (Student student : school.getManage().getStudents()) {
                 if (school.getSchoolID() == schoolID) {
                     if (student.getId().equals(studentId)) {
                         if (newName != null) {
@@ -587,9 +575,6 @@ public class Admin extends Person {
                         }
                         if (newSchoolID != 0) {
                             student.setSchoolID(newSchoolID);
-                        }
-                        if (newCurrentLevel != 0) {
-                            student.setCurrentLevel(newCurrentLevel);
                         }
                         System.out.println("Student updated successfully.");
                         return;
@@ -658,7 +643,7 @@ public class Admin extends Person {
         List<Student> filteredStudents = new ArrayList<>();
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                for (Student student : school.getStudents()) {
+                for (Student student : school.getManage().getStudents()) {
                     if (matchesCriteria(student, criteria, value)) {
                         filteredStudents.add(student);
                     }
@@ -687,7 +672,6 @@ public class Admin extends Person {
             case "address" -> student.getAddress().equalsIgnoreCase((String) value);
             case "username" -> student.getUsername().equals(value);
             case "schoolid" -> student.getSchoolID() == (int) value;
-            case "currentlevel" -> student.getCurrentLevel() == (int) value;
             case "registrationdate" -> student.getRegistrationDate().equals(value);
             default -> false;
         };
@@ -697,9 +681,9 @@ public class Admin extends Person {
     public void viewStudents() {
         boolean hasStudents = false;
         for (School school : schools) {
-            if (!school.getStudents().isEmpty()) {
+            if (!school.getManage().getStudents().isEmpty()) {
                 hasStudents = true;
-                for (Student student : school.getStudents()) {
+                for (Student student : school.getManage().getStudents()) {
                     System.out.println(student);
                 }
             }
@@ -724,7 +708,7 @@ public class Admin extends Person {
     public Student searchStudentById(Long studentId, int schoolID) {
         School school = searchSchoolById(schoolID);
         if (school != null) {
-            for (Student student : school.getStudents()) {
+            for (Student student : school.getManage().getStudents()) {
                 if (student.getId().equals(studentId)) {
                     return student;
                 }
@@ -782,7 +766,7 @@ public class Admin extends Person {
     
     // View All Schools
     public void viewSchools() {
-        if (Admin.getSchools().isEmpty()) {
+        if (getSchools().isEmpty()) {
             System.out.println("No schools to display.");
         } else {
             for (School school : Admin.getSchools()) {
@@ -932,7 +916,7 @@ public class Admin extends Person {
         List<Student> filteredStudents = new ArrayList<>();
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                for (Student student : school.getStudents()) {
+                for (Student student : school.getManage().getStudents()) {
                     filteredStudents.add(student);
                 }
                 break;
@@ -952,7 +936,7 @@ public class Admin extends Person {
     public void viewTutorsBySchool(int schoolID) {
         School school = searchSchoolById(schoolID);
         if (school != null) {
-            List<Tutor> tutors = school.getTutors();
+            List<Tutor> tutors = school.getManage().getTutors();
             if (tutors.isEmpty()) {
                 System.out.println("No tutors found for the given school ID.");
             } else {
@@ -969,7 +953,7 @@ public class Admin extends Person {
     public void addChapterToTutor(Long tutorId, int schoolID, Course course) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                for (Tutor tutor : school.getTutors()) {
+                for (Tutor tutor : school.getManage().getTutors()) {
                     if (tutor.getId().equals(tutorId)) {
                         tutor.addCourse(course);
                         System.out.println("Chapter added successfully to tutor ID " + tutorId + " in school ID " + schoolID);
@@ -987,7 +971,7 @@ public class Admin extends Person {
     public void removeChapterFromTutor(Long tutorId, int schoolID, int chapterId) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                for (Tutor tutor : school.getTutors()) {
+                for (Tutor tutor : school.getManage().getTutors()) {
                     if (tutor.getId().equals(tutorId)) {
                         tutor.removeCourse(chapterId);
                         System.out.println("Chapter removed successfully from tutor ID " + tutorId + " in school ID " + schoolID);
@@ -1004,7 +988,7 @@ public class Admin extends Person {
     // View all chapters of a tutor
     public void viewChaptersByTutor(Long tutorId) {
         for (School school : schools) {
-            for (Tutor tutor : school.getTutors()) {
+            for (Tutor tutor : school.getManage().getTutors()) {
                 if (tutor.getId().equals(tutorId)) {
                     tutor.getCourses();
                     return;
@@ -1018,7 +1002,7 @@ public class Admin extends Person {
     public void viewChaptersByTutorAndSchool(Long tutorId, int schoolID) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                for (Tutor tutor : school.getTutors()) {
+                for (Tutor tutor : school.getManage().getTutors()) {
                     if (tutor.getId().equals(tutorId)) {
                         tutor.getCourses();
                         return;
@@ -1037,7 +1021,7 @@ public class Admin extends Person {
     public void viewStudentCountBySchool(int schoolID) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                System.out.println("Number of students in school ID " + schoolID + ": " + school.getStudents().size());
+                System.out.println("Number of students in school ID " + schoolID + ": " + school.getManage().getStudents().size());
                 return;
             }
         }
@@ -1048,7 +1032,7 @@ public class Admin extends Person {
     public void viewTutorCountBySchool(int schoolID) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                System.out.println("Number of tutors in school ID " + schoolID + ": " + school.getTutors().size());
+                System.out.println("Number of tutors in school ID " + schoolID + ": " + school.getManage().getTutors().size());
                 return;
             }
         }
@@ -1064,7 +1048,7 @@ public class Admin extends Person {
     public void viewChapterCountByTutor(Long tutorId, int schoolID) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                for (Tutor tutor : school.getTutors()) {
+                for (Tutor tutor : school.getManage().getTutors()) {
                     if (tutor.getId().equals(tutorId)) {
                         System.out.println("Number of chapters for tutor ID " + tutorId + " in school ID " + schoolID + ": " + tutor.getCourses().size());
                         return;
@@ -1081,7 +1065,7 @@ public class Admin extends Person {
     public void viewChapterCount() {
         int totalChapters = 0;
         for (School school : schools) {
-            for (Tutor tutor : school.getTutors()) {
+            for (Tutor tutor : school.getManage().getTutors()) {
                 totalChapters += tutor.getCourses().size();
             }
         }
@@ -1092,7 +1076,7 @@ public class Admin extends Person {
     public void viewStudentCount() {
         int totalStudents = 0;
         for (School school : schools) {
-            totalStudents += school.getStudents().size();
+            totalStudents += school.getManage().getStudents().size();
         }
         System.out.println("Number of students in the system: " + totalStudents);
     }
@@ -1101,7 +1085,7 @@ public class Admin extends Person {
     public void viewTutorCount() {
         int totalTutors = 0;
         for (School school : schools) {
-            totalTutors += school.getTutors().size();
+            totalTutors += school.getManage().getTutors().size();
         }
         System.out.println("Number of tutors in the system: " + totalTutors);
     }   
@@ -1110,7 +1094,7 @@ public class Admin extends Person {
     public void compareStudentCountBySchool(int schoolID, int studentCount) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                int actualCount = school.getStudents().size();
+                int actualCount = school.getManage().getStudents().size();
                 if (actualCount == studentCount) {
                     System.out.println("The number of students in school ID " + schoolID + " matches the expected count.");
                 } else if (actualCount > studentCount) {
@@ -1128,7 +1112,7 @@ public class Admin extends Person {
     public void compareTutorCountBySchool(int schoolID, int tutorCount) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
-                int actualCount = school.getTutors().size();
+                int actualCount = school.getManage().getTutors().size();
                 if (actualCount == tutorCount) {
                     System.out.println("The number of tutors in school ID " + schoolID + " matches the expected count.");
                 } else if (actualCount > tutorCount) {

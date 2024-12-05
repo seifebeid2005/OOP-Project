@@ -1,0 +1,31 @@
++--------------------------------+
+|            Quiz                |
++--------------------------------+
+| - quiz_id: int                 |
+| - quiz_title: String           |
+| - lesson_id: int               |
+| - number_of_questions: int     |
+| - passing_score: float         |
+| - course_title: String         |
+| - tutor_name: String           |
+| - questions: List<Question>    |
++--------------------------------+
+| + getQuiz_id(): int            |
+| + getQuiz_title(): String      |
+| + getLesson_id(): int          |
+| + getNumber_of_questions(): int|
+| + getPassing_score(): float    |
+| + getCourse_title(): String    |
+| + setCourse_title(String)      |
+| + getTutor_name(): String      |
+| + setTutor_name(String)        |
+| + setQuiz_id(int)              |
+| + setQuiz_title(String)        |
+| + setLesson_id(int)            |
+| + setPassing_score(float)      |
+| + addQuestion(Question)        |
+| + removeQuestion(int)          |
+| + viewQuestions()              |
+| + linkToLesson(int)            |
+| + assignTutor(String)          |
++--------------------------------+

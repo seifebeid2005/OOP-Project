@@ -1,27 +1,30 @@
+
 import java.util.ArrayList;
 
 public class Course {
+
     private long courseId;
     private String courseName;
     private String courseDescription;
     private Integer courseRequiredProgress;
     private Boolean courseIsActive;
     private ArrayList<Lesson> lessons = new ArrayList<>();
-    private ArrayList<Tutor> tutors = new ArrayList<>(); // Instance-specific list of tutors
+    private ArrayList<Tutor> tutors = new ArrayList<>();
+    private ArrayList<Student> students = new ArrayList<>();
 
     // Constructors
     public Course() {
     }
 
     public Course(long courseId, String courseName, String courseDescription, Integer courseRequiredProgress, Boolean courseIsActive) {
-        setCourseId(courseId);
-        setCourseName(courseName);
-        setCourseDescription(courseDescription);
-        setCourseRequiredProgress(courseRequiredProgress);
-        setCourseIsActive(courseIsActive);
+        this.courseId = courseId;
+        this.courseName = courseName;
+        this.courseDescription = courseDescription;
+        this.courseRequiredProgress = courseRequiredProgress;
+        this.courseIsActive = courseIsActive;
     }
 
-    // Tutor Management for Specific Course
+    // Tutor Management
     public void assignTutor(Tutor tutor) {
         if (tutor == null) {
             throw new IllegalArgumentException("Tutor cannot be null.");
@@ -42,7 +45,7 @@ public class Course {
     }
 
     public ArrayList<Tutor> getAssignedTutors() {
-        return new ArrayList<>(tutors); // Return a copy to maintain encapsulation
+        return new ArrayList<>(tutors); // Return a copy for encapsulation
     }
 
     public boolean isTutorAssigned(Tutor tutor) {
@@ -74,28 +77,60 @@ public class Course {
         lessons.removeIf(lesson -> lesson.getLessonId() == lessonId);
     }
 
-    // Override Methods
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Course {")
-               .append("courseId=").append(courseId)
-               .append(", courseName='").append(courseName).append('\'')
-               .append(", courseDescription='").append(courseDescription).append('\'')
-               .append(", courseRequiredProgress=").append(courseRequiredProgress)
-               .append(", courseIsActive=").append(courseIsActive)
-               .append(", lessonsCount=").append(lessons.size())
-               .append(", tutors=[");
+    // Student Management
+    public void enrollStudent(Student student) {
+        if (student == null) {
+            throw new IllegalArgumentException("Student cannot be null.");
+        }
+        if (students.contains(student)) {
+            throw new IllegalArgumentException("Student is already enrolled in this course.");
+        }
+        students.add(student);
+        System.out.println("Student enrolled successfully: " + student.getName());
+    }
 
-        // Add tutor details
-        for (Tutor tutor : tutors) {
-            builder.append(tutor.getName()).append(", ");
+    public void removeStudent(Student student) {
+        if (student == null) {
+            throw new IllegalArgumentException("Student cannot be null.");
         }
-        if (!tutors.isEmpty()) {
-            builder.setLength(builder.length() - 2); // Remove trailing comma and space
+        if (!students.remove(student)) {
+            System.out.println("Student not found in this course.");
+        } else {
+            System.out.println("Student removed successfully: " + student.getName());
         }
-        builder.append("]}");
-        return builder.toString();
+    }
+
+    public Student findStudentById(long studentId) {
+        for (Student student : students) {
+            if (student.getId() == studentId) {
+                return student;
+            }
+        }
+        return null; // Student not found
+    }
+
+    public boolean isStudentEnrolled(Student student) {
+        return students.contains(student);
+    }
+
+    public ArrayList<Student> getEnrolledStudents() {
+        return new ArrayList<>(students); // Return a copy for encapsulation
+    }
+
+    // Course Progress and Completion
+    public double calculateStudentProgress(Student student) {
+        if (!students.contains(student)) {
+            throw new IllegalArgumentException("Student is not enrolled in this course.");
+        }
+        double completedProgress = student.getProgressLevel(); // Assume student progress is tracked by a `progressLevel`
+        return (completedProgress / (double) courseRequiredProgress) * 100;
+    }
+
+    public boolean isCourseComplete(Student student) {
+        if (!students.contains(student)) {
+            throw new IllegalArgumentException("Student is not enrolled in this course.");
+        }
+        return student.getProgressLevel() >= courseRequiredProgress;
     }
 
     // Getters and Setters for Course Fields
@@ -158,5 +193,28 @@ public class Course {
             throw new IllegalArgumentException("Course Active status cannot be null.");
         }
         this.courseIsActive = courseIsActive;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Course {")
+                .append("courseId=").append(courseId)
+                .append(", courseName='").append(courseName).append('\'')
+                .append(", courseDescription='").append(courseDescription).append('\'')
+                .append(", courseRequiredProgress=").append(courseRequiredProgress)
+                .append(", courseIsActive=").append(courseIsActive)
+                .append(", lessonsCount=").append(lessons.size())
+                .append(", tutors=[");
+
+        // Add tutor details
+        for (Tutor tutor : tutors) {
+            builder.append(tutor.getName()).append(", ");
+        }
+        if (!tutors.isEmpty()) {
+            builder.setLength(builder.length() - 2); // Remove trailing comma and space
+        }
+        builder.append("], studentsCount=").append(students.size()).append(" }");
+        return builder.toString();
     }
 }

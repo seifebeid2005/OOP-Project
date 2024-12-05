@@ -1,21 +1,14 @@
-/*For the Admin, User, and Tutor classes 
-we have a lot of similarities in the attributes. 
-We can create a superclass called Human and have the Admin, User, and Tutor classes inherit 
-from the Human class. This way we can avoid code duplication and make our code more maintainable.*/
-//UML Diagram
-
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Date;
 import java.util.regex.Pattern;
 
-public class Person {
+public abstract class Person {
 
     private final Long id;
     private String name;
     private String email;
-    private final  Date dateAdded;
+    private final Date dateAdded;
     private LocalDate dateOfBirth;
     private String phone;
     private String address;
@@ -171,7 +164,7 @@ public class Person {
     }
 
     @Override
-    public String toString() {
+    public  String toString() {
         return "Person { "
                 + "ID=" + id
                 + ", Name='" + name + '\''

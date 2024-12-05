@@ -1,70 +1,39 @@
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Student extends Person {
-    private String preferredLanguage;
-    private Integer currentLevel;
-    private Integer progressLevel;
-    private String achievements;
-    private LocalDateTime registrationDate;
-    private Integer schoolID;
+
+    private LocalDate registrationDate;
+    private int schoolID;
     private static int lastGeneratedID = 0;
     private ArrayList<Grade> marks;
+    private ArrayList<Course> courses;
+    private Progress progress;
 
     private static long generateAutoID() {
-        String year = String.valueOf(LocalDateTime.now().getYear()).substring(2); // Get last two digits of the year
+        String year = String.valueOf(LocalDate.now().getYear()).substring(2); // Get last two digits of the year
         lastGeneratedID++; // Increment the last generated ID
         return Long.parseLong(year + String.format("%04d", lastGeneratedID)); // Combine year and incremented number
     }
 
-    // Constructor
-    public Student(String name, String email, String preferredLanguage, Integer currentLevel, Integer progressLevel,
-            String achievements, Integer schoolID, LocalDate dateOfBirth, LocalDateTime registrationDate,
-            String phone, String address, String username, String password, Tutor tutor) {
-
-        super(generateAutoID(), name, email, dateOfBirth, phone, address, username, password); // Pass generated ID to the superclass
-        validatePreferredLanguage(preferredLanguage);
-        validateCurrentLevel(currentLevel);
-        validateProgressLevel(progressLevel);
+    public Student(String name, String email, LocalDate dateOfBirth, int schoolID, String phone, String address, String username, String password) {
+        super(generateAutoID(), name, email, dateOfBirth, phone, address, username, password);
         validateSchoolID(schoolID);
-
-        this.preferredLanguage = preferredLanguage;
-        this.currentLevel = currentLevel;
-        this.progressLevel = progressLevel;
-        this.achievements = achievements != null ? achievements : ""; // Allow achievements to be null
-        this.registrationDate = (registrationDate != null) ? registrationDate : LocalDateTime.now(); // Use passed registrationDate or default to now
+        this.registrationDate = LocalDate.now();  // Use current date if null
         this.schoolID = schoolID;
-    }
-
-    // Validation Methods
-
-    private void validatePreferredLanguage(String preferredLanguage) {
-        if (preferredLanguage == null || preferredLanguage.isEmpty()) {
-            throw new IllegalArgumentException("Preferred language cannot be null or empty.");
-        }
-    }
-
-    private void validateCurrentLevel(Integer currentLevel) {
-        if (currentLevel == null || currentLevel <= 0) {
-            throw new IllegalArgumentException("Current level must be a positive integer.");
-        }
-    }
-
-    private void validateProgressLevel(Integer progressLevel) {
-        if (progressLevel < 0 || progressLevel > 100) {
-            throw new IllegalArgumentException("Progress level must be between 0 and 100.");
-        }
+        this.courses = new ArrayList<>();
+        this.marks = new ArrayList<>();
     }
 
     private void validateSchoolID(Integer schoolID) {
-        if (schoolID == null || schoolID <= 0) {
+        if (schoolID <= 0) {
             throw new IllegalArgumentException("School ID must be a positive integer.");
         }
     }
 
-    // Implementations for the methods
+    // Methods related to Student actions
     public void login() {
         System.out.println(getName() + " logged in.");
     }
@@ -81,45 +50,32 @@ public class Student extends Person {
         System.out.println(getName() + " updated their profile.");
     }
 
-    // Getters and Setters
-    public String getPreferredLanguage() {
-        return preferredLanguage;
+    // Methods related to student progress
+    public void addProgress(Progress progress) {
+        if (progress != null) {
+            this.progress = progress;  // Adds a progress record for the student
+            System.out.println("Progress added for " + getName());
+        } else {
+            System.out.println("Progress cannot be null.");
+        }
     }
 
-    public void setPreferredLanguage(String preferredLanguage) {
-        this.preferredLanguage = preferredLanguage;
+    public double getProgressLevel() {
+        return progress.getScore();
     }
 
-    public Integer getCurrentLevel() {
-        return currentLevel;
+    public void enrollInCourse(Course course) {
+        if (!courses.contains(course)) {
+            courses.add(course);
+            System.out.println(getName() + " enrolled in " + course.getCourseName());
+        } else {
+            System.out.println(getName() + " is already enrolled in " + course.getCourseName());
+        }
     }
 
-    public void setCurrentLevel(Integer currentLevel) {
-        this.currentLevel = currentLevel;
-    }
-
-    public Integer getProgressLevel() {
-        return progressLevel;
-    }
-
-    public void setProgressLevel(Integer progressLevel) {
-        this.progressLevel = progressLevel;
-    }
-
-    public String getAchievements() {
-        return achievements;
-    }
-
-    public void setAchievements(String achievements) {
-        this.achievements = achievements;
-    }
-
-    public LocalDateTime getRegistrationDate() {
+    // Getter and setter methods for attributes
+    public LocalDate getRegistrationDate() {
         return registrationDate;
-    }
-
-    public void setRegistrationDate(LocalDateTime registrationDate) {
-        this.registrationDate = registrationDate;
     }
 
     public Integer getSchoolID() {
@@ -129,20 +85,22 @@ public class Student extends Person {
     public void setSchoolID(Integer schoolID) {
         this.schoolID = schoolID;
     }
+
     public ArrayList<Grade> getMarks() {
         return marks;
     }
 
-    public void setMarks(ArrayList<Grade> marks) {
-        this.marks = marks;
+    public ArrayList<Course> getCourses() {
+        return courses;
     }
 
-    
+    @Override
     public String toString() {
-        return super.toString() + String.format(
-                ", preferredLanguage='%s', currentLevel=%d, progressLevel=%d, achievements='%s', " +
-                        "registrationDate='%s', schoolID=%d}",
-                preferredLanguage, currentLevel, progressLevel, achievements,
-                registrationDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), schoolID);
+        return "Student{"
+                + "registrationDate=" + registrationDate
+                + ", schoolID=" + schoolID
+                + ", marks=" + marks
+                + ", courses=" + courses
+                + "} " + super.toString();
     }
 }
