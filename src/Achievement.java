@@ -3,7 +3,7 @@ import java.util.Objects;
 
 public class Achievement {
     private static long idCounter = 1000L; // Starting sequence for IDs
-    private long achievementID;
+    private final long achievementID;
     private String achievementName;
     private String achievementDescription;
     private LocalDateTime achievementDateAchieved;
@@ -13,11 +13,11 @@ public class Achievement {
     // Constructor
     public Achievement(String achievementName, String achievementDescription, LocalDateTime achievementDateAchieved, long studentID, String type) {
         this.achievementID = generateUniqueID();
-        setAchievementName(achievementName);
-        setAchievementDescription(achievementDescription);
-        setAchievementDateAchieved(achievementDateAchieved);
-        setStudentID(studentID);
-        setType(type); // Validate and set type
+        this.achievementName = achievementName;
+        this.achievementDescription = achievementDescription;
+        this.achievementDateAchieved = achievementDateAchieved;
+        this.studentID = studentID;
+        this.type = type; // Validate and set type
     }
 
     public static synchronized long generateUniqueID() {
