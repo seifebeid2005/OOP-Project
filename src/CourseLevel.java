@@ -1,15 +1,18 @@
+import java.util.ArrayList;
+
 
 public class CourseLevel {
-    private Long courseLevelId;
+    private long courseLevelId;
     private String courseLevelName;
     private String courseLevelDescription;
     private Integer courseLevelRequiredProgress;
     private Boolean courseLevelIsActive;
+    private ArrayList<Chapter> chapters = new ArrayList<>();
 
     public CourseLevel() {
     }
 
-    public CourseLevel(Long courseLevelId, String courseLevelName, String courseLevelDescription, Integer courseLevelRequiredProgress, Boolean courseLevelIsActive) {
+    public CourseLevel(long courseLevelId, String courseLevelName, String courseLevelDescription, Integer courseLevelRequiredProgress, Boolean courseLevelIsActive) {
         setCourseLevelId(courseLevelId);
         setCourseLevelName(courseLevelName);
         setCourseLevelDescription(courseLevelDescription);
@@ -17,17 +20,17 @@ public class CourseLevel {
         setCourseLevelIsActive(courseLevelIsActive);
     }
 
-    public Long getCourseLevelId() {
+    public long getCourseLevelId() {
         return courseLevelId;
     }
 
-    public void setCourseLevelId(Long courseLevelId) {
-        if (courseLevelId == null || courseLevelId <= 0) {
+    public void setCourseLevelId(long courseLevelId) {
+        if (courseLevelId <= 0) {
             throw new IllegalArgumentException("Course Level ID must be a positive number.");
-            //print error message
         }
         this.courseLevelId = courseLevelId;
     }
+    
 
     public String getCourseLevelName() {
         return courseLevelName;
@@ -79,6 +82,26 @@ public class CourseLevel {
         this.courseLevelIsActive = courseLevelIsActive;
     }
 
+    public void addChapter(Chapter chapter) {
+        if (chapter == null) {
+            throw new IllegalArgumentException("Chapter cannot be null.");
+        }
+        chapters.add(chapter);
+    }
+
+    public ArrayList<Chapter> getChapters() {
+        return new ArrayList<>(chapters); // Return a copy to maintain encapsulation
+    }
+
+    public Chapter findChapterById(long chapterId) {
+        for (Chapter chapter : chapters) {
+            if (chapter.getLessonID() == chapterId) {
+                return chapter;
+            }            
+        }
+        return null; // Or throw an exception if preferred
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -86,7 +109,7 @@ public class CourseLevel {
         if (o == null || getClass() != o.getClass())
             return false;
         CourseLevel that = (CourseLevel) o;
-        return courseLevelId.equals(that.courseLevelId);
+        return courseLevelId == that.courseLevelId;
     }
 
 
@@ -101,4 +124,3 @@ public class CourseLevel {
                '}';
     }
 }
-
