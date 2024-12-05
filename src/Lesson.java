@@ -1,4 +1,4 @@
-import java.util.List;
+
 import java.util.ArrayList;
 
 public class Lesson {
@@ -6,27 +6,12 @@ public class Lesson {
     private int lessonId;
     private String lessonTitle;
     private String lessonDescription;
-    private int levelId;
-    private int duration;
-    private String language;
-    private String lessonType;
-    private int tutorId;
-    private String materials;
-    private boolean assigned;
     private ArrayList<Quiz> quizzes = new ArrayList<>();
-    private int Grade;
 
-    public Lesson(int lessonId, String lessonTitle, String lessonDescription, int levelId, int duration, String language, String lessonType, int tutorId) {
+    public Lesson(int lessonId, String lessonTitle, String lessonDescription) {
         this.lessonId = lessonId;
         this.lessonTitle = lessonTitle;
         this.lessonDescription = lessonDescription;
-        this.levelId = levelId;
-        this.duration = duration;
-        this.language = language;
-        this.lessonType = lessonType;
-        this.tutorId = tutorId;
-        this.materials = "";
-        this.assigned = false; // Default to unassigned
     }
 
     // Getters and Setters
@@ -54,109 +39,43 @@ public class Lesson {
         this.lessonDescription = lessonDescription;
     }
 
-    public int getLevelId() {
-        return levelId;
-    }
-
-    public void setLevelId(int levelId) {
-        this.levelId = levelId;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public String getLessonType() {
-        return lessonType;
-    }
-
-    public void setLessonType(String lessonType) {
-        this.lessonType = lessonType;
-    }
-
-    public int getTutorId() {
-        return tutorId;
-    }
-
-    public void setTutorId(int tutorId) {
-        this.tutorId = tutorId;
-    }
-
-    public String getMaterials() {
-        return materials;
-    }
-
-    public void setMaterials(String materials) {
-        this.materials = materials;
-    }
-
-    public int getGrade() {
-        return Grade;
-    }
-
-    public void setGrade(int grade) {
-        Grade = grade;
-    }
-
-    // Additional methods
-
-    public void addMaterial(String material) {
-        if (!materials.isEmpty()) {
-            materials += ", ";
+    // Add a quiz to the lesson
+    public void addQuiz(Quiz quiz) {
+        if (quiz != null) {
+            quizzes.add(quiz);
+            System.out.println("Quiz added successfully: " + quiz.getQuiz_title());
+        } else {
+            System.out.println("Cannot add a null quiz.");
         }
-        materials += material;
     }
 
-    public void removeMaterial(String material) {
-        materials = String.join(", ",
-                List.of(materials.split(", "))
-                        .stream()
-                        .filter(mat -> !mat.equals(material))
-                        .toArray(String[]::new));
+    // Remove a quiz from the lesson
+    public void removeQuiz(int quizId) {
+        boolean removed = quizzes.removeIf(q -> q.getQuiz_id() == quizId);
+        if (removed) {
+            System.out.println("Quiz with ID " + quizId + " removed successfully.");
+        } else {
+            System.out.println("Quiz with ID " + quizId + " not found.");
+        }
     }
 
-    public boolean isAssigned() {
-        return assigned;
+    // View all quizzes
+    public void viewQuizzes() {
+        if (quizzes.isEmpty()) {
+            System.out.println("No quizzes added to this lesson.");
+        } else {
+            System.out.println("Quizzes in Lesson: " + lessonTitle);
+            for (Quiz quiz : quizzes) {
+                System.out.println("- " + quiz);
+            }
+        }
     }
 
-    public void setAssigned(boolean assigned) {
-        this.assigned = assigned;
-    }
-
-
-    // Methods for viewing student progress/achievements (stub implementation)
-    public void viewStudentsProgress(int schoolID) {
-        // Implementation here
-    }
-
-    public void viewStudentsAchievements(int schoolID) {
-        // Implementation here
-    }
-
-  
     @Override
     public String toString() {
-        return "Lesson ID: " + lessonId +
-                ", Lesson Title: " + lessonTitle +
-                ", Description: " + lessonDescription +
-                ", Level ID: " + levelId +
-                ", Duration: " + duration +
-                ", Language: " + language +
-                ", Type: " + lessonType +
-                ", Tutor ID: " + tutorId +
-                ", Materials: " + materials +
-                ", Assigned: " + assigned;
+        return "Lesson ID: " + lessonId
+                + ", Lesson Title: " + lessonTitle
+                + ", Description: " + lessonDescription
+                + ", Quizzes: " + quizzes;
     }
 }

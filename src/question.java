@@ -1,5 +1,5 @@
 
-public class question {
+public class Question {
     private int question_id;
     private int quiz_id;
     private String question_text;
@@ -9,7 +9,7 @@ public class question {
     private String option_d;
     private String correct_answer;
     
-    public question(int question_id,int quiz_id,String question_text,String option_a,String option_b,String option_c,String option_d,String correct_answer) {
+    public Question(int question_id,int quiz_id,String question_text,String option_a,String option_b,String option_c,String option_d,String correct_answer) {
         this.question_id = question_id;
         this.quiz_id = quiz_id;
         this.question_text = question_text;
@@ -72,9 +72,11 @@ public class question {
     public boolean validateAnswer(String answer) {
         return answer.equals(correct_answer);
     }
+    @Override
     public String toString() {
         return question_text + " " + option_a + " " + option_b + " " + option_c + " " + option_d;
     }
+
 
 
 }

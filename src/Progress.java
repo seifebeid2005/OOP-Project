@@ -136,17 +136,16 @@ public class Progress {
     }
 
     // generate a report of the student as a file
-    public void generateReport() {
-        String report = "Student ID: " + student.getId() + "\n" +
-                "Student Name: " + student.getName() + "\n" +
-                "Lesson ID: " + Lesson_ID + "\n" +
-                "Completion Status: " + Completion_Status + "\n" +
-                "Score: " + Score + "\n" +
-                "Date Completed: " + Date_Completed + "\n" +
-                "Progress: " + calculateProgress() + "%" + "\n" +
-                "Grade: " + calculateGrade() + "\n";
-
-    }
+    // public void generateReport() {
+    //     String report = "Student ID: " + student.getId() + "\n" +
+    //             "Student Name: " + student.getName() + "\n" +
+    //             "Lesson ID: " + Lesson_ID + "\n" +
+    //             "Completion Status: " + Completion_Status + "\n" +
+    //             "Score: " + Score + "\n" +
+    //             "Date Completed: " + Date_Completed + "\n" +
+    //             "Progress: " + calculateProgress() + "%" + "\n" +
+    //             "Grade: " + calculateGrade() + "\n";
+    // }
 
 
 
