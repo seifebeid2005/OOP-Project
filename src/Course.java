@@ -195,6 +195,16 @@ public class Course {
         this.courseIsActive = courseIsActive;
     }
 
+    public void findCourseByName(String courseName) {
+        if (courseName == null || courseName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Course Name cannot be null or empty.");
+        }
+        if (courseName.length() > 100) {
+            throw new IllegalArgumentException("Course Name cannot exceed 100 characters.");
+        }
+        this.courseName = courseName;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

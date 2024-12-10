@@ -279,4 +279,186 @@ public class ManagementControl {
         listCourses();
     }
 
+    //search for students by criteria
+    public void searchStudents(String criteria) {
+        if (criteria == null || criteria.isEmpty()) {
+            System.out.println("Invalid search criteria.");
+            return;
+        }
+
+        boolean found = false;
+        for (Student student : students) {
+            if (student.getName().toLowerCase().contains(criteria.toLowerCase())) {
+                System.out.println(student);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No students found for the search criteria: " + criteria);
+        }
+    }
+
+    //search for tutors by criteria
+    public void searchTutors(String criteria) {
+        if (criteria == null || criteria.isEmpty()) {
+            System.out.println("Invalid search criteria.");
+            return;
+        }
+
+        boolean found = false;
+        for (Tutor tutor : tutors) {
+            if (tutor.getName().toLowerCase().contains(criteria.toLowerCase())) {
+                System.out.println(tutor);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No tutors found for the search criteria: " + criteria);
+        }
+    }
+
+    //search for courses by criteria
+    public void searchCourses(String criteria) {
+        if (criteria == null || criteria.isEmpty()) {
+            System.out.println("Invalid search criteria.");
+            return;
+        }
+
+        boolean found = false;
+        for (Course course : courses) {
+            if (course.getCourseName().toLowerCase().contains(criteria.toLowerCase())) {
+                System.out.println(course);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No courses found for the search criteria: " + criteria);
+        }
+    }
+
+    //search for tutors by course
+    public void searchTutorsByCourse(String courseName) {
+        if (courseName == null || courseName.isEmpty()) {
+            System.out.println("Invalid course name.");
+            return;
+        }
+
+        boolean found = false;
+        for (Tutor tutor : tutors) {
+            if (tutor.getCourses().stream().anyMatch(course -> course.getCourseName().equalsIgnoreCase(courseName))) {
+                System.out.println(tutor);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No tutors found for the course: " + courseName);
+        }
+    }
+
+    //search for students by course
+    public void searchStudentsByCourse(String courseName) {
+        if (courseName == null || courseName.isEmpty()) {
+            System.out.println("Invalid course name.");
+            return;
+        }
+
+        boolean found = false;
+        for (Student student : students) {
+            if (student.getCourses().stream().anyMatch(course -> course.getCourseName().equalsIgnoreCase(courseName))) {
+                System.out.println(student);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No students found for the course: " + courseName);
+        }
+    }
+
+    //sort students by name
+    public void sortStudentsByName() {
+        students.sort((s1, s2) -> s1.getName().compareToIgnoreCase(s2.getName()));
+        System.out.println("Students sorted by name:");
+        for (Student student : students) {
+            System.out.println(student);
+        }
+    }
+
+    //sort tutors by name
+    public void sortTutorsByName() {
+        tutors.sort((t1, t2) -> t1.getName().compareToIgnoreCase(t2.getName()));
+        System.out.println("Tutors sorted by name:");
+        for (Tutor tutor : tutors) {
+            System.out.println(tutor);
+        }
+    }
+
+    //sort courses by name
+    public void sortCoursesByName() {
+        courses.sort((c1, c2) -> c1.getCourseName().compareToIgnoreCase(c2.getCourseName()));
+        System.out.println("Courses sorted by name:");
+        for (Course course : courses) {
+            System.out.println(course);
+        }
+    }
+
+    //sort students by registration date
+    public void sortStudentsByRegistrationDate() {
+        students.sort((s1, s2) -> s1.getRegistrationDate().compareTo(s2.getRegistrationDate()));
+        System.out.println("Students sorted by registration date:");
+        for (Student student : students) {
+            System.out.println(student);
+        }
+    }
+
+    //sort tutors by joining date
+    public void sortTutorsByJoiningDate() {
+        tutors.sort((t1, t2) -> t1.getDateJoined().compareTo(t2.getDateJoined()));
+        System.out.println("Tutors sorted by joining date:");
+        for (Tutor tutor : tutors) {
+            System.out.println(tutor);
+        }
+    }
+
+    //sort students marks by course
+    // public void sortStudentsMarksByCourse(String courseName) {
+    //     if (courseName == null || courseName.isEmpty()) {
+    //         System.out.println("Invalid course name.");
+    //         return;
+    //     }
+
+    //     Course course = findCourseByName(courseName);
+    //     if (course == null) {
+    //         System.out.println("Course not found.");
+    //         return;
+    //     }
+
+    //     for (Student student : students) {
+    //         System.out.println("Student: " + student.getName());
+    //         for (Grade grade : student.getMarks()) {
+    //             if (grade.getCourse().getCourseName().equalsIgnoreCase(courseName)) {
+    //                 System.out.println("Marks: " + grade.getMarks());
+    //             }
+    //         }
+    //     }
+    // }
+
+    // Find course by name
+    public Course findCourseByName(String courseName) {
+        for (Course course : courses) {
+            if (course.getCourseName().equalsIgnoreCase(courseName)) {
+                return course;
+            }
+        }
+        return null; // Course not found
+    }
+
+
+
+
+
 }
