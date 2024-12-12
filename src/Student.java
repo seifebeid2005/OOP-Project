@@ -1,11 +1,10 @@
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Student extends Person {
-
-    private LocalDate registrationDate;
+    
+    private final LocalDate registrationDate;
     private int schoolID;
     private static int lastGeneratedID = 0;
     private ArrayList<Grade> marks;

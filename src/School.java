@@ -111,38 +111,37 @@ public class School {
     }
 
     public void createStudentAccount() {
-        Scanner input = new Scanner(System.in);
-
-        System.out.println("Enter Student Name: ");
-        String name = input.nextLine();
-
-        System.out.println("Enter Student Email: ");
-        String studentEmail = input.nextLine();
-
-        System.out.println("Enter Student Phone: ");
-        String phone = input.nextLine();
-
-        System.out.println("Enter Student Address: ");
-        String studentAddress = input.nextLine();
-
-        System.out.println("Enter Student Username: ");
-        String username = input.nextLine();
-
-        System.out.println("Enter Student Password: ");
-        String password = input.nextLine();
-
-        System.out.println("Enter Student School ID: ");
-        int studentSchoolID = input.nextInt();
-        input.nextLine(); // Consume newline after int input
-
-        System.out.println("Enter Student Date of Birth (YYYY-MM-DD): ");
-        LocalDate dateOfBirth = LocalDate.parse(input.nextLine());
-
-        // Create the student object with the registration date handled by the constructor
-        Student student = new Student(name, studentEmail, dateOfBirth, studentSchoolID, phone, studentAddress, username, password);
-        addStudent(student);
-        System.out.println("Student account created successfully!");
-        input.close();
+        try (Scanner input = new Scanner(System.in)) {
+            System.out.println("Enter Student Name: ");
+            String name = input.nextLine();
+            
+            System.out.println("Enter Student Email: ");
+            String studentEmail = input.nextLine();
+            
+            System.out.println("Enter Student Phone: ");
+            String phone = input.nextLine();
+            
+            System.out.println("Enter Student Address: ");
+            String studentAddress = input.nextLine();
+            
+            System.out.println("Enter Student Username: ");
+            String username = input.nextLine();
+            
+            System.out.println("Enter Student Password: ");
+            String password = input.nextLine();
+            
+            System.out.println("Enter Student School ID: ");
+            int studentSchoolID = input.nextInt();
+            input.nextLine(); // Consume newline after int input
+            
+            System.out.println("Enter Student Date of Birth (YYYY-MM-DD): ");
+            LocalDate dateOfBirth = LocalDate.parse(input.nextLine());
+            
+            // Create the student object with the registration date handled by the constructor
+            Student student = new Student(name, studentEmail, dateOfBirth, studentSchoolID, phone, studentAddress, username, password);
+            addStudent(student);
+            System.out.println("Student account created successfully!");
+        }
     }
 
     public void addStudent(Student student) {
@@ -180,21 +179,21 @@ public class School {
     // }
 
     // Search for Students by Criteria
-    private boolean matchesCriteria(Student student, String criteria, Object value) {
-        return switch (criteria.toLowerCase()) {
-            case "id" -> student.getId() == (int) value;
-            case "name" -> student.getName().equalsIgnoreCase((String) value);
-            case "email" -> student.getEmail().equalsIgnoreCase((String) value);
-            case "dateofbirth" -> student.getDateOfBirth().equals(value);
-            case "age" -> student.getAge() == (int) value;
-            case "phone" -> student.getPhone().equals(value);
-            case "address" -> student.getAddress().equalsIgnoreCase((String) value);
-            case "username" -> student.getUsername().equals(value);
-            case "schoolid" -> student.getSchoolID() == (int) value;
-            case "registrationdate" -> student.getRegistrationDate().equals(value);
-            default -> false;
-        };
-    }
+    // private boolean matchesCriteria(Student student, String criteria, Object value) {
+    //     return switch (criteria.toLowerCase()) {
+    //         case "id" -> student.getId() == (int) value;
+    //         case "name" -> student.getName().equalsIgnoreCase((String) value);
+    //         case "email" -> student.getEmail().equalsIgnoreCase((String) value);
+    //         case "dateofbirth" -> student.getDateOfBirth().equals(value);
+    //         case "age" -> student.getAge() == (int) value;
+    //         case "phone" -> student.getPhone().equals(value);
+    //         case "address" -> student.getAddress().equalsIgnoreCase((String) value);
+    //         case "username" -> student.getUsername().equals(value);
+    //         case "schoolid" -> student.getSchoolID() == (int) value;
+    //         case "registrationdate" -> student.getRegistrationDate().equals(value);
+    //         default -> false;
+    //     };
+    // }
 
     // View All Students
     public void viewStudents() {
@@ -215,63 +214,62 @@ public class School {
 
     // Create Tutor Account
     public void createTutorAccount() {
-        Scanner input = new Scanner(System.in);
-
-        System.out.println("Enter Tutor ID: ");
-        Long id = input.nextLong();
-        input.nextLine(); // Consume newline
-
-        System.out.println("Enter Tutor Name: ");
-        String name = input.nextLine();
-
-        System.out.println("Enter Tutor Email: ");
-        String email = input.nextLine();
-
-        System.out.println("Enter Tutor Date of Birth (YYYY-MM-DD): ");
-        LocalDate dateOfBirth = LocalDate.parse(input.nextLine());
-
-        System.out.println("Enter Tutor Phone: ");
-        String phone = input.nextLine();
-
-        System.out.println("Enter Tutor Address: ");
-        String address = input.nextLine();
-
-        System.out.println("Enter Tutor Username: ");
-        String username = input.nextLine();
-
-        System.out.println("Enter Tutor Password: ");
-        String password = input.nextLine();
-
-        System.out.println("Enter Tutor Subject Area: ");
-        String subjectArea = input.nextLine();
-
-        System.out.println("Enter Tutor Role (1: LEAD_TUTOR, 2: ASSISTANT_TUTOR, 3: TUTOR): ");
-        int roleChoice = input.nextInt();
-        input.nextLine(); // Consume newline
-        Tutor.Role roleEnum;
-        switch (roleChoice) {
-            case 1 -> roleEnum = Tutor.Role.LEAD_TUTOR;
-            case 2 -> roleEnum = Tutor.Role.ASSISTANT_TUTOR;
-            case 3 -> roleEnum = Tutor.Role.TUTOR;
-            default -> {
-                System.out.println("Invalid choice. Defaulting to TUTOR.");
-                roleEnum = Tutor.Role.TUTOR;
+        try (Scanner input = new Scanner(System.in)) {
+            System.out.println("Enter Tutor ID: ");
+            Long id = input.nextLong();
+            input.nextLine(); // Consume newline
+            
+            System.out.println("Enter Tutor Name: ");
+            String name = input.nextLine();
+            
+            System.out.println("Enter Tutor Email: ");
+            String tutorEmail = input.nextLine();
+            
+            System.out.println("Enter Tutor Date of Birth (YYYY-MM-DD): ");
+            LocalDate dateOfBirth = LocalDate.parse(input.nextLine());
+            
+            System.out.println("Enter Tutor Phone: ");
+            String phone = input.nextLine();
+            
+            System.out.println("Enter Tutor Address: ");
+            String tutorAddress = input.nextLine();
+            
+            System.out.println("Enter Tutor Username: ");
+            String username = input.nextLine();
+            
+            System.out.println("Enter Tutor Password: ");
+            String password = input.nextLine();
+            
+            System.out.println("Enter Tutor Subject Area: ");
+            String subjectArea = input.nextLine();
+            
+            System.out.println("Enter Tutor Role (1: LEAD_TUTOR, 2: ASSISTANT_TUTOR, 3: TUTOR): ");
+            int roleChoice = input.nextInt();
+            input.nextLine(); // Consume newline
+            Tutor.Role roleEnum;
+            switch (roleChoice) {
+                case 1 -> roleEnum = Tutor.Role.LEAD_TUTOR;
+                case 2 -> roleEnum = Tutor.Role.ASSISTANT_TUTOR;
+                case 3 -> roleEnum = Tutor.Role.TUTOR;
+                default -> {
+                    System.out.println("Invalid choice. Defaulting to TUTOR.");
+                    roleEnum = Tutor.Role.TUTOR;
+                }
             }
+            
+            System.out.println("Enter Tutor Date Joined (YYYY-MM-DD): ");
+            LocalDate dateJoined = LocalDate.parse(input.nextLine());
+            
+            System.out.println("Enter Tutor School ID: ");
+            int tutorSchoolID = input.nextInt();
+            input.nextLine(); // Consume newline
+            
+            // Create Tutor object and add to the list
+            Tutor tutor = new Tutor(id, name, tutorEmail, dateOfBirth, phone, tutorAddress, username, password, subjectArea,
+                    dateJoined, roleEnum, tutorSchoolID);
+            addTutor(tutor);
+            System.out.println("Tutor account created successfully!");
         }
-
-        System.out.println("Enter Tutor Date Joined (YYYY-MM-DD): ");
-        LocalDate dateJoined = LocalDate.parse(input.nextLine());
-
-        System.out.println("Enter Tutor School ID: ");
-        int schoolID = input.nextInt();
-        input.nextLine(); // Consume newline
-
-        // Create Tutor object and add to the list
-        Tutor tutor = new Tutor(id, name, email, dateOfBirth, phone, address, username, password, subjectArea,
-                dateJoined, roleEnum, schoolID);
-        addTutor(tutor);
-        System.out.println("Tutor account created successfully!");
-        input.close();
     }
 
     // Remove a Tutor by ID
