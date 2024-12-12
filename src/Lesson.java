@@ -1,13 +1,12 @@
-
-import java.util.ArrayList;
-
 public class Lesson {
 
     private int lessonId;
     private String lessonTitle;
     private String lessonDescription;
-    private ArrayList<Quiz> quizzes = new ArrayList<>();
+    private boolean isCompleted = false;  // Track completion status
+    private Quiz quiz;  // Single quiz associated with the lesson
 
+    // Constructor
     public Lesson(int lessonId, String lessonTitle, String lessonDescription) {
         this.lessonId = lessonId;
         this.lessonTitle = lessonTitle;
@@ -39,36 +38,49 @@ public class Lesson {
         this.lessonDescription = lessonDescription;
     }
 
-    // Add a quiz to the lesson
-    public void addQuiz(Quiz quiz) {
+    public boolean isCompleted() {
+        isQuizPassedAndLessonCompleted();
+        return isCompleted;
+    }
+
+    public void markAsCompleted() {
+        this.isCompleted = true;
+    }
+
+    public void markAsIncomplete() {
+        this.isCompleted = false;
+    }
+
+    // Set a quiz for the lesson
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
+        System.out.println("Quiz set for lesson: " + quiz.getQuiz_title());
+    }
+
+    // Get the quiz associated with the lesson
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    // View the quiz
+    public void viewQuiz() {
         if (quiz != null) {
-            quizzes.add(quiz);
-            System.out.println("Quiz added successfully: " + quiz.getQuiz_title());
+            System.out.println("Quiz in Lesson: " + lessonTitle);
+            System.out.println("- " + quiz);
         } else {
-            System.out.println("Cannot add a null quiz.");
+            System.out.println("No quiz set for this lesson.");
         }
     }
 
-    // Remove a quiz from the lesson
-    public void removeQuiz(int quizId) {
-        boolean removed = quizzes.removeIf(q -> q.getQuiz_id() == quizId);
-        if (removed) {
-            System.out.println("Quiz with ID " + quizId + " removed successfully.");
-        } else {
-            System.out.println("Quiz with ID " + quizId + " not found.");
-        }
-    }
-
-    // View all quizzes
-    public void viewQuizzes() {
-        if (quizzes.isEmpty()) {
-            System.out.println("No quizzes added to this lesson.");
-        } else {
-            System.out.println("Quizzes in Lesson: " + lessonTitle);
-            for (Quiz quiz : quizzes) {
-                System.out.println("- " + quiz);
+    // get is the quiz is completed with the passing score
+    public boolean isQuizPassedAndLessonCompleted() {
+        if (quiz != null) {
+            if (quiz.getGrade() >= quiz.getPassingScore()) {
+                markAsCompleted();
+                return true;
             }
         }
+        return false;
     }
 
     @Override
@@ -76,6 +88,7 @@ public class Lesson {
         return "Lesson ID: " + lessonId
                 + ", Lesson Title: " + lessonTitle
                 + ", Description: " + lessonDescription
-                + ", Quizzes: " + quizzes;
+                + ", Completed: " + isCompleted
+                + ", Quiz: " + (quiz != null ? quiz.getQuiz_title() : "No quiz set");
     }
 }

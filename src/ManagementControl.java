@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -28,6 +27,8 @@ public class ManagementControl {
     public ArrayList<Course> getCourses() {
         return new ArrayList<>(courses); // Return a copy to maintain immutability
     }
+
+
 
     //----------------- Added methods for Tutors ----------------- 
     public void addTutor(Tutor tutor) {
@@ -78,7 +79,7 @@ public class ManagementControl {
 
         try (Scanner scanner = new Scanner(System.in)) {
             boolean continueUpdating = true;
-            
+
             while (continueUpdating) {
                 System.out.println("\nSelect an option to update for tutor " + tutor.getName() + ":");
                 System.out.println("1. Update Name");
@@ -87,10 +88,10 @@ public class ManagementControl {
                 System.out.println("4. Update Address");
                 System.out.println("5. Exit");
                 System.out.print("Enter your choice: ");
-                
+
                 int choice = scanner.nextInt();
                 scanner.nextLine(); // Consume newline
-                
+
                 switch (choice) {
                     case 1 -> {
                         System.out.print("Enter new name: ");
@@ -98,33 +99,33 @@ public class ManagementControl {
                         tutor.setName(newName);
                         System.out.println("Name updated successfully.");
                     }
-                    
+
                     case 2 -> {
                         System.out.print("Enter new email: ");
                         String newEmail = scanner.nextLine();
                         tutor.setEmail(newEmail);
                         System.out.println("Email updated successfully.");
                     }
-                    
+
                     case 3 -> {
                         System.out.print("Enter new phone: ");
                         String newPhone = scanner.nextLine();
                         tutor.setPhone(newPhone);
                         System.out.println("Phone updated successfully.");
                     }
-                    
+
                     case 4 -> {
                         System.out.print("Enter new address: ");
                         String newAddress = scanner.nextLine();
                         tutor.setAddress(newAddress);
                         System.out.println("Address updated successfully.");
                     }
-                    
+
                     case 5 -> {
                         continueUpdating = false;
                         System.out.println("Exiting update process.");
                     }
-                    
+
                     default ->
                         System.out.println("Invalid option, please try again.");
                 }
@@ -180,7 +181,7 @@ public class ManagementControl {
 
         try (Scanner scanner = new Scanner(System.in)) {
             boolean continueUpdating = true;
-            
+
             while (continueUpdating) {
                 System.out.println("\nSelect an option to update for student " + student.getName() + ":");
                 System.out.println("1. Update Name");
@@ -189,10 +190,10 @@ public class ManagementControl {
                 System.out.println("4. Update Address");
                 System.out.println("5. Exit");
                 System.out.print("Enter your choice: ");
-                
+
                 int choice = scanner.nextInt();
                 scanner.nextLine(); // Consume newline
-                
+
                 switch (choice) {
                     case 1 -> {
                         System.out.print("Enter new name: ");
@@ -200,33 +201,33 @@ public class ManagementControl {
                         student.setName(newName);
                         System.out.println("Name updated successfully.");
                     }
-                    
+
                     case 2 -> {
                         System.out.print("Enter new email: ");
                         String newEmail = scanner.nextLine();
                         student.setEmail(newEmail);
                         System.out.println("Email updated successfully.");
                     }
-                    
+
                     case 3 -> {
                         System.out.print("Enter new phone: ");
                         String newPhone = scanner.nextLine();
                         student.setPhone(newPhone);
                         System.out.println("Phone updated successfully.");
                     }
-                    
+
                     case 4 -> {
                         System.out.print("Enter new address: ");
                         String newAddress = scanner.nextLine();
                         student.setAddress(newAddress);
                         System.out.println("Address updated successfully.");
                     }
-                    
+
                     case 5 -> {
                         continueUpdating = false;
                         System.out.println("Exiting update process.");
                     }
-                    
+
                     default ->
                         System.out.println("Invalid option, please try again.");
                 }

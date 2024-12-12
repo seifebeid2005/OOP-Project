@@ -3,7 +3,7 @@ import java.util.Objects;
 
 public class Achievement {
     private static long idCounter = 1000L; // Starting sequence for IDs
-    private final long achievementID;
+    private long achievementID;
     private String achievementName;
     private String achievementDescription;
     private LocalDateTime achievementDateAchieved;
@@ -13,11 +13,11 @@ public class Achievement {
     // Constructor
     public Achievement(String achievementName, String achievementDescription, LocalDateTime achievementDateAchieved, long studentID, String type) {
         this.achievementID = generateUniqueID();
-        this.achievementName = achievementName;
-        this.achievementDescription = achievementDescription;
-        this.achievementDateAchieved = achievementDateAchieved;
-        this.studentID = studentID;
-        this.type = type; // Validate and set type
+        setAchievementName(achievementName);
+        setAchievementDescription(achievementDescription);
+        setAchievementDateAchieved(achievementDateAchieved);
+        setStudentID(studentID);
+        setType(type);
     }
 
     public static synchronized long generateUniqueID() {
@@ -27,11 +27,12 @@ public class Achievement {
     // New Method: Validate Type
     public static boolean isValidType(String type) {
         // Define a list of valid types
-        return type != null && (type.equalsIgnoreCase("Academic") ||
-                                type.equalsIgnoreCase("Sports") ||
-                                type.equalsIgnoreCase("Community Service") ||
-                                type.equalsIgnoreCase("Skill-Based") ||
-                                type.equalsIgnoreCase("Other"));
+        return type != null && 
+        (type.equalsIgnoreCase("Academic") ||
+        type.equalsIgnoreCase("Sports") ||
+        type.equalsIgnoreCase("Community Service") ||
+        type.equalsIgnoreCase("Skill-Based") ||
+        type.equalsIgnoreCase("Other"));
     }
 
     // Getter and Setter for Type

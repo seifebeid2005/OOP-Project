@@ -1,55 +1,22 @@
-
 import java.util.ArrayList;
 
 public class Course {
-
     private long courseId;
+    private ArrayList<Lesson> lessons = new ArrayList<>();
     private String courseName;
     private String courseDescription;
-    private Integer courseRequiredProgress;
+    private Integer courseRequiredProgress = lessons.size();
     private Boolean courseIsActive;
-    private ArrayList<Lesson> lessons = new ArrayList<>();
-    private ArrayList<Tutor> tutors = new ArrayList<>();
-    private ArrayList<Student> students = new ArrayList<>();
 
     // Constructors
     public Course() {
     }
 
-    public Course(long courseId, String courseName, String courseDescription, Integer courseRequiredProgress, Boolean courseIsActive) {
+    public Course(long courseId, String courseName, String courseDescription, Boolean courseIsActive) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.courseDescription = courseDescription;
-        this.courseRequiredProgress = courseRequiredProgress;
         this.courseIsActive = courseIsActive;
-    }
-
-    // Tutor Management
-    public void assignTutor(Tutor tutor) {
-        if (tutor == null) {
-            throw new IllegalArgumentException("Tutor cannot be null.");
-        }
-        if (tutors.contains(tutor)) {
-            throw new IllegalArgumentException("Tutor is already assigned to this course.");
-        }
-        tutors.add(tutor);
-    }
-
-    public void removeTutor(Tutor tutor) {
-        if (tutor == null) {
-            throw new IllegalArgumentException("Tutor cannot be null.");
-        }
-        if (!tutors.remove(tutor)) {
-            throw new IllegalArgumentException("Tutor is not assigned to this course.");
-        }
-    }
-
-    public ArrayList<Tutor> getAssignedTutors() {
-        return new ArrayList<>(tutors); // Return a copy for encapsulation
-    }
-
-    public boolean isTutorAssigned(Tutor tutor) {
-        return tutors.contains(tutor);
     }
 
     // Lesson Management
@@ -58,79 +25,16 @@ public class Course {
             throw new IllegalArgumentException("Lesson cannot be null.");
         }
         lessons.add(lesson);
+        courseRequiredProgress = lessons.size(); // Update the required progress dynamically
     }
 
     public ArrayList<Lesson> getLessons() {
         return new ArrayList<>(lessons); // Return a copy to maintain encapsulation
     }
 
-    public Lesson findLessonById(long lessonId) {
-        for (Lesson lesson : lessons) {
-            if (lesson.getLessonId() == lessonId) {
-                return lesson;
-            }
-        }
-        return null; // Lesson not found
-    }
-
     public void removeLesson(long lessonId) {
         lessons.removeIf(lesson -> lesson.getLessonId() == lessonId);
-    }
-
-    // Student Management
-    public void enrollStudent(Student student) {
-        if (student == null) {
-            throw new IllegalArgumentException("Student cannot be null.");
-        }
-        if (students.contains(student)) {
-            throw new IllegalArgumentException("Student is already enrolled in this course.");
-        }
-        students.add(student);
-        System.out.println("Student enrolled successfully: " + student.getName());
-    }
-
-    public void removeStudent(Student student) {
-        if (student == null) {
-            throw new IllegalArgumentException("Student cannot be null.");
-        }
-        if (!students.remove(student)) {
-            System.out.println("Student not found in this course.");
-        } else {
-            System.out.println("Student removed successfully: " + student.getName());
-        }
-    }
-
-    public Student findStudentById(long studentId) {
-        for (Student student : students) {
-            if (student.getId() == studentId) {
-                return student;
-            }
-        }
-        return null; // Student not found
-    }
-
-    public boolean isStudentEnrolled(Student student) {
-        return students.contains(student);
-    }
-
-    public ArrayList<Student> getEnrolledStudents() {
-        return new ArrayList<>(students); // Return a copy for encapsulation
-    }
-
-    // Course Progress and Completion
-    public double calculateStudentProgress(Student student) {
-        if (!students.contains(student)) {
-            throw new IllegalArgumentException("Student is not enrolled in this course.");
-        }
-        double completedProgress = student.getProgressLevel(); // Assume student progress is tracked by a `progressLevel`
-        return (completedProgress / (double) courseRequiredProgress) * 100;
-    }
-
-    public boolean isCourseComplete(Student student) {
-        if (!students.contains(student)) {
-            throw new IllegalArgumentException("Student is not enrolled in this course.");
-        }
-        return student.getProgressLevel() >= courseRequiredProgress;
+        courseRequiredProgress = lessons.size(); // Update required progress after lesson removal
     }
 
     // Getters and Setters for Course Fields
@@ -195,36 +99,79 @@ public class Course {
         this.courseIsActive = courseIsActive;
     }
 
-    public void findCourseByName(String courseName) {
-        if (courseName == null || courseName.trim().isEmpty()) {
-            throw new IllegalArgumentException("Course Name cannot be null or empty.");
+    // Check if course is completed
+    public boolean isCompleted() {
+        int completedLessons = 0;
+        for (Lesson lesson : lessons) {
+            if (lesson.isQuizPassedAndLessonCompleted()) {
+                completedLessons++;
+            }
         }
-        if (courseName.length() > 100) {
-            throw new IllegalArgumentException("Course Name cannot exceed 100 characters.");
-        }
-        this.courseName = courseName;
+        return completedLessons == courseRequiredProgress;
     }
 
+    // Mark course as completed
+    public void markAsCompleted() {
+        this.courseIsActive = false; // Marking the course as completed (inactive)
+    }
+
+    // Get progress of the course
+    public int getCourseProgress() {
+        int completedLessons = 0;
+        for (Lesson lesson : lessons) {
+            if (lesson.isCompleted()) {
+                completedLessons++;
+            }
+        }
+        return (completedLessons * 100) / courseRequiredProgress; // Returns the progress as a percentage
+    }
+
+    // Check if all lessons are completed
+    public boolean areAllLessonsCompleted() {
+        for (Lesson lesson : lessons) {
+            if (!lesson.isCompleted()) {
+                return false; // If any lesson is not completed, return false
+            }
+        }
+        return true; // All lessons are completed
+    }
+
+
+    // Method to check and mark a lesson as completed
+    public void markLessonAsCompleted(long lessonId) {
+        Lesson lesson = findLessonById(lessonId);
+        if (lesson != null) {
+            lesson.markAsCompleted();
+        }
+    }
+
+    // Method to check and mark a lesson as incomplete
+    public void markLessonAsIncomplete(long lessonId) {
+        Lesson lesson = findLessonById(lessonId);
+        if (lesson != null) {
+            lesson.markAsIncomplete();
+        }
+    }
+
+    // Helper method to find a lesson by ID
+    public  Lesson findLessonById(long lessonId) {
+        for (Lesson lesson : lessons) {
+            if (lesson.getLessonId() == lessonId) {
+                return lesson;
+            }
+        }
+        return null;
+    }
+
+    // Display course info
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Course {")
-                .append("courseId=").append(courseId)
-                .append(", courseName='").append(courseName).append('\'')
-                .append(", courseDescription='").append(courseDescription).append('\'')
-                .append(", courseRequiredProgress=").append(courseRequiredProgress)
-                .append(", courseIsActive=").append(courseIsActive)
-                .append(", lessonsCount=").append(lessons.size())
-                .append(", tutors=[");
-
-        // Add tutor details
-        for (Tutor tutor : tutors) {
-            builder.append(tutor.getName()).append(", ");
-        }
-        if (!tutors.isEmpty()) {
-            builder.setLength(builder.length() - 2); // Remove trailing comma and space
-        }
-        builder.append("], studentsCount=").append(students.size()).append(" }");
-        return builder.toString();
+        return "Course{" +
+                "courseId=" + courseId +
+                ", courseName='" + courseName + '\'' +
+                ", courseDescription='" + courseDescription + '\'' +
+                ", courseRequiredProgress=" + courseRequiredProgress +
+                ", courseIsActive=" + courseIsActive +
+                '}';
     }
 }
