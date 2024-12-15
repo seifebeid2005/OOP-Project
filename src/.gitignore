@@ -1,3 +1,2 @@
 # Ignore all .class files
-*Admin.class
-
+*.class
