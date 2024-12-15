@@ -1,0 +1,38 @@
++-------------------------------------------------------+
+|                   ManagementControl                   |
++-------------------------------------------------------+
+| - tutors: ArrayList<Tutor>                            |
+| - students: ArrayList<Student>                        |
+| - courses: ArrayList<Course>                          |
++-------------------------------------------------------+
+| + ManagementControl()                                 |
+| + getTutors(): ArrayList<Tutor>                       |
+| + getStudents(): ArrayList<Student>                   |
+| + getCourses(): ArrayList<Course>                     |
+| + addTutor(Tutor): void                               |
+| + removeTutor(Long): void                             |
+| + findTutorById(Long): Tutor                          |
+| + listTutors(): void                                  |
+| + updateTutor(long): void                             |
+| + addStudent(Student): void                           |
+| + removeStudent(long): void                           |
+| + findStudentById(long): Student                      |
+| + listStudents(): void                                |
+| + updateStudent(long): void                           |
+| + addCourse(Course): void                             |
+| + removeCourse(Course): void                          |
+| + findCourseById(long): Course                        |
+| + findCourseByName(String): Course                    |
+| + listCourses(): void                                 |
+| + listAll(): void                                     |
+| + searchStudents(String): void                        |
+| + searchTutors(String): void                          |
+| + searchCourses(String): void                         |
+| + searchTutorsByCourse(String): void                  |
+| + searchStudentsByCourse(String): void                |
+| + sortStudentsByName(): void                          |
+| + sortTutorsByName(): void                            |
+| + sortCoursesByName(): void                           |
+| + sortStudentsByRegistrationDate(): void              |
+| + sortTutorsByJoiningDate(): void                     |
++-------------------------------------------------------+
