@@ -1,63 +1,63 @@
-+-----------------------+
-|       Admin           |
-+-----------------------+
-| - roleEnum: Role      |
-| - schools: ArrayList<School> (static) |
-+-----------------------+
-| + Admin(...)          |
-| + getRoleEnum(): Role |
-| + getSchools(): List<School> (static) |
-| + addTutorToSchool(Tutor, int): void |
-| + createTutorAccount(): void |
-| + removeTutorByCriteria(): void |
-| - removeTutorById(Long, int): void |
-| - removeTutorByName(String, int): void |
-| - removeTutorByEmail(String, int): void |
-| - removeTutorByUsername(String, int): void |
-| + updateTutor(Long, String, ...): void |
-| + updateTutorById(): void |
-| + assignTutorRole(Long, Role, int): void |
++---------------------------------------------+
+|                   Admin                     |
++---------------------------------------------+
+| - roleEnum: Role                            |
+| - schools: ArrayList<School> (static)       |
++---------------------------------------------+
+| + Admin(...)                                |
+| + getRoleEnum(): Role                       |
+| + getSchools(): List<School> (static)       |
+| + addTutorToSchool(Tutor, int): void        |
+| + createTutorAccount(): void                |
+| + removeTutorByCriteria(): void             |
+| - removeTutorById(Long, int): void          |
+| - removeTutorByName(String, int): void      |
+| - removeTutorByEmail(String, int): void     |
+| - removeTutorByUsername(String, int): void  |
+| + updateTutor(Long, String, ...): void      |
+| + updateTutorById(): void                   |
+| + assignTutorRole(Long, Role, int): void    |
 | + viewTutorsByCriteria(String, Object, int): void |
 | - matchesCriteria(Tutor, String, Object): boolean |
-| + viewTutors(): void |
-| + createStudentAccount(): void |
-| + addStudent(Student, int): void |
-| + removeStudentByCriteria(): void |
-| - removeStudentById(Long, int): void |
-| - removeStudentByName(String, int): void |
-| - removeStudentByEmail(String, int): void |
-| - removeStudentByUsername(String, int): void |
-| + updateStudent(Long, String, ...): void |
-| + updateStudentById(): void |
+| + viewTutors(): void                        |
+| + createStudentAccount(): void              |
+| + addStudent(Student, int): void            |
+| + removeStudentByCriteria(): void           |
+| - removeStudentById(Long, int): void        |
+| - removeStudentByName(String, int): void    |
+| - removeStudentByEmail(String, int): void   |
+| - removeStudentByUsername(String, int): void|
+| + updateStudent(Long, String, ...): void    |
+| + updateStudentById(): void                 |
 | + viewStudentsByCriteria(String, Object, int): void |
 | - matchesCriteria(Student, String, Object): boolean |
-| + viewStudents(): void |
-| + searchSchoolById(int): School |
-| + searchStudentById(Long, int): Student |
-| + createSchool(): void |
-| + addSchool(School): void |
-| + viewSchools(): void |
-| + updateSchool(int, String, ...): void |
-| + updateSchoolByCriteria(): void |
+| + viewStudents(): void                      |
+| + searchSchoolById(int): School             |
+| + searchStudentById(Long, int): Student     |
+| + createSchool(): void                      |
+| + addSchool(School): void                   |
+| + viewSchools(): void                       |
+| + updateSchool(int, String, ...): void      |
+| + updateSchoolByCriteria(): void            |
 | + viewSchoolsByCriteria(String, Object): void |
 | - matchesCriteria(School, String, Object): boolean |
-| + removeSchool(int): void |
-| + activateSchool(int): void |
-| + viewStudentsBySchool(int): void |
-| + viewTutorsBySchool(int): void |
-| + addChapterToTutor(Long, int, Course): void |
+| + removeSchool(int): void                   |
+| + activateSchool(int): void                 |
+| + viewStudentsBySchool(int): void           |
+| + viewTutorsBySchool(int): void             |
+| + addChapterToTutor(Long, int, Course): void|
 | + removeChapterFromTutor(Long, int, int): void |
-| + viewChaptersByTutor(Long): void |
+| + viewChaptersByTutor(Long): void           |
 | + viewChaptersByTutorAndSchool(Long, int): void |
-| + viewStudentCountBySchool(int): void |
-| + viewTutorCountBySchool(int): void |
-| + viewSchoolCount(): void |
-| + viewChapterCountByTutor(Long, int): void |
-| + viewChapterCount(): void |
-| + viewStudentCount(): void |
-| + viewTutorCount(): void |
+| + viewStudentCountBySchool(int): void       |
+| + viewTutorCountBySchool(int): void         |
+| + viewSchoolCount(): void                   |
+| + viewChapterCountByTutor(Long, int): void  |
+| + viewChapterCount(): void                  |
+| + viewStudentCount(): void                  |
+| + viewTutorCount(): void                    |
 | + compareStudentCountBySchool(int, int): void |
 | + compareTutorCountBySchool(int, int): void |
-| + compareSchoolCount(int): void |
-| + toString(): String |
-+-----------------------+
+| + compareSchoolCount(int): void             |
+| + toString(): String                        |
++---------------------------------------------+
