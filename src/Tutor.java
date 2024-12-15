@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tutor extends Person {
+    //  remove subjectArea
 
     private String subjectArea;            // Primary subject expertise
     private LocalDate dateJoined;          // Date the tutor joined the institution
@@ -15,7 +16,14 @@ public class Tutor extends Person {
         ASSISTANT_TUTOR,
         TUTOR
     }
-
+    public Tutor() {
+        super();
+        this.subjectArea = "";
+        this.dateJoined = LocalDate.now(); // Use current date if null
+        this.roleEnum = Role.TUTOR; // Default to "TUTOR" if roleEnum is null
+        this.courses = new ArrayList<>(); // Initialize courses list
+        this.schoolID = 0;
+    }
     // Constructor
     public Tutor(Long id, String name, String email, LocalDate dateOfBirth, String phone, String address,
                  String username, String password, String subjectArea, LocalDate dateJoined, Role roleEnum, int schoolID) {

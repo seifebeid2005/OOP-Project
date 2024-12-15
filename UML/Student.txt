@@ -1,46 +1,31 @@
-
-+-----------------------------------+
-|           Student                 |
-+-----------------------------------+
-| -preferredLanguage : String       |
-| -currentLevel : Integer           |
-| -progressLevel : Integer          |
-| -achievements : String            |
-| -registrationDate : LocalDateTime |
-| -schoolID : Integer               |
-+-----------------------------------+
-| +generateAutoID() : int           |
-| +Student(name : String, age : int,|            
-|  email : String,                  |
-|  preferredLanguage : String,      |    
-|  currentLevel : Integer,          |
-|  progressLevel : Integer,         |    
-|  achievements : String,           |
-|  schoolID : Integer)              |
-| +login() : void                   |
-| +logout() : void                  |
-| +register() : void                |
-| +updateProfile() : void           |
-| +getPreferredLanguage() : String  |
-| +setPreferredLanguage             |            
-| (preferredLanguage : String)      |        
-| : void                            |                            
-| +getCurrentLevel() : Integer      |
-| +setCurrentLevel(currentLevel :   | 
-|  Integer) : void                  |    
-| +getProgressLevel() : Integer     |
-| +setProgressLevel(progressLevel : |
-|  Integer) : void                  |
-| +getAchievements() : String       |
-| +setAchievements(achievements     |
-| : String) : void                  |
-| +getRegistrationDate()            |    
-| : LocalDateTime                   |
-| +setRegistrationDate              |    
-| (registrationDate : LocalDateTime)|
-|   : void                          |
-| +getSchoolID() : Integer          |
-| +setSchoolID(schoolID : Integer)  |
-| : void                            |
-| +toString() : String              |
-+-----------------------------------+
++----------------------------------+
+|             Student              |
++----------------------------------+
+| - registrationDate: LocalDate    |
+| - schoolID: int                  |
+| - lastGeneratedID: int (static)  |
+| - marks: ArrayList<Grade>        |
+| - courses: ArrayList<Course>     |
+| - progress: Progress             |
++----------------------------------+
+| + Student(String, String, ...)   |
+| + login(): void                  |
+| + logout(): void                 |
+| + register(): void               |
+| + updateProfile(): void          |
+| + getProgressPercentage(): double|
+| + enrollInCourse(Course): void   |
+| + getRegistrationDate(): LocalDate |
+| + getSchoolID(): Integer         |
+| + setSchoolID(Integer): void     |
+| + getCourses(): ArrayList<Course>|
+| + getAverageMarks(): double      |
+| + getCompletedCourses(): ArrayList<Course> |
+| + getNotCompletedCourses(): ArrayList<Course> |
+| + getMarksForEachCourse(): void  |
+| + toString(): String             |
++----------------------------------+
+| - validateSchoolID(Integer): void|
+| - calculateProgress(): void      |
+| - generateAutoID(): long (static)|
++----------------------------------+

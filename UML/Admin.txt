@@ -1,52 +1,63 @@
-//UML
-// +---------------------------------------------------+
-// |                   Admin                           |
-// +---------------------------------------------------+
-// | - roleEnum: Role                                  |
-// | - schools: ArrayList<School>                      |
-// +---------------------------------------------------+
-// | + Admin(id: Long, name: String, email: String,    |
-// | roleEnum: Role, dateOfBirth: LocalDate, phone:    |
-// | String, address: String, username: String,       |
-// | password: String)                                |
-// | + getRoleEnum(): Role                            |
-// | + getSchools(): List<School>                      |
-// | + addTutorToSchool(tutor: Tutor, schoolID: int)   |
-// | + createTutorAccount()                           |
-// | + removeTutorByCriteria()                        |
-// | + removeTutorById(id: Long, schoolID: int)        |
-// | + removeTutorByName(name: String, schoolID: int)  |
-// | + removeTutorByEmail(email: String, schoolID: int)|
-// | + removeTutorByUsername(username: String,         |
-// | schoolID: int)                                    |
-// | + updateTutor(tutorId: Long, newName: String,     |
-// | newEmail: String, newPhone: String, newAddress:  |
-// | String, newSubjectArea: String)                   |
-// | + updateTutorById()                              |
-// | + assignTutorRole(tutorId: Long, roleEnum: Role,  |
-// | schoolID: int)                                   |
-// | + viewTutorsByCriteria(criteria: String, value:  |
-// | Object, schoolID: int)                           |
-// | + viewTutors()                                   |
-// | + removeTutor(tutorId: Long)                     |
-// | + createStudentAccount()                         |
-// |--------------------------------------------------|
-// | + createSchool()                                  |
-// | + addSchool(school: School)                       |
-// | + viewSchools()                                   |
-// | + updateSchool(schoolID: int, newName: String,    |
-// | newAddress: String, newCity: String,              |
-// | newContactPerson: String, newEmail: String,       |
-// | newPhoneNumber: String)                           |
-// | + updateSchoolByCriteria()                        |
-// | + viewSchoolsByCriteria(criteria: String, value:  |
-// | Object)                                           |
-// | + removeSchool(schoolID: int)                     |
-// | + activateSchool(schoolID: int)                   |
-// | + viewStudentsBySchool(schoolID: int)             |
-// | + viewTutorsBySchool(schoolID: int)               |
-// | + viewStudentsByCriteria(criteria: String, value: |
-// | Object)                                           |
-// | + viewChaptersByTutor(tutorId: Long)              |
-// | + toString(): String                             |
-// +---------------------------------------------------+
++-----------------------+
+|       Admin           |
++-----------------------+
+| - roleEnum: Role      |
+| - schools: ArrayList<School> (static) |
++-----------------------+
+| + Admin(...)          |
+| + getRoleEnum(): Role |
+| + getSchools(): List<School> (static) |
+| + addTutorToSchool(Tutor, int): void |
+| + createTutorAccount(): void |
+| + removeTutorByCriteria(): void |
+| - removeTutorById(Long, int): void |
+| - removeTutorByName(String, int): void |
+| - removeTutorByEmail(String, int): void |
+| - removeTutorByUsername(String, int): void |
+| + updateTutor(Long, String, ...): void |
+| + updateTutorById(): void |
+| + assignTutorRole(Long, Role, int): void |
+| + viewTutorsByCriteria(String, Object, int): void |
+| - matchesCriteria(Tutor, String, Object): boolean |
+| + viewTutors(): void |
+| + createStudentAccount(): void |
+| + addStudent(Student, int): void |
+| + removeStudentByCriteria(): void |
+| - removeStudentById(Long, int): void |
+| - removeStudentByName(String, int): void |
+| - removeStudentByEmail(String, int): void |
+| - removeStudentByUsername(String, int): void |
+| + updateStudent(Long, String, ...): void |
+| + updateStudentById(): void |
+| + viewStudentsByCriteria(String, Object, int): void |
+| - matchesCriteria(Student, String, Object): boolean |
+| + viewStudents(): void |
+| + searchSchoolById(int): School |
+| + searchStudentById(Long, int): Student |
+| + createSchool(): void |
+| + addSchool(School): void |
+| + viewSchools(): void |
+| + updateSchool(int, String, ...): void |
+| + updateSchoolByCriteria(): void |
+| + viewSchoolsByCriteria(String, Object): void |
+| - matchesCriteria(School, String, Object): boolean |
+| + removeSchool(int): void |
+| + activateSchool(int): void |
+| + viewStudentsBySchool(int): void |
+| + viewTutorsBySchool(int): void |
+| + addChapterToTutor(Long, int, Course): void |
+| + removeChapterFromTutor(Long, int, int): void |
+| + viewChaptersByTutor(Long): void |
+| + viewChaptersByTutorAndSchool(Long, int): void |
+| + viewStudentCountBySchool(int): void |
+| + viewTutorCountBySchool(int): void |
+| + viewSchoolCount(): void |
+| + viewChapterCountByTutor(Long, int): void |
+| + viewChapterCount(): void |
+| + viewStudentCount(): void |
+| + viewTutorCount(): void |
+| + compareStudentCountBySchool(int, int): void |
+| + compareTutorCountBySchool(int, int): void |
+| + compareSchoolCount(int): void |
+| + toString(): String |
++-----------------------+

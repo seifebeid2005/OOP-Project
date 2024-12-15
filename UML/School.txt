@@ -1,42 +1,46 @@
-+--------------------------------+
-|           School               |
-+--------------------------------+
-| - schoolID: int                |
-| - schoolName: String           |
-| - address: String              |
-| - city: String                 |
-| - contactPerson: String        |
-| - email: String                |
-| - phoneNumber: String          |
-+--------------------------------+
-| + School()                     |
-| + School(schoolID, schoolName, |
-|          address, city,        |
-|          contactPerson,        |
-|          email, phoneNumber)   |
-| + getSchoolID(): int           |
-| + setSchoolID(schoolID: int)   |
-| + getSchoolName(): String      |
-| + setSchoolName(schoolName: String) |
-| + getAddress(): String         |
-| + setAddress(address: String)  |
-| + getCity(): String            |
-| + setCity(city: String)        |
-| + getContactPerson(): String   |
-| + setContactPerson(contactPerson: String) |
-| + getEmail(): String           |
-| + setEmail(email: String)      |
-| + getPhoneNumber(): String     |
-| + setPhoneNumber(phoneNumber: String) |
-| + getCapacity(): int           |
-| + setCapacity(int capacity): void |
-| + getStudentCount(): int       |
-| + getMaxTutors(): int          |
-| + setMaxTutors(int maxTutors): void |
-| + gettutorCount(): int         |
-| + updateContactDetails(contactPerson: String, email: String, phoneNumber: String): void |
-| + getFullAddress(): String     |
-| + toString(): String           |
-| + validateEmail(email: String): boolean |
-| + validatePhoneNumber(phoneNumber: String): boolean |
-+--------------------------------+
++----------------------------------+
+|             School               |
++----------------------------------+
+| - schoolID: int                  |
+| - schoolName: String             |
+| - address: String                |
+| - city: String                   |
+| - contactPerson: String          |
+| - email: String                  |
+| - phoneNumber: String            |
+| - manage: ManagementControl      |
++----------------------------------+
+| + School()                       |
+| + School(int, String, ...)       |
+| + getManage(): ManagementControl |
+| + getSchoolID(): int             |
+| + setSchoolID(int): void         |
+| + getSchoolName(): String        |
+| + setSchoolName(String): void    |
+| + getAddress(): String           |
+| + setAddress(String): void       |
+| + getCity(): String              |
+| + setCity(String): void          |
+| + getContactPerson(): String     |
+| + setContactPerson(String): void |
+| + getEmail(): String             |
+| + setEmail(String): void         |
+| + getPhoneNumber(): String       |
+| + setPhoneNumber(String): void   |
+| + updateContactDetails(String, String, String): void |
+| + getFullAddress(): String       |
+| + createStudentAccount(): void   |
+| + addStudent(Student): void      |
+| + removeStudentById(Long): void  |
+| + updateStudent(long): void      |
+| + viewStudents(): void           |
+| + addTutor(Tutor): void          |
+| + createTutorAccount(): void     |
+| + removeTutorById(Long): void    |
+| + updateTutor(Long): void        |
+| + viewStudentsOfTutor(Long): void|
+| + areAllChaptersAssignedToTutors(): void |
+| + validateEmail(String): boolean |
+| + validatePhoneNumber(String): boolean |
+| + toString(): String             |
++----------------------------------+

@@ -1,0 +1,33 @@
++-----------------------------+
+|           Course            |
++-----------------------------+
+| - courseId: long            |
+| - lessons: ArrayList<Lesson>|
+| - courseName: String        |
+| - courseDescription: String |
+| - courseRequiredProgress: Integer |
+| - courseIsActive: Boolean   |
++-----------------------------+
+| + Course()                  |
+| + Course(long, String, String, Boolean) |
+| + addLesson(Lesson): void   |
+| + getLessons(): ArrayList<Lesson> |
+| + removeLesson(long): void  |
+| + setCourseId(long): void   |
+| + getCourseId(): long       |
+| + setCourseName(String): void |
+| + getCourseName(): String   |
+| + setCourseDescription(String): void |
+| + getCourseDescription(): String |
+| + setCourseRequiredProgress(Integer): void |
+| + getCourseRequiredProgress(): Integer |
+| + setCourseIsActive(Boolean): void |
+| + getCourseIsActive(): Boolean |
+| + isCompleted(): boolean    |
+| + markAsCompleted(): void   |
+| + getCourseProgress(): int  |
+| + areAllLessonsCompleted(): boolean |
+| + markLessonAsCompleted(long): void |
+| + markLessonAsIncomplete(long): void |
+| + findLessonById(long): Lesson |
++-----------------------------+

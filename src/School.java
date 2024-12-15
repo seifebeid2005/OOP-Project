@@ -16,17 +16,29 @@ public class School {
     private String email;
     private String phoneNumber;
     private ManagementControl manage;
+    private static int idCounter = 1;
 
 
+    // Method to generate a new unique ID
+    private static synchronized int generateNewID() {
+        return idCounter++;
+    }
 
     // Default constructor
     public School() {
-    }
+        this.schoolID = generateNewID();    
+        this.schoolName = "";
+        this.address = "";
+        this.city = "";
+        this.contactPerson = "";
+        this.email = "";
+        this.phoneNumber = "";
 
+    }
     // Parameterized constructor
-    public School(int schoolID, String schoolName, String address, String city, String contactPerson, String email,
+    public School( String schoolName, String address, String city, String contactPerson, String email,
             String phoneNumber) {
-        this.schoolID = schoolID;
+        this.schoolID = generateNewID();
         this.schoolName = schoolName;
         this.address = address;
         this.city = city;

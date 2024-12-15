@@ -1,0 +1,32 @@
++-----------------------------+
+| Grade                       |   
++-----------------------------+
+| - lessonId: int             |
+| - marks: int                |
+| - quizId: int               |
+| - MAX_MARKS: int            |
++-----------------------------+
+| + Grade(lessonId: int,      |
+| marks: int, quizId: int)    |
+| + getQuizId(): int          |
+| + setQuizId(quizId: int):   |
+| void                        |
+| + getLessonId(): int        |
+| + setLessonId(lessonId: int)|
+| void                        |
+| + getMarks(): int           |
+| + setMarks(marks: int):     |
+| void                        |
+| + getGradePercentage():     |
+| double                      |
+| + getMarksForQuiz(grades:   |
+| List<Grade>, quizId: int):  |
+| List<Grade>                 |
+| + calculateAverageMarksFor  |
+| AllQuizzes(grades:          |
+| List<Grade>): double        |
+| + calculateAveragePercentage|
+| ForAllGrades(grades:        |
+| List<Grade>): double        |
+| + toString(): String        |
++-----------------------------+

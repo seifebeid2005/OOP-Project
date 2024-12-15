@@ -17,21 +17,28 @@ public class Student extends Person {
         lastGeneratedID++; // Increment the last generated ID
         return Long.parseLong(year + String.format("%04d", lastGeneratedID)); // Combine year and incremented number
     }
+    public Student(){
+        super();
+        this.registrationDate = LocalDate.now();  // Use current date if null
+        this.schoolID = 0;
+        this.courses = new ArrayList<>();
+        this.marks = new ArrayList<>();
+        this.progress = new Progress();
+    }
 
     public Student(String name, String email, LocalDate dateOfBirth, int schoolID, String phone, String address, String username, String password) {
         super(generateAutoID(), name, email, dateOfBirth, phone, address, username, password);
-        validateSchoolID(schoolID);
         this.registrationDate = LocalDate.now();  // Use current date if null
         this.schoolID = schoolID;
         this.courses = new ArrayList<>();
         this.marks = new ArrayList<>();
     }
 
-    private void validateSchoolID(Integer schoolID) {
-        if (schoolID <= 0) {
-            throw new IllegalArgumentException("School ID must be a positive integer.");
-        }
-    }
+    // private void validateSchoolID(Integer schoolID) {
+    //     if (schoolID <= 0) {
+    //         throw new IllegalArgumentException("School ID must be a positive integer.");
+    //     }
+    // }
 
     // Methods related to Student actions
     public void login() {
@@ -88,7 +95,7 @@ public class Student extends Person {
            if(course.areAllLessonsCompleted())
            {
                 coumpeletedCourses++;
-            } 
+            }
         }
         progress.setProgressPercentage(coumpeletedCourses*100/courses.size());
     }

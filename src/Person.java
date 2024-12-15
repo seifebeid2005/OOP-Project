@@ -15,16 +15,19 @@ public abstract class Person {
     private String username;
     private String password;
 
+    public Person() {
+        this.id = 0L;
+        this.name = "";
+        this.email = "";
+        this.dateAdded = new Date();
+        this.dateOfBirth = LocalDate.now();
+        this.phone = "";
+        this.address = "";
+        this.username = "";
+        this.password = "";
+    }
     // Constructor with validation
     public Person(Long id, String name, String email, LocalDate dateOfBirth, String phone, String address, String username, String password) {
-        validateName(name);
-        validateEmail(email);
-        validateDateOfBirth(dateOfBirth);
-        validatePhone(phone);
-        validateAddress(address);
-        validateUsername(username);
-        validatePassword(password);
-
         this.id = id;
         this.name = name;
         this.email = email;
@@ -33,7 +36,7 @@ public abstract class Person {
         this.phone = phone;
         this.address = address;
         this.username = username;
-        this.password = hashPassword(password);
+        this.password = password;
     }
 
     public static void validateName(String name) {

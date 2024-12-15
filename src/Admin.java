@@ -1,7 +1,47 @@
+//UML
+//+---------------------+
+//|       Admin         |
+//+---------------------+
+//| - roleEnum: Role    |
+//| - schools: ArrayList<School> |
+//+---------------------+
+//| + Admin()           |
+//| + Admin(id: Long, name: String, email: String, roleEnum: Role, dateOfBirth: LocalDate, phone: String, address: String, username: String, password: String) |
+//| + getRoleEnum(): Role |
+//| + getSchools(): List<School> |
+//| + addTutorToSchool(tutor: Tutor, schoolID: int): void |
+//| + createTutorAccount(): void |
+//| + removeTutorByCriteria(): void |
+//| + removeTutorById(id: Long, schoolID: int): void |
+//| + removeTutorByName(name: String, schoolID: int): void |
+//| + removeTutorByEmail(email: String, schoolID: int): void |
+//| + removeTutorByUsername(username: String, schoolID: int): void |
+//| + updateTutor(tutorId: Long, newName: String, newEmail: String, newPhone: String, newAddress: String, newSubjectArea: String): void |
+//| + updateTutorById(): void |
+//| + assignTutorRole(tutorId: Long, roleEnum: Tutor.Role, schoolID: int): void |
+//| + viewTutorsByCriteria(criteria: String, value: Object, schoolID: int): void |
+//| + viewTutors(): void |
+//| + removeTutor(tutorId: Long, schoolID: int): void |
+//| + createStudentAccount(): void |
+//| + addStudent(student: Student, schoolID: int): void |
+//| + removeStudentByCriteria(): void |
+//| + removeStudentById(id: Long, schoolID: int): void |
+//| + removeStudentByName(name: String, schoolID: int): void |
+//| + removeStudentByEmail(email: String, schoolID: int): void |
+//| + removeStudentByUsername(username: String, schoolID: int): void |
+//| + updateStudent(studentId: Long, newName: String, newEmail: String, newPhone: String, newAddress: String, newSchoolID: int, newCurrentLevel: int, schoolID: int): void |
+//| + updateStudentById(): void |
+//| + viewStudentsByCriteria(criteria: String, value: Object, schoolID: int): void |
+//| + viewStudents(): void |
+//| + searchSchoolById(schoolID: int): School |
+//| + searchStudentById(studentId: Long, schoolID: int): Student |
+//| + equals(obj: Object): boolean |
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Admin extends Person {
 
@@ -11,7 +51,12 @@ public class Admin extends Person {
     public enum Role {
         ADMIN, SUPER_ADMIN, MODERATOR
     }
-
+    
+    public Admin() {
+        super();
+        this.roleEnum = Role.ADMIN;
+    }
+    
     public Admin(Long id, String name, String email, Role roleEnum, LocalDate dateOfBirth, String phone, String address, String username, String password) {
         super(id, name, email, dateOfBirth, phone, address, username, password);
         this.roleEnum = roleEnum;
@@ -100,7 +145,7 @@ public class Admin extends Person {
                 dateJoined, roleEnum, schoolID);
         addTutorToSchool(tutor, schoolID);
         System.out.println("Tutor account created successfully!");
-        input.close();
+         
     }
   
     // Remove a Tutor
@@ -139,7 +184,7 @@ public class Admin extends Person {
             }
             default -> System.out.println("Invalid criteria. Please choose 1, 2, 3, or 4.");
         }
-        input.close();
+         
     }
     
     // Remove a Tutor by ID
@@ -291,7 +336,7 @@ public class Admin extends Person {
             }
             default -> System.out.println("Invalid choice. Please choose 1, 2, 3, 4, or 5.");
         }
-        input.close();
+         
     }
    
     // Assign Role to a Tutor using the current enum
@@ -393,46 +438,139 @@ public class Admin extends Person {
     public void createStudentAccount() {
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Enter Student Name: ");
-        String name = input.nextLine();
+        String name = "";
+        String studentEmail = "";
+        String phone = "";
+        String studentAddress = "";
+        String username = "";
+        String password = "";
+        int studentSchoolID = -1;
+        LocalDate dateOfBirth = null;
 
-        System.out.println("Enter Student Email: ");
-        String studentEmail = input.nextLine();
+        // Validate Student Name
+        while (true) {
+            System.out.println("Enter Student Name: ");
+            name = input.nextLine();
+            if (name.isEmpty()) {
+                System.out.println("Name cannot be empty. Please enter a valid name.");
+            } else {
+                break; // Name is valid
+            }
+        }
 
-        System.out.println("Enter Student Phone: ");
-        String phone = input.nextLine();
+        // Validate Student Email
+        while (true) {
+            System.out.println("Enter Student Email: ");
+            studentEmail = input.nextLine();
+            if (!isValidEmail(studentEmail)) {
+                System.out.println("Invalid email format. Please enter a valid email.");
+            } else {
+                break; // Email is valid
+            }
+        }
 
-        System.out.println("Enter Student Address: ");
-        String studentAddress = input.nextLine();
+        // Validate Student Phone
+        while (true) {
+            System.out.println("Enter Student Phone: ");
+            phone = input.nextLine();
+            if (!isValidPhoneNumber(phone)) {
+                System.out.println("Invalid phone number. Please enter a valid phone number.");
+            } else {
+                break; // Phone is valid
+            }
+        }
 
-        System.out.println("Enter Student Username: ");
-        String username = input.nextLine();
+        // Validate Student Address
+        while (true) {
+            System.out.println("Enter Student Address: ");
+            studentAddress = input.nextLine();
+            if (studentAddress.isEmpty()) {
+                System.out.println("Address cannot be empty. Please enter a valid address.");
+            } else {
+                break; // Address is valid
+            }
+        }
 
-        System.out.println("Enter Student Password: ");
-        String password = input.nextLine();
+        // Validate Student Username
+        while (true) {
+            System.out.println("Enter Student Username: ");
+            username = input.nextLine();
+            if (username.isEmpty()) {
+                System.out.println("Username cannot be empty. Please enter a valid username.");
+            } else {
+                break; // Username is valid
+            }
+        }
 
-        System.out.println("Enter Student School ID: ");
-        int studentSchoolID = input.nextInt();
-        input.nextLine(); // Consume newline after int input
+        // Validate Student Password
+        while (true) {
+            System.out.println("Enter Student Password: ");
+            password = input.nextLine();
+            if (password.isEmpty()) {
+                System.out.println("Password cannot be empty. Please enter a valid password.");
+            } else {
+                break; // Password is valid
+            }
+        }
 
-        System.out.println("Enter Student Date of Birth (YYYY-MM-DD): ");
-        LocalDate dateOfBirth = LocalDate.parse(input.nextLine());
+        // Validate Student School ID
+        while (true) {
+            System.out.println("Enter Student School ID: ");
+            if (input.hasNextInt()) {
+                studentSchoolID = input.nextInt();
+                input.nextLine(); // Consume the newline character after reading int
+                if (studentSchoolID <= 0) {
+                    System.out.println("School ID must be a positive number. Please enter a valid School ID.");
+                } else {
+                    break; // School ID is valid
+                }
+            } else {
+                System.out.println("Invalid input for School ID. Please enter a valid number.");
+                input.next(); // Consume the invalid input
+            }
+        }
+
+        // Validate Student Date of Birth
+        while (true) {
+            System.out.println("Enter Student Date of Birth (YYYY-MM-DD): ");
+            String dobInput = input.nextLine();
+            try {
+                dateOfBirth = LocalDate.parse(dobInput);
+                break; // Date of Birth is valid
+            } catch (Exception e) {
+                System.out.println("Invalid Date format. Please use the format YYYY-MM-DD.");
+            }
+        }
 
         // Create the student object with the registration date handled by the constructor
         Student student = new Student(name, studentEmail, dateOfBirth, studentSchoolID, phone, studentAddress, username, password);
-        addStudent(student, studentSchoolID);
-        System.out.println("Student account created successfully!");
-        input.close();
-    }
-  
-    // Add a Student to a specific school
 
+        // Assuming addStudent is defined elsewhere to add the student to the database/list
+        addStudent(student, studentSchoolID);
+
+        System.out.println("Student account created successfully!");
+    }
+
+    // Helper method to validate email format using regex
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        return pattern.matcher(email).matches();
+    }
+
+    // Helper method to validate phone number format (basic validation for numeric digits)
+    private boolean isValidPhoneNumber(String phone) {
+        String phoneRegex = "^[0-9]{10}$"; // Example: 10-digit phone number
+        Pattern pattern = Pattern.compile(phoneRegex);
+        return pattern.matcher(phone).matches();
+    }
+   
     public void addStudent(Student student, int schoolID) {
         if (student != null) {
             for (School school : schools) {
                 if (school.getSchoolID() == schoolID) {
-                    school.getManage().getStudents().add(student);
-                    System.out.println("Student added successfully to school ID " + schoolID);
+                    school.getManage().addStudent(student);
+                    System.out.println("Student added successfully to school ID " + schoolID + " with student ID " + student.getId());
                     return;
                 }
             }
@@ -476,7 +614,7 @@ public class Admin extends Person {
             }
             default -> System.out.println("Invalid criteria. Please choose 1, 2, 3, or 4.");
         }
-        input.close();
+         
     }
 
     // Remove a Student by ID
@@ -635,7 +773,7 @@ public class Admin extends Person {
         }
         default -> System.out.println("Invalid choice. Please choose 1, 2, 3, 4, 5, or 6.");
     }
-    input.close();
+     
 }
 
     // Generalized Search for Students
@@ -680,17 +818,14 @@ public class Admin extends Person {
     // View All Students
     public void viewStudents() {
         boolean hasStudents = false;
-        for (School school : schools) {
-            if (!school.getManage().getStudents().isEmpty()) {
-                hasStudents = true;
-                for (Student student : school.getManage().getStudents()) {
-                    System.out.println(student);
+            for (School school : schools) {
+                if (!school.getManage().getStudents().isEmpty()) {
+                    System.out.println( school.getManage().getStudents());
                 }
+                if (!hasStudents) {
+                    System.out.println("No students to display.");
+               }
             }
-        }
-        if (!hasStudents) {
-            System.out.println("No students to display.");
-        }
     }
 
     // Search for a specific school by ID
@@ -721,12 +856,8 @@ public class Admin extends Person {
     //------------------- School Method -------------------
 
     //Create School
-    public void createSchool() {
+    public  void createSchool() {
         Scanner input = new Scanner(System.in);
-
-        System.out.println("Enter School ID: ");
-        int schoolID = input.nextInt();
-        input.nextLine(); // Consume newline
 
         System.out.println("Enter School Name: ");
         String schoolName = input.nextLine();
@@ -746,16 +877,14 @@ public class Admin extends Person {
         System.out.println("Enter Contact Phone: ");
         String phoneNumber = input.nextLine();
 
-
         // Create School object and add to the list
-        School school = new School(schoolID, schoolName, address, city, contactPerson, email, phoneNumber);
+        School school = new School(schoolName, address, city, contactPerson, email, phoneNumber);
         addSchool(school);
         System.out.println("School created successfully!");
-        input.close();
     }
 
     //Add School
-    public void addSchool(School school) {
+    private void addSchool(School school) {
         if (school != null) {
             Admin.getSchools().add(school);
             System.out.println("School added successfully.");
@@ -849,7 +978,7 @@ public class Admin extends Person {
         }
         default -> System.out.println("Invalid choice. Please choose 1, 2, 3, 4, 5, or 6.");
     }
-    input.close();
+     
 }
 
     // Generalized Search for Schools
@@ -885,7 +1014,10 @@ public class Admin extends Person {
     }
 
     // remove a School
-    public void removeSchool(int schoolID) {
+    public void removeSchool() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter School ID to remove: ");
+        int schoolID = input.nextInt();
         for (School school : Admin.getSchools()) {
             if (school.getSchoolID() == schoolID) {
                 if (Admin.getSchools().remove(school)) {
@@ -895,6 +1027,7 @@ public class Admin extends Person {
                 }
                 return;
             }
+             
         }
         System.out.println("School not found.");
     }

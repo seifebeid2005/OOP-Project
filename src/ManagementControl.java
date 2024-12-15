@@ -2,12 +2,11 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class ManagementControl {
+public abstract class ManagementControl {
 
     private ArrayList<Tutor> tutors;
     private ArrayList<Student> students;
     private ArrayList<Course> courses; // Added courses
-
     // Constructor
     public ManagementControl() {
         this.students = new ArrayList<>();

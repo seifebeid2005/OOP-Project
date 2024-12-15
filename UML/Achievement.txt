@@ -1,25 +1,32 @@
-+-----------------------------------+
-|            Achievement            |
-+-----------------------------------+
-| - idCounter: long                 |
-| - achievementNames: Set<String>   |
-| - achievementID: long             |
-| - achievementName: String         |
-| - achievementDescription: String  |
-| - achievementDateAchieved: LocalDateTime |
-| - studentID: long                 |
-+-----------------------------------+
-| + Achievement(achievementName: String, achievementDescription: String, achievementDateAchieved: LocalDateTime, studentID: long) |
-| + generateUniqueID(): long        |
-| + getAchievementID(): long        |
-| + getAchievementName(): String    |
-| + setAchievementName(achievementName: String): void |
-| + getAchievementDescription(): String |
-| + setAchievementDescription(achievementDescription: String): void |
-| + getAchievementDateAchieved(): LocalDateTime |
-| + setAchievementDateAchieved(achievementDateAchieved: LocalDateTime): void |
-| + getStudentID(): long            |
-| + setStudentID(studentID: long): void |
-| + toString(): String              |
-+-----------------------------------+
-
+// UML
+// +---------------------------------------------+
+// | Achievement                                 |
+// +---------------------------------------------+
+// | - achievementID: long                       |
+// | - achievementName: String                   | 
+// | - achievementDescription: String            |
+// | - achievementDateAchieved: LocalDateTime     |
+// | - studentID: long                           |
+// | - type: String                              |
+// +---------------------------------------------+
+// | + Achievement(achievementName: String,      |
+// | achievementDescription: String,             |
+// | achievementDateAchieved: LocalDateTime,     |
+// | studentID: long, type: String)              |
+// | + generateUniqueID(): long                  |
+// | + isValidType(type: String): boolean        |
+// | + getType(): String                         |
+// | + setType(type: String): void               |
+// | + getAchievementID(): long                  |
+// | + getAchievementName(): String              |
+// | + setAchievementName(achievementName:       |
+// | String): void                              |
+// | + getAchievementDescription(): String       |
+// | + setAchievementDescription(achievementDescription: String): void |
+// | + getAchievementDateAchieved(): LocalDateTime |
+// | + setAchievementDateAchieved(achievementDateAchieved: LocalDateTime): void |
+// | + getStudentID(): long                      |
+// | + setStudentID(studentID: long): void       |
+// | + equals(obj: Object): boolean              |
+// | + toString(): String                        |
+// +---------------------------------------------+

@@ -3,7 +3,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Quiz {
-
+    // Variables
+    // remove tutor name
     private int quiz_id;
     private String quiz_title;
     private int lesson_id; // Lesson this quiz belongs to
@@ -12,6 +13,8 @@ public class Quiz {
     private String tutor_name;
     private List<Question> questions = new ArrayList<>(); // List to store questions in the quiz
     private Grade grade;
+
+    // Constructor
     public Quiz(int quiz_id, String quiz_title, int lesson_id, int numberOfQuestions, float passingScore) {
         this.lesson_id = lesson_id;
         this.quiz_id = quiz_id;
@@ -22,7 +25,7 @@ public class Quiz {
     public int getQuiz_id() {
         return quiz_id;
     }
-
+    // Getters and Setters
     public String getQuiz_title() {
         return quiz_title;
     }
@@ -224,8 +227,6 @@ public class Quiz {
     public int getGrade() {
         return grade.getMarks();
     } 
-
-
 
     @Override
     public String toString() {

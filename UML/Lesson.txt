@@ -1,0 +1,25 @@
++--------------------------------------------+
+|                     Lesson                 |
++--------------------------------------------+
+| - lessonId: int                            |
+| - lessonTitle: String                      |
+| - lessonDescription: String                |
+| - isCompleted: boolean                     |
+| - quiz: Quiz                               |
++--------------------------------------------+
+| + Lesson(int, String, String)              |
+| + getLessonId(): int                       |
+| + setLessonId(int): void                   |
+| + getLessonTitle(): String                 |
+| + setLessonTitle(String): void             |
+| + getLessonDescription(): String           |
+| + setLessonDescription(String): void       |
+| + isCompleted(): boolean                   |
+| + markAsCompleted(): void                  |
+| + markAsIncomplete(): void                 |
+| + setQuiz(Quiz): void                      |
+| + getQuiz(): Quiz                          |
+| + viewQuiz(): void                         |
+| + isQuizPassedAndLessonCompleted(): boolean|
+| + toString(): String                       |
++--------------------------------------------+

@@ -108,9 +108,6 @@ public class Question {
         return answer.equals(correct_answer.toString());
     }
     
-
-    
-
     @Override
     public String toString() {
         return question_text + "\nA: " + A + " B: " + B + " C: " + C + " D: " + D;
