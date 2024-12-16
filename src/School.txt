@@ -1,0 +1,76 @@
+schoolName : ElMaadi School
+address : Maadi
+city : cairo
+contactPerson : 
+email : elMaadi-school@gmail.com
+phoneNumber : 01146988872
+
+schoolName : Green Valley School
+address : Heliopolis
+city : cairo
+contactPerson : 
+email : greenvalley-school@gmail.com
+phoneNumber : 01234567890
+
+schoolName : Future Academy
+address : Nasr City
+city : cairo
+contactPerson : 
+email : futureacademy@gmail.com
+phoneNumber : 01122334455
+
+schoolName : Modern School
+address : Zamalek
+city : cairo
+contactPerson : 
+email : modernschool@gmail.com
+phoneNumber : 01098765432
+
+schoolName : Nile International School
+address : New Cairo
+city : cairo
+contactPerson : 
+email : nileinternational@gmail.com
+phoneNumber : 01234567891
+
+schoolName : Cairo American College
+address : Maadi
+city : cairo
+contactPerson : 
+email : cac@gmail.com
+phoneNumber : 01111222333
+
+schoolName : British International School
+address : Sheikh Zayed
+city : cairo
+contactPerson : 
+email : bis@gmail.com
+phoneNumber : 01012345678
+
+schoolName : Canadian International School
+address : New Cairo
+city : cairo
+contactPerson : 
+email : cis@gmail.com
+phoneNumber : 01234567892
+
+schoolName : German School
+address : Dokki
+city : cairo
+contactPerson : 
+email : germanschool@gmail.com
+phoneNumber : 01133445566
+
+schoolName : French School
+address : Garden City
+city : cairo
+contactPerson : 
+email : frenchschool@gmail.com
+phoneNumber : 01099887766
+
+schoolName : Japanese School
+address : 6th of October
+city : cairo
+contactPerson : 
+email : japaneseschool@gmail.com
+phoneNumber : 01234567893

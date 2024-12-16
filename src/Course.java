@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Course {
     private long courseId;
@@ -20,13 +21,26 @@ public class Course {
     }
 
     // Lesson Management
-    public void addLesson(Lesson lesson) {
+    private void addLesson(Lesson lesson) {
         if (lesson == null) {
             throw new IllegalArgumentException("Lesson cannot be null.");
         }
         lessons.add(lesson);
         courseRequiredProgress = lessons.size(); // Update the required progress dynamically
     }
+    public void createLesson() {
+        Scanner scanner = new Scanner(System.in);
+        // enter lesson name
+        System.out.print("Enter lesson name: ");
+        String lessonName = scanner.nextLine();
+        // enter lesson description
+        System.out.print("Enter lesson description: ");
+        String lessonDescription = scanner.nextLine();
+        // Create a new lesson
+        Lesson lesson = new Lesson( lessonName, lessonDescription);
+        addLesson(lesson);
+    }
+    
 
     public ArrayList<Lesson> getLessons() {
         return new ArrayList<>(lessons); // Return a copy to maintain encapsulation

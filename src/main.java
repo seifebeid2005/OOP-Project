@@ -3,15 +3,48 @@ import java.util.Scanner;
 public class main {
 
     public static void main(String[] args) {
-        // Start the application
-        Start();
+
+        Scanner sc = new Scanner(System.in);
+        Admin admin = new Admin(); // Create an admin instance
+        String filePath = "School.txt";
+
+        while (true) {
+            System.out.println("Welcome to Education Center CAF-JS");
+            System.out.println("Please choose your role: ");
+            System.out.println("1. Admin");
+            System.out.println("2. School");
+            System.out.println("3. Student");
+            System.out.println("4. Exit");
+
+            int choice = sc.nextInt();
+            sc.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    AdminFunctions(admin ,  filePath); // Call Admin function
+                    break;
+                case 2:
+                    SchoolFunctions(); // Call School function
+                    break;
+                case 3:
+                    StudentFunctions(); // Call Student function
+                    break;
+                case 4:
+                    System.out.println("Goodbye");
+                    return; // Exit the program
+                default:
+                    System.out.println("Invalid choice, please try again");
+                    break;
+            }
+        }
     }
 
     // Function for Admin actions
-    public static void AdminFunctions(Admin admin) {
+    public static void AdminFunctions(Admin admin   , String pathfile ) {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
+            System.out.println("-----------------");
             System.out.println("Welcome Admin");
             System.out.println("Please choose your action:");
             System.out.println("1. Add Operations");
@@ -25,7 +58,7 @@ public class main {
 
             switch (choice) {
                 case 1:
-                    handleAddOperations(admin);
+                    handleAddOperations(admin ,  pathfile);
                     break;
                 case 2:
                     handleUpdateOperations(admin);
@@ -47,8 +80,9 @@ public class main {
     }
 
     // Handle Add Operations
-    public static void handleAddOperations(Admin admin) {
+    public static void handleAddOperations(Admin admin , String pathfile) {
         Scanner sc = new Scanner(System.in);
+        System.out.println("---------------");
         System.out.println("Add Operations:");
         System.out.println("1. Add School");
         System.out.println("2. Add Student");
@@ -60,7 +94,7 @@ public class main {
 
         switch (choice) {
             case 1:
-                admin.createSchool();
+                admin.createSchoolFromFile(pathfile);
                 break;
             case 2:
                 admin.createStudentAccount();
@@ -80,6 +114,7 @@ public class main {
     // Handle Update Operations
     public static void handleUpdateOperations(Admin admin) {
         Scanner sc = new Scanner(System.in);
+        System.out.println("------------------");
         System.out.println("Update Operations:");
         System.out.println("1. Update School");
         System.out.println("2. Update Student");
@@ -111,6 +146,7 @@ public class main {
     // Handle Delete Operations
     public static void handleDeleteOperations(Admin admin) {
         Scanner sc = new Scanner(System.in);
+        System.out.println("-------------------");
         System.out.println("Delete Operations:");
         System.out.println("1. Delete School");
         System.out.println("2. Delete Student");
@@ -142,6 +178,7 @@ public class main {
     // Handle View Operations
     public static void handleViewOperations(Admin admin) {
         Scanner sc = new Scanner(System.in);
+        System.out.println("------------------");
         System.out.println("View Operations:");
         System.out.println("1. View Schools");
         System.out.println("2. View Students");
@@ -156,7 +193,7 @@ public class main {
                 admin.viewSchools();
                 break;
             case 2:
-                admin.viewStudentsBySchool(1);
+                admin.viewStudents();
                 break;
             case 3:
                 admin.viewTutors();
@@ -182,39 +219,5 @@ public class main {
         // Implement any student-specific logic or actions here
     }
 
-    // Main menu to choose role
-    public static void Start() {
-        Scanner sc = new Scanner(System.in);
-        Admin admin = new Admin(); // Create an admin instance
 
-        while (true) {
-            System.out.println("Welcome to Education Center CAF-JS");
-            System.out.println("Please choose your role: ");
-            System.out.println("1. Admin");
-            System.out.println("2. School");
-            System.out.println("3. Student");
-            System.out.println("4. Exit");
-
-            int choice = sc.nextInt();
-            sc.nextLine(); // Consume newline
-
-            switch (choice) {
-                case 1:
-                    AdminFunctions(admin); // Call Admin function
-                    break;
-                case 2:
-                    SchoolFunctions(); // Call School function
-                    break;
-                case 3:
-                    StudentFunctions(); // Call Student function
-                    break;
-                case 4:
-                    System.out.println("Goodbye");
-                    return; // Exit the program
-                default:
-                    System.out.println("Invalid choice, please try again");
-                    break;
-            }
-        }
-    }
 }

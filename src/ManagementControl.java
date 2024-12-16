@@ -2,17 +2,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
-public abstract class ManagementControl {
+public class ManagementControl {
 
-    private ArrayList<Tutor> tutors;
-    private ArrayList<Student> students;
-    private ArrayList<Course> courses; // Added courses
-    // Constructor
-    public ManagementControl() {
-        this.students = new ArrayList<>();
-        this.tutors = new ArrayList<>();
-        this.courses = new ArrayList<>();
-    }
+    private ArrayList<Tutor> tutors = new ArrayList<>();
+    private ArrayList<Student> students = new ArrayList<>();
+    private ArrayList<Course> courses = new ArrayList<>(); // Added courses
+
 
     // Getters for tutors, students, and courses
     public ArrayList<Tutor> getTutors() {
@@ -132,6 +127,7 @@ public abstract class ManagementControl {
         }
     }
 
+    //----------------- Added methods for Students -----------------
     public void addStudent(Student student) {
         if (student != null && !students.contains(student)) {
             students.add(student);

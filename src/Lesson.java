@@ -5,10 +5,13 @@ public class Lesson {
     private String lessonDescription;
     private boolean isCompleted = false;  // Track completion status
     private Quiz quiz;  // Single quiz associated with the lesson
+    private static int idCounter = 1;
+
+// id genrator
 
     // Constructor
-    public Lesson(int lessonId, String lessonTitle, String lessonDescription) {
-        this.lessonId = lessonId;
+    public Lesson(String lessonTitle, String lessonDescription) {
+        this.lessonId = idCounter++;
         this.lessonTitle = lessonTitle;
         this.lessonDescription = lessonDescription;
     }

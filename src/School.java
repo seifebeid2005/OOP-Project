@@ -33,6 +33,7 @@ public class School {
         this.contactPerson = "";
         this.email = "";
         this.phoneNumber = "";
+        this.manage = new ManagementControl();
 
     }
     // Parameterized constructor
@@ -45,6 +46,7 @@ public class School {
         this.contactPerson = contactPerson;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.manage = new ManagementControl();
     }
 
     // Getters and Setters
@@ -161,7 +163,7 @@ public class School {
             System.out.println("Student cannot be null.");
             return;
         }
-        manage.addStudent(student);
+        getManage().addStudent(student);
         System.out.println("Student added successfully!");
     }
 

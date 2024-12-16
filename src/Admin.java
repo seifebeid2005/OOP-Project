@@ -37,6 +37,8 @@
 //| + searchStudentById(studentId: Long, schoolID: int): Student |
 //| + equals(obj: Object): boolean |
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -820,6 +822,7 @@ public class Admin extends Person {
         boolean hasStudents = false;
             for (School school : schools) {
                 if (!school.getManage().getStudents().isEmpty()) {
+                    hasStudents = true;
                     System.out.println( school.getManage().getStudents());
                 }
                 if (!hasStudents) {
@@ -883,6 +886,47 @@ public class Admin extends Person {
         System.out.println("School created successfully!");
     }
 
+    public void createSchoolFromFile(String filePath) {
+    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        String line;
+        String schoolName = "", address = "", city = "", contactPerson = "", email = "", phoneNumber = "";
+
+        while ((line = br.readLine()) != null) {
+            line = line.trim(); // Remove leading and trailing whitespace
+            if (line.isEmpty()) {
+                // Create a School object and add to the list when a blank line is encountered
+                School school = new School(schoolName, address, city, contactPerson, email, phoneNumber);
+                addSchool(school); // Assuming you have a method `addSchool` to add to your list
+
+                // Reset variables for the next school
+                schoolName = "";
+                address = "";
+                city = "";
+                contactPerson = "";
+                email = "";
+                phoneNumber = "";
+            } else if (line.startsWith("schoolName : ")) {
+                schoolName = line.substring(13).trim();
+            } else if (line.startsWith("address : ")) {
+                address = line.substring(10).trim();
+            } else if (line.startsWith("city : ")) {
+                city = line.substring(7).trim();
+            } else if (line.startsWith("contactPerson : ")) {
+                contactPerson = line.substring(16).trim();
+            } else if (line.startsWith("email : ")) {
+                email = line.substring(8).trim();
+            } else if (line.startsWith("phoneNumber : ")) {
+                phoneNumber = line.substring(14).trim();
+            }
+
+        }
+    
+    }
+    catch (Exception e) {
+        System.out.println(e);    
+    }
+}
+   
     //Add School
     private void addSchool(School school) {
         if (school != null) {
