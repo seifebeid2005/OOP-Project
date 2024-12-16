@@ -94,7 +94,7 @@ public class main {
 
         switch (choice) {
             case 1:
-                admin.createSchoolFromFile(pathfile);
+                Schoolcreation();
                 break;
             case 2:
                 admin.createStudentAccount();
@@ -219,5 +219,17 @@ public class main {
         // Implement any student-specific logic or actions here
     }
 
+    public static void Schoolcreation(){
+        
+    }
+    public static void Studentcreation(){
+        // Create a school instance
+    }
+    public static void Tutorcreation(){
+        // Create a school instance
+    }
+    public static void Coursecreation(){
+        // Create a school instance
+    }
 
 }
