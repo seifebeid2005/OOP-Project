@@ -94,7 +94,7 @@ public class main {
 
         switch (choice) {
             case 1:
-                Schoolcreation();
+                Schoolcreation(admin , pathfile);
                 break;
             case 2:
                 admin.createStudentAccount();
@@ -219,7 +219,28 @@ public class main {
         // Implement any student-specific logic or actions here
     }
 
-    public static void Schoolcreation(){
+    public static void Schoolcreation(Admin admin , String pathfile){
+        System.out.println("Welcome to School Creation");
+        System.out.println("Please choose your action:");
+        System.out.println("1. Create School from terminal");
+        System.out.println("2. Create School from file");
+        Scanner sc = new Scanner(System.in);
+        int choice = sc.nextInt();
+        sc.nextLine(); // consume the remaining newline
+
+        switch (choice) {
+            case 1:
+            System.out.println("Creating school from terminal...");
+            admin.createSchool();
+            break;
+            case 2:
+            System.out.println("Creating school from file...");
+            admin.createSchoolFromFile(pathfile);
+            break;
+            default:
+            System.out.println("Invalid choice. Please try again.");
+            break;
+        }
         
     }
     public static void Studentcreation(){
