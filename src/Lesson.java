@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Lesson {
 
     private int lessonId;
@@ -53,6 +55,40 @@ public class Lesson {
     public void markAsIncomplete() {
         this.isCompleted = false;
     }
+    public void createQuiz() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("now you can create a quiz for this lesson");
+        System.out.println("Enter the question text: ");
+        String question_text = scanner.nextLine();
+        
+        System.out.println("Enter option A: ");
+        String A = scanner.nextLine();
+        
+        System.out.println("Enter option B: ");
+        String B = scanner.nextLine();
+        
+        System.out.println("Enter option C: ");
+        String C = scanner.nextLine();
+        
+        System.out.println("Enter option D: ");
+        String D = scanner.nextLine();
+        
+        System.out.println("Enter the correct answer (A, B, C, D): ");
+        String correct_answer_str = scanner.nextLine().toUpperCase();
+
+        // Validating the correct answer input
+        Question.CorrectAnswer correct_answer;
+        try {
+            correct_answer = Question.CorrectAnswer.valueOf(correct_answer_str);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid correct answer. Must be A, B, C, or D.");
+            return;
+        }
+        Question question = new Question( question_text, A, B, C, D, correct_answer);
+        quiz.addQuestionToQuiz(question);
+        System.out.println("Question added successfully.");
+        
+    }
 
     // Set a quiz for the lesson
     public void setQuiz(Quiz quiz) {
@@ -78,7 +114,7 @@ public class Lesson {
     // get is the quiz is completed with the passing score
     public boolean isQuizPassedAndLessonCompleted() {
         if (quiz != null) {
-            if (quiz.getGrade() >= quiz.getPassingScore()) {
+            if (quiz.getGrade().getMarks() >= Quiz.getPassingScore()) {
                 markAsCompleted();
                 return true;
             }

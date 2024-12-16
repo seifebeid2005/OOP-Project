@@ -19,9 +19,8 @@ public class Question {
     }
 
     // Constructor with CorrectAnswer as a parameter type
-    public Question(int quiz_id, String question_text, String A, String B, String C, String D, CorrectAnswer correct_answer) {
+    public Question( String question_text, String A, String B, String C, String D, CorrectAnswer correct_answer) {
         this.questionId = generateRandomID();
-        this.quiz_id = quiz_id;
         this.question_text = question_text;
         this.A = A;
         this.B = B;

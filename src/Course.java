@@ -39,8 +39,11 @@ public class Course {
         // Create a new lesson
         Lesson lesson = new Lesson( lessonName, lessonDescription);
         addLesson(lesson);
-    }
+        lesson.createQuiz();
     
+    }
+
+
 
     public ArrayList<Lesson> getLessons() {
         return new ArrayList<>(lessons); // Return a copy to maintain encapsulation
