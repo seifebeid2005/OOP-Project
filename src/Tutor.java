@@ -16,6 +16,16 @@ public class Tutor extends Person {
         ASSISTANT_TUTOR,
         TUTOR
     }
+    
+    private static int autoId = 0;         // Auto-increment ID for tutors
+
+    // generate autoId
+    private static Long generateId() {
+        int randomPart = (int) (Math.random() * 10000); // Generate a random number between 0 and 9999
+        int yearPart = LocalDate.now().getYear(); // Get the current year
+        return Long.valueOf(yearPart + String.format("%04d", randomPart)); // Combine year and random part
+    }
+
     public Tutor() {
         super();
         this.subjectArea = "";
@@ -25,16 +35,15 @@ public class Tutor extends Person {
         this.schoolID = 0;
     }
     // Constructor
-    public Tutor(Long id, String name, String email, LocalDate dateOfBirth, String phone, String address,
+    public Tutor( String name, String email, LocalDate dateOfBirth, String phone, String address,
                  String username, String password, String subjectArea, LocalDate dateJoined, Role roleEnum, int schoolID) {
-        super(id, name, email, dateOfBirth, phone, address, username, password);
+        super(generateId(), name, email, dateOfBirth, phone, address, username, password);
         this.subjectArea = validateNotEmpty(subjectArea, "Subject area cannot be null or empty.");
         this.dateJoined = dateJoined != null ? dateJoined : LocalDate.now(); // Default to current date if null
         this.roleEnum = roleEnum != null ? roleEnum : Role.TUTOR; // Default to "TUTOR" if roleEnum is null
         this.courses = new ArrayList<>(); // Initialize courses list
         this.schoolID = schoolID;
     }
-
     // Getter for subject area
     public String getSubjectArea() {
         return subjectArea;

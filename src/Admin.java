@@ -1,41 +1,3 @@
-//UML
-//+---------------------+
-//|       Admin         |
-//+---------------------+
-//| - roleEnum: Role    |
-//| - schools: ArrayList<School> |
-//+---------------------+
-//| + Admin()           |
-//| + Admin(id: Long, name: String, email: String, roleEnum: Role, dateOfBirth: LocalDate, phone: String, address: String, username: String, password: String) |
-//| + getRoleEnum(): Role |
-//| + getSchools(): List<School> |
-//| + addTutorToSchool(tutor: Tutor, schoolID: int): void |
-//| + createTutorAccount(): void |
-//| + removeTutorByCriteria(): void |
-//| + removeTutorById(id: Long, schoolID: int): void |
-//| + removeTutorByName(name: String, schoolID: int): void |
-//| + removeTutorByEmail(email: String, schoolID: int): void |
-//| + removeTutorByUsername(username: String, schoolID: int): void |
-//| + updateTutor(tutorId: Long, newName: String, newEmail: String, newPhone: String, newAddress: String, newSubjectArea: String): void |
-//| + updateTutorById(): void |
-//| + assignTutorRole(tutorId: Long, roleEnum: Tutor.Role, schoolID: int): void |
-//| + viewTutorsByCriteria(criteria: String, value: Object, schoolID: int): void |
-//| + viewTutors(): void |
-//| + removeTutor(tutorId: Long, schoolID: int): void |
-//| + createStudentAccount(): void |
-//| + addStudent(student: Student, schoolID: int): void |
-//| + removeStudentByCriteria(): void |
-//| + removeStudentById(id: Long, schoolID: int): void |
-//| + removeStudentByName(name: String, schoolID: int): void |
-//| + removeStudentByEmail(email: String, schoolID: int): void |
-//| + removeStudentByUsername(username: String, schoolID: int): void |
-//| + updateStudent(studentId: Long, newName: String, newEmail: String, newPhone: String, newAddress: String, newSchoolID: int, newCurrentLevel: int, schoolID: int): void |
-//| + updateStudentById(): void |
-//| + viewStudentsByCriteria(criteria: String, value: Object, schoolID: int): void |
-//| + viewStudents(): void |
-//| + searchSchoolById(schoolID: int): School |
-//| + searchStudentById(studentId: Long, schoolID: int): Student |
-//| + equals(obj: Object): boolean |
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -93,10 +55,6 @@ public class Admin extends Person {
     public void createTutorAccount() {
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Enter Tutor ID: ");
-        Long id = input.nextLong();
-        input.nextLine(); // Consume newline
-
         System.out.println("Enter Tutor Name: ");
         String name = input.nextLine();
 
@@ -143,13 +101,72 @@ public class Admin extends Person {
         input.nextLine(); // Consume newline
 
         // Create Tutor object and add to the list
-        Tutor tutor = new Tutor(id, name, email, dateOfBirth, phone, address, username, password, subjectArea,
+        Tutor tutor = new Tutor( name, email, dateOfBirth, phone, address, username, password, subjectArea,
                 dateJoined, roleEnum, schoolID);
         addTutorToSchool(tutor, schoolID);
         System.out.println("Tutor account created successfully!");
          
     }
-  
+    
+    // Create Tutor from file
+    public void createTutorFromFile(String filePath) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            Long id = null;
+            String name = "", email = "", phone = "", address = "", username = "", password = "", subjectArea = "";
+            LocalDate dateOfBirth = null, dateJoined = null;
+            Tutor.Role roleEnum = Tutor.Role.TUTOR;
+            int schoolID = -1;
+
+            while ((line = br.readLine()) != null) {
+            line = line.trim(); // Remove leading and trailing whitespace
+            if (line.isEmpty()) {
+                // Create a Tutor object and add to the list when a blank line is encountered
+                Tutor tutor = new Tutor( name, email, dateOfBirth, phone, address, username, password, subjectArea, dateJoined, roleEnum, schoolID);
+                addTutorToSchool(tutor, schoolID); // Assuming you have a method addTutorToSchool to add to your list
+
+                // Reset variables for the next tutor
+                name = "";
+                email = "";
+                phone = "";
+                address = "";
+                username = "";
+                password = "";
+                subjectArea = "";
+                dateOfBirth = null;
+                dateJoined = null;
+                roleEnum = Tutor.Role.TUTOR;
+                schoolID = -1;
+            } else if (line.startsWith("name : ")) {
+                name = line.substring(7).trim();
+            } else if (line.startsWith("email : ")) {
+                email = line.substring(8).trim();
+            } else if (line.startsWith("phone : ")) {
+                phone = line.substring(8).trim();
+            } else if (line.startsWith("address : ")) {
+                address = line.substring(10).trim();
+            } else if (line.startsWith("username : ")) {
+                username = line.substring(11).trim();
+            } else if (line.startsWith("password : ")) {
+                password = line.substring(11).trim();
+            } else if (line.startsWith("subjectArea : ")) {
+                subjectArea = line.substring(14).trim();
+            } else if (line.startsWith("dateOfBirth : ")) {
+                dateOfBirth = LocalDate.parse(line.substring(14).trim());
+            } else if (line.startsWith("dateJoined : ")) {
+                dateJoined = LocalDate.parse(line.substring(13).trim());
+            } else if (line.startsWith("role : ")) {
+                roleEnum = Tutor.Role.valueOf(line.substring(7).trim().toUpperCase());
+            } else if (line.startsWith("schoolID : ")) {
+                schoolID = Integer.parseInt(line.substring(11).trim());
+            }
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        }
+    
     // Remove a Tutor
     public void removeTutorByCriteria() {
         Scanner input = new Scanner(System.in);
@@ -269,7 +286,6 @@ public class Admin extends Person {
     }
    
     // Update Tutor Information
-
     public void updateTutor(Long tutorId, String newName, String newEmail, String newPhone, String newAddress,String newSubjectArea) {
         for (School school : schools) {
             for (Tutor tutor : school.getManage().getTutors()) {
@@ -551,8 +567,53 @@ public class Admin extends Person {
         addStudent(student, studentSchoolID);
 
         System.out.println("Student account created successfully!");
-    }
+        }
+        
+    public void createStudentFromFile(String filePath2) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath2))) {
+            String line;
+            String name = "", email = "", phone = "", address = "", username = "", password = "";
+            LocalDate dateOfBirth = null;
+            int schoolID = -1;
 
+            while ((line = br.readLine()) != null) {
+            line = line.trim(); // Remove leading and trailing whitespace
+            if (line.isEmpty()) {
+                // Create a Student object and add to the list when a blank line is encountered
+                Student student = new Student(name, email, dateOfBirth, schoolID, phone, address, username, password);
+                addStudent(student, schoolID); // Assuming you have a method `addStudent` to add to your list
+
+                // Reset variables for the next student
+                name = "";
+                email = "";
+                phone = "";
+                address = "";
+                username = "";
+                password = "";
+                dateOfBirth = null;
+                schoolID = -1;
+            } else if (line.startsWith("name : ")) {
+                name = line.substring(7).trim();
+            } else if (line.startsWith("email : ")) {
+                email = line.substring(8).trim();
+            } else if (line.startsWith("phone : ")) {
+                phone = line.substring(8).trim();
+            } else if (line.startsWith("address : ")) {
+                address = line.substring(10).trim();
+            } else if (line.startsWith("username : ")) {
+                username = line.substring(11).trim();
+            } else if (line.startsWith("password : ")) {
+                password = line.substring(11).trim();
+            } else if (line.startsWith("dateOfBirth : ")) {
+                dateOfBirth = LocalDate.parse(line.substring(14).trim());
+            } else if (line.startsWith("schoolID : ")) {
+                schoolID = Integer.parseInt(line.substring(11).trim());
+            }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        }
     // Helper method to validate email format using regex
     private boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
@@ -800,6 +861,7 @@ public class Admin extends Person {
             }
         }
     }
+    
     // Search for Students by Criteria
     private boolean matchesCriteria(Student student, String criteria, Object value) {
         return switch (criteria.toLowerCase()) {
@@ -885,7 +947,8 @@ public class Admin extends Person {
         addSchool(school);
         System.out.println("School created successfully!");
     }
-
+    
+    // create School from file
     public void createSchoolFromFile(String filePath) {
     try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
         String line;
@@ -926,7 +989,7 @@ public class Admin extends Person {
         System.out.println(e);    
     }
 }
-   
+
     //Add School
     private void addSchool(School school) {
         if (school != null) {
@@ -1125,8 +1188,77 @@ public class Admin extends Person {
             System.out.println("School not found.");
         }
     }
+   
+    // ------------------- Chapter Method -------------------
+
+    public void CreateCourse() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Enter Course Name: ");
+        String courseName = input.nextLine();
+
+        System.out.println("Enter Course Description: ");
+        String courseDescription = input.nextLine();
+
+        System.out.println("Enter Course course Is Active: ");
+        Boolean courseIsActive = input.nextBoolean();
+
+        // Create Course object and add to the list
+        Course course = new Course( courseName,  courseDescription,  courseIsActive);
+        for(School school:schools ){
+            school.getManage().addCourse(course);
+        }
+
+        System.out.println("Course created successfully!");
+    }
+
+    public void createCourseFromFile(String filePath) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            String courseName = "", courseDescription = "";
+            boolean courseIsActive = false;
+
+            while ((line = br.readLine()) != null) {
+                line = line.trim(); // Remove leading and trailing whitespace
+                if (line.isEmpty()) {
+                    // Create a Course object and add to the list when a blank line is encountered
+                    Course course = new Course(courseName, courseDescription, courseIsActive);
+                    for(School school:schools ){
+                        school.getManage().addCourse(course);
+                    }
+                    // Reset variables for the next course
+                    courseName = "";
+                    courseDescription = "";
+                    courseIsActive = false;
+                } else if (line.startsWith("courseName : ")) {
+                    courseName = line.substring(13).trim();
+                } else if (line.startsWith("courseDescription : ")) {
+                    courseDescription = line.substring(20).trim();
+                } else if (line.startsWith("courseIsActive : ")) {
+                    courseIsActive = Boolean.parseBoolean(line.substring(17).trim());
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+ 
+    public void removeCourse(){
+      Scanner sc = new Scanner(System.in);
+      System.out.println("Enter Course ID to remove: ");
+      int courseID = sc.nextInt();
+          for(School school:schools){
+             for(Course course:school.getManage().getCourses()){
+                 if(course.getCourseId() == courseID){
+                  school.getManage().removeCourse(course);
+                   System.out.println("Course with ID " + courseID + " and name " + course.getCourseName() + " has been removed.");
+                }
+            }   
+        }
+    }
+
     //------------------- Chapter Method -------------------
-    
+
     public void addChapterToTutor(Long tutorId, int schoolID, Course course) {
         for (School school : schools) {
             if (school.getSchoolID() == schoolID) {
@@ -1327,5 +1459,6 @@ public class Admin extends Person {
                 + ", DateAdded = " + getDateAdded()
                 + " }";
     }
+
 
 }

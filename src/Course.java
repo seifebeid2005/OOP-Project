@@ -13,8 +13,12 @@ public class Course {
     public Course() {
     }
 
-    public Course(long courseId, String courseName, String courseDescription, Boolean courseIsActive) {
-        this.courseId = courseId;
+    // Generate a random course ID
+    public static long generateRandomCourseId() {
+        return (long) (Math.random() * 1000000);
+    }
+    public Course( String courseName, String courseDescription, Boolean courseIsActive) {
+        this.courseId = generateRandomCourseId();
         this.courseName = courseName;
         this.courseDescription = courseDescription;
         this.courseIsActive = courseIsActive;
@@ -28,6 +32,7 @@ public class Course {
         lessons.add(lesson);
         courseRequiredProgress = lessons.size(); // Update the required progress dynamically
     }
+    
     public void createLesson() {
         Scanner scanner = new Scanner(System.in);
         // enter lesson name
@@ -42,8 +47,6 @@ public class Course {
         lesson.createQuiz();
     
     }
-
-
 
     public ArrayList<Lesson> getLessons() {
         return new ArrayList<>(lessons); // Return a copy to maintain encapsulation
