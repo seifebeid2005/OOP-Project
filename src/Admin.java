@@ -1,6 +1,7 @@
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.sql.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -19,9 +20,18 @@ public class Admin extends Person {
         ADMIN, SUPER_ADMIN, MODERATOR
     }
 
-    public Admin() {
-        super();
+    public Admin(String username, String password) {
+        super(username, password);
         this.roleEnum = Role.ADMIN;
+    }
+
+    public ArrayList<String> getSchoolsData() {
+        ArrayList<String> data = new ArrayList<>();
+        for (School school : schools) {
+            data.add(school.toString());  // Assuming School has a proper toString() method
+            
+        }
+        return data;
     }
 
     public Admin(Long id, String name, String email, Role roleEnum, LocalDate dateOfBirth, String phone, String address, String username, String password) {
@@ -36,6 +46,11 @@ public class Admin extends Person {
 
     public static List<School> getSchools() {
         return schools;
+    }
+
+    //checkLogin
+    public boolean checkLogin(String username, String password) {
+        return this.getUsername().equals(username) && this.getPassword().equals(password);
     }
 
     //------------------- Tutor Method -------------------
@@ -1546,6 +1561,18 @@ public class Admin extends Person {
                     System.out.println("Course with ID " + courseID + " and name " + course.getCourseName() + " has been removed.");
                 }
             }
+        }
+    }
+
+    public void viewCourses() {
+        Set<Course> uniqueCourses = new HashSet<>();
+        for (School school : schools) {
+            uniqueCourses.addAll(school.getManage().getCourses());
+        }
+        List<Course> sortedCourses = new ArrayList<>(uniqueCourses);
+        sortedCourses.sort(Comparator.comparing(Course::getCourseId));
+        for (Course course : sortedCourses) {
+            System.out.println(course);
         }
     }
 

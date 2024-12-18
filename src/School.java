@@ -1,3 +1,4 @@
+
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -18,7 +19,6 @@ public class School {
     private ManagementControl manage;
     private static int idCounter = 1;
 
-
     // Method to generate a new unique ID
     private static synchronized int generateNewID() {
         return idCounter++;
@@ -26,7 +26,7 @@ public class School {
 
     // Default constructor
     public School() {
-        this.schoolID = generateNewID();    
+        this.schoolID = generateNewID();
         this.schoolName = "";
         this.address = "";
         this.city = "";
@@ -36,9 +36,9 @@ public class School {
         this.manage = new ManagementControl();
 
     }
+
     // Parameterized constructor
-    public School( String schoolName, String address, String city, String contactPerson, String email,
-            String phoneNumber) {
+    public School(String schoolName, String address, String city, String contactPerson, String email, String phoneNumber) {
         this.schoolID = generateNewID();
         this.schoolName = schoolName;
         this.address = address;
@@ -52,6 +52,55 @@ public class School {
     // Getters and Setters
     public ManagementControl getManage() {
         return manage;
+    }
+
+    //------------------------getter methods-----------------------
+    public String getTutorsData() {
+        StringBuilder data = new StringBuilder();
+        for (Tutor tutor : getManage().getTutors()) {
+            data.append(tutor.toString()).append("\n");  // Assuming Tutor has a proper toString() method
+        }
+        return data.toString();
+    }
+
+    public String getStudentsData() {
+        StringBuilder data = new StringBuilder();
+        for (Student student : getManage().getStudents()) {
+            data.append(student.toString()).append("\n");  // Assuming Student has a proper toString() method
+        }
+        return data.toString();
+    }
+
+    public String getCoursesData() {
+        StringBuilder data = new StringBuilder();
+        for (Course course : getManage().getCourses()) {
+            data.append(course.toString()).append("\n");  // Assuming Course has a proper toString() method
+        }
+        return data.toString();
+    }
+
+    public String getLessonsData() {
+        StringBuilder data = new StringBuilder();
+        for (Lesson lesson : getManage().getLessons()) {
+            data.append(lesson.toString()).append("\n");  // Assuming Lesson has a proper toString() method
+        }
+        return data.toString();
+    }
+
+    public String getQuizzesData() {
+        StringBuilder data = new StringBuilder();
+        for (Quiz quiz : getManage().getQuizzes()) {
+            data.append(quiz.toString()).append("\n");  // Assuming Quiz has a proper toString() method
+        }
+        return data.toString();
+    }
+
+    public String getQuestionsData() {
+        StringBuilder data = new StringBuilder();
+        for (Question question : getManage().getQuestions()) {
+            data.append(question.toString()).append("\n");  // Assuming Question has a proper toString() method
+        }
+        return data.toString();
     }
 
     public int getSchoolID() {
@@ -128,29 +177,29 @@ public class School {
         try (Scanner input = new Scanner(System.in)) {
             System.out.println("Enter Student Name: ");
             String name = input.nextLine();
-            
+
             System.out.println("Enter Student Email: ");
             String studentEmail = input.nextLine();
-            
+
             System.out.println("Enter Student Phone: ");
             String phone = input.nextLine();
-            
+
             System.out.println("Enter Student Address: ");
             String studentAddress = input.nextLine();
-            
+
             System.out.println("Enter Student Username: ");
             String username = input.nextLine();
-            
+
             System.out.println("Enter Student Password: ");
             String password = input.nextLine();
-            
+
             System.out.println("Enter Student School ID: ");
             int studentSchoolID = input.nextInt();
             input.nextLine(); // Consume newline after int input
-            
+
             System.out.println("Enter Student Date of Birth (YYYY-MM-DD): ");
             LocalDate dateOfBirth = LocalDate.parse(input.nextLine());
-            
+
             // Create the student object with the registration date handled by the constructor
             Student student = new Student(name, studentEmail, dateOfBirth, studentSchoolID, phone, studentAddress, username, password);
             addStudent(student);
@@ -182,7 +231,6 @@ public class School {
     //             filteredStudents.add(student);
     //         }
     //     }
-
     //     if (filteredStudents.isEmpty()) {
     //         System.out.println("No students found for the given criteria.");
     //     } else {
@@ -191,7 +239,6 @@ public class School {
     //         }
     //     }
     // }
-
     // Search for Students by Criteria
     // private boolean matchesCriteria(Student student, String criteria, Object value) {
     //     return switch (criteria.toLowerCase()) {
@@ -208,14 +255,12 @@ public class School {
     //         default -> false;
     //     };
     // }
-
     // View All Students
     public void viewStudents() {
         manage.listStudents();
     }
 
     //------------------- Tutor Method -------------------
-
     // Add a Tutor
     public void addTutor(Tutor tutor) {
         if (tutor == null) {
@@ -232,52 +277,55 @@ public class School {
             System.out.println("Enter Tutor ID: ");
             Long id = input.nextLong();
             input.nextLine(); // Consume newline
-            
+
             System.out.println("Enter Tutor Name: ");
             String name = input.nextLine();
-            
+
             System.out.println("Enter Tutor Email: ");
             String tutorEmail = input.nextLine();
-            
+
             System.out.println("Enter Tutor Date of Birth (YYYY-MM-DD): ");
             LocalDate dateOfBirth = LocalDate.parse(input.nextLine());
-            
+
             System.out.println("Enter Tutor Phone: ");
             String phone = input.nextLine();
-            
+
             System.out.println("Enter Tutor Address: ");
             String tutorAddress = input.nextLine();
-            
+
             System.out.println("Enter Tutor Username: ");
             String username = input.nextLine();
-            
+
             System.out.println("Enter Tutor Password: ");
             String password = input.nextLine();
-            
+
             System.out.println("Enter Tutor Subject Area: ");
             String subjectArea = input.nextLine();
-            
+
             System.out.println("Enter Tutor Role (1: LEAD_TUTOR, 2: ASSISTANT_TUTOR, 3: TUTOR): ");
             int roleChoice = input.nextInt();
             input.nextLine(); // Consume newline
             Tutor.Role roleEnum;
             switch (roleChoice) {
-                case 1 -> roleEnum = Tutor.Role.LEAD_TUTOR;
-                case 2 -> roleEnum = Tutor.Role.ASSISTANT_TUTOR;
-                case 3 -> roleEnum = Tutor.Role.TUTOR;
+                case 1 ->
+                    roleEnum = Tutor.Role.LEAD_TUTOR;
+                case 2 ->
+                    roleEnum = Tutor.Role.ASSISTANT_TUTOR;
+                case 3 ->
+                    roleEnum = Tutor.Role.TUTOR;
                 default -> {
                     System.out.println("Invalid choice. Defaulting to TUTOR.");
                     roleEnum = Tutor.Role.TUTOR;
                 }
             }
-            
+
             System.out.println("Enter Tutor Date Joined (YYYY-MM-DD): ");
             LocalDate dateJoined = LocalDate.parse(input.nextLine());
-            
+
             System.out.println("Enter Tutor School ID: ");
             int tutorSchoolID = input.nextInt();
             input.nextLine(); // Consume newline
-            
+
             // Create Tutor object and add to the list
             Tutor tutor = new Tutor(name, tutorEmail, dateOfBirth, phone, tutorAddress, username, password, subjectArea, roleEnum, tutorSchoolID);
             addTutor(tutor);
@@ -302,7 +350,6 @@ public class School {
     //             filteredTutors.add(tutor);
     //         }
     //     }
-
     //     if (filteredTutors.isEmpty()) {
     //         System.out.println("No tutors found for the given criteria.");
     //     } else {
@@ -311,7 +358,6 @@ public class School {
     //         }
     //     }
     // }
-
     // // Search for Tutors by Criteria
     // private boolean matchesCriteria(Tutor tutor, String criteria, Object value) {
     //     return switch (criteria.toLowerCase()) {
@@ -329,7 +375,6 @@ public class School {
     //         default -> false;
     //     };
     // }
-
     // // View All Tutors
     // public void viewTutors() {
     //     if (tutors.isEmpty()) {
@@ -340,7 +385,6 @@ public class School {
     //         }
     //     }
     // }
-
     // Add chapter to a tutor
     // public void addChapterToTutor(Long tutorId, Course course) {
     //     for (Tutor tutor : tutors) {
@@ -352,7 +396,6 @@ public class School {
     //     }
     //     System.out.println("Tutor not found.");
     // }
-
     // View Students of a Tutor
     public void viewStudentsOfTutor(Long tutorId) {
     }
@@ -363,17 +406,12 @@ public class School {
     // String representation of the object
     @Override
     public String toString() {
-        return "School ID: " + schoolID +
-                "\nSchool Name: " + schoolName +
-                "\nAddress: " + getFullAddress() +
-                "\nContact Person: " + contactPerson +
-                "\nEmail: " + email +
-                "\nPhone Number: " + phoneNumber;
-    }
-
-    // Validate email format
-    public boolean validateEmail(String email) {
-        return email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
+        return "\nschoolName : " + schoolName
+                + "\naddress : " + address
+                + "\ncity : " + city
+                + "\ncontactPerson : " + contactPerson
+                + "\nemail : " + email
+                + "\nphoneNumber : " + phoneNumber;
     }
 
     // Validate phone number format (basic example)

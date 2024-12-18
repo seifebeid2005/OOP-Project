@@ -1,12 +1,18 @@
 
+import java.io.Console;
 import java.util.Scanner;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.util.ArrayList;
 
 public class main {
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        Admin admin = new Admin(); // Create an admin instance
+        //    public Admin(Long id, String name, String email, Role roleEnum, LocalDate dateOfBirth, String phone, String address, String username, String password) {
+        Admin admin = new Admin("123", "123"); // Create an admin instance
         String SchoolPath = "tx/School.txt";
         String StudentsPath = "tx/Student.txt";
         String TutorPath = "tx/tutor.txt";
@@ -22,6 +28,8 @@ public class main {
         admin.createQuizFromFile(quizpath);
         admin.createQuestionsFromFile(QustionsPath);
 
+        //check username and pass for security
+        int trials = 0;
         while (true) {
             System.out.println("Welcome to Education Center CAF-JS");
             System.out.println("Please choose your role: ");
@@ -35,8 +43,14 @@ public class main {
 
             switch (choice) {
                 case 1:
-                    AdminFunctions(admin, SchoolPath, StudentsPath, TutorPath, CoursePath, lessonpath, quizpath); // Call Admin function
+                    if (checkForSecurity(admin)) {
+                        AdminFunctions(admin, SchoolPath, StudentsPath, TutorPath, CoursePath, lessonpath, quizpath); // Call Admin function
+                    } else {
+                        trials++;
+                        System.out.println("Invalid username or password, please try again.");
+                    }
                     break;
+
                 case 2:
                     SchoolFunctions(); // Call School function
                     break;
@@ -45,12 +59,44 @@ public class main {
                     break;
                 case 4:
                     System.out.println("Goodbye");
+                    SaveAllData(admin, SchoolPath, StudentsPath, TutorPath, CoursePath, lessonpath, quizpath, QustionsPath);
                     return; // Exit the program
                 default:
                     System.out.println("Invalid choice, please try again");
                     break;
             }
+            if (trials == 3) {
+                System.out.println("You have exceeded the maximum number of trials. Exiting program.");
+                return;
+            }
         }
+    }
+
+    public static void SaveAllData(Admin admin, String SchoolPath, String StudentsPath, String TutorPath, String CoursePath, String lessonpath, String quizpath, String QustionsPath) {
+        // saveToFile(SchoolPath, admin.getSchoolsData());
+        saveToFile(SchoolPath, admin.getSchoolsData());
+
+    }
+
+    public static void saveToFile(String filePath, ArrayList<?> data) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+            for (Object item : data) {
+                writer.println(item);
+                System.out.println(" ");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving to file: " + e.getMessage());
+        }
+    }
+
+    public static Boolean checkForSecurity(Admin admin) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter your username: ");
+        String username = sc.nextLine();
+        System.out.println("Enter your password: ");
+        String password = sc.nextLine();
+
+        return admin.checkLogin(username, password);
     }
 
     // Function for Admin actions
@@ -213,7 +259,7 @@ public class main {
                 admin.viewTutors();
                 break;
             case 4:
-                // admin.viewCourses(); 
+                admin.viewCourses();
                 break;
             default:
                 System.out.println("Invalid choice. Please try again.");

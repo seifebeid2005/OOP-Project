@@ -38,6 +38,18 @@ public abstract class Person {
         this.username = username;
         this.password = password;
     }
+    public Person(String username, String password)
+    {
+        this.id = 0L;
+        this.name = "";
+        this.email = "";
+        this.dateAdded = new Date();
+        this.dateOfBirth = LocalDate.now();
+        this.phone = "";
+        this.address = "";
+        this.username = username;
+        this.password = password;
+    }
 
     public static void validateName(String name) {
         if (name == null || name.trim().isEmpty()) {

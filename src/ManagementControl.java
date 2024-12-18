@@ -21,6 +21,78 @@ public class ManagementControl {
     public ArrayList<Course> getCourses() {
         return new ArrayList<>(courses); // Return a copy to maintain immutability
     }
+    
+    public ArrayList<Lesson> getLessons() {
+        ArrayList<Lesson> allLessons = new ArrayList<>();
+        for (Course course : courses) {
+            allLessons.addAll(course.getLessons());
+        }
+        return allLessons;
+    }
+
+    public ArrayList<Quiz> getQuizzes() {
+        ArrayList<Quiz> allQuizzes = new ArrayList<>();
+        for (Lesson lesson : getLessons()) {
+            allQuizzes.add(lesson.getQuiz());
+        }
+        return allQuizzes;
+    }
+
+    public ArrayList<Question> getQuestions() {
+        ArrayList<Question> allQuestions = new ArrayList<>();
+        for (Quiz quiz : getQuizzes()) {
+            allQuestions.addAll(quiz.getQuestions());
+        }
+        return allQuestions;
+    }
+    //----------------- method that return string not list
+    public String getTutorsData() {
+        StringBuilder data = new StringBuilder();
+        for (Tutor tutor : getTutors()) {
+            data.append(tutor.toString()).append("\n");  // Assuming Tutor has a proper toString() method
+        }
+        return data.toString();
+    }
+
+    public String getStudentsData() {
+        StringBuilder data = new StringBuilder();
+        for (Student student : getStudents()) {
+            data.append(student.toString()).append("\n");  // Assuming Student has a proper toString() method
+        }
+        return data.toString();
+    }
+
+    public String getCoursesData() {
+        StringBuilder data = new StringBuilder();
+        for (Course course : getCourses()) {
+            data.append(course.toString()).append("\n");  // Assuming Course has a proper toString() method
+        }
+        return data.toString();
+    }
+
+    public String getLessonsData() {
+        StringBuilder data = new StringBuilder();
+        for (Lesson lesson : getLessons()) {
+            data.append(lesson.toString()).append("\n");  // Assuming Lesson has a proper toString() method
+        }
+        return data.toString();
+    }
+
+    public String getQuizzesData() {
+        StringBuilder data = new StringBuilder();
+        for (Quiz quiz : getQuizzes()) {
+            data.append(quiz.toString()).append("\n");  // Assuming Quiz has a proper toString() method
+        }
+        return data.toString();
+    }
+
+    public String getQuestionsData() {
+        StringBuilder data = new StringBuilder();
+        for (Question question : getQuestions()) {
+            data.append(question.toString()).append("\n");  // Assuming Question has a proper toString() method
+        }
+        return data.toString();
+    }
 
 
     //----------------- Added methods for Tutors ----------------- 
