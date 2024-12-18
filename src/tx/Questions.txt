@@ -1,0 +1,79 @@
+Quiz_id : 1
+question : What is the capital of France?
+optionA : Paris
+optionB : London
+optionC : Berlin
+optionD : Madrid
+correct : A
+
+Quiz_id : 1
+question : What is 2 + 2?
+optionA : 3
+optionB : 4
+optionC : 5
+optionD : 6
+correct : B
+
+Quiz_id : 2
+question : Who wrote 'Hamlet'?
+optionA : Charles Dickens
+optionB : Mark Twain
+optionC : William Shakespeare
+optionD : J.K. Rowling
+correct : C
+
+Quiz_id : 2
+question : What is the largest planet in our solar system?
+optionA : Earth
+optionB : Mars
+optionC : Jupiter
+optionD : Saturn
+correct : C
+
+Quiz_id : 3
+question : What is the boiling point of water (in Celsius)?
+optionA : 90
+optionB : 100
+optionC : 110
+optionD : 120
+correct : B
+
+Quiz_id : 3
+question : Who painted the Mona Lisa?
+optionA : Vincent van Gogh
+optionB : Leonardo da Vinci
+optionC : Pablo Picasso
+optionD : Michelangelo
+correct : B
+
+Quiz_id : 4
+question : Which element has the chemical symbol O?
+optionA : Oxygen
+optionB : Osmium
+optionC : Opal
+optionD : Oxide
+correct : A
+
+Quiz_id : 4
+question : What is the capital of Japan?
+optionA : Beijing
+optionB : Seoul
+optionC : Tokyo
+optionD : Bangkok
+correct : C
+
+Quiz_id : 5
+question : What is the speed of light (in km/s)?
+optionA : 300,000
+optionB : 150,000
+optionC : 250,000
+optionD : 100,000
+correct : A
+
+Quiz_id : 5
+question : What is the main language spoken in Brazil?
+optionA : Spanish
+optionB : Portuguese
+optionC : French
+optionD : Italian
+correct : B

@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,20 +11,19 @@ public class Quiz {
     private int lesson_id;
     private static final int MAX_QUESTIONS = 10;
     private List<Question> questions = new ArrayList<>();
-    private static final int PassingScore = MAX_QUESTIONS / 2;
+    private static final int PASSINGSCORE = MAX_QUESTIONS / 2;
     private Grade grade;
 
     // Constructor
     public Quiz(String quiz_title, int lesson_id) {
-        this.quiz_id = generateAutoID();
+        this.quiz_id = incrementNumber(quiz_id);
         this.quiz_title = quiz_title;
         this.lesson_id = lesson_id;
     }
 
-    private static int generateAutoID() {
-        String year = String.valueOf(java.time.LocalDate.now().getYear()).substring(2); // Last 2 digits of the year
-        quiz_id++;
-        return Integer.parseInt(year + String.format("%04d", quiz_id)); // Year + incremented ID
+    // Method to increment a number
+    public static int incrementNumber(int number) {
+        return number + 1;
     }
 
     // TIMER FOR QUIZ
@@ -39,8 +39,8 @@ public class Quiz {
     }
 
     // getters and setters
-    public static int getPassingScore() {
-        return PassingScore;
+    public static int getPASSINGSCORE() {
+        return PASSINGSCORE;
     }
 
     public int getQuiz_id() {
@@ -143,7 +143,7 @@ public class Quiz {
         }
 
         System.out.println("You scored " + score + " out of " + MAX_QUESTIONS);
-        if (score >= PassingScore) {
+        if (score >= PASSINGSCORE) {
             System.out.println("Congratulations! You passed the quiz.");
             grade = new Grade(quiz_id, score, quiz_id);
         } else {
@@ -159,10 +159,10 @@ public class Quiz {
     public String toString() {
         return "Quiz { "
                 + "Quiz ID=" + quiz_id
-                + ", Quiz Title='" + quiz_title + '\'' 
-                + ", Lesson ID=" + lesson_id 
-                + ", Number of Questions=" + questions.size() 
-                + ", Max Questions=" + MAX_QUESTIONS 
+                + ", Quiz Title='" + quiz_title + '\''
+                + ", Lesson ID=" + lesson_id
+                + ", Number of Questions=" + questions.size()
+                + ", Max Questions=" + MAX_QUESTIONS
                 + " }";
     }
 }

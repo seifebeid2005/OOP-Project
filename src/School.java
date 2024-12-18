@@ -279,8 +279,7 @@ public class School {
             input.nextLine(); // Consume newline
             
             // Create Tutor object and add to the list
-            Tutor tutor = new Tutor(name, tutorEmail, dateOfBirth, phone, tutorAddress, username, password, subjectArea,
-                    dateJoined, roleEnum, tutorSchoolID);
+            Tutor tutor = new Tutor(name, tutorEmail, dateOfBirth, phone, tutorAddress, username, password, subjectArea, roleEnum, tutorSchoolID);
             addTutor(tutor);
             System.out.println("Tutor account created successfully!");
         }

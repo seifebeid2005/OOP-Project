@@ -36,10 +36,10 @@ public class Tutor extends Person {
     }
     // Constructor
     public Tutor( String name, String email, LocalDate dateOfBirth, String phone, String address,
-                 String username, String password, String subjectArea, LocalDate dateJoined, Role roleEnum, int schoolID) {
+                 String username, String password, String subjectArea, Role roleEnum, int schoolID) {
         super(generateId(), name, email, dateOfBirth, phone, address, username, password);
         this.subjectArea = validateNotEmpty(subjectArea, "Subject area cannot be null or empty.");
-        this.dateJoined = dateJoined != null ? dateJoined : LocalDate.now(); // Default to current date if null
+        this.dateJoined = LocalDate.now(); // Default to current date if null
         this.roleEnum = roleEnum != null ? roleEnum : Role.TUTOR; // Default to "TUTOR" if roleEnum is null
         this.courses = new ArrayList<>(); // Initialize courses list
         this.schoolID = schoolID;

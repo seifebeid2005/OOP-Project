@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class main {
@@ -6,10 +7,20 @@ public class main {
 
         Scanner sc = new Scanner(System.in);
         Admin admin = new Admin(); // Create an admin instance
-        String SchoolPath = "School.txt";
-        String StudentsPath = "Student.txt";
-        String TutorPath = "Teacher.txt";
-        String CoursePath = "Course.txt";
+        String SchoolPath = "tx/School.txt";
+        String StudentsPath = "tx/Student.txt";
+        String TutorPath = "tx/tutor.txt";
+        String CoursePath = "tx/Course.txt";
+        String lessonpath = "tx/Lesson.txt";
+        String quizpath = "tx/Quiz.txt";
+        String QustionsPath = "tx/Questions.txt";
+        admin.createSchoolFromFile(SchoolPath);
+        admin.createStudentFromFile(StudentsPath);
+        admin.createTutorFromFile(TutorPath);
+        admin.createCourseFromFile(CoursePath, lessonpath, quizpath, QustionsPath);
+        admin.createLessonFromFile(lessonpath);
+        admin.createQuizFromFile(quizpath);
+        admin.createQuestionsFromFile(QustionsPath);
 
         while (true) {
             System.out.println("Welcome to Education Center CAF-JS");
@@ -24,7 +35,7 @@ public class main {
 
             switch (choice) {
                 case 1:
-                    AdminFunctions(admin ,  SchoolPath , StudentsPath , TutorPath,CoursePath); // Call Admin function
+                    AdminFunctions(admin, SchoolPath, StudentsPath, TutorPath, CoursePath, lessonpath, quizpath); // Call Admin function
                     break;
                 case 2:
                     SchoolFunctions(); // Call School function
@@ -43,7 +54,7 @@ public class main {
     }
 
     // Function for Admin actions
-    public static void AdminFunctions(Admin admin , String pathfile , String pathfile2 , String TutorPath, String coursepath) {
+    public static void AdminFunctions(Admin admin, String pathfile, String pathfile2, String TutorPath, String coursepath, String lessonpath, String quizpath) {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -61,7 +72,7 @@ public class main {
 
             switch (choice) {
                 case 1:
-                    handleAddOperations(admin ,  pathfile , pathfile2 , TutorPath, coursepath);
+                    handleAddOperations(admin, pathfile, pathfile2, TutorPath, coursepath, lessonpath, quizpath);
                     break;
                 case 2:
                     handleUpdateOperations(admin);
@@ -83,7 +94,7 @@ public class main {
     }
 
     // Handle Add Operations
-    public static void handleAddOperations(Admin admin , String pathfile , String pathfile2 , String TutorPath,String CoursePath) {
+    public static void handleAddOperations(Admin admin, String pathfile, String pathfile2, String TutorPath, String CoursePath, String lessonpath, String quizpath) {
         Scanner sc = new Scanner(System.in);
         System.out.println("---------------");
         System.out.println("Add Operations:");
@@ -97,18 +108,18 @@ public class main {
 
         switch (choice) {
             case 1:
-                Schoolcreation(admin , pathfile);
+                Schoolcreation(admin, pathfile);
                 break;
             case 2:
-                Studentcreation(admin , pathfile2);
+                Studentcreation(admin, pathfile2);
                 break;
             case 3:
-                Teachercreation(admin , TutorPath);
+                Teachercreation(admin, TutorPath);
                 break;
             case 4:
-                Coursecreation(admin , CoursePath);
+                Coursecreation(admin, CoursePath, lessonpath, quizpath);
 
-            break;
+                break;
             default:
                 System.out.println("Invalid choice. Please try again.");
                 break;
@@ -161,7 +172,7 @@ public class main {
         sc.nextLine(); // consume the remaining newline
 
         switch (choice) {
-            case 1: 
+            case 1:
                 admin.removeSchool();
                 break;
             case 2:
@@ -190,7 +201,6 @@ public class main {
         System.out.println("4. View Courses");
 
         int choice = sc.nextInt();
-        sc.nextLine(); // consume the remaining newline
 
         switch (choice) {
             case 1:
@@ -203,7 +213,7 @@ public class main {
                 admin.viewTutors();
                 break;
             case 4:
-                // admin.viewCourses();
+                // admin.viewCourses(); 
                 break;
             default:
                 System.out.println("Invalid choice. Please try again.");
@@ -223,7 +233,7 @@ public class main {
         // Implement any student-specific logic or actions here
     }
 
-    public static void Schoolcreation(Admin admin , String pathfile){
+    public static void Schoolcreation(Admin admin, String pathfile) {
         System.out.println("Welcome to School Creation");
         System.out.println("Please choose your action:");
         System.out.println("1. Create School from terminal");
@@ -234,21 +244,21 @@ public class main {
 
         switch (choice) {
             case 1:
-            System.out.println("Creating school from terminal...");
-            admin.createSchool();
-            break;
+                System.out.println("Creating school from terminal...");
+                admin.createSchool();
+                break;
             case 2:
-            System.out.println("Creating school from file...");
-            admin.createSchoolFromFile(pathfile);
-            break;
+                System.out.println("Creating school from file...");
+                admin.createSchoolFromFile(pathfile);
+                break;
             default:
-            System.out.println("Invalid choice. Please try again.");
-            break;
+                System.out.println("Invalid choice. Please try again.");
+                break;
         }
-        
+
     }
-    
-    public static void Studentcreation(Admin admin , String filePath2){
+
+    public static void Studentcreation(Admin admin, String filePath2) {
         // Create a school instance
         System.out.println("Welcome to Student Creation");
         System.out.println("Please choose your action:");
@@ -257,25 +267,24 @@ public class main {
         Scanner sc = new Scanner(System.in);
         int choice = sc.nextInt();
         sc.nextLine(); // consume the remaining newline
-         switch (choice) {
+        switch (choice) {
             case 1:
-            System.out.println("Creating Student from terminal...");
-            admin.createStudentAccount();
-                
+                System.out.println("Creating Student from terminal...");
+                admin.createStudentAccount();
+
                 break;
             case 2:
-            System.out.println("Creating Student from file...");
-            admin.createStudentFromFile(filePath2);
+                System.out.println("Creating Student from file...");
+                admin.createStudentFromFile(filePath2);
                 break;
-         
+
             default:
                 break;
-         }
-
+        }
 
     }
-   
-    public static void Teachercreation(Admin admin, String TutorPath){
+
+    public static void Teachercreation(Admin admin, String TutorPath) {
         System.out.println("Welcome to Teacher Creation");
         System.out.println("Please choose your action:");
         System.out.println("1. Create Teacher from terminal");
@@ -286,20 +295,20 @@ public class main {
 
         switch (choice) {
             case 1:
-            System.out.println("Creating teacher from terminal...");
-            admin.createTutorAccount();
-            break;
+                System.out.println("Creating teacher from terminal...");
+                admin.createTutorAccount();
+                break;
             case 2:
-            System.out.println("Creating teacher from file...");
-            admin.createTutorFromFile(TutorPath);
-            break;
+                System.out.println("Creating teacher from file...");
+                admin.createTutorFromFile(TutorPath);
+                break;
             default:
-            System.out.println("Invalid choice. Please try again.");
-            break;
+                System.out.println("Invalid choice. Please try again.");
+                break;
         }
     }
-   
-    public static void Coursecreation(Admin admin, String coursepath){
+
+    public static void Coursecreation(Admin admin, String coursepath, String lessonPath, String quizPath) {
         // Create a school instance
         System.out.println("Welcome to Course Creation");
         System.out.println("Please choose your action:");
@@ -307,19 +316,19 @@ public class main {
         System.out.println("2. Create Course from file");
         Scanner sc = new Scanner(System.in);
         int choice = sc.nextInt();
-        sc.nextLine(); 
+        sc.nextLine();
         switch (choice) {
             case 1:
-            System.out.println("Creating Course from terminal...");
-            admin.CreateCourse();
-            break;
+                System.out.println("Creating Course from terminal...");
+                admin.CreateCourse();
+                break;
             case 2:
-            System.out.println("Creating Course from file...");
-             admin.createCourseFromFile(coursepath);
-            break;
+                System.out.println("Creating Course from file...");
+                admin.createCourseFromFile(coursepath, lessonPath, quizPath, "tx/Questions.txt");
+                break;
             default:
-            System.out.println("Invalid choice. Please try again.");
-            break;
+                System.out.println("Invalid choice. Please try again.");
+                break;
         }
     }
 

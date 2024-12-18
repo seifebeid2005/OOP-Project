@@ -23,7 +23,6 @@ public class ManagementControl {
     }
 
 
-
     //----------------- Added methods for Tutors ----------------- 
     public void addTutor(Tutor tutor) {
         if (tutor != null && !tutors.contains(tutor)) {
@@ -235,7 +234,7 @@ public class ManagementControl {
     public void addCourse(Course course) {
         if (course != null && !courses.contains(course)) {
             courses.add(course);
-            System.out.println("Course " + course.getCourseName() + " added successfully.");
+            System.out.println("Course " + course.getCourseName() + " added successfully." + course.getCourseId());
         } else {
             System.out.println("Invalid course or already added.");
         }

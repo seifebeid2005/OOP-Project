@@ -19,7 +19,7 @@ public class Question {
     }
 
     // Constructor with CorrectAnswer as a parameter type
-    public Question( String question_text, String A, String B, String C, String D, CorrectAnswer correct_answer) {
+    public Question( String question_text, String A, String B, String C, String D, CorrectAnswer correct_answer , int quiz_id) {
         this.questionId = generateRandomID();
         this.question_text = question_text;
         this.A = A;
@@ -27,6 +27,7 @@ public class Question {
         this.C = C;
         this.D = D;
         this.correct_answer = correct_answer;
+        this.quiz_id = quiz_id;
     }
          
     // Getter and setter methods

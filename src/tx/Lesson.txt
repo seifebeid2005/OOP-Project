@@ -1,0 +1,39 @@
+name : Introduction to Variables
+description : Learn about variables and data types.
+courseId : 1
+
+name : Control Structures
+description : Understand conditional statements and loops.
+courseId : 1
+
+name : Object-Oriented Programming
+description : Introduction to OOP concepts.
+courseId : 2
+
+name : Inheritance and Polymorphism
+description : Advanced OOP topics.
+courseId : 2
+
+name : Lesson 5
+description : Description for lesson 5.
+courseId : 3
+
+name : Lesson 6
+description : Description for lesson 6.
+courseId : 3
+
+name : Lesson 7
+description : Description for lesson 7.
+courseId : 4
+
+name : Lesson 8
+description : Description for lesson 8.
+courseId : 4
+
+name : Lesson 9
+description : Description for lesson 9.
+courseId : 5
+
+name : Lesson 10
+description : Description for lesson 10.
+courseId : 5
