@@ -18,6 +18,8 @@ public class School {
     private String phoneNumber;
     private ManagementControl manage;
     private static int idCounter = 1;
+    private String userName;
+    private String password;
 
     // Method to generate a new unique ID
     private static synchronized int generateNewID() {
@@ -34,11 +36,12 @@ public class School {
         this.email = "";
         this.phoneNumber = "";
         this.manage = new ManagementControl();
-
+        this.userName = "";
+        this.password = "";
     }
 
     // Parameterized constructor
-    public School(String schoolName, String address, String city, String contactPerson, String email, String phoneNumber) {
+    public School(String schoolName, String address, String city, String contactPerson, String email, String phoneNumber , String userName, String password) {
         this.schoolID = generateNewID();
         this.schoolName = schoolName;
         this.address = address;
@@ -47,6 +50,8 @@ public class School {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.manage = new ManagementControl();
+        this.userName = userName;
+        this.password = password;
     }
 
     // Getters and Setters
@@ -163,6 +168,22 @@ public class School {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public void updateContactDetails(String contactPerson, String email, String phoneNumber) {
         this.contactPerson = contactPerson;
         this.email = email;
@@ -262,6 +283,7 @@ public class School {
 
     //------------------- Tutor Method -------------------
     // Add a Tutor
+    
     public void addTutor(Tutor tutor) {
         if (tutor == null) {
             System.out.println("Tutor cannot be null.");
@@ -397,11 +419,8 @@ public class School {
     //     System.out.println("Tutor not found.");
     // }
     // View Students of a Tutor
-    public void viewStudentsOfTutor(Long tutorId) {
-    }
+    // public void viewTutorStudents(Long tutorId) {
 
-    public void areAllChaptersAssignedToTutors() {
-    }
 
     // String representation of the object
     @Override
@@ -411,8 +430,11 @@ public class School {
                 + "\ncity : " + city
                 + "\ncontactPerson : " + contactPerson
                 + "\nemail : " + email
-                + "\nphoneNumber : " + phoneNumber;
+                + "\nphoneNumber : " + phoneNumber
+                + "\nuserName : " + userName
+                + "\npassword : " + password;
     }
+
 
     // Validate phone number format (basic example)
     public boolean validatePhoneNumber(String phoneNumber) {

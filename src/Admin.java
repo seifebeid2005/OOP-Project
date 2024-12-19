@@ -1,7 +1,6 @@
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.sql.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -52,8 +51,18 @@ public class Admin extends Person {
     public boolean checkLogin(String username, String password) {
         return this.getUsername().equals(username) && this.getPassword().equals(password);
     }
-
+    
+    // Check login for a school and return the school ID
+    public int checkSchoolLogin(String username, String password) {
+        for (School school : schools) {
+            if (school.getUserName().equals(username) && school.getPassword().equals(password)) {
+                return school.getSchoolID();
+            }
+        }
+        return 0;
+    } 
     //------------------- Tutor Method -------------------
+    
     // Add a Tutor to a specific school
     public void addTutorToSchool(Tutor tutor, int schoolID) {
         for (School school : schools) {
@@ -738,6 +747,28 @@ public class Admin extends Person {
         System.out.println("School not found.");
     }
 
+    public void removeStudentById(int schoolID) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter Student ID: ");
+        Long id = input.nextLong();
+        input.nextLine(); // Consume newline
+        for (School school : schools) {
+            if (school.getSchoolID() == schoolID) {
+                List<Student> schoolStudents = school.getManage().getStudents();
+                for (Student student : schoolStudents) {
+                    if (student.getId().equals(id)) {
+                        schoolStudents.remove(student);
+                        System.out.println("Student removed successfully from school ID " + schoolID + " with student ID " + id);
+                        return;
+                    }
+                }
+                System.out.println("Student not found in the specified school.");
+                return;
+            }
+        }
+        System.out.println("School not found.");
+    }
+
     // Remove a Student by Name
     private void removeStudentByName(String name, int schoolID) {
         for (School school : schools) {
@@ -827,13 +858,14 @@ public class Admin extends Person {
 
     // Update Student Information by ID with user input
     public void updateStudentById() {
+
         Scanner input = new Scanner(System.in);
+        System.out.println("Enter School ID: ");
+        int SchoolID = input.nextInt();
 
         System.out.println("Enter Student ID to update: ");
         Long studentId = input.nextLong();
 
-        System.out.println("Enter School ID: ");
-        int SchoolID = input.nextInt();
 
         System.out.println("Choose what to update (1: Name, 2: Email, 3: Phone, 4: Address, 5: School ID, 6: Current Level): ");
         int choice = input.nextInt();
@@ -880,6 +912,59 @@ public class Admin extends Person {
     }
 
     // Generalized Search for Students
+    public void updateStudentById(int SchoolID) {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Enter Student ID to update: ");
+        Long studentId = input.nextLong();
+
+
+        System.out.println("Choose what to update (1: Name, 2: Email, 3: Phone, 4: Address, 5: School ID, 6: Current Level): ");
+        int choice = input.nextInt();
+        input.nextLine(); // Consume newline
+
+        switch (choice) {
+            case 1 -> {
+                System.out.println("Enter new Name: ");
+                String newName = input.nextLine();
+
+                updateStudent(studentId, newName, null, null, null, 0, 0, SchoolID);
+            }
+            case 2 -> {
+                System.out.println("Enter new Email: ");
+                String newEmail = input.nextLine();
+                updateStudent(studentId, null, newEmail, null, null, 0, 0, SchoolID);
+            }
+            case 3 -> {
+                System.out.println("Enter new Phone: ");
+                String newPhone = input.nextLine();
+                updateStudent(studentId, null, null, newPhone, null, 0, 0, SchoolID);
+            }
+            case 4 -> {
+                System.out.println("Enter new Address: ");
+                String newAddress = input.nextLine();
+                updateStudent(studentId, null, null, null, newAddress, 0, 0, SchoolID);
+            }
+            case 5 -> {
+                System.out.println("Enter new School ID: ");
+                int newSchoolID = input.nextInt();
+                input.nextLine(); // Consume newline
+                updateStudent(studentId, null, null, null, null, newSchoolID, 0, SchoolID);
+            }
+            case 6 -> {
+                System.out.println("Enter new Current Level: ");
+                int newCurrentLevel = input.nextInt();
+                input.nextLine(); // Consume newline
+                updateStudent(studentId, null, null, null, null, 0, newCurrentLevel, SchoolID);
+            }
+            default ->
+                System.out.println("Invalid choice. Please choose 1, 2, 3, 4, 5, or 6.");
+        }
+
+    }
+
+    
     public void viewStudentsByCriteria(String criteria, Object value, int schoolID) {
         List<Student> filteredStudents = new ArrayList<>();
         for (School school : schools) {
@@ -992,8 +1077,14 @@ public class Admin extends Person {
         System.out.println("Enter Contact Phone: ");
         String phoneNumber = input.nextLine();
 
+        System.out.println("Enter School Username: ");
+        String username = input.nextLine();
+
+        System.out.println("Enter School Password: ");
+        String password = input.nextLine();
+
         // Create School object and add to the list
-        School school = new School(schoolName, address, city, contactPerson, email, phoneNumber);
+        School school = new School(schoolName, address, city, contactPerson, email, phoneNumber , username , password);
         addSchool(school);
         System.out.println("School created successfully!");
     }
@@ -1002,13 +1093,13 @@ public class Admin extends Person {
     public void createSchoolFromFile(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
-            String schoolName = "", address = "", city = "", contactPerson = "", email = "", phoneNumber = "";
+            String schoolName = "", address = "", city = "", contactPerson = "", email = "", phoneNumber = "" , username = "" , password = "";
 
             while ((line = br.readLine()) != null) {
                 line = line.trim(); // Remove leading and trailing whitespace
                 if (line.isEmpty()) {
                     // Create a School object and add to the list when a blank line is encountered
-                    School school = new School(schoolName, address, city, contactPerson, email, phoneNumber);
+                    School school = new School(schoolName, address, city, contactPerson, email, phoneNumber , username , password);
                     addSchool(school); // Assuming you have a method `addSchool` to add to your list
 
                     // Reset variables for the next school
@@ -1018,6 +1109,8 @@ public class Admin extends Person {
                     contactPerson = "";
                     email = "";
                     phoneNumber = "";
+                    username = "";
+                    password = "";
                 } else if (line.startsWith("schoolName : ")) {
                     schoolName = line.substring(13).trim();
                 } else if (line.startsWith("address : ")) {
@@ -1030,10 +1123,12 @@ public class Admin extends Person {
                     email = line.substring(8).trim();
                 } else if (line.startsWith("phoneNumber : ")) {
                     phoneNumber = line.substring(14).trim();
+                } else if (line.startsWith("username : ")) {
+                    username = line.substring(11).trim();
+                } else if (line.startsWith("password : ")) {
+                    password = line.substring(11).trim();
                 }
-
             }
-
         } catch (Exception e) {
             System.out.println(e);
         }

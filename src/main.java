@@ -1,18 +1,17 @@
-
-import java.io.Console;
-import java.util.Scanner;
-import java.io.PrintWriter;
-import java.io.IOException;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class main {
 
+    // Main function
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        //    public Admin(Long id, String name, String email, Role roleEnum, LocalDate dateOfBirth, String phone, String address, String username, String password) {
-        Admin admin = new Admin("123", "123"); // Create an admin instance
+        
+        Admin admin = new Admin("123", "123");
+
         String SchoolPath = "tx/School.txt";
         String StudentsPath = "tx/Student.txt";
         String TutorPath = "tx/tutor.txt";
@@ -42,28 +41,34 @@ public class main {
             sc.nextLine(); // Consume newline
 
             switch (choice) {
-                case 1:
+                case 1 -> {
                     if (checkForSecurity(admin)) {
-                        AdminFunctions(admin, SchoolPath, StudentsPath, TutorPath, CoursePath, lessonpath, quizpath); // Call Admin function
+                        AdminFunctions(admin, SchoolPath, StudentsPath, TutorPath, CoursePath, lessonpath, quizpath , QustionsPath); // Call Admin function
                     } else {
                         trials++;
                         System.out.println("Invalid username or password, please try again.");
                     }
-                    break;
-
-                case 2:
-                    SchoolFunctions(); // Call School function
-                    break;
-                case 3:
-                    StudentFunctions(); // Call Student function
-                    break;
-                case 4:
+                }
+                case 2 -> {
+                    if (admin.getSchoolsData().isEmpty()) {
+                        System.out.println("No schools available. Please contact the admin to create a school.");
+                    } else {
+                        int schoolId = checkForSecurityForSchool(admin);
+                        if (schoolId != 0) {
+                            SchoolFunctions(admin, SchoolPath, StudentsPath, TutorPath, CoursePath, lessonpath, quizpath, schoolId);
+                        } else {
+                            trials++;
+                            System.out.println("Invalid username or password, please try again.");
+                        }
+                    }
+                }
+                    case 3 -> StudentFunctions();
+                case 4 -> {
                     System.out.println("Goodbye");
-                    SaveAllData(admin, SchoolPath, StudentsPath, TutorPath, CoursePath, lessonpath, quizpath, QustionsPath);
+                    // SaveAllData(admin, SchoolPath, StudentsPath, TutorPath, CoursePath, lessonpath, quizpath, QustionsPath);
                     return; // Exit the program
-                default:
-                    System.out.println("Invalid choice, please try again");
-                    break;
+                }
+                default -> System.out.println("Invalid choice, please try again");
             }
             if (trials == 3) {
                 System.out.println("You have exceeded the maximum number of trials. Exiting program.");
@@ -72,75 +77,10 @@ public class main {
         }
     }
 
-    public static void SaveAllData(Admin admin, String SchoolPath, String StudentsPath, String TutorPath, String CoursePath, String lessonpath, String quizpath, String QustionsPath) {
-        // saveToFile(SchoolPath, admin.getSchoolsData());
-        saveToFile(SchoolPath, admin.getSchoolsData());
-
-    }
-
-    public static void saveToFile(String filePath, ArrayList<?> data) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
-            for (Object item : data) {
-                writer.println(item);
-                System.out.println(" ");
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred while saving to file: " + e.getMessage());
-        }
-    }
-
-    public static Boolean checkForSecurity(Admin admin) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter your username: ");
-        String username = sc.nextLine();
-        System.out.println("Enter your password: ");
-        String password = sc.nextLine();
-
-        return admin.checkLogin(username, password);
-    }
-
-    // Function for Admin actions
-    public static void AdminFunctions(Admin admin, String pathfile, String pathfile2, String TutorPath, String coursepath, String lessonpath, String quizpath) {
-        Scanner sc = new Scanner(System.in);
-
-        while (true) {
-            System.out.println("-----------------");
-            System.out.println("Welcome Admin");
-            System.out.println("Please choose your action:");
-            System.out.println("1. Add Operations");
-            System.out.println("2. Update Operations");
-            System.out.println("3. Delete Operations");
-            System.out.println("4. View Records");
-            System.out.println("5. Exit");
-
-            int choice = sc.nextInt();
-            sc.nextLine(); // consume the remaining newline
-
-            switch (choice) {
-                case 1:
-                    handleAddOperations(admin, pathfile, pathfile2, TutorPath, coursepath, lessonpath, quizpath);
-                    break;
-                case 2:
-                    handleUpdateOperations(admin);
-                    break;
-                case 3:
-                    handleDeleteOperations(admin);
-                    break;
-                case 4:
-                    handleViewOperations(admin);
-                    break;
-                case 5:
-                    System.out.println("Goodbye Admin");
-                    return; // Exit from Admin functions
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-                    break;
-            }
-        }
-    }
-
+    // ---------------------Handle Operations---------------------
+   
     // Handle Add Operations
-    public static void handleAddOperations(Admin admin, String pathfile, String pathfile2, String TutorPath, String CoursePath, String lessonpath, String quizpath) {
+    public static void handleAddOperations(Admin admin, String pathfile, String pathfile2, String TutorPath, String CoursePath, String lessonpath, String quizpath , String QustionsPath) {
         Scanner sc = new Scanner(System.in);
         System.out.println("---------------");
         System.out.println("Add Operations:");
@@ -163,7 +103,7 @@ public class main {
                 Teachercreation(admin, TutorPath);
                 break;
             case 4:
-                Coursecreation(admin, CoursePath, lessonpath, quizpath);
+                CourseCreation(admin, CoursePath, lessonpath, quizpath , QustionsPath);
 
                 break;
             default:
@@ -186,23 +126,16 @@ public class main {
         sc.nextLine(); // consume the remaining newline
 
         switch (choice) {
-            case 1:
-                admin.updateSchoolByCriteria();
-                break;
-            case 2:
-                admin.updateStudentById();
-                break;
-            case 3:
-                admin.updateTutorById();
-                break;
-            case 4:
-                // admin.updateCourse();
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
-                break;
+            case 1 -> admin.updateSchoolByCriteria();
+            case 2 -> admin.updateStudentById();
+            case 3 -> admin.updateTutorById();
+            case 4 -> {
+
+            }
+            default -> System.out.println("Invalid choice. Please try again.");
         }
-    }
+        // admin.updateCourse();
+            }
 
     // Handle Delete Operations
     public static void handleDeleteOperations(Admin admin) {
@@ -249,36 +182,96 @@ public class main {
         int choice = sc.nextInt();
 
         switch (choice) {
-            case 1:
-                admin.viewSchools();
-                break;
-            case 2:
-                admin.viewStudents();
-                break;
-            case 3:
-                admin.viewTutors();
-                break;
-            case 4:
-                admin.viewCourses();
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
-                break;
+            case 1 -> admin.viewSchools();
+            case 2 -> admin.viewStudents();
+            case 3 -> admin.viewTutors();
+            case 4 -> admin.viewCourses();
+            default -> System.out.println("Invalid choice. Please try again.");
+        }
+    }
+    
+    // ---------------------Each Role Functions---------------------
+    // Function for Admin actions
+    public static void AdminFunctions(Admin admin, String pathfile, String pathfile2, String TutorPath, String coursepath, String lessonpath, String quizpath , String QustionsPath) {
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("-----------------");
+            System.out.println("Welcome Admin");
+            System.out.println("Please choose your action:");
+            System.out.println("1. Add Operations");
+            System.out.println("2. Update Operations");
+            System.out.println("3. Delete Operations");
+            System.out.println("4. View Records");
+            System.out.println("5. Exit");
+
+            int choice = sc.nextInt();
+            sc.nextLine(); // consume the remaining newline
+
+            switch (choice) {
+                case 1:
+                    handleAddOperations(admin, pathfile, pathfile2, TutorPath, coursepath, lessonpath, quizpath , QustionsPath);
+                    break;
+                case 2:
+                    handleUpdateOperations(admin);
+                    break;
+                case 3:
+                    handleDeleteOperations(admin);
+                    break;
+                case 4:
+                    handleViewOperations(admin);
+                    break;
+                case 5:
+                    System.out.println("Goodbye Admin");
+                    return; // Exit from Admin functions
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
         }
     }
 
     // Function for School actions
-    public static void SchoolFunctions() {
-        System.out.println("Welcome School");
-        // Implement any school-specific logic or actions here
-    }
+    public static void SchoolFunctions(Admin admin , String SchoolPath ,   String StudentsPath , String TutorPath , String CoursePath , String lessonpath , String quizpath , int SchoolId) {
+        Scanner sc = new Scanner(System.in);
 
+        while (true) {
+            System.out.println("-----------------");
+            System.out.println("Welcome School");
+            System.out.println("Please choose your action:");
+            System.out.println("1. Add Student");
+            System.out.println("2. Update Student");
+            System.out.println("3. Delete Student");
+            System.out.println("4. View Students");
+            System.out.println("5. Exit");
+
+            int choice = sc.nextInt();
+            sc.nextLine(); // consume the remaining newline
+
+            switch (choice) {
+                case 1 -> Studentcreation(admin, StudentsPath);
+                case 2 -> admin.updateStudentById(SchoolId);
+                case 3 -> admin.removeStudentById(SchoolId);
+                case 4 -> admin.viewStudentsBySchool(SchoolId);
+                case 5 -> {
+                    System.out.println("Goodbye School");
+                    return;
+                }
+                default -> System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+    
     // Function for Student actions
     public static void StudentFunctions() {
         System.out.println("Welcome Student");
         // Implement any student-specific logic or actions here
     }
+   
+   
+    //----------------------Create Functions----------------------
 
+    // Function for Teacher actions
     public static void Schoolcreation(Admin admin, String pathfile) {
         System.out.println("Welcome to School Creation");
         System.out.println("Please choose your action:");
@@ -289,21 +282,20 @@ public class main {
         sc.nextLine(); // consume the remaining newline
 
         switch (choice) {
-            case 1:
+            case 1 -> {
                 System.out.println("Creating school from terminal...");
                 admin.createSchool();
-                break;
-            case 2:
+            }
+            case 2 -> {
                 System.out.println("Creating school from file...");
                 admin.createSchoolFromFile(pathfile);
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
-                break;
+            }
+            default -> System.out.println("Invalid choice. Please try again.");
         }
 
     }
-
+    
+    // Function for Student actions
     public static void Studentcreation(Admin admin, String filePath2) {
         // Create a school instance
         System.out.println("Welcome to Student Creation");
@@ -314,22 +306,22 @@ public class main {
         int choice = sc.nextInt();
         sc.nextLine(); // consume the remaining newline
         switch (choice) {
-            case 1:
+            case 1 -> {
                 System.out.println("Creating Student from terminal...");
                 admin.createStudentAccount();
-
-                break;
-            case 2:
+            }
+            case 2 -> {
                 System.out.println("Creating Student from file...");
                 admin.createStudentFromFile(filePath2);
-                break;
+            }
 
-            default:
-                break;
+            default -> {
+            }
         }
 
     }
-
+    
+    // Function for Teacher actions
     public static void Teachercreation(Admin admin, String TutorPath) {
         System.out.println("Welcome to Teacher Creation");
         System.out.println("Please choose your action:");
@@ -340,21 +332,20 @@ public class main {
         sc.nextLine(); // consume the remaining newline
 
         switch (choice) {
-            case 1:
+            case 1 -> {
                 System.out.println("Creating teacher from terminal...");
                 admin.createTutorAccount();
-                break;
-            case 2:
+            }
+            case 2 -> {
                 System.out.println("Creating teacher from file...");
                 admin.createTutorFromFile(TutorPath);
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
-                break;
+            }
+            default -> System.out.println("Invalid choice. Please try again.");
         }
     }
-
-    public static void Coursecreation(Admin admin, String coursepath, String lessonPath, String quizPath) {
+    
+    // Function for Course actions
+    public static void CourseCreation(Admin admin, String coursepath, String lessonPath, String quizPath , String QustionsPath) {
         // Create a school instance
         System.out.println("Welcome to Course Creation");
         System.out.println("Please choose your action:");
@@ -364,18 +355,61 @@ public class main {
         int choice = sc.nextInt();
         sc.nextLine();
         switch (choice) {
-            case 1:
+            case 1 -> {
                 System.out.println("Creating Course from terminal...");
                 admin.CreateCourse();
-                break;
-            case 2:
+            }
+            case 2 -> {
                 System.out.println("Creating Course from file...");
-                admin.createCourseFromFile(coursepath, lessonPath, quizPath, "tx/Questions.txt");
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
-                break;
+                admin.createCourseFromFile(coursepath, lessonPath, quizPath, QustionsPath);
+            }
+            default -> System.out.println("Invalid choice. Please try again.");
         }
     }
 
+    //----------------------More Functions----------------------
+
+    // Saving all data
+    public static void SaveAllData(Admin admin, String SchoolPath, String StudentsPath, String TutorPath, String CoursePath, String lessonpath, String quizpath, String QustionsPath) {
+        // saveToFile(SchoolPath, admin.getSchoolsData());
+        saveToFile(SchoolPath, admin.getSchoolsData());
+
+    }
+    
+    // Save data to file
+    public static void saveToFile(String filePath, ArrayList<?> data) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+            for (Object item : data) {
+                writer.println(item);
+                System.out.println(" ");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving to file: " + e.getMessage());
+        }
+    }
+   
+    // Check for security
+    public static Boolean checkForSecurity(Admin admin) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter your username: ");
+        String username = sc.nextLine();
+        System.out.println("Enter your password: ");
+        String password = sc.nextLine();
+
+        return admin.checkLogin(username, password);
+    }
+    
+    // Check for security for school
+    public static int checkForSecurityForSchool(Admin admin) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter your username: ");
+        String username = sc.nextLine();
+        System.out.println("Enter your password: ");
+        String password = sc.nextLine();
+
+        int x =  admin.checkSchoolLogin(username, password);
+        return x;
+    }
+
 }
+
