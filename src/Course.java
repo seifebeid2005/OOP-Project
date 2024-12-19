@@ -294,4 +294,7 @@ public class Course {
                 + ", courseIsActive=" + courseIsActive
                 + '}';
     }
+    void viewStudents() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

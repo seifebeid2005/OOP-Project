@@ -124,6 +124,67 @@ public class Student extends Person {
             System.out.println(course.getCourseProgress());
         }
     }
+
+    // view courses that student is enrolled in
+    public void viewCourses() {
+        if (courses.isEmpty()) {
+            System.out.println("No courses to display.");
+        } else {
+            courses.forEach(System.out::println);
+        }
+    }
+
+
+    // view lessons in each course
+    public void viewLessons() {
+        for (Course course : courses) {
+            System.out.println(course.getCourseName());
+            // Assuming Course class has a method to get lessons
+            for (Lesson lesson : course.getLessons()) {
+                System.out.println(lesson);
+            }
+        }
+    }
+
+    //view quiz result
+    public void viewQuizResult() {
+        for (Course course : courses) {
+            System.out.println(course.getCourseName());
+            // Assuming Course class has a method to get lessons
+            for (Lesson lesson : course.getLessons()) {
+                System.out.println("Lesson: " + lesson.getLessonTitle());
+                // Assuming Lesson class has a method to get a quiz
+                Quiz quiz = lesson.getQuiz();
+                if (quiz != null) {
+                    System.out.println(quiz);
+                } else {
+                    System.out.println("No quiz available for this lesson.");
+                }
+            }
+        }
+    }
+
+     // Start quiz
+    public void startQuiz(long courseId, long lessonId) {
+        Course course = courses.stream().filter(c -> c.getCourseId() == courseId).findFirst().orElse(null);
+        if (course == null) {
+            System.out.println("Course not found.");
+            return; 
+        }
+        Lesson lesson = course.findLessonById(lessonId);
+        if (lesson == null) {
+            System.out.println("Lesson not found.");
+            return;
+        }
+        Quiz quiz = lesson.getQuiz();
+        if (quiz == null) {
+            System.out.println("No quiz available for this lesson.");
+            return;
+        }
+        System.out.println("Starting quiz: " + quiz.getQuiz_title());
+        // Assuming Quiz class has a method to start the quiz
+        quiz.answerQuestions();
+    }
     
     @Override
     public String toString() {

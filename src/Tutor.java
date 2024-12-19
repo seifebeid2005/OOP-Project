@@ -122,6 +122,37 @@ public class Tutor extends Person {
         return value;
     }
 
+    // View tutor's student details with courseName from ManagementControl
+    public void viewStudentDetails(String courseName) {
+        Course course = findCourseByName(courseName);
+        if (course == null) {
+            System.out.println("Course not found.");
+        } else {
+            course.viewStudents();
+        }
+    }
+
+
+    // Find course by name
+    public Course findCourseByName(String courseName) {
+        for (Course course : courses) {
+            if (course.getCourseName().equalsIgnoreCase(courseName)) {
+                return course;
+            }
+        }
+        return null; // Return null if no course is found
+    }
+
+    //Find tutor by CourseId
+    public Tutor findTutorByCourseId(long courseId) {
+        for (Course course : courses) {
+            if (course.getCourseId() == courseId) {
+                return this;
+            }
+        }
+        return null; // Return null if no tutor is found
+    }
+
     // Override toString to include Tutor-specific details
     @Override
     public String toString() {

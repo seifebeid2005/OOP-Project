@@ -191,8 +191,7 @@ public class ManagementControl {
                         System.out.println("Exiting update process.");
                     }
 
-                    default ->
-                        System.out.println("Invalid option, please try again.");
+                    default -> System.out.println("Invalid option, please try again.");
                 }
             }
         }
@@ -493,28 +492,14 @@ public class ManagementControl {
         }
     }
 
-    //sort students marks by course
-    // public void sortStudentsMarksByCourse(String courseName) {
-    //     if (courseName == null || courseName.isEmpty()) {
-    //         System.out.println("Invalid course name.");
-    //         return;
-    //     }
-
-    //     Course course = findCourseByName(courseName);
-    //     if (course == null) {
-    //         System.out.println("Course not found.");
-    //         return;
-    //     }
-
-    //     for (Student student : students) {
-    //         System.out.println("Student: " + student.getName());
-    //         for (Grade grade : student.getMarks()) {
-    //             if (grade.getCourse().getCourseName().equalsIgnoreCase(courseName)) {
-    //                 System.out.println("Marks: " + grade.getMarks());
-    //             }
-    //         }
-    //     }
-    // }
+    public void viewStudentDetails(long studentId) {
+        Student student = findStudentById(studentId);
+        if (student != null) {
+            System.out.println(student);
+        } else {
+            System.out.println("Student not found.");
+        }
+    }
 
     // Find course by name
     public Course findCourseByName(String courseName) {

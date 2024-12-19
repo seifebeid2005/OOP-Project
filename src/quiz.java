@@ -115,8 +115,9 @@ public class Quiz {
     }
 
     // Answer quiz questions
-    public void answerQuestions(Scanner scanner) {
+    public void answerQuestions() {
         startQuizTimer();
+        Scanner scanner = new Scanner(System.in);
 
         if (!isQuizReady()) {
             return;
@@ -148,7 +149,9 @@ public class Quiz {
             grade = new Grade(quiz_id, score, quiz_id);
         } else {
             System.out.println("Sorry, you did not pass the quiz.");
+            grade = new Grade(quiz_id, score, quiz_id);
         }
+
     }
 
     public List<Question> getQuestions() {
