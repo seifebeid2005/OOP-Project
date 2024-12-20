@@ -1,8 +1,33 @@
 lessonId : 1
-question : What is the capital of France?
+question : What is the largest ocean on Earth?
 
 lessonId : 1
-question : What is 2 + 2?
+question : What is the largest ocean on Earth?
+
+lessonId : 1
+question : Who wrote 'Pride and Prejudice'?
+
+lessonId : 1
+question : What is the smallest country in the world?
+
+lessonId : 1
+question : What is the tallest mountain in the world?
+
+lessonId : 1
+question : What is the longest river in the world?
+
+lessonId : 1
+question : Who discovered penicillin?
+
+lessonId : 1
+question : What is the currency of Japan?
+
+lessonId : 1
+question : What is the capital of Australia?
+
+lessonId : 1
+question : Who painted the Sistine Chapel ceiling?
+
 
 lessonId : 2
 question : What is the boiling point of water (in Celsius)?

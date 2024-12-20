@@ -29,7 +29,7 @@ public abstract class Person {
     }
     // Constructor with validation
     public Person( Long id ,String name, String email, LocalDate dateOfBirth, String phone, String address, String username, String password) {
-        this.id = 0L;
+        this.id = id;
         this.name = name;
         this.email = email;
         this.dateAdded = new Date();
@@ -181,15 +181,18 @@ public abstract class Person {
     }
 
     @Override
-    public  String toString() {
-        return "Person { "
-                + "ID=" + id
-                + ", Name='" + name + '\''
-                + ", Email='" + email + '\''
-                + ", DateAdded=" + dateAdded
-                + ", DateOfBirth=" + dateOfBirth
-                + ", Phone='" + phone + '\''
-                + ", Address='" + address + '\''
-                + " }";
+    public String toString() {
+        return "\n" +
+                "  ID: " + id + "\n" +
+                "  Name: '" + name + "'\n" +
+                "  Email: '" + email + "'\n" +
+                "  Date Added: " + dateAdded + "\n" +
+                "  Date of Birth: " + dateOfBirth + "\n" +
+                "  Phone: '" + phone + "'\n" +
+                "  Address: '" + address + "'\n" +
+                "  Username: '" + username + "'\n" +
+                "  Password: '" + password + "'\n" +
+                "}";
     }
+
 }

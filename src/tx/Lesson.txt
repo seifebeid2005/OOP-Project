@@ -4,7 +4,7 @@ courseId : 1
 
 name : Control Structures
 description : Understand conditional statements and loops.
-courseId : 1
+courseId : 2
 
 name : Object-Oriented Programming
 description : Introduction to OOP concepts.

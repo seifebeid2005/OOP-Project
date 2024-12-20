@@ -149,7 +149,7 @@ public class Lesson {
                     optionD = line.substring(10).trim();
                 } else if (line.startsWith("correct : ")) {
                     correctAnswerStr = line.substring(9).trim();
-                } else if (line.startsWith("quiz_id : ")) {
+                } else if (line.startsWith("Quiz_id : ")) {
                     Quiz_id = Integer.parseInt(line.substring(10).trim());
                 }
             }
@@ -165,6 +165,9 @@ public class Lesson {
                     System.out.println("Invalid correct answer for question: " + questionText);
                 }
             }
+            else{
+                System.out.println("Error reading file:1 ");
+            }
 
         } catch (Exception e) {
             System.out.println("Error reading file:2 " + e.getMessage());
@@ -174,7 +177,7 @@ public class Lesson {
     // Set a quiz for the lesson
     public void setQuiz(Quiz quiz) {
         this.quiz = quiz;
-        System.out.println("Quiz set for lesson: " + quiz.getQuiz_title());
+        System.out.println("Quiz set for lesson: " + lessonTitle);
     }
 
     // Get the quiz associated with the lesson
@@ -209,6 +212,6 @@ public class Lesson {
                 + ", Lesson Title: " + lessonTitle
                 + ", Description: " + lessonDescription
                 + ", Completed: " + isCompleted
-                + ", Quiz: " + (quiz != null ? quiz.getQuiz_title() : "No quiz set");
+                + ", Quiz: " + quiz;
     }
 }

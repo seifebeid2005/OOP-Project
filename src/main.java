@@ -19,6 +19,7 @@ public class main {
         String lessonpath = "tx/Lesson.txt";
         String quizpath = "tx/Quiz.txt";
         String QustionsPath = "tx/Questions.txt";
+        String StdWithCoursePath = "tx/StudentWithCourse.txt";
         admin.createSchoolFromFile(SchoolPath);
         admin.createStudentFromFile(StudentsPath);
         admin.createTutorFromFile(TutorPath);
@@ -26,6 +27,7 @@ public class main {
         admin.createLessonFromFile(lessonpath);
         admin.createQuizFromFile(quizpath);
         admin.createQuestionsFromFile(QustionsPath);
+        admin.assignCourseToStudentFromFile(StdWithCoursePath);
 
         //check username and pass for security
         int trials = 0;
@@ -35,7 +37,8 @@ public class main {
             System.out.println("1. Admin");
             System.out.println("2. School");
             System.out.println("3. Student");
-            System.out.println("4. Exit");
+            System.out.println("4. tutor");
+            System.out.println("5. Exit");
 
             int choice = sc.nextInt();
             sc.nextLine(); // Consume newline
@@ -62,10 +65,23 @@ public class main {
                         }
                     }
                 }
-                    case 3 -> StudentFunctions();
-                case 4 -> {
-                    System.out.println("Goodbye");
-                    // SaveAllData(admin, SchoolPath, StudentsPath, TutorPath, CoursePath, lessonpath, quizpath, QustionsPath);
+                    case 3 -> {
+                        if (admin.getSchoolsData().isEmpty()) {
+                            System.out.println("No schools available. Please contact the admin to create a school.");
+                        } else {
+                            Student Student = checkForSecurityForStudent(admin);
+                            if (Student.getId() != 0) {
+                                StudentFunctions(admin, Student);
+                            } else {
+                                trials++;
+                                System.out.println("Invalid username or password, please try again.");
+                            }
+                        }
+                    }
+                    case 4 -> TeacherFunctions();
+                case 5 -> {
+                    System.out.println("See you later!");
+                
                     return; // Exit the program
                 }
                 default -> System.out.println("Invalid choice, please try again");
@@ -263,11 +279,98 @@ public class main {
     }
     
     // Function for Student actions
-    public static void StudentFunctions() {
-        System.out.println("Welcome Student");
-        // Implement any student-specific logic or actions here
+    public static void StudentFunctions(Admin admin, Student student) {
+         Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("-------------------------");
+            student.login();
+            System.out.println("Choose an option:");
+            System.out.println("1. See my courses");
+            System.out.println("2. See my lessons");
+            System.out.println("3. See my tutors");
+            System.out.println("4. See my Quizzes to solve");
+            System.out.println("5. See my Grades");
+            System.out.println("6. Print my profile");
+            System.out.println("7. See my completed courses");
+            System.out.println("8. See my not completed courses");
+            System.out.println("9. See my progress");
+            System.out.println("10. See my average marks");
+            System.out.println("11. Exit");
+
+            int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                // See my courses
+                student.viewCourses();
+                break;
+            case 2:
+                // See my lessons
+                student.viewLessons();
+                break;
+            case 3:
+                // See my tutors
+                admin.getTutorsForStudentCourses(student.getId());
+                break;
+            case 4:
+                // See my Quizzes to solve
+                student.startQuiz();
+                break;
+            case 5:
+                // See my Grades
+                student.viewQuizResult();
+                break;
+            case 6:
+                // Print my profile
+                System.out.println(student.toString());
+                break;
+            case 7:
+                // See my completed courses
+                ArrayList<Course> completedCourses = student.getCompletedCourses();
+                if (completedCourses.isEmpty()) {
+                    System.out.println("You have not completed any courses yet.");
+                } else {
+                    System.out.println("Completed Courses:");
+                    completedCourses.forEach(course -> System.out.println(course.getCourseName()));
+                }
+                break;
+            case 8:
+                // See my not completed courses
+                ArrayList<Course> notCompletedCourses = student.getNotCompletedCourses();
+                if (notCompletedCourses.isEmpty()) {
+                    System.out.println("You have completed all your courses.");
+                } else {
+                    System.out.println("Not Completed Courses:");
+                    notCompletedCourses.forEach(course -> System.out.println(course.getCourseName()));
+                }
+                break;
+            case 9:
+                // See my progress
+                double progress = student.getProgressPercentage();
+                System.out.println("Your progress is: " + progress + "%");
+                break;
+            case 10:
+                // See my average marks
+                double averageMarks = student.getAverageMarks();
+                System.out.println("Your average marks: " + averageMarks);
+                break;
+            case 11:
+                // Exit
+                student.logout();
+                System.out.println("Exiting...");
+                return;
+            default:
+                System.out.println("Invalid choice! Please select a valid option.");
+                break;
+            }
+        }
     }
-   
+
+    public static void TeacherFunctions() {
+        System.out.println("Welcome Teacher");
+        // Implement any teacher-specific logic or actions here
+    }
    
     //----------------------Create Functions----------------------
 
@@ -409,6 +512,18 @@ public class main {
 
         int x =  admin.checkSchoolLogin(username, password);
         return x;
+    }
+
+    public static Student checkForSecurityForStudent(Admin admin) {
+        Student student ;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter your username: ");
+        String username = sc.nextLine();
+        System.out.println("Enter your password: ");
+        String password = sc.nextLine();
+
+        student =  admin.checkStudentLogin(username, password);
+        return student;
     }
 
 }

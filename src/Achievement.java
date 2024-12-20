@@ -1,6 +1,4 @@
 import java.time.LocalDateTime;
-import java.util.Objects;
-
 public class Achievement {
     private static int idCounter = 1000; // Starting sequence for IDs
     private long achievementID;

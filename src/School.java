@@ -1,5 +1,10 @@
 
 import java.time.LocalDate;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+
 import java.util.Scanner;
 
 public class School {
@@ -426,6 +431,65 @@ public class School {
                 + "\npassword : " + password;
     }
 
+
+    // Assign courses to students
+    public void assignCourseToStudent(Long studentId, Long courseId) {
+        Student student = getManage().findStudentById(studentId);
+        Course course = getManage().findCourseById(courseId);
+        
+        if (student != null && course != null) {
+            student.enrollInCourse(course);
+            System.out.println("Course assigned successfully to Student ID: " + studentId);
+        } else if (student == null) {
+            System.out.println("Student not found.");
+        } else {
+            System.out.println("Course not found.");            
+        }
+    }  
+
+    public void assignCourseToStudentFromFile(String filePath) {
+        BufferedReader reader = null;
+
+        try {
+            // Open the file to read the student and course IDs
+            reader = new BufferedReader(new FileReader(filePath));
+            
+            // Read and parse the Student ID and Course ID directly
+            String studentLine = reader.readLine();
+            String courseLine = reader.readLine();
+
+            if (studentLine != null && courseLine != null) {
+                // Extract and parse IDs from the lines
+                Long studentId = Long.parseLong(studentLine.split(":")[1].trim());
+                Long courseId = Long.parseLong(courseLine.split(":")[1].trim());
+
+                // Retrieve the student and course
+                Student student = getManage().findStudentById(studentId);
+                Course course = getManage().findCourseById(courseId);
+
+                // Assign the course to the student if both exist
+                if (student != null && course != null) {
+                    student.enrollInCourse(course);
+                    System.out.println("Course assigned successfully to Student ID: " + studentId);
+                }
+            } else {
+                System.out.println("Invalid or incomplete data in file.");
+            }
+
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("Error processing the file or invalid ID format.");
+            e.printStackTrace();
+        } finally {
+            try {
+                if (reader != null) reader.close();
+            } catch (IOException e) {
+                System.out.println("Error closing the file.");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    
 
     // Validate phone number format (basic example)
     public boolean validatePhoneNumber(String phoneNumber) {

@@ -23,11 +23,10 @@ public class Course {
 
     // Lesson Management
     public void addLesson(Lesson lesson) {
-        if (lesson == null) {
-            throw new IllegalArgumentException("Lesson cannot be null.");
+        if (!lessons.contains(lesson)) { // Check if lesson already exists
+            lessons.add(lesson);
+            System.out.println("Lesson added: " + lesson.getLessonTitle());
         }
-        lessons.add(lesson);
-        courseRequiredProgress = lessons.size(); // Update the required progress dynamically
     }
 
     public void createLesson() {
@@ -52,32 +51,32 @@ public class Course {
             String line;
             String lessonName = null;
             String lessonDescription = null;
-            int courseId = -1;
+            int LescourseId = -1;
             while ((line = br.readLine()) != null) {
                 line = line.trim(); // Remove leading and trailing whitespace
                 if (line.isEmpty()) {
                     // Create the Lesson object if both name and description are available
-                    if (courseId == getCourseId()) {
+                    if (LescourseId == getCourseId()) {
                         if (lessonName != null && lessonDescription != null) {
-                            lessons.add(new Lesson(lessonName, lessonDescription, courseId));
+                            lessons.add(new Lesson(lessonName, lessonDescription, LescourseId));
                         }
                     }
                     // Reset variables for the next lesson
                     lessonName = null;
                     lessonDescription = null;
-                    courseId = -1;
+                    LescourseId = -1;
                 } else if (line.startsWith("name : ")) {
                     lessonName = line.substring(7).trim();
                 } else if (line.startsWith("description : ")) {
                     lessonDescription = line.substring(13).trim();
                 } else if (line.startsWith("courseId : ")) {
-                    courseId = Integer.parseInt(line.substring(11).trim());
+                    LescourseId = Integer.parseInt(line.substring(11).trim());
                 }
             }
 
             // Handle the last lesson in the file if no trailing blank line
-            if (lessonName != null && lessonDescription != null && courseId != 0) {
-                Lesson lesson = new Lesson(lessonName, lessonDescription, courseId);
+            if (lessonName != null && lessonDescription != null && LescourseId != 0) {
+                Lesson lesson = new Lesson(lessonName, lessonDescription, LescourseId);
                 addLesson(lesson);
             }
 
@@ -110,9 +109,9 @@ public class Course {
                     }
                 } // Collect questions and answers
                 else if (line.startsWith("question : ")) {
-                    questions.add(line.substring(11).trim());
+                    questions.add(line.substring(10).trim());
                 } else if (line.startsWith("answer : ")) {
-                    answers.add(line.substring(9).trim());
+                    answers.add(line.substring(8).trim());
                 }
 
                 // When both questions and answers are collected, process them
@@ -121,7 +120,6 @@ public class Course {
                     Lesson lesson = findLessonById(lessonId);
                     if (lesson != null) {
                         lesson.createqustionsFromFile(QuestionPath);
-                        // Optionally, print out the quiz for debugging
                         System.out.println("Lesson ID: " + lessonId);
                         System.out.println("Questions: " + questions);
                         System.out.println("Answers: " + answers);
@@ -151,6 +149,11 @@ public class Course {
 
     public ArrayList<Lesson> getLessons() {
         return new ArrayList<>(lessons); // Return a copy to maintain encapsulation
+    }
+    public void viewLessons() {
+        for (Lesson lesson : lessons) {
+            System.out.println(lesson);
+        }
     }
 
     public void removeLesson(long lessonId) {
@@ -286,16 +289,18 @@ public class Course {
     // Display course info
     @Override
     public String toString() {
-        return "Course{"
-                + "courseId=" + courseId
-                + ", courseName='" + courseName + '\''
-                + ", courseDescription='" + courseDescription + '\''
-                + ", courseRequiredProgress=" + courseRequiredProgress
-                + ", courseIsActive=" + courseIsActive
-                + '}';
+        return "Course Details:\n" +
+            "----------------\n" +
+            "Course ID          : " + courseId + "\n" +
+            "Course Name        : " + courseName + "\n" +
+            "Description        : " + courseDescription + "\n" +
+            "Required Progress  : " + courseRequiredProgress +" lessons" + "\n" + 
+            "Active Status      : " + (courseIsActive ? "Active" : "Inactive") + "\n" +
+            "----------------";
     }
+
     
     void viewStudents() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

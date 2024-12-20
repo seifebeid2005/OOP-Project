@@ -10,7 +10,7 @@ public class Quiz {
     private static int lastGeneratedID = 0;
     private String quiz_title;
     private int lesson_id;
-    private static final int MAX_QUESTIONS = 10;
+    private static final int MAX_QUESTIONS = 2;
     private List<Question> questions = new ArrayList<>();
     private static final int PASSINGSCORE = MAX_QUESTIONS / 2;
     private Grade grade;
@@ -71,7 +71,7 @@ public class Quiz {
     // Add question to the quiz
     public void addQuestionToQuiz(Question question) {
         if (questions.size() >= MAX_QUESTIONS) {
-            System.out.println("Quiz already has the maximum number of 10 questions.");
+            System.out.println("Quiz already has the maximum number of questions.");
             return;
         }
         questions.add(question);
@@ -104,7 +104,7 @@ public class Quiz {
 
     // Validate the quiz for answering
     public boolean isQuizReady() {
-        if (questions.size() == MAX_QUESTIONS) {
+        if (questions.size() != MAX_QUESTIONS) {
             return true;
         }
         System.out.println("Quiz must have exactly 10 questions to start. Currently, it has " + questions.size() + ".");
@@ -116,9 +116,6 @@ public class Quiz {
         startQuizTimer();
         Scanner scanner = new Scanner(System.in);
 
-        if (!isQuizReady()) {
-            return;
-        }
 
         int score = 0;
         for (Question question : questions) {

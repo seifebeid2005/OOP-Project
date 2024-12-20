@@ -13,13 +13,69 @@ optionB : 4
 optionC : 5
 optionD : 6
 correct : B
+Quiz_id : 1
 
-Quiz_id : 2
-question : Who wrote 'Hamlet'?
-optionA : Charles Dickens
-optionB : Mark Twain
-optionC : William Shakespeare
-optionD : J.K. Rowling
+question : What is the chemical formula for water?
+optionA : H2O
+optionB : CO2
+optionC : O2
+optionD : H2
+correct : A
+
+Quiz_id : 1
+question : What is the smallest prime number?
+optionA : 0
+optionB : 1
+optionC : 2
+optionD : 3
+correct : C
+
+Quiz_id : 1
+question : What is the hardest natural substance on Earth?
+optionA : Gold
+optionB : Iron
+optionC : Diamond
+optionD : Silver
+correct : C
+
+Quiz_id : 1
+question : What is the largest ocean on Earth?
+optionA : Atlantic Ocean
+optionB : Indian Ocean
+optionC : Arctic Ocean
+optionD : Pacific Ocean
+correct : D
+
+Quiz_id : 1
+question : Who developed the theory of relativity?
+optionA : Isaac Newton
+optionB : Galileo Galilei
+optionC : Albert Einstein
+optionD : Nikola Tesla
+correct : C
+
+Quiz_id : 1
+question : What is the tallest mountain in the world?
+optionA : K2
+optionB : Kangchenjunga
+optionC : Mount Everest
+optionD : Lhotse
+correct : C
+
+Quiz_id : 1
+question : What is the smallest country in the world?
+optionA : Monaco
+optionB : Vatican City
+optionC : San Marino
+optionD : Liechtenstein
+correct : B
+
+Quiz_id : 1
+question : What is the main ingredient in traditional Japanese miso soup?
+optionA : Tofu
+optionB : Seaweed
+optionC : Miso paste
+optionD : Soy sauce
 correct : C
 
 Quiz_id : 2

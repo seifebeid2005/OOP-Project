@@ -64,6 +64,17 @@ public class Admin extends Person {
         }
         return 0;
     } 
+    // checkStudentLogin
+    public Student checkStudentLogin(String username, String password) {
+        for (School school : schools) {
+            for (Student student : school.getManage().getStudents()) {
+                if (student.getUsername().equals(username) && student.getPassword().equals(password)) {
+                    return student;
+                }
+            }
+        }
+        return null;
+    }
     //------------------- Tutor Method -------------------
     
     // Add a Tutor to a specific school
@@ -663,6 +674,70 @@ public class Admin extends Person {
         return pattern.matcher(phone).matches();
     }
 
+    // Get Student Courses by Student ID
+    public void getStudentCoursesById(Long studentId) {
+        Student student = searchStudentById(studentId);
+        if (student != null) {
+            List<Course> courses = student.getCourses();
+            if (courses.isEmpty()) {
+                System.out.println("No courses found for the student ID " + studentId + " in school ID " + student.getSchoolID());
+            } else {
+                System.out.println("Courses for student ID " + studentId + " in school ID " + student.getSchoolID() + ":");
+                for (Course course : courses) {
+                    System.out.println(course);
+                }
+            }
+        } else {
+            System.out.println("Student not found.");
+        }
+    }
+    // Get Lessons for a Student by Student ID
+    public void getStudentLessonsById(Long studentId) {
+        Student student = searchStudentById(studentId);
+        if (student != null) {
+            List<Course> courses = student.getCourses();
+            if (courses.isEmpty()) {
+                System.out.println("No courses found for the student ID " + studentId + " in school ID " + student.getSchoolID());
+            } else {
+                System.out.println("Lessons for student ID " + studentId + " in school ID " + student.getSchoolID() + ":");
+                for (Course course : courses) {
+                    for (Lesson lesson : course.getLessons()) {
+                        System.out.println(lesson);
+                    }
+                }
+            }
+        } else {
+            System.out.println("Student not found.");
+        }
+    }
+
+    public void getTutorsForStudentCourses(Long studentId) {
+        Student student = searchStudentById(studentId);
+        if (student != null) {
+            List<Course> studentCourses = student.getCourses();
+            if (studentCourses.isEmpty()) {
+                System.out.println("No courses found for the student ID " + studentId);
+            } else {
+                System.out.println("Tutors for the courses of student ID " + studentId + ":");
+                for (Course studentCourse : studentCourses) {
+                    System.out.println("Course: " + studentCourse.getCourseName());
+                    for (School school : schools) {
+                        for (Tutor tutor : school.getManage().getTutors()) {
+                            if (tutor.getCourses().contains(studentCourse)) {
+                                System.out.println(" - Tutor: " + tutor.getName() + " (Tutor ID: " + tutor.getId() + ")");
+                            }
+                            else {
+                                System.out.println("No tutors found for the courses of student ID " + studentId);
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            System.out.println("Student not found.");
+        }
+    }
+
     public void addStudent(Student student, int schoolID) {
         if (student != null) {
             for (School school : schools) {
@@ -1029,20 +1104,17 @@ public class Admin extends Person {
     }
 
     // Search for a specific student by ID within a specific school
-    public Student searchStudentById(Long studentId, int schoolID) {
-        School school = searchSchoolById(schoolID);
-        if (school != null) {
+    public Student searchStudentById(Long studentId) {
+        for (School school : schools) {
             for (Student student : school.getManage().getStudents()) {
                 if (student.getId().equals(studentId)) {
                     return student;
                 }
             }
-            System.out.println("Student not found in the specified school.");
         }
+        System.out.println("Student not found.");
         return null;
-    }
-
-    //------------------- School Method -------------------
+    }  //------------------- School Method -------------------
     //Create School
     public void createSchool() {
         Scanner input = new Scanner(System.in);
@@ -1518,20 +1590,20 @@ public class Admin extends Person {
                 line = line.trim(); // Remove leading and trailing whitespace
 
                 if (line.isEmpty()) {
-                    // Create a Question object when a blank line is encountered
+
                     if (quizId != -1 && !question.isEmpty() && !option1.isEmpty() && !option2.isEmpty() && !option3.isEmpty() && !option4.isEmpty() && correctAnswer != null) {
                         Question questionObj = new Question(question, option1, option2, option3, option4, correctAnswer, quizId);
                         boolean questionAdded = false;
 
-                        // Search for the correct quiz and add the question to it
+
                         for (School school : schools) {
                             for (Course course : school.getManage().getCourses()) {
                                 for (Lesson lesson : course.getLessons()) {
                                     if (lesson.getQuiz() != null && lesson.getQuiz().getQuiz_id() == quizId) {
-                                        lesson.getQuiz().addQuestionToQuiz(questionObj);; // Add the question to the quiz
+                                        lesson.getQuiz().addQuestionToQuiz(questionObj);
                                         System.out.println("Question added successfully to quiz ID " + quizId);
                                         questionAdded = true;
-                                        break;  // Exit once the question is added
+                                        break;
                                     }
                                 }
                                 if (questionAdded) {
@@ -1580,6 +1652,59 @@ public class Admin extends Person {
     }
 
     //------------------- course  Method -------------------
+    
+    public void assignCourseToStudentFromFile( String filePath)
+    {
+        System.out.println("Assigning courses to students from file...");
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            Long studentId = null;
+            Long courseId = null;
+
+            while ((line = br.readLine()) != null) {
+                line = line.trim(); // Remove leading and trailing whitespace
+
+                if (line.isEmpty()) {
+                    // Create a Course object when a blank line is encountered
+                    if (studentId != null && courseId != null) {
+                        for (School school : schools) {
+                            if(school.getManage().getStudents().contains(searchStudentById(studentId))){
+                            school.assignCourseToStudent(studentId, courseId);
+                            }
+                        }
+
+                    }
+                    else{
+                        System.out.println("Student ID or Course ID is missing.");
+                    }
+
+
+                    // Reset variables for the next course
+                    studentId = null;
+                    courseId = null;
+                } else if (line.startsWith("studentId : ")) {
+                    try {
+                        studentId = Long.parseLong(line.substring(11).trim());  // Extract student ID
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid student ID format: " + line);
+                    }
+                } else if (line.startsWith("courseId : ")) {
+                    try {
+                        courseId = Long.parseLong(line.substring(10).trim());  // Extract course ID
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid course ID format: " + line);
+                    }
+                }
+                else
+                {
+                    System.out.println("Invalid format: " + line);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
+
     public void CreateCourse() {
         Scanner input = new Scanner(System.in);
 
