@@ -146,9 +146,9 @@ public class Student extends Person {
                 System.out.println("Lesson: " + lesson.getLessonTitle());
                 Quiz quiz = lesson.getQuiz();
                 if (quiz != null) {
-                    System.out.println(quiz);
-                } else {
-                    System.out.println("No quiz available for this lesson.");
+                    if (quiz.getGrade() != null) {
+                        System.out.println(quiz.getGrade());
+                    }
                 }
             }
         }

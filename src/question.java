@@ -107,9 +107,15 @@
             return answer.equals(correct_answer.toString());
         }
         
-        @Override
-        public String toString() {
-            return question_text + "\nA: " + A + " B: " + B + " C: " + C + " D: " + D;
-        }
-
+    @Override
+    public String toString() {
+        return String.format(
+            "Question: %s\n" +
+            "  A: %s\n" +
+            "  B: %s\n" +
+            "  C: %s\n" +
+            "  D: %s",
+            question_text, A, B, C, D
+        );
     }
+}

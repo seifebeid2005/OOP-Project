@@ -208,10 +208,14 @@ public class Lesson {
 
     @Override
     public String toString() {
-        return "Lesson ID: " + lessonId
-                + ", Lesson Title: " + lessonTitle
-                + ", Description: " + lessonDescription
-                + ", Completed: " + isCompleted
-                + ", Quiz: " + quiz;
+        return String.format(
+            "Lesson ID: %d\n" +
+            "Lesson Title: %s\n" +
+            "Description: %s\n" +
+            "Completed: %b\n" +
+            "Quiz: %s",
+            lessonId, lessonTitle, lessonDescription, isCompleted, quiz
+        );
     }
+
 }

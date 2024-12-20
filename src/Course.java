@@ -294,7 +294,7 @@ public class Course {
             "Course ID          : " + courseId + "\n" +
             "Course Name        : " + courseName + "\n" +
             "Description        : " + courseDescription + "\n" +
-            "Required Progress  : " + courseRequiredProgress +" lessons" + "\n" + 
+            "Required Progress  : " + lessons.size() +"  lessons" + "\n" + 
             "Active Status      : " + (courseIsActive ? "Active" : "Inactive") + "\n" +
             "----------------";
     }

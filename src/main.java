@@ -81,7 +81,6 @@ public class main {
                     case 4 -> TeacherFunctions();
                 case 5 -> {
                     System.out.println("See you later!");
-                
                     return; // Exit the program
                 }
                 default -> System.out.println("Invalid choice, please try again");

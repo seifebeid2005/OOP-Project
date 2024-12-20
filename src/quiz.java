@@ -7,7 +7,7 @@ import java.util.Timer;
 public class Quiz {
 
     private int quiz_id;
-    private static int lastGeneratedID = 0;
+    private static int lastGeneratedID = 1;
     private String quiz_title;
     private int lesson_id;
     private static final int MAX_QUESTIONS = 2;
@@ -140,10 +140,11 @@ public class Quiz {
         System.out.println("You scored " + score + " out of " + MAX_QUESTIONS);
         if (score >= PASSINGSCORE) {
             System.out.println("Congratulations! You passed the quiz.");
-            grade = new Grade(quiz_id, score, quiz_id);
+            setGrade(new Grade(quiz_id, score, quiz_id));
+
         } else {
             System.out.println("Sorry, you did not pass the quiz.");
-            grade = new Grade(quiz_id, score, quiz_id);
+            setGrade(new Grade(quiz_id, score, quiz_id));
         }
 
     }
@@ -152,17 +153,21 @@ public class Quiz {
         return new ArrayList<>(questions); // Return a copy for encapsulation
     }
 
-    @Override
+   @Override
     public String toString() {
-        return "Quiz { "
-                + "Quiz ID=" + quiz_id
-                + ", Quiz Title='" + quiz_title + '\''
-                + ", Lesson ID=" + lesson_id
-                + ", Number of Questions=" + questions.size()
-                + ", Max Questions=" + MAX_QUESTIONS
-                + ", Passing Score=" + PASSINGSCORE
-                + ", Grade=" + grade
-                + " , Questions=" + questions
-                + " }";
+        return String.format(
+            "Quiz { \n" +
+            "  Quiz ID: %d\n" +
+            "  Quiz Title: '%s'\n" +
+            "  Lesson ID: %d\n" +
+            "  Number of Questions: %d\n" +
+            "  Max Questions: %d\n" +
+            "  Passing Score: %d\n" +
+            "  Grade: %s\n" +
+            "  Questions: %s\n" +
+            "}",
+            quiz_id, quiz_title, lesson_id, questions.size(), MAX_QUESTIONS, PASSINGSCORE, grade, questions
+        );
     }
+
 }
