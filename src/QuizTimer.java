@@ -4,7 +4,7 @@ public class QuizTimer extends TimerTask {
 
     private static long startTime;
     private static boolean timeOver = false;
-    private static int quizDurationInSeconds = 60;  // Set your desired time limit in seconds (e.g., 60 seconds)
+    private static int quizDurationInSeconds = 300;  // Set your desired time limit in seconds (e.g., 300 seconds for 5 minutes)
 
     @Override
     public void run() {

@@ -4,12 +4,11 @@ import java.util.List;
 
 public class Tutor extends Person {
     //  remove subjectArea
-
-    private String subjectArea;            // Primary subject expertise
-    private LocalDate dateJoined;          // Date the tutor joined the institution
-    private Role roleEnum;                 // Tutor's role (enum type)
-    private final int schoolID;            // School ID where the tutor is employed
-    private ArrayList<Course> courses;     // Courses the tutor teaches
+    private static long lastGeneratedID = 1;               
+    private LocalDate dateJoined;         
+    private Role roleEnum;                 
+    private final int schoolID;           
+    private ArrayList<Course> courses;  
 
     public enum Role {
         LEAD_TUTOR,
@@ -17,18 +16,8 @@ public class Tutor extends Person {
         TUTOR
     }
     
-    private static int autoId = 0;         // Auto-increment ID for tutors
-
-    // generate autoId
-    private static Long generateId() {
-        int randomPart = (int) (Math.random() * 10000); // Generate a random number between 0 and 9999
-        int yearPart = LocalDate.now().getYear(); // Get the current year
-        return Long.valueOf(yearPart + String.format("%04d", randomPart)); // Combine year and random part
-    }
-
     public Tutor() {
         super();
-        this.subjectArea = "";
         this.dateJoined = LocalDate.now(); // Use current date if null
         this.roleEnum = Role.TUTOR; // Default to "TUTOR" if roleEnum is null
         this.courses = new ArrayList<>(); // Initialize courses list
@@ -36,21 +25,12 @@ public class Tutor extends Person {
     }
     // Constructor
     public Tutor( String name, String email, LocalDate dateOfBirth, String phone, String address,
-                 String username, String password, String subjectArea, Role roleEnum, int schoolID) {
-        super(generateId(), name, email, dateOfBirth, phone, address, username, password);
-        this.subjectArea = validateNotEmpty(subjectArea, "Subject area cannot be null or empty.");
+                 String username, String password, Role roleEnum, int schoolID) {
+        super(lastGeneratedID++, name, email, dateOfBirth, phone, address, username, password);
         this.dateJoined = LocalDate.now(); // Default to current date if null
         this.roleEnum = roleEnum != null ? roleEnum : Role.TUTOR; // Default to "TUTOR" if roleEnum is null
         this.courses = new ArrayList<>(); // Initialize courses list
         this.schoolID = schoolID;
-    }
-    // Getter for subject area
-    public String getSubjectArea() {
-        return subjectArea;
-    }
-
-    public void setSubjectArea(String subjectArea) {
-        this.subjectArea = validateNotEmpty(subjectArea, "Subject area cannot be null or empty.");
     }
 
     // Getter for dateJoined
@@ -157,7 +137,6 @@ public class Tutor extends Person {
     @Override
     public String toString() {
         return super.toString() +
-                ", SubjectArea='" + subjectArea + '\'' +
                 ", DateJoined=" + dateJoined +
                 ", Role='" + roleEnum + '\'' +
                 ", YearsOfExperience=" + getYearsOfExperience() +

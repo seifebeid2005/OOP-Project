@@ -6,7 +6,8 @@ import java.util.Timer;
 
 public class Quiz {
 
-    private static int quiz_id;
+    private int quiz_id;
+    private static int lastGeneratedID = 0;
     private String quiz_title;
     private int lesson_id;
     private static final int MAX_QUESTIONS = 10;
@@ -16,15 +17,11 @@ public class Quiz {
 
     // Constructor
     public Quiz(String quiz_title, int lesson_id) {
-        this.quiz_id = incrementNumber(quiz_id);
+        this.quiz_id = lastGeneratedID++;
         this.quiz_title = quiz_title;
         this.lesson_id = lesson_id;
     }
 
-    // Method to increment a number
-    public static int incrementNumber(int number) {
-        return number + 1;
-    }
 
     // TIMER FOR QUIZ
     public void startQuizTimer() {

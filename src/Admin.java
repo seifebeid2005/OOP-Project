@@ -12,12 +12,15 @@ import java.util.regex.Pattern;
 
 public class Admin extends Person {
 
+    private static Long idCounter = (long) 1.0;
+
     private final Role roleEnum;
     private static final ArrayList<School> schools = new ArrayList<>();
 
     public enum Role {
         ADMIN, SUPER_ADMIN, MODERATOR
     }
+    
 
     public Admin(String username, String password) {
         super(username, password);
@@ -33,8 +36,8 @@ public class Admin extends Person {
         return data;
     }
 
-    public Admin(Long id, String name, String email, Role roleEnum, LocalDate dateOfBirth, String phone, String address, String username, String password) {
-        super(id, name, email, dateOfBirth, phone, address, username, password);
+    public Admin (String name, String email, Role roleEnum, LocalDate dateOfBirth, String phone, String address, String username, String password) {
+        super(idCounter++ ,name, email, dateOfBirth, phone, address, username, password);
         this.roleEnum = roleEnum;
     }
 
@@ -100,9 +103,6 @@ public class Admin extends Person {
         System.out.println("Enter Tutor Password: ");
         String password = input.nextLine();
 
-        System.out.println("Enter Tutor Subject Area: ");
-        String subjectArea = input.nextLine();
-
         System.out.println("Enter Tutor Role (1: LEAD_TUTOR, 2: ASSISTANT_TUTOR, 3: TUTOR): ");
         int roleChoice = input.nextInt();
         input.nextLine(); // Consume newline
@@ -125,7 +125,7 @@ public class Admin extends Person {
         input.nextLine(); // Consume newline
 
         // Create Tutor object and add to the list
-        Tutor tutor = new Tutor(name, email, dateOfBirth, phone, address, username, password, subjectArea,
+        Tutor tutor = new Tutor(name, email, dateOfBirth, phone, address, username, password,
                 roleEnum, schoolID);
         addTutorToSchool(tutor, schoolID);
         System.out.println("Tutor account created successfully!");
@@ -137,7 +137,7 @@ public class Admin extends Person {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             Long id = null;
-            String name = "", email = "", phone = "", address = "", username = "", password = "", subjectArea = "";
+            String name = "", email = "", phone = "", address = "", username = "", password = "";
             LocalDate dateOfBirth = null, dateJoined = null;
             Tutor.Role roleEnum = Tutor.Role.TUTOR;
             int schoolID = -1;
@@ -146,7 +146,7 @@ public class Admin extends Person {
                 line = line.trim(); // Remove leading and trailing whitespace
                 if (line.isEmpty()) {
                     // Create a Tutor object and add to the list when a blank line is encountered
-                    Tutor tutor = new Tutor(name, email, dateOfBirth, phone, address, username, password, subjectArea, roleEnum, schoolID);
+                    Tutor tutor = new Tutor(name, email, dateOfBirth, phone, address, username, password, roleEnum, schoolID);
                     addTutorToSchool(tutor, schoolID); // Assuming you have a method addTutorToSchool to add to your list
 
                     // Reset variables for the next tutor
@@ -156,7 +156,6 @@ public class Admin extends Person {
                     address = "";
                     username = "";
                     password = "";
-                    subjectArea = "";
                     dateOfBirth = null;
                     dateJoined = null;
                     roleEnum = Tutor.Role.TUTOR;
@@ -173,8 +172,6 @@ public class Admin extends Person {
                     username = line.substring(11).trim();
                 } else if (line.startsWith("password : ")) {
                     password = line.substring(11).trim();
-                } else if (line.startsWith("subjectArea : ")) {
-                    subjectArea = line.substring(14).trim();
                 } else if (line.startsWith("dateOfBirth : ")) {
                     dateOfBirth = LocalDate.parse(line.substring(14).trim());
                 } else if (line.startsWith("dateJoined : ")) {
@@ -311,7 +308,7 @@ public class Admin extends Person {
     }
 
     // Update Tutor Information
-    public void updateTutor(Long tutorId, String newName, String newEmail, String newPhone, String newAddress, String newSubjectArea) {
+    public void updateTutor(Long tutorId, String newName, String newEmail, String newPhone, String newAddress) {
         for (School school : schools) {
             for (Tutor tutor : school.getManage().getTutors()) {
                 if (tutor.getId().equals(tutorId)) {
@@ -326,9 +323,6 @@ public class Admin extends Person {
                     }
                     if (newAddress != null) {
                         tutor.setAddress(newAddress);
-                    }
-                    if (newSubjectArea != null) {
-                        tutor.setSubjectArea(newSubjectArea);
                     }
                     System.out.println("Tutor updated successfully.");
                     return;
@@ -346,7 +340,7 @@ public class Admin extends Person {
         Long tutorId = input.nextLong();
         input.nextLine(); // Consume newline
 
-        System.out.println("Choose what to update (1: Name, 2: Email, 3: Phone, 4: Address, 5: Subject Area): ");
+        System.out.println("Choose what to update (1: Name, 2: Email, 3: Phone, 4: Address,): ");
         int choice = input.nextInt();
         input.nextLine(); // Consume newline
 
@@ -355,27 +349,22 @@ public class Admin extends Person {
             case 1 -> {
                 System.out.println("Enter new Name: ");
                 newValue = input.nextLine();
-                updateTutor(tutorId, newValue, null, null, null, null);
+                updateTutor(tutorId, newValue, null, null, null);
             }
             case 2 -> {
                 System.out.println("Enter new Email: ");
                 newValue = input.nextLine();
-                updateTutor(tutorId, null, newValue, null, null, null);
+                updateTutor(tutorId, null, newValue, null, null);
             }
             case 3 -> {
                 System.out.println("Enter new Phone: ");
                 newValue = input.nextLine();
-                updateTutor(tutorId, null, null, newValue, null, null);
+                updateTutor(tutorId, null, null, newValue , null);
             }
             case 4 -> {
                 System.out.println("Enter new Address: ");
                 newValue = input.nextLine();
-                updateTutor(tutorId, null, null, null, newValue, null);
-            }
-            case 5 -> {
-                System.out.println("Enter new Subject Area: ");
-                newValue = input.nextLine();
-                updateTutor(tutorId, null, null, null, null, newValue);
+                updateTutor(tutorId, null, null, null, newValue );
             }
             default ->
                 System.out.println("Invalid choice. Please choose 1, 2, 3, 4, or 5.");
@@ -444,8 +433,6 @@ public class Admin extends Person {
                 tutor.getAddress().equalsIgnoreCase((String) value);
             case "username" ->
                 tutor.getUsername().equals(value);
-            case "subjectarea" ->
-                tutor.getSubjectArea().equalsIgnoreCase((String) value);
             case "datejoined" ->
                 tutor.getDateJoined().equals(value);
             case "role" ->
@@ -498,6 +485,7 @@ public class Admin extends Person {
     }
 
     // ------------------- Student Method -------------------
+
     // Account creation for Student
     public void createStudentAccount() {
         Scanner input = new Scanner(System.in);
@@ -1738,6 +1726,7 @@ public class Admin extends Person {
     }
 
     //...........Admin Class.............
+
     // view how many students are in a school
     public void viewStudentCountBySchool(int schoolID) {
         for (School school : schools) {
@@ -1860,6 +1849,7 @@ public class Admin extends Person {
     }
 
     // toString override to include Admin-specific details
+    
     @Override
     public String toString() {
         return "Admin { "

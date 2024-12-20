@@ -2,12 +2,11 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Achievement {
-    private static long idCounter = 1000L; // Starting sequence for IDs
+    private static int idCounter = 1000; // Starting sequence for IDs
     private long achievementID;
     private String achievementName;
     private String achievementDescription;
     private LocalDateTime achievementDateAchieved;
-    private long studentID;
     private String type; // New field for type
 
     // Constructor
@@ -16,11 +15,10 @@ public class Achievement {
         setAchievementName(achievementName);
         setAchievementDescription(achievementDescription);
         setAchievementDateAchieved(achievementDateAchieved);
-        setStudentID(studentID);
         setType(type);
     }
 
-    public static synchronized long generateUniqueID() {
+    public static synchronized int generateUniqueID() {
         return idCounter++;
     }
 
@@ -46,8 +44,6 @@ public class Achievement {
         }
         this.type = type;
     }
-
-    // Existing Methods (Getters, Setters, Equals, HashCode, etc.)
 
     public long getAchievementID() {
         return achievementID;
@@ -95,19 +91,6 @@ public class Achievement {
         this.achievementDateAchieved = achievementDateAchieved;
     }
 
-    public long getStudentID() {
-        return studentID;
-    }
-
-    public void setStudentID(long studentID) {
-        if (studentID <= 0) {
-            throw new IllegalArgumentException("Student ID must be a positive integer.");
-        }
-        this.studentID = studentID;
-    }
-
-    // Equals and HashCode
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -116,10 +99,6 @@ public class Achievement {
         return achievementName.equalsIgnoreCase(that.achievementName);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(achievementName.toLowerCase());
-    }
 
     // ToString
     @Override
@@ -129,7 +108,6 @@ public class Achievement {
                 ", achievementName='" + achievementName + '\'' +
                 ", achievementDescription='" + achievementDescription + '\'' +
                 ", achievementDateAchieved=" + achievementDateAchieved +
-                ", studentID=" + studentID +
                 ", type='" + type + '\'' +
                 '}';
     }

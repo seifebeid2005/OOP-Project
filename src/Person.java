@@ -14,6 +14,7 @@ public abstract class Person {
     private String address;
     private String username;
     private String password;
+    
 
     public Person() {
         this.id = 0L;
@@ -27,8 +28,8 @@ public abstract class Person {
         this.password = "";
     }
     // Constructor with validation
-    public Person(Long id, String name, String email, LocalDate dateOfBirth, String phone, String address, String username, String password) {
-        this.id = id;
+    public Person( Long id ,String name, String email, LocalDate dateOfBirth, String phone, String address, String username, String password) {
+        this.id = 0L;
         this.name = name;
         this.email = email;
         this.dateAdded = new Date();
@@ -38,6 +39,7 @@ public abstract class Person {
         this.username = username;
         this.password = password;
     }
+    
     public Person(String username, String password)
     {
         this.id = 0L;

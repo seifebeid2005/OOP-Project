@@ -6,17 +6,12 @@ public class Student extends Person {
     
     private final LocalDate registrationDate;
     private int schoolID;
-    private static int lastGeneratedID = 0;
+    private static Long lastGeneratedID = (long)1;
     private ArrayList<Grade> marks;
     private ArrayList<Course> courses;
     private Progress progress;
 
 
-    private static long generateAutoID() {
-        String year = String.valueOf(LocalDate.now().getYear()).substring(2); // Get last two digits of the year
-        lastGeneratedID++; // Increment the last generated ID
-        return Long.parseLong(year + String.format("%04d", lastGeneratedID)); // Combine year and incremented number
-    }
     public Student(){
         super();
         this.registrationDate = LocalDate.now();  // Use current date if null
@@ -27,19 +22,13 @@ public class Student extends Person {
     }
 
     public Student(String name, String email, LocalDate dateOfBirth, int schoolID, String phone, String address, String username, String password) {
-        super(generateAutoID(), name, email, dateOfBirth, phone, address, username, password);
+        super(lastGeneratedID++, name, email, dateOfBirth, phone, address, username, password);
         this.registrationDate = LocalDate.now();  // Use current date if null
         this.schoolID = schoolID;
         this.courses = new ArrayList<>();
         this.marks = new ArrayList<>();
     }
-
-    // private void validateSchoolID(Integer schoolID) {
-    //     if (schoolID <= 0) {
-    //         throw new IllegalArgumentException("School ID must be a positive integer.");
-    //     }
-    // }
-
+    
     // Methods related to Student actions
     public void login() {
         System.out.println(getName() + " logged in.");

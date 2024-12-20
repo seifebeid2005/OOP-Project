@@ -6,14 +6,13 @@ import java.util.Scanner;
 public class Lesson {
 
     private int lessonId;
+    private static int idCounter = 1;
     private int courseId;
     private String lessonTitle;
     private String lessonDescription;
-    private boolean isCompleted = false;  // Track completion status
-    private Quiz quiz;  // Single quiz associated with the lesson
-    private static int idCounter = 1;
+    private boolean isCompleted = false; 
+    private Quiz quiz;
 
-// id genrator
     // Constructor
     public Lesson(String lessonTitle, String lessonDescription, int courseId) {
         this.lessonId = idCounter++;

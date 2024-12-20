@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Progress {
+    
     private long progressId;
     private ArrayList<Course> courses = new ArrayList<>();
     private int progressPercentage;

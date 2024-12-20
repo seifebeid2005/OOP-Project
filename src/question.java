@@ -1,6 +1,7 @@
 
 public class Question {
-    private long  questionId;
+    private long questionId;
+    private static long lastGeneratedID = 1;
     private int quiz_id;
     private String question_text;
     private String A;
@@ -13,14 +14,11 @@ public class Question {
     public enum CorrectAnswer {
         A, B, C, D
     } 
-    
-    private static long generateRandomID() {
-        return (long) (Math.random() * 10000000000L); // Generate a random 10-digit number
-    }
+
 
     // Constructor with CorrectAnswer as a parameter type
-    public Question( String question_text, String A, String B, String C, String D, CorrectAnswer correct_answer , int quiz_id) {
-        this.questionId = generateRandomID();
+    public Question(String question_text, String A, String B, String C, String D, CorrectAnswer correct_answer , int quiz_id) {
+        this.questionId = lastGeneratedID++;
         this.question_text = question_text;
         this.A = A;
         this.B = B;
@@ -112,4 +110,5 @@ public class Question {
     public String toString() {
         return question_text + "\nA: " + A + " B: " + B + " C: " + C + " D: " + D;
     }
+
 }

@@ -45,7 +45,9 @@ public class ManagementControl {
         }
         return allQuestions;
     }
+  
     //----------------- method that return string not list
+  
     public String getTutorsData() {
         StringBuilder data = new StringBuilder();
         for (Tutor tutor : getTutors()) {

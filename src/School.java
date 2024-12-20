@@ -10,6 +10,7 @@ public class School {
 
     // Attributes
     private int schoolID;
+    private static int idCounter = 1;
     private String schoolName;
     private String address;
     private String city;
@@ -17,18 +18,12 @@ public class School {
     private String email;
     private String phoneNumber;
     private ManagementControl manage;
-    private static int idCounter = 1;
     private String userName;
     private String password;
 
-    // Method to generate a new unique ID
-    private static synchronized int generateNewID() {
-        return idCounter++;
-    }
-
     // Default constructor
     public School() {
-        this.schoolID = generateNewID();
+        this.schoolID = idCounter++;
         this.schoolName = "";
         this.address = "";
         this.city = "";
@@ -42,7 +37,7 @@ public class School {
 
     // Parameterized constructor
     public School(String schoolName, String address, String city, String contactPerson, String email, String phoneNumber , String userName, String password) {
-        this.schoolID = generateNewID();
+        this.schoolID = idCounter++;
         this.schoolName = schoolName;
         this.address = address;
         this.city = city;
@@ -60,6 +55,7 @@ public class School {
     }
 
     //------------------------getter methods-----------------------
+    
     public String getTutorsData() {
         StringBuilder data = new StringBuilder();
         for (Tutor tutor : getManage().getTutors()) {
@@ -277,6 +273,7 @@ public class School {
     //     };
     // }
     // View All Students
+   
     public void viewStudents() {
         manage.listStudents();
     }
@@ -320,10 +317,7 @@ public class School {
 
             System.out.println("Enter Tutor Password: ");
             String password = input.nextLine();
-
-            System.out.println("Enter Tutor Subject Area: ");
-            String subjectArea = input.nextLine();
-
+            
             System.out.println("Enter Tutor Role (1: LEAD_TUTOR, 2: ASSISTANT_TUTOR, 3: TUTOR): ");
             int roleChoice = input.nextInt();
             input.nextLine(); // Consume newline
@@ -341,15 +335,13 @@ public class School {
                 }
             }
 
-            System.out.println("Enter Tutor Date Joined (YYYY-MM-DD): ");
-            LocalDate dateJoined = LocalDate.parse(input.nextLine());
 
             System.out.println("Enter Tutor School ID: ");
             int tutorSchoolID = input.nextInt();
             input.nextLine(); // Consume newline
 
             // Create Tutor object and add to the list
-            Tutor tutor = new Tutor(name, tutorEmail, dateOfBirth, phone, tutorAddress, username, password, subjectArea, roleEnum, tutorSchoolID);
+            Tutor tutor = new Tutor(name, tutorEmail, dateOfBirth, phone, tutorAddress, username, password, roleEnum, tutorSchoolID);
             addTutor(tutor);
             System.out.println("Tutor account created successfully!");
         }
@@ -420,7 +412,6 @@ public class School {
     // }
     // View Students of a Tutor
     // public void viewTutorStudents(Long tutorId) {
-
 
     // String representation of the object
     @Override

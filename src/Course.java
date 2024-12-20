@@ -6,12 +6,12 @@ import java.util.Scanner;
 public class Course {
 
     private long courseId;
+    private static long nextCourseId = 1; // Start from 1 or any other number you prefer
     private final ArrayList<Lesson> lessons = new ArrayList<>();
     private String courseName;
     private String courseDescription;
     private Integer courseRequiredProgress = lessons.size();
     private Boolean courseIsActive;
-    private static long nextCourseId = 1; // Start from 1 or any other number you prefer
 
     // Constructors
     public Course(String courseName, String courseDescription, Boolean courseIsActive) {
@@ -294,6 +294,7 @@ public class Course {
                 + ", courseIsActive=" + courseIsActive
                 + '}';
     }
+    
     void viewStudents() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
