@@ -1518,25 +1518,25 @@ public class Admin extends Person {
     public void createQuizFromFile(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
-            String quizDescription = "";
-            int lesson_id = -1;
+            String quizTitle = "";  // This will hold the quiz description (title)
+            int lessonId = -1;  // Holds the lessonId for which the quiz is to be added
 
             while ((line = br.readLine()) != null) {
                 line = line.trim(); // Remove leading and trailing whitespace
 
                 if (line.isEmpty()) {
                     // Create a Quiz object when a blank line is encountered
-                    if (lesson_id != -1 && !quizDescription.isEmpty()) {
-                        Quiz quiz = new Quiz(quizDescription, lesson_id);
+                    if (lessonId != -1 && !quizTitle.isEmpty()) {
+                        Quiz quiz = new Quiz(quizTitle, lessonId);
                         boolean quizAdded = false;
 
                         // Search for the correct lesson and add the quiz to it
                         for (School school : schools) {
                             for (Course course : school.getManage().getCourses()) {
                                 for (Lesson lesson : course.getLessons()) {
-                                    if (lesson.getLessonId() == lesson_id) {
+                                    if (lesson.getLessonId() == lessonId) {
                                         lesson.setQuiz(quiz);  // Set the quiz for the corresponding lesson
-                                        System.out.println("Quiz added successfully to lesson ID " + lesson_id);
+                                        System.out.println("Quiz added successfully to lesson ID " + lessonId);
                                         quizAdded = true;
                                         break;  // Exit once the quiz is added
                                     }
@@ -1552,20 +1552,20 @@ public class Admin extends Person {
 
                         // If the quiz was not added, show an error message
                         if (!quizAdded) {
-                            System.out.println("No lesson found with ID " + lesson_id + " for the quiz.");
+                            System.out.println("No lesson found with ID " + lessonId + " for the quiz.");
                         }
                     }
 
                     // Reset variables for the next quiz
-                    quizDescription = "";
-                    lesson_id = -1;
-                } else if (line.startsWith("question : ")) {
-                    quizDescription = line.substring(11).trim();  // Extract quiz description
+                    quizTitle = "";
+                    lessonId = -1;
+                } else if (line.startsWith("title : ")) {
+                    quizTitle = line.substring(8).trim();  // Extract quiz title
                 } else if (line.startsWith("lessonId : ")) {
                     try {
-                        lesson_id = Integer.parseInt(line.substring(10).trim());  // Extract lesson ID
+                        lessonId = Integer.parseInt(line.substring(11).trim());  // Extract lesson ID
                     } catch (NumberFormatException e) {
-                        System.out.println("Invalid lesson_id format: " + line);
+                        System.out.println("Invalid lessonId format: " + line);
                     }
                 }
             }
@@ -1590,12 +1590,11 @@ public class Admin extends Person {
                 line = line.trim(); // Remove leading and trailing whitespace
 
                 if (line.isEmpty()) {
-
                     if (quizId != -1 && !question.isEmpty() && !option1.isEmpty() && !option2.isEmpty() && !option3.isEmpty() && !option4.isEmpty() && correctAnswer != null) {
                         Question questionObj = new Question(question, option1, option2, option3, option4, correctAnswer, quizId);
                         boolean questionAdded = false;
 
-
+                        // Loop through schools, courses, and lessons to add the question to the appropriate quiz
                         for (School school : schools) {
                             for (Course course : school.getManage().getCourses()) {
                                 for (Lesson lesson : course.getLessons()) {
@@ -1615,7 +1614,9 @@ public class Admin extends Person {
                             }
                         }
 
-                        // If the question was not added, show an error message
+                        if (!questionAdded) {
+                            System.out.println("Error: Question for quiz ID " + quizId + " could not be added.");
+                        }
                     }
 
                     // Reset variables for the next question
@@ -1637,7 +1638,11 @@ public class Admin extends Person {
                 } else if (line.startsWith("optionD : ")) {
                     option4 = line.substring(10).trim();  // Extract option4
                 } else if (line.startsWith("correct : ")) {
-                    correctAnswer = Question.CorrectAnswer.valueOf(line.substring(10).trim());  // Extract correctAnswer
+                    try {
+                        correctAnswer = Question.CorrectAnswer.valueOf(line.substring(10).trim());  // Extract correctAnswer
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid correct answer format: " + line);
+                    }
                 } else if (line.startsWith("Quiz_id : ")) {
                     try {
                         quizId = Integer.parseInt(line.substring(9).trim());  // Extract quiz ID
@@ -1648,6 +1653,7 @@ public class Admin extends Person {
             }
         } catch (Exception e) {
             System.out.println("Error reading file: " + e.getMessage());
+            e.printStackTrace();  // Add stack trace for better error diagnostics
         }
     }
 

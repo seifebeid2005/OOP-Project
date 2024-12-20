@@ -160,6 +160,9 @@ public class Quiz {
                 + ", Lesson ID=" + lesson_id
                 + ", Number of Questions=" + questions.size()
                 + ", Max Questions=" + MAX_QUESTIONS
+                + ", Passing Score=" + PASSINGSCORE
+                + ", Grade=" + grade
+                + " , Questions=" + questions
                 + " }";
     }
 }

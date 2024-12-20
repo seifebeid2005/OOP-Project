@@ -10,6 +10,7 @@
         private String D;
         private CorrectAnswer correct_answer; // Correct field type
         private String answer;
+        
 
         public enum CorrectAnswer {
             A, B, C, D

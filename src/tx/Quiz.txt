@@ -1,68 +1,23 @@
 lessonId : 1
-question : What is the largest ocean on Earth?
-
-lessonId : 1
-question : What is the largest ocean on Earth?
-
-lessonId : 1
-question : Who wrote 'Pride and Prejudice'?
-
-lessonId : 1
-question : What is the smallest country in the world?
-
-lessonId : 1
-question : What is the tallest mountain in the world?
-
-lessonId : 1
-question : What is the longest river in the world?
-
-lessonId : 1
-question : Who discovered penicillin?
-
-lessonId : 1
-question : What is the currency of Japan?
-
-lessonId : 1
-question : What is the capital of Australia?
-
-lessonId : 1
-question : Who painted the Sistine Chapel ceiling?
-
+title : What is the largest ocean on Earth111?
 
 lessonId : 2
-question : What is the boiling point of water (in Celsius)?
-
-lessonId : 2
-question : Who painted the Mona Lisa?
+title : What is the boiling point of water (in Celsius)?
 
 lessonId : 3
-question : What is the largest planet in our solar system?
-
-lessonId : 3
-question : Which element has the chemical symbol O?
+title : Which element has the chemical symbol O?
 
 lessonId : 4
-question : What is the capital of Japan?
-
-lessonId : 4
-question : What is the speed of light (in km/s)?
+title : What is the speed of light (in km/s)?
 
 lessonId : 5
-question : What is the main language spoken in Brazil?
-
-lessonId : 5
-question : Who wrote 'Hamlet'?
-lessonId : 6
-question : What is the chemical formula for water?
+title : Who wrote 'Hamlet'?
 
 lessonId : 6
-question : Who developed the theory of relativity?
+title : What is the chemical formula for water?
 
 lessonId : 7
-question : What is the smallest prime number?
-
-lessonId : 7
-question : What is the capital of Canada?
+title : What is the capital of Canada?
 
 lessonId : 8
-question : What is the hardest natural substance on Earth?
+title : What is the hardest natural substance on Earth?

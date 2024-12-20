@@ -371,7 +371,7 @@ public class main {
         System.out.println("Welcome Teacher");
         // Implement any teacher-specific logic or actions here
     }
-   
+
     //----------------------Create Functions----------------------
 
     // Function for Teacher actions
