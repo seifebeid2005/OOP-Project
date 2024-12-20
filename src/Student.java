@@ -3,10 +3,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Student extends Person {
-    
+
     private final LocalDate registrationDate;
     private int schoolID;
-    private static Long lastGeneratedID = (long)1;
+    private static long lastGeneratedID = 1; // Change from Long to long
     private ArrayList<Grade> marks;
     private ArrayList<Course> courses;
     private Progress progress;
@@ -28,8 +28,9 @@ public class Student extends Person {
         this.schoolID = schoolID;
         this.courses = new ArrayList<>();
         this.marks = new ArrayList<>();
+        this.progress = new Progress();
     }
-    
+
     // Methods related to Student actions
     public void login() {
         System.out.println(getName() + " logged in.");
@@ -48,6 +49,7 @@ public class Student extends Person {
     }
 
     public double getProgressPercentage() {
+        calculateProgress();
         return progress.getProgressPercentage();
     }
 
@@ -88,39 +90,43 @@ public class Student extends Person {
         }
         progress.setProgressPercentage((completedCourses * 100) / courses.size());
     }
-    
+
     // Get the average progress percentage
-    public double getAverageMarks() {
-        calculateProgress();
-        return progress.getProgressPercentage();
+    public void getAverageMarks() {
+        for(Course course : courses) {
+            System.out.println("Course: " + course.getCourseName() + " - Progress: " + course.getCourseProgress());
+        }
+        
     }
 
     // Get completed courses
     public ArrayList<Course> getCompletedCourses() {
-        if (courses == null) {
-            return new ArrayList<>();
+        ArrayList<Course> completedCourses = new ArrayList<>();
+        for (Course course : courses) {
+            if (course.areAllLessonsCompleted()) {  // Uses the updated method with null check
+                completedCourses.add(course);
+            }
         }
-        progress.addCourse(courses);
-        return progress.getCompletedCourses();
+        return completedCourses;
     }
 
-    // Get not completed courses
+
     public ArrayList<Course> getNotCompletedCourses() {
-        if (courses == null || courses.isEmpty()) {
-            return new ArrayList<>();
+        ArrayList<Course> notCompletedCourses = new ArrayList<>();
+        for (Course course : courses) {
+            if (!course.areAllLessonsCompleted()) {  // Uses the updated method with null check
+                notCompletedCourses.add(course);
+            }
         }
-        progress.addCourse(courses);
-        return progress.getNotCompletedCourses();
+        return notCompletedCourses;
     }
 
-    // Get marks for each course (you might need to modify this)
     public void getMarksForEachCourse() {
         for (Course course : courses) {
-            System.out.println(course.getCourseProgress());  // Assuming this method gives course progress
+            System.out.println("Course: " + course.getCourseName() + " - Progress: " + course.getCourseProgress());
         }
     }
 
-    // View courses that student is enrolled in
     public void viewCourses() {
         if (courses.isEmpty()) {
             System.out.println("No courses to display.");
@@ -129,7 +135,6 @@ public class Student extends Person {
         }
     }
 
-    // View lessons in each course
     public void viewLessons() {
         for (Course course : courses) {
             System.out.println(course.getCourseName());
@@ -138,21 +143,21 @@ public class Student extends Person {
         }
     }
 
-    // View quiz result
     public void viewQuizResult() {
         for (Course course : courses) {
             System.out.println(course.getCourseName());
             for (Lesson lesson : course.getLessons()) {
                 System.out.println("Lesson: " + lesson.getLessonTitle());
                 Quiz quiz = lesson.getQuiz();
-                if (quiz != null) {
-                    if (quiz.getGrade() != null) {
-                        System.out.println(quiz.getGrade());
-                    }
+                if (quiz != null && quiz.getGrade() != null) {
+                    System.out.println("Grade: " + quiz.getGrade());
+                } else {
+                    System.out.println("No quiz or grade available.");
                 }
             }
         }
     }
+
 
     // Start quiz
     public void startQuiz() {
@@ -216,11 +221,14 @@ public class Student extends Person {
 
     @Override
     public String toString() {
+        String courseList = courses.isEmpty() ? "No courses enrolled" : courses.toString();
+        String marksList = marks.isEmpty() ? "No marks available" : marks.toString();
+
         return "Student {\n" +
                 "  Registration Date: " + registrationDate + "\n" +
                 "  School ID: " + schoolID + "\n" +
-                "  Marks: " + marks + "\n" +
-                "  Courses: " + courses + "\n" +
+                "  Marks: " + marksList + "\n" +
+                "  Courses: " + courseList + "\n" +
                 "----------\n" +
                 super.toString() + "\n" +
                 "}";

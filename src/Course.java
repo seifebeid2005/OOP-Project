@@ -247,6 +247,9 @@ public class Course {
                 completedLessons++;
             }
         }
+        if (courseRequiredProgress == 0 || lessons.isEmpty() || completedLessons == 0) { 
+            return 0; // Return 0 if no lessons are required
+        }
         return (completedLessons * 100) / courseRequiredProgress; // Returns the progress as a percentage
     }
 

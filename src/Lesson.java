@@ -197,14 +197,15 @@ public class Lesson {
 
     // get is the quiz is completed with the passing score
     public boolean isQuizPassedAndLessonCompleted() {
-        if (quiz != null) {
-            if (quiz.getGrade().getMarks() >= Quiz.getPASSINGSCORE()) {
-                markAsCompleted();
-                return true;
-            }
+        Quiz quiz = this.getQuiz();
+        if (quiz != null && quiz.getGrade() != null) {  // Null check for quiz and grade
+            Grade grade = quiz.getGrade();
+            System.out.println("Grade: " + grade.getMarks());
+            return grade.getMarks() >= Quiz.getPASSINGSCORE();
         }
-        return false;
+        return false;  // Return false if quiz or grade is null
     }
+
 
     @Override
     public String toString() {

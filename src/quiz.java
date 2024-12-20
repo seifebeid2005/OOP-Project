@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,7 +9,7 @@ public class Quiz {
     private static int lastGeneratedID = 1;
     private String quiz_title;
     private int lesson_id;
-    private static final int MAX_QUESTIONS = 2;
+    private static final int MAX_QUESTIONS = 2;  // Change this to the number of questions you want
     private List<Question> questions = new ArrayList<>();
     private static final int PASSINGSCORE = MAX_QUESTIONS / 2;
     private Grade grade;
@@ -21,7 +20,6 @@ public class Quiz {
         this.quiz_title = quiz_title;
         this.lesson_id = lesson_id;
     }
-
 
     // TIMER FOR QUIZ
     public void startQuizTimer() {
@@ -104,18 +102,21 @@ public class Quiz {
 
     // Validate the quiz for answering
     public boolean isQuizReady() {
-        if (questions.size() != MAX_QUESTIONS) {
+        if (questions.size() == MAX_QUESTIONS) {
             return true;
         }
-        System.out.println("Quiz must have exactly 10 questions to start. Currently, it has " + questions.size() + ".");
+        System.out.println("Quiz must have exactly " + MAX_QUESTIONS + " questions to start. Currently, it has " + questions.size() + ".");
         return false;
     }
 
     // Answer quiz questions
-    public void answerQuestions() {
+    public Grade answerQuestions() {
+        if (!isQuizReady()) {
+            return null;
+        }
+
         startQuizTimer();
         Scanner scanner = new Scanner(System.in);
-
 
         int score = 0;
         for (Question question : questions) {
@@ -140,20 +141,19 @@ public class Quiz {
         System.out.println("You scored " + score + " out of " + MAX_QUESTIONS);
         if (score >= PASSINGSCORE) {
             System.out.println("Congratulations! You passed the quiz.");
-            setGrade(new Grade(quiz_id, score, quiz_id));
-
+            setGrade(new Grade(quiz_id, score, lesson_id));
         } else {
             System.out.println("Sorry, you did not pass the quiz.");
-            setGrade(new Grade(quiz_id, score, quiz_id));
+            setGrade(new Grade(quiz_id, score, lesson_id));
         }
-
+        return grade;
     }
 
     public List<Question> getQuestions() {
         return new ArrayList<>(questions); // Return a copy for encapsulation
     }
 
-   @Override
+    @Override
     public String toString() {
         return String.format(
             "Quiz { \n" +
@@ -169,5 +169,4 @@ public class Quiz {
             quiz_id, quiz_title, lesson_id, questions.size(), MAX_QUESTIONS, PASSINGSCORE, grade, questions
         );
     }
-
 }

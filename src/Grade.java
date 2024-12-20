@@ -66,7 +66,13 @@ public class Grade {
         }
         int totalMarks = 0;
         for (Grade grade : grades) {
-            totalMarks += grade.getMarks();
+            if (grade.getMarks() != 0) {
+                
+                totalMarks += grade.getMarks(); // Add marks
+            }   
+        }
+        if(totalMarks == 0){
+            return 0;
         }
         return totalMarks / (double) grades.size(); // Return average marks
     }

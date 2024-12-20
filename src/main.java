@@ -81,6 +81,7 @@ public class main {
                     case 4 -> TeacherFunctions();
                 case 5 -> {
                     System.out.println("See you later!");
+                
                     return; // Exit the program
                 }
                 default -> System.out.println("Invalid choice, please try again");
@@ -350,9 +351,7 @@ public class main {
                 System.out.println("Your progress is: " + progress + "%");
                 break;
             case 10:
-                // See my average marks
-                double averageMarks = student.getAverageMarks();
-                System.out.println("Your average marks: " + averageMarks);
+                student.getAverageMarks();
                 break;
             case 11:
                 // Exit
@@ -371,7 +370,7 @@ public class main {
         // Implement any teacher-specific logic or actions here
     }
 
-    //----------------------Create Functions----------------------
+    //----------------------Create Functions----------------------  
 
     // Function for Teacher actions
     public static void Schoolcreation(Admin admin, String pathfile) {

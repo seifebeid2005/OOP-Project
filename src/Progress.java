@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 
 public class Progress {
-    
+
     private long progressId;
     private ArrayList<Course> courses = new ArrayList<>();
     private int progressPercentage;
 
     // Add a course to the progress
     public void addCourse(ArrayList<Course> courses) {
-        this.courses = courses;
+        this.courses = new ArrayList<>(courses); // Create a new list to avoid shared references
     }
 
     // Get all courses in progress
@@ -25,7 +25,6 @@ public class Progress {
     public void setProgressPercentage(int progressPercentage) {
         this.progressPercentage = progressPercentage;
     }
-
 
     // Mark course as completed if all lessons in it are completed
     public void checkAndMarkCourseCompletion(long courseId) {
@@ -100,41 +99,7 @@ public class Progress {
         } else if (progressPercentage >= 50) {
             return "Average";
         } else {
-            return "Needs Improvement";
-        }
-    }
-
-    // Return the progress level for each course
-    public String getCourseProgressLevel(long courseId) {
-        Course course = findCourseById(courseId);
-        if (course != null) {
-            int courseProgress = course.getCourseProgress();
-            if (courseProgress >= 90) {
-                return "Excellent";
-            } else if (courseProgress >= 75) {
-                return "Good";
-            } else if (courseProgress >= 50) {
-                return "Average";
-            } else {
-                return "Needs Improvement";
-            }
-        }
-        return "Course not found.";
-    }
-
-    // Helper methods (getters and setters for progressId)
-    public long getProgressId() {
-        return progressId;
-    }
-
-    public void setProgressId(long progressId) {
-        this.progressId = progressId;
-    }
-
-    // Method to display all courses and their progress levels
-    public void displayCourseProgressLevels() {
-        for (Course course : courses) {
-            System.out.println("Course: " + course.getCourseName() + " - Progress Level: " + getCourseProgressLevel(course.getCourseId()));
+            return "Poor";
         }
     }
 }
