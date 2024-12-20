@@ -286,21 +286,24 @@ public class main {
             System.out.println("-------------------------");
             student.login();
             System.out.println("Choose an option:");
+            System.out.println("0. Print my profile");
             System.out.println("1. See my courses");
             System.out.println("2. See my lessons");
             System.out.println("3. See my tutors");
             System.out.println("4. See my Quizzes to solve");
             System.out.println("5. See my Grades");
-            System.out.println("6. Print my profile");
-            System.out.println("7. See my completed courses");
-            System.out.println("8. See my not completed courses");
-            System.out.println("9. See my progress");
-            System.out.println("10. See my average marks");
-            System.out.println("11. Exit");
+            System.out.println("6. See my completed courses");
+            System.out.println("7. See my not completed courses");
+            System.out.println("8. See my % progress");
+            System.out.println("9. Exit");
 
             int choice = scanner.nextInt();
 
         switch (choice) {
+            case 0:
+                // Print my profile
+                System.out.println(student.toString());
+                break;
             case 1:
                 // See my courses
                 student.viewCourses();
@@ -322,10 +325,6 @@ public class main {
                 student.viewQuizResult();
                 break;
             case 6:
-                // Print my profile
-                System.out.println(student.toString());
-                break;
-            case 7:
                 // See my completed courses
                 ArrayList<Course> completedCourses = student.getCompletedCourses();
                 if (completedCourses.isEmpty()) {
@@ -335,7 +334,7 @@ public class main {
                     completedCourses.forEach(course -> System.out.println(course.getCourseName()));
                 }
                 break;
-            case 8:
+            case 7:
                 // See my not completed courses
                 ArrayList<Course> notCompletedCourses = student.getNotCompletedCourses();
                 if (notCompletedCourses.isEmpty()) {
@@ -345,15 +344,12 @@ public class main {
                     notCompletedCourses.forEach(course -> System.out.println(course.getCourseName()));
                 }
                 break;
-            case 9:
+            case 8:
                 // See my progress
                 double progress = student.getProgressPercentage();
                 System.out.println("Your progress is: " + progress + "%");
                 break;
-            case 10:
-                student.getAverageMarks();
-                break;
-            case 11:
+            case 9:
                 // Exit
                 student.logout();
                 System.out.println("Exiting...");

@@ -200,10 +200,12 @@ public class Lesson {
         Quiz quiz = this.getQuiz();
         if (quiz != null && quiz.getGrade() != null) {  // Null check for quiz and grade
             Grade grade = quiz.getGrade();
-            System.out.println("Grade: " + grade.getMarks());
-            return grade.getMarks() >= Quiz.getPASSINGSCORE();
+            if (grade.getMarks() >= Quiz.getPASSINGSCORE()) {
+                markAsCompleted();
+                return true;
+            }
         }
-        return false;  // Return false if quiz or grade is null
+        return false;  // Return false if quiz or grade is null or marks are insufficient
     }
 
 

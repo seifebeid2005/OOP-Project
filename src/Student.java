@@ -206,6 +206,12 @@ public class Student extends Person {
             System.out.println("No quiz available for this lesson.");
             return;
         }
+        
+        if (quiz.getGrade() != null) {
+        System.out.println("You have already completed this quiz.");
+        
+        return;
+    }
 
         System.out.println("Do you want to start the quiz: " + quiz.getQuiz_title() + "? (yes/no)");
         scanner.nextLine();  // Consume newline

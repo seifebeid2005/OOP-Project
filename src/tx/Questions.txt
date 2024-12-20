@@ -86,6 +86,78 @@ optionC : Jupiter
 optionD : Saturn
 correct : C
 
+Quiz_id : 2
+question : What is the main gas in the Earth's atmosphere?
+optionA : Oxygen
+optionB : Nitrogen
+optionC : Carbon Dioxide
+optionD : Hydrogen
+correct : B
+
+Quiz_id : 2
+question : What is the chemical symbol for gold?
+optionA : Au
+optionB : Ag
+optionC : Fe
+optionD : Hg
+correct : A
+
+Quiz_id : 2
+question : Who invented the telephone?
+optionA : Nikola Tesla
+optionB : Albert Einstein
+optionC : Thomas Edison
+optionD : Alexander Graham Bell
+correct : D
+
+Quiz_id : 2
+question : What is the capital of Canada?
+optionA : Vancouver
+optionB : Toronto
+optionC : Ottawa
+optionD : Montreal
+correct : C
+
+Quiz_id : 2
+question : What is the largest desert on Earth?
+optionA : Sahara Desert
+optionB : Arabian Desert
+optionC : Kalahari Desert
+optionD : Antarctic Desert
+correct : D
+
+Quiz_id : 2
+question : What is the longest river in the world?
+optionA : Amazon River
+optionB : Nile River
+optionC : Mississippi River
+optionD : Yangtze River
+correct : B
+
+Quiz_id : 2
+question : Who wrote the play "Hamlet"?
+optionA : William Shakespeare
+optionB : Charles Dickens
+optionC : Mark Twain
+optionD : Jane Austen
+correct : A
+
+Quiz_id : 2
+question : What is the boiling point of water (in Celsius)?
+optionA : 80
+optionB : 90
+optionC : 100
+optionD : 110
+correct : C
+
+Quiz_id : 2
+question : What is the hardest known natural material?
+optionA : Gold
+optionB : Iron
+optionC : Diamond
+optionD : Platinum
+correct : C
+
 Quiz_id : 3
 question : What is the boiling point of water (in Celsius)?
 optionA : 90
@@ -101,6 +173,70 @@ optionB : Leonardo da Vinci
 optionC : Pablo Picasso
 optionD : Michelangelo
 correct : B
+
+Quiz_id : 3
+question : What is the capital of the United Kingdom?
+optionA : Edinburgh
+optionB : London
+optionC : Cardiff
+optionD : Belfast
+correct : B
+
+Quiz_id : 3
+question : Which planet is known as the "Red Planet"?
+optionA : Mars
+optionB : Venus
+optionC : Saturn
+optionD : Jupiter
+correct : A
+
+Quiz_id : 3
+question : What is the freezing point of water (in Celsius)?
+optionA : 0
+optionB : 10
+optionC : -10
+optionD : -5
+correct : A
+
+Quiz_id : 3
+question : What is the chemical symbol for iron?
+optionA : Fe
+optionB : Ir
+optionC : In
+optionD : I
+correct : A
+
+Quiz_id : 3
+question : How many continents are there?
+optionA : 6
+optionB : 7
+optionC : 8
+optionD : 5
+correct : B
+
+Quiz_id : 3
+question : Who was the first president of the United States?
+optionA : George Washington
+optionB : Abraham Lincoln
+optionC : Thomas Jefferson
+optionD : John Adams
+correct : A
+
+Quiz_id : 3
+question : Who invented the lightbulb?
+optionA : Albert Einstein
+optionB : Nikola Tesla
+optionC : Thomas Edison
+optionD : Alexander Graham Bell
+correct : C
+
+Quiz_id : 3
+question : What is the largest ocean on Earth?
+optionA : Pacific Ocean
+optionB : Atlantic Ocean
+optionC : Indian Ocean
+optionD : Southern Ocean
+correct : A
 
 Quiz_id : 4
 question : Which element has the chemical symbol O?
@@ -118,6 +254,70 @@ optionC : Tokyo
 optionD : Bangkok
 correct : C
 
+Quiz_id : 4
+question : Who discovered penicillin?
+optionA : Albert Einstein
+optionB : Marie Curie
+optionC : Alexander Fleming
+optionD : Isaac Newton
+correct : C
+
+Quiz_id : 4
+question : What is the primary language spoken in China?
+optionA : Mandarin
+optionB : Cantonese
+optionC : Hindi
+optionD : Japanese
+correct : A
+
+Quiz_id : 4
+question : What is the smallest country in the world by area?
+optionA : Monaco
+optionB : San Marino
+optionC : Vatican City
+optionD : Liechtenstein
+correct : C
+
+Quiz_id : 4
+question : What is the main ingredient in sushi?
+optionA : Rice
+optionB : Fish
+optionC : Seaweed
+optionD : Tofu
+correct : A
+
+Quiz_id : 4
+question : What is the capital of Australia?
+optionA : Sydney
+optionB : Canberra
+optionC : Melbourne
+optionD : Brisbane
+correct : B
+
+Quiz_id : 4
+question : Which is the largest continent by area?
+optionA : Africa
+optionB : Asia
+optionC : Europe
+optionD : North America
+correct : B
+
+Quiz_id : 4
+question : Which planet is known as the "Evening Star"?
+optionA : Mars
+optionB : Venus
+optionC : Saturn
+optionD : Mercury
+correct : B
+
+Quiz_id : 4
+question : What is the chemical symbol for sodium?
+optionA : Na
+optionB : S
+optionC : Sb
+optionD : So
+correct : A
+
 Quiz_id : 5
 question : What is the speed of light (in km/s)?
 optionA : 300,000
@@ -132,4 +332,68 @@ optionA : Spanish
 optionB : Portuguese
 optionC : French
 optionD : Italian
+correct : B
+
+Quiz_id : 5
+question : What is the capital of Brazil?
+optionA : Sao Paulo
+optionB : Rio de Janeiro
+optionC : Brasilia
+optionD : Salvador
+correct : C
+
+Quiz_id : 5
+question : What is the boiling point of water (in Fahrenheit)?
+optionA : 212°F
+optionB : 100°F
+optionC : 0°F
+optionD : 32°F
+correct : A
+
+Quiz_id : 5
+question : What is the chemical symbol for carbon dioxide?
+optionA : CO2
+optionB : O2
+optionC : CO
+optionD : H2O
+correct : A
+
+Quiz_id : 5
+question : What is the longest river in the world?
+optionA : Amazon River
+optionB : Nile River
+optionC : Yangtze River
+optionD : Mississippi River
+correct : B
+
+Quiz_id : 5
+question : What is the largest animal on Earth?
+optionA : Elephant
+optionB : Giraffe
+optionC : Blue Whale
+optionD : Shark
+correct : C
+
+Quiz_id : 5
+question : Who invented the telephone?
+optionA : Thomas Edison
+optionB : Nikola Tesla
+optionC : Alexander Graham Bell
+optionD : Albert Einstein
+correct : C
+
+Quiz_id : 5
+question : What is the capital of Canada?
+optionA : Toronto
+optionB : Montreal
+optionC : Ottawa
+optionD : Vancouver
+correct : C
+
+Quiz_id : 5
+question : What is the capital of the United States?
+optionA : New York
+optionB : Washington, D.C.
+optionC : Los Angeles
+optionD : Chicago
 correct : B

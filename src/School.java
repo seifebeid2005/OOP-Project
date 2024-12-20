@@ -493,7 +493,7 @@ public class School {
 
     // Validate phone number format (basic example)
     public boolean validatePhoneNumber(String phoneNumber) {
-        return phoneNumber.matches("\\d{10}"); // Assuming 10-digit phone numbers
+        return phoneNumber.matches("\\d{11}"); // Assuming 10-digit phone numbers
     }
 
 }

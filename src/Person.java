@@ -73,7 +73,7 @@ public abstract class Person {
     }
 
     public static void validatePhone(String phone) {
-        String phoneRegex = "^[0-9]{10}$";
+        String phoneRegex = "^[0-9]{11}$";
         if (phone == null || !Pattern.matches(phoneRegex, phone)) {
             throw new IllegalArgumentException("Invalid phone number format. It must be 10 digits.");
         }

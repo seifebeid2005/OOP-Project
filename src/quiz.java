@@ -9,7 +9,7 @@ public class Quiz {
     private static int lastGeneratedID = 1;
     private String quiz_title;
     private int lesson_id;
-    private static final int MAX_QUESTIONS = 2;  // Change this to the number of questions you want
+    private static final int MAX_QUESTIONS = 10;  // Change this to the number of questions you want
     private List<Question> questions = new ArrayList<>();
     private static final int PASSINGSCORE = MAX_QUESTIONS / 2;
     private Grade grade;
