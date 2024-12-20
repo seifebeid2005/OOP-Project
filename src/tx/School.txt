@@ -88,11 +88,12 @@ phoneNumber : 01099887766
 username : frenchschool_user
 password : frenchschool_pass
 
-schoolName : Japanese School
-address : 6th of October
-city : cairo
-contactPerson : 
-email : japaneseschool@gmail.com
-phoneNumber : 01234567893
-username : japaneseschool_user
-password : japaneseschool_pass
+schoolName : SEIF
+address : EBEBE
+city : EEE
+contactPerson : EE
+email : EEE
+phoneNumber : EE
+username : EE
+password : EE
+

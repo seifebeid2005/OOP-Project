@@ -238,6 +238,7 @@ public class main {
                     handleViewOperations(admin);
                     break;
                 case 5:
+                    saveAllChanges(admin, pathfile, pathfile2, TutorPath, coursepath, lessonpath, quizpath, QustionsPath);
                     System.out.println("Goodbye Admin");
                     return; // Exit from Admin functions
                 default:
@@ -518,6 +519,13 @@ public class main {
 
         student =  admin.checkStudentLogin(username, password);
         return student;
+    }
+    
+    public static void saveAllChanges(Admin admin, String SchoolPath, String StudentsPath, String TutorPath, String CoursePath, String lessonpath, String quizpath, String QustionsPath) {
+        admin.saveSchoolToFile(SchoolPath);
+        admin.saveStudentToFile(StudentsPath);
+        admin.saveTutorToFile(TutorPath);
+        admin.saveCourseToFile(CoursePath, lessonpath, quizpath, QustionsPath);
     }
 
 }

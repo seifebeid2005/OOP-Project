@@ -1,329 +1,290 @@
-name : John Doe  
-email : john.doe1@example.com  
-phone : 123-456-7891  
-address : 101 Main Street, Springfield  
-username : johndoe1  
-password : pass1234  
-subjectArea : Mathematics  
-dateOfBirth : 1980-01-01  
-role : tutor  
-schoolID : 1  
+name : John Doe
+email : john.doe1@example.com
+dateOfBirth : 1980-01-01
+age : 44
+phone : 123-456-7891
+address : 101 Main Street, Springfield
+username : johndoe1
+schoolID : 1
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Jane Smith  
-email : jane.smith1@example.com  
-phone : 123-456-7892  
-address : 102 Elm Street, Springfield  
-username : janesmith1  
-password : pass2345  
-subjectArea : Science  
-dateOfBirth : 1985-02-02  
-role : tutor  
-schoolID : 1  
+name : Jane Smith
+email : jane.smith1@example.com
+dateOfBirth : 1985-02-02
+age : 39
+phone : 123-456-7892
+address : 102 Elm Street, Springfield
+username : janesmith1
+schoolID : 1
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Emily Davis  
-email : emily.davis1@example.com  
-phone : 123-456-7893  
-address : 103 Oak Avenue, Springfield  
-username : emilydavis1  
-password : pass3456  
-subjectArea : English  
-dateOfBirth : 1990-03-03  
-role : tutor  
-schoolID : 1  
+name : Emily Davis
+email : emily.davis1@example.com
+dateOfBirth : 1990-03-03
+age : 34
+phone : 123-456-7893
+address : 103 Oak Avenue, Springfield
+username : emilydavis1
+schoolID : 1
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : John Doe  
-email : john.doe2@example.com  
-phone : 124-456-7891  
-address : 104 Pine Street, Springfield  
-username : johndoe2  
-password : pass1234  
-subjectArea : History  
-dateOfBirth : 1981-01-01  
-role : tutor  
-schoolID : 2  
+name : John Doe
+email : john.doe2@example.com
+dateOfBirth : 1981-01-01
+age : 43
+phone : 124-456-7891
+address : 104 Pine Street, Springfield
+username : johndoe2
+schoolID : 2
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Jane Smith  
-email : jane.smith2@example.com  
-phone : 124-456-7892  
-address : 105 Birch Street, Springfield  
-username : janesmith2  
-password : pass2345  
-subjectArea : Chemistry  
-dateOfBirth : 1986-02-02  
-role : tutor  
-schoolID : 2  
+name : Jane Smith
+email : jane.smith2@example.com
+dateOfBirth : 1986-02-02
+age : 38
+phone : 124-456-7892
+address : 105 Birch Street, Springfield
+username : janesmith2
+schoolID : 2
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Emily Davis  
-email : emily.davis2@example.com  
-phone : 124-456-7893  
-address : 106 Cedar Avenue, Springfield  
-username : emilydavis2  
-password : pass3456  
-subjectArea : Physics  
-dateOfBirth : 1991-03-03  
-role : tutor  
-schoolID : 2  
+name : Emily Davis
+email : emily.davis2@example.com
+dateOfBirth : 1991-03-03
+age : 33
+phone : 124-456-7893
+address : 106 Cedar Avenue, Springfield
+username : emilydavis2
+schoolID : 2
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : John Doe  
-email : john.doe3@example.com  
-phone : 125-456-7891  
-address : 107 Maple Street, Springfield  
-username : johndoe3  
-password : pass1234  
-subjectArea : Biology  
-dateOfBirth : 1982-01-01  
-role : tutor  
-schoolID : 3  
+name : John Doe
+email : john.doe3@example.com
+dateOfBirth : 1982-01-01
+age : 42
+phone : 125-456-7891
+address : 107 Maple Street, Springfield
+username : johndoe3
+schoolID : 3
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Jane Smith  
-email : jane.smith3@example.com  
-phone : 125-456-7892  
-address : 108 Walnut Street, Springfield  
-username : janesmith3  
-password : pass2345  
-subjectArea : Geography  
-dateOfBirth : 1987-02-02  
-role : tutor  
-schoolID : 3  
+name : Jane Smith
+email : jane.smith3@example.com
+dateOfBirth : 1987-02-02
+age : 37
+phone : 125-456-7892
+address : 108 Walnut Street, Springfield
+username : janesmith3
+schoolID : 3
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Emily Davis  
-email : emily.davis3@example.com  
-phone : 125-456-7893  
-address : 109 Aspen Avenue, Springfield  
-username : emilydavis3  
-password : pass3456  
-subjectArea : Literature  
-dateOfBirth : 1992-03-03  
-role : tutor  
-schoolID : 3  
+name : Emily Davis
+email : emily.davis3@example.com
+dateOfBirth : 1992-03-03
+age : 32
+phone : 125-456-7893
+address : 109 Aspen Avenue, Springfield
+username : emilydavis3
+schoolID : 3
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : John Doe  
-email : john.doe4@example.com  
-phone : 126-456-7891  
-address : 110 Chestnut Street, Springfield  
-username : johndoe4  
-password : pass1234  
-subjectArea : Philosophy  
-dateOfBirth : 1983-01-01  
-role : tutor  
-schoolID : 4  
+name : John Doe
+email : john.doe4@example.com
+dateOfBirth : 1983-01-01
+age : 41
+phone : 126-456-7891
+address : 110 Chestnut Street, Springfield
+username : johndoe4
+schoolID : 4
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Jane Smith  
-email : jane.smith4@example.com  
-phone : 126-456-7892  
-address : 111 Spruce Street, Springfield  
-username : janesmith4  
-password : pass2345  
-subjectArea : Psychology  
-dateOfBirth : 1988-02-02  
-role : tutor  
-schoolID : 4  
+name : Jane Smith
+email : jane.smith4@example.com
+dateOfBirth : 1988-02-02
+age : 36
+phone : 126-456-7892
+address : 111 Spruce Street, Springfield
+username : janesmith4
+schoolID : 4
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Emily Davis  
-email : emily.davis4@example.com  
-phone : 126-456-7893  
-address : 112 Beech Avenue, Springfield  
-username : emilydavis4  
-password : pass3456  
-subjectArea : Sociology  
-dateOfBirth : 1993-03-03  
-role : tutor  
-schoolID : 4  
+name : Emily Davis
+email : emily.davis4@example.com
+dateOfBirth : 1993-03-03
+age : 31
+phone : 126-456-7893
+address : 112 Beech Avenue, Springfield
+username : emilydavis4
+schoolID : 4
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : John Doe  
-email : john.doe5@example.com  
-phone : 127-456-7891  
-address : 113 Cypress Street, Springfield  
-username : johndoe5  
-password : pass1234  
-subjectArea : Music  
-dateOfBirth : 1984-01-01  
-role : tutor  
-schoolID : 5  
+name : John Doe
+email : john.doe5@example.com
+dateOfBirth : 1984-01-01
+age : 40
+phone : 127-456-7891
+address : 113 Cypress Street, Springfield
+username : johndoe5
+schoolID : 5
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Jane Smith  
-email : jane.smith5@example.com  
-phone : 127-456-7892  
-address : 114 Magnolia Street, Springfield  
-username : janesmith5  
-password : pass2345  
-subjectArea : Arts  
-dateOfBirth : 1989-02-02  
-role : tutor  
-schoolID : 5  
+name : Jane Smith
+email : jane.smith5@example.com
+dateOfBirth : 1989-02-02
+age : 35
+phone : 127-456-7892
+address : 114 Magnolia Street, Springfield
+username : janesmith5
+schoolID : 5
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Emily Davis  
-email : emily.davis5@example.com  
-phone : 127-456-7893  
-address : 115 Hawthorn Avenue, Springfield  
-username : emilydavis5  
-password : pass3456  
-subjectArea : Economics  
-dateOfBirth : 1994-03-03  
-role : tutor  
-schoolID : 5  
+name : Emily Davis
+email : emily.davis5@example.com
+dateOfBirth : 1994-03-03
+age : 30
+phone : 127-456-7893
+address : 115 Hawthorn Avenue, Springfield
+username : emilydavis5
+schoolID : 5
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : John Doe  
-email : john.doe6@example.com  
-phone : 128-456-7891  
-address : 116 Maple Street, Springfield  
-username : johndoe6  
-password : pass1234  
-subjectArea : Politics  
-dateOfBirth : 1985-01-01  
-role : tutor  
-schoolID : 6  
+name : John Doe
+email : john.doe6@example.com
+dateOfBirth : 1985-01-01
+age : 39
+phone : 128-456-7891
+address : 116 Maple Street, Springfield
+username : johndoe6
+schoolID : 6
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Jane Smith  
-email : jane.smith6@example.com  
-phone : 128-456-7892  
-address : 117 Birch Street, Springfield  
-username : janesmith6  
-password : pass2345  
-subjectArea : Technology  
-dateOfBirth : 1990-02-02  
-role : tutor  
-schoolID : 6  
+name : Jane Smith
+email : jane.smith6@example.com
+dateOfBirth : 1990-02-02
+age : 34
+phone : 128-456-7892
+address : 117 Birch Street, Springfield
+username : janesmith6
+schoolID : 6
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Emily Davis  
-email : emily.davis6@example.com  
-phone : 128-456-7893  
-address : 118 Cedar Avenue, Springfield  
-username : emilydavis6  
-password : pass3456  
-subjectArea : Engineering  
-dateOfBirth : 1995-03-03  
-role : tutor  
-schoolID : 6  
+name : Emily Davis
+email : emily.davis6@example.com
+dateOfBirth : 1995-03-03
+age : 29
+phone : 128-456-7893
+address : 118 Cedar Avenue, Springfield
+username : emilydavis6
+schoolID : 6
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : John Doe  
-email : john.doe7@example.com  
-phone : 129-456-7891  
-address : 119 Oak Street, Springfield  
-username : johndoe7  
-password : pass1234  
-subjectArea : Mathematics  
-dateOfBirth : 1986-01-01  
-role : tutor  
-schoolID : 7  
+name : John Doe
+email : john.doe7@example.com
+dateOfBirth : 1986-01-01
+age : 38
+phone : 129-456-7891
+address : 119 Oak Street, Springfield
+username : johndoe7
+schoolID : 7
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Jane Smith  
-email : jane.smith7@example.com  
-phone : 129-456-7892  
-address : 120 Elm Street, Springfield  
-username : janesmith7  
-password : pass2345  
-subjectArea : Science  
-dateOfBirth : 1991-02-02  
-role : tutor  
-schoolID : 7  
+name : Jane Smith
+email : jane.smith7@example.com
+dateOfBirth : 1991-02-02
+age : 33
+phone : 129-456-7892
+address : 120 Elm Street, Springfield
+username : janesmith7
+schoolID : 7
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Emily Davis  
-email : emily.davis7@example.com  
-phone : 129-456-7893  
-address : 121 Aspen Avenue, Springfield  
-username : emilydavis7  
-password : pass3456  
-subjectArea : English  
-dateOfBirth : 1996-03-03  
-role : tutor  
-schoolID : 7  
+name : Emily Davis
+email : emily.davis7@example.com
+dateOfBirth : 1996-03-03
+age : 28
+phone : 129-456-7893
+address : 121 Aspen Avenue, Springfield
+username : emilydavis7
+schoolID : 7
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : John Doe  
-email : john.doe8@example.com  
-phone : 130-456-7891  
-address : 122 Pine Street, Springfield  
-username : johndoe8  
-password : pass1234  
-subjectArea : History  
-dateOfBirth : 1987-01-01  
-role : tutor  
-schoolID : 8  
+name : John Doe
+email : john.doe8@example.com
+dateOfBirth : 1987-01-01
+age : 37
+phone : 130-456-7891
+address : 122 Pine Street, Springfield
+username : johndoe8
+schoolID : 8
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Jane Smith  
-email : jane.smith8@example.com  
-phone : 130-456-7892  
-address : 123 Chestnut Street, Springfield  
-username : janesmith8  
-password : pass2345  
-subjectArea : Chemistry  
-dateOfBirth : 1992-02-02  
-role : tutor  
-schoolID : 8  
+name : Jane Smith
+email : jane.smith8@example.com
+dateOfBirth : 1992-02-02
+age : 32
+phone : 130-456-7892
+address : 123 Chestnut Street, Springfield
+username : janesmith8
+schoolID : 8
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Emily Davis  
-email : emily.davis8@example.com  
-phone : 130-456-7893  
-address : 124 Cypress Avenue, Springfield  
-username : emilydavis8  
-password : pass3456  
-subjectArea : Physics  
-dateOfBirth : 1997-03-03  
-role : tutor  
-schoolID : 8  
+name : Emily Davis
+email : emily.davis8@example.com
+dateOfBirth : 1997-03-03
+age : 27
+phone : 130-456-7893
+address : 124 Cypress Avenue, Springfield
+username : emilydavis8
+schoolID : 8
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : John Doe  
-email : john.doe9@example.com  
-phone : 131-456-7891  
-address : 125 Walnut Street, Springfield  
-username : johndoe9  
-password : pass1234  
-subjectArea : Biology  
-dateOfBirth : 1988-01-01  
-role : tutor  
-schoolID : 9  
+name : John Doe
+email : john.doe9@example.com
+dateOfBirth : 1988-01-01
+age : 36
+phone : 131-456-7891
+address : 125 Walnut Street, Springfield
+username : johndoe9
+schoolID : 9
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Jane Smith  
-email : jane.smith9@example.com  
-phone : 131-456-7892  
-address : 126 Magnolia Street, Springfield  
-username : janesmith9  
-password : pass2345  
-subjectArea : Geography  
-dateOfBirth : 1993-02-02  
-role : tutor  
-schoolID : 9  
+name : Jane Smith
+email : jane.smith9@example.com
+dateOfBirth : 1993-02-02
+age : 31
+phone : 131-456-7892
+address : 126 Magnolia Street, Springfield
+username : janesmith9
+schoolID : 9
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Emily Davis  
-email : emily.davis9@example.com  
-phone : 131-456-7893  
-address : 127 Beech Avenue, Springfield  
-username : emilydavis9  
-password : pass3456  
-subjectArea : Literature  
-dateOfBirth : 1998-03-03  
-role : tutor  
-schoolID : 9  
+name : Emily Davis
+email : emily.davis9@example.com
+dateOfBirth : 1998-03-03
+age : 26
+phone : 131-456-7893
+address : 127 Beech Avenue, Springfield
+username : emilydavis9
+schoolID : 9
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : John Doe  
-email : john.doe10@example.com  
-phone : 132-456-7891  
-address : 128 Maple Street, Springfield  
-username : johndoe10  
-password : pass1234  
-subjectArea : Sociology  
-dateOfBirth : 1989-01-01  
-role : tutor  
-schoolID : 10  
+name : John Doe
+email : john.doe10@example.com
+dateOfBirth : 1989-01-01
+age : 35
+phone : 132-456-7891
+address : 128 Maple Street, Springfield
+username : johndoe10
+schoolID : 10
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Jane Smith  
-email : jane.smith10@example.com  
-phone : 132-456-7892  
-address : 129 Hawthorn Street, Springfield  
-username : janesmith10  
-password : pass2345  
-subjectArea : Psychology  
-dateOfBirth : 1994-02-02  
-role : tutor  
-schoolID : 10  
+name : Jane Smith
+email : jane.smith10@example.com
+dateOfBirth : 1994-02-02
+age : 30
+phone : 132-456-7892
+address : 129 Hawthorn Street, Springfield
+username : janesmith10
+schoolID : 10
+registrationDate : Fri Dec 20 23:37:31 EET 2024
 
-name : Emily Davis  
-email : emily.davis10@example.com  
-phone : 132-456-7893  
-address : 130 Spruce Avenue, Springfield  
-username : emilydavis10  
-password : pass3456  
-subjectArea : Philosophy  
-dateOfBirth : 1999-03-03  
-role : tutor  
-schoolID : 10  

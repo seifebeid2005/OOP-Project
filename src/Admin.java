@@ -1,6 +1,9 @@
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -1976,6 +1979,110 @@ public class Admin extends Person {
             System.out.println("The number of schools in the system is more than the expected count by " + (actualCount - schoolCount) + ".");
         } else {
             System.out.println("The number of schools in the system is less than the expected count by " + (schoolCount - actualCount) + ".");
+        }
+    }
+// Save to files
+    public void saveSchoolToFile(String schoolPath){
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(schoolPath))) {
+            for (School school : schools) {
+                bw.write("schoolName : " + school.getSchoolName());
+                bw.newLine();
+                bw.write("address : " + school.getAddress());
+                bw.newLine();
+                bw.write("city : " + school.getCity());
+                bw.newLine();
+                bw.write("contactPerson : " + school.getContactPerson());
+                bw.newLine();
+                bw.write("email : " + school.getEmail());
+                bw.newLine();
+                bw.write("phoneNumber : " + school.getPhoneNumber());
+                bw.newLine();
+                bw.write("username : " + school.getUserName());
+                bw.newLine();
+                bw.write("password : " + school.getPassword());
+                bw.newLine();
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+    public void saveStudentToFile(String StudentsPath){
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(StudentsPath))) {
+            for (School school : schools) {
+                for (Student student : school.getManage().getStudents()) {
+                    bw.write("name : " + student.getName());
+                    bw.newLine();
+                    bw.write("email : " + student.getEmail());
+                    bw.newLine();
+                    bw.write("dateOfBirth : " + student.getDateOfBirth());
+                    bw.newLine();
+                    bw.write("age : " + student.getAge());
+                    bw.newLine();
+                    bw.write("phone : " + student.getPhone());
+                    bw.newLine();
+                    bw.write("address : " + student.getAddress());
+                    bw.newLine();
+                    bw.write("username : " + student.getUsername());
+                    bw.newLine();
+                    bw.write("schoolID : " + student.getSchoolID());
+                    bw.newLine();
+                    bw.write("registrationDate : " + student.getRegistrationDate());
+                    bw.newLine();
+                    bw.newLine();
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+    public void saveTutorToFile(String TutorPath){
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(TutorPath))) {
+            for (School school : schools) {
+                for (Tutor tutor : school.getManage().getTutors()) {
+                    bw.write("name : " + tutor.getName());
+                    bw.newLine();
+                    bw.write("email : " + tutor.getEmail());
+                    bw.newLine();
+                    bw.write("dateOfBirth : " + tutor.getDateOfBirth());
+                    bw.newLine();
+                    bw.write("age : " + tutor.getAge());
+                    bw.newLine();
+                    bw.write("phone : " + tutor.getPhone());
+                    bw.newLine();
+                    bw.write("address : " + tutor.getAddress());
+                    bw.newLine();
+                    bw.write("username : " + tutor.getUsername());
+                    bw.newLine();
+                    bw.write("schoolID : " + tutor.getSchoolID());
+                    bw.newLine();
+                    bw.write("registrationDate : " + tutor.getDateAdded());
+                    bw.newLine();
+                    bw.newLine();
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+    public void saveCourseToFile(String CoursePath, String lessonpath, String quizpath, String QustionsPath){
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(CoursePath))) {
+            for (School school : schools) {
+                for (Course course : school.getManage().getCourses()) {
+                    bw.write("courseName : " + course.getCourseName());
+                    bw.newLine();
+                    bw.write("courseDescription : " + course.getCourseDescription());
+                    bw.newLine();
+                    bw.write("courseIsActive : " + course.getCourseIsActive());
+                    bw.newLine();
+                    bw.newLine();
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
         }
     }
 

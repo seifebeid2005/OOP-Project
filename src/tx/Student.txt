@@ -1,89 +1,90 @@
 name : John Doe
 email : johndoe@example.com
+dateOfBirth : 2000-01-01
+age : 24
 phone : 1234567890
 address : 123 Main St
 username : 123
-password : 123
-dateOfBirth : 2000-01-01
 schoolID : 1
-
-name : Jane Smith
-email : janesmith@example.com
-phone : 1234567891
-address : 456 Elm St
-username : janesmith
-password : password2
-dateOfBirth : 2000-01-02
-schoolID : 2
-
-name : Michael Johnson
-email : michaeljohnson@example.com
-phone : 1234567892
-address : 789 Oak St
-username : michaeljohnson
-password : password3
-dateOfBirth : 2000-01-03
-schoolID : 3
-
-name : Emily Davis
-email : emilydavis@example.com
-phone : 1234567893
-address : 101 Pine St
-username : emilydavis
-password : password4
-dateOfBirth : 2000-01-04
-schoolID : 4
-
-name : David Wilson
-email : davidwilson@example.com
-phone : 1234567894
-address : 202 Maple St
-username : davidwilson
-password : password5
-dateOfBirth : 2000-01-05
-schoolID : 5
+registrationDate : 2024-12-20
 
 name : Sarah Brown
 email : sarahbrown@example.com
+dateOfBirth : 2000-01-06
+age : 24
 phone : 1234567895
 address : 303 Birch St
 username : sarahbrown
-password : password6
-dateOfBirth : 2000-01-06
 schoolID : 1
+registrationDate : 2024-12-20
+
+name : Jane Smith
+email : janesmith@example.com
+dateOfBirth : 2000-01-02
+age : 24
+phone : 1234567891
+address : 456 Elm St
+username : janesmith
+schoolID : 2
+registrationDate : 2024-12-20
 
 name : Chris Green
 email : chrisgreen@example.com
+dateOfBirth : 2000-01-07
+age : 24
 phone : 1234567896
 address : 404 Cedar St
 username : chrisgreen
-password : password7
-dateOfBirth : 2000-01-07
 schoolID : 2
+registrationDate : 2024-12-20
+
+name : Michael Johnson
+email : michaeljohnson@example.com
+dateOfBirth : 2000-01-03
+age : 24
+phone : 1234567892
+address : 789 Oak St
+username : michaeljohnson
+schoolID : 3
+registrationDate : 2024-12-20
 
 name : Anna White
 email : annawhite@example.com
+dateOfBirth : 2000-01-08
+age : 24
 phone : 1234567897
 address : 505 Spruce St
 username : annawhite
-password : password8
-dateOfBirth : 2000-01-08
 schoolID : 3
+registrationDate : 2024-12-20
+
+name : Emily Davis
+email : emilydavis@example.com
+dateOfBirth : 2000-01-04
+age : 24
+phone : 1234567893
+address : 101 Pine St
+username : emilydavis
+schoolID : 4
+registrationDate : 2024-12-20
 
 name : Robert Black
 email : robertblack@example.com
+dateOfBirth : 2000-01-09
+age : 24
 phone : 1234567898
 address : 606 Fir St
 username : robertblack
-password : password9
-dateOfBirth : 2000-01-09
 schoolID : 4
+registrationDate : 2024-12-20
 
-name : Laura Blue
-email : laurablue@example.com
-phone : 1234567899
-address : 707 Willow St
-username : laurablue
-password : password10
-dateOfBirth : 2000-01-10
+name : David Wilson
+email : davidwilson@example.com
+dateOfBirth : 2000-01-05
+age : 24
+phone : 1234567894
+address : 202 Maple St
+username : davidwilson
 schoolID : 5
+registrationDate : 2024-12-20
+
