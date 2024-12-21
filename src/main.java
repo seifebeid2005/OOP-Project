@@ -81,7 +81,6 @@ public class main {
                     case 4 -> TeacherFunctions();
                 case 5 -> {
                     System.out.println("See you later!");
-                
                     return; // Exit the program
                 }
                 default -> System.out.println("Invalid choice, please try again");
@@ -295,8 +294,7 @@ public class main {
             System.out.println("5. See my Grades");
             System.out.println("6. See my completed courses");
             System.out.println("7. See my not completed courses");
-            System.out.println("8. See my % progress");
-            System.out.println("9. Exit");
+            System.out.println("8. Exit");
 
             int choice = scanner.nextInt();
 
@@ -345,12 +343,8 @@ public class main {
                     notCompletedCourses.forEach(course -> System.out.println(course.getCourseName()));
                 }
                 break;
+          
             case 8:
-                // See my progress
-                double progress = student.getProgressPercentage();
-                System.out.println("Your progress is: " + progress + "%");
-                break;
-            case 9:
                 // Exit
                 student.logout();
                 System.out.println("Exiting...");

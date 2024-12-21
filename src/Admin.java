@@ -1590,10 +1590,14 @@ public class Admin extends Person {
             int quizId = -1;
 
             while ((line = br.readLine()) != null) {
-                line = line.trim(); // Remove leading and trailing whitespace
+                line = line.trim(); // Normalize input by trimming whitespace
 
                 if (line.isEmpty()) {
-                    if (quizId != -1 && !question.isEmpty() && !option1.isEmpty() && !option2.isEmpty() && !option3.isEmpty() && !option4.isEmpty() && correctAnswer != null) {
+                    // Add the question if all fields are valid
+                    if (quizId != -1 && !question.isEmpty() && !option1.isEmpty() &&
+                        !option2.isEmpty() && !option3.isEmpty() && !option4.isEmpty() &&
+                        correctAnswer != null) {
+                        
                         Question questionObj = new Question(question, option1, option2, option3, option4, correctAnswer, quizId);
                         boolean questionAdded = false;
 
@@ -1601,25 +1605,24 @@ public class Admin extends Person {
                         for (School school : schools) {
                             for (Course course : school.getManage().getCourses()) {
                                 for (Lesson lesson : course.getLessons()) {
-                                    if (lesson.getQuiz() != null && lesson.getQuiz().getQuiz_id() == quizId) {
-                                        lesson.getQuiz().addQuestionToQuiz(questionObj);
+                                    Quiz quiz = lesson.getQuiz();
+                                    if (quiz != null && quiz.getQuiz_id() == quizId) {
+                                        quiz.addQuestionToQuiz(questionObj);
                                         System.out.println("Question added successfully to quiz ID " + quizId);
                                         questionAdded = true;
                                         break;
                                     }
                                 }
-                                if (questionAdded) {
-                                    break;  // Exit outer loops if question is added
-                                }
+                                if (questionAdded) break;
                             }
-                            if (questionAdded) {
-                                break;  // Exit outer loops if question is added
-                            }
+                            if (questionAdded) break;
                         }
 
                         if (!questionAdded) {
-                            System.out.println("Error: Question for quiz ID " + quizId + " could not be added.");
+                            System.out.println("Error: Question for quiz ID " + quizId + " could not be added. Ensure quiz exists.");
                         }
+                    } else {
+                        System.out.println("Skipping invalid or incomplete question entry.");
                     }
 
                     // Reset variables for the next question
@@ -1630,33 +1633,60 @@ public class Admin extends Person {
                     option4 = "";
                     correctAnswer = null;
                     quizId = -1;
-                } else if (line.startsWith("question : ")) {
-                    question = line.substring(11).trim();  // Extract question
-                } else if (line.startsWith("optionA : ")) {
-                    option1 = line.substring(10).trim();  // Extract option1
-                } else if (line.startsWith("optionB : ")) {
-                    option2 = line.substring(10).trim();  // Extract option2
-                } else if (line.startsWith("optionC : ")) {
-                    option3 = line.substring(10).trim();  // Extract option3
-                } else if (line.startsWith("optionD : ")) {
-                    option4 = line.substring(10).trim();  // Extract option4
-                } else if (line.startsWith("correct : ")) {
+                } else if (line.toLowerCase().startsWith("question : ")) {
+                    question = line.substring(11).trim();
+                } else if (line.toLowerCase().startsWith("optiona : ")) {
+                    option1 = line.substring(10).trim();
+                } else if (line.toLowerCase().startsWith("optionb : ")) {
+                    option2 = line.substring(10).trim();
+                } else if (line.toLowerCase().startsWith("optionc : ")) {
+                    option3 = line.substring(10).trim();
+                } else if (line.toLowerCase().startsWith("optiond : ")) {
+                    option4 = line.substring(10).trim();
+                } else if (line.toLowerCase().startsWith("correct : ")) {
                     try {
-                        correctAnswer = Question.CorrectAnswer.valueOf(line.substring(10).trim());  // Extract correctAnswer
+                        correctAnswer = Question.CorrectAnswer.valueOf(line.substring(10).trim().toUpperCase());
                     } catch (IllegalArgumentException e) {
                         System.out.println("Invalid correct answer format: " + line);
                     }
-                } else if (line.startsWith("Quiz_id : ")) {
+                } else if (line.toLowerCase().startsWith("quiz_id : ")) {
                     try {
-                        quizId = Integer.parseInt(line.substring(9).trim());  // Extract quiz ID
+                        quizId = Integer.parseInt(line.substring(9).trim());
                     } catch (NumberFormatException e) {
-                        System.out.println("Invalid quizId format: " + line);
+                        System.out.println("Invalid quiz ID format: " + line);
                     }
+                }
+            }
+
+            // Process the last question if file doesn't end with an empty line
+            if (!question.isEmpty() && !option1.isEmpty() && !option2.isEmpty() &&
+                !option3.isEmpty() && !option4.isEmpty() && correctAnswer != null && quizId != -1) {
+                Question questionObj = new Question(question, option1, option2, option3, option4, correctAnswer, quizId);
+                boolean questionAdded = false;
+
+                for (School school : schools) {
+                    for (Course course : school.getManage().getCourses()) {
+                        for (Lesson lesson : course.getLessons()) {
+                            Quiz quiz = lesson.getQuiz();
+                            if (quiz != null && quiz.getQuiz_id() == quizId) {
+                                quiz.addQuestionToQuiz(questionObj);
+                                System.out.println("Question added successfully to quiz ID " + quizId);
+                                questionAdded = true;
+                                break;
+                            }
+                        }
+                        if (questionAdded) break;
+                    }
+                    if (questionAdded) break;
+                }
+
+                if (!questionAdded) {
+                    System.out.println("Error: Question for quiz ID " + quizId + " could not be added.");
                 }
             }
         } catch (Exception e) {
             System.out.println("Error reading file: " + e.getMessage());
-            e.printStackTrace();  // Add stack trace for better error diagnostics
+            e.printStackTrace();
         }
     }
 

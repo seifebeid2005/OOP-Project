@@ -1,17 +1,25 @@
-courseName : Introduction to Java
-courseDescription : Learn the basics of Java programming.
-courseIsActive : true
-
-courseName : Advanced Java Concepts
-courseDescription : Explore advanced topics in Java programming, including multithreading and collections.
-courseIsActive : true
-
 courseName : Web Development Basics
 courseDescription : Learn the fundamentals of web development with HTML, CSS, and JavaScript.
 courseIsActive : true
 
+courseName : Machine Learning Basics
+courseDescription : An introduction to machine learning concepts and techniques.
+courseIsActive : false
+
+courseName : Introduction to Java
+courseDescription : Learn the basics of Java programming.
+courseIsActive : true
+
 courseName : Python for Beginners
 courseDescription : Introduction to Python programming and its various applications.
+courseIsActive : true
+
+courseName : Mobile App Development
+courseDescription : Build mobile applications using modern frameworks.
+courseIsActive : true
+
+courseName : Software Engineering Principles
+courseDescription : Learn about software development methodologies and best practices.
 courseIsActive : true
 
 courseName : Data Structures and Algorithms
@@ -22,18 +30,7 @@ courseName : Database Management Systems
 courseDescription : Learn the principles of database management and SQL.
 courseIsActive : true
 
-courseName : Machine Learning Basics
-courseDescription : An introduction to machine learning concepts and techniques.
-courseIsActive : false
-
-courseName : Software Engineering Principles
-courseDescription : Learn about software development methodologies and best practices.
+courseName : Advanced Java Concepts
+courseDescription : Explore advanced topics in Java programming, including multithreading and collections.
 courseIsActive : true
 
-courseName : Mobile App Development
-courseDescription : Build mobile applications using modern frameworks.
-courseIsActive : true
-
-courseName : Artificial Intelligence
-courseDescription : A beginner's guide to AI concepts and implementations.
-courseIsActive : false

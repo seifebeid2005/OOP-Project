@@ -97,3 +97,102 @@ phoneNumber : EE
 username : EE
 password : EE
 
+schoolName : ElMaadi School
+address : Maadi
+city : cairo
+contactPerson : 
+email : elMaadi-school@gmail.com
+phoneNumber : 01146988872
+username : 123
+password : 123
+
+schoolName : Green Valley School
+address : Heliopolis
+city : cairo
+contactPerson : 
+email : greenvalley-school@gmail.com
+phoneNumber : 01234567890
+username : greenvalley_user
+password : greenvalley_pass
+
+schoolName : Future Academy
+address : Nasr City
+city : cairo
+contactPerson : 
+email : futureacademy@gmail.com
+phoneNumber : 01122334455
+username : futureacademy_user
+password : futureacademy_pass
+
+schoolName : Modern School
+address : Zamalek
+city : cairo
+contactPerson : 
+email : modernschool@gmail.com
+phoneNumber : 01098765432
+username : modernschool_user
+password : modernschool_pass
+
+schoolName : Nile International School
+address : New Cairo
+city : cairo
+contactPerson : 
+email : nileinternational@gmail.com
+phoneNumber : 01234567891
+username : nileinternational_user
+password : nileinternational_pass
+
+schoolName : Cairo American College
+address : Maadi
+city : cairo
+contactPerson : 
+email : cac@gmail.com
+phoneNumber : 01111222333
+username : cac_user
+password : cac_pass
+
+schoolName : British International School
+address : Sheikh Zayed
+city : cairo
+contactPerson : 
+email : bis@gmail.com
+phoneNumber : 01012345678
+username : bis_user
+password : bis_pass
+
+schoolName : Canadian International School
+address : New Cairo
+city : cairo
+contactPerson : 
+email : cis@gmail.com
+phoneNumber : 01234567892
+username : cis_user
+password : cis_pass
+
+schoolName : German School
+address : Dokki
+city : cairo
+contactPerson : 
+email : germanschool@gmail.com
+phoneNumber : 01133445566
+username : germanschool_user
+password : germanschool_pass
+
+schoolName : French School
+address : Garden City
+city : cairo
+contactPerson : 
+email : frenchschool@gmail.com
+phoneNumber : 01099887766
+username : frenchschool_user
+password : frenchschool_pass
+
+schoolName : SEIF
+address : EBEBE
+city : EEE
+contactPerson : EE
+email : EEE
+phoneNumber : EE
+username : EE
+password : EE
+

@@ -12,7 +12,6 @@ public class Quiz {
     private static final int MAX_QUESTIONS = 10;  // Change this to the number of questions you want
     private List<Question> questions = new ArrayList<>();
     private static final int PASSINGSCORE = MAX_QUESTIONS / 2;
-    private Grade grade;
 
     // Constructor
     public Quiz(String quiz_title, int lesson_id) {
@@ -56,14 +55,6 @@ public class Quiz {
 
     public void setLesson_id(int lesson_id) {
         this.lesson_id = lesson_id;
-    }
-
-    public Grade getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Grade grade) {
-        this.grade = grade;
     }
 
     // Add question to the quiz
@@ -110,9 +101,9 @@ public class Quiz {
     }
 
     // Answer quiz questions
-    public Grade answerQuestions() {
+    public int answerQuestions() {
         if (!isQuizReady()) {
-            return null;
+            return 0;
         }
 
         startQuizTimer();
@@ -141,12 +132,10 @@ public class Quiz {
         System.out.println("You scored " + score + " out of " + MAX_QUESTIONS);
         if (score >= PASSINGSCORE) {
             System.out.println("Congratulations! You passed the quiz.");
-            setGrade(new Grade(quiz_id, score, lesson_id));
         } else {
             System.out.println("Sorry, you did not pass the quiz.");
-            setGrade(new Grade(quiz_id, score, lesson_id));
         }
-        return grade;
+        return score;
     }
 
     public List<Question> getQuestions() {
@@ -163,10 +152,9 @@ public class Quiz {
             "  Number of Questions: %d\n" +
             "  Max Questions: %d\n" +
             "  Passing Score: %d\n" +
-            "  Grade: %s\n" +
             "  Questions: %s\n" +
             "}",
-            quiz_id, quiz_title, lesson_id, questions.size(), MAX_QUESTIONS, PASSINGSCORE, grade, questions
+            quiz_id, quiz_title, lesson_id, questions.size(), MAX_QUESTIONS, PASSINGSCORE, questions
         );
     }
 }

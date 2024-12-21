@@ -9,7 +9,6 @@ public class Student extends Person {
     private static long lastGeneratedID = 1; // Change from Long to long
     private ArrayList<Grade> marks;
     private ArrayList<Course> courses;
-    private Progress progress;
 
     // Default constructor
     public Student() {
@@ -18,7 +17,6 @@ public class Student extends Person {
         this.schoolID = 0;
         this.courses = new ArrayList<>();
         this.marks = new ArrayList<>();
-        this.progress = new Progress();
     }
 
     // Parameterized constructor
@@ -28,7 +26,6 @@ public class Student extends Person {
         this.schoolID = schoolID;
         this.courses = new ArrayList<>();
         this.marks = new ArrayList<>();
-        this.progress = new Progress();
     }
 
     // Methods related to Student actions
@@ -48,10 +45,6 @@ public class Student extends Person {
         System.out.println(getName() + " updated their profile.");
     }
 
-    public double getProgressPercentage() {
-        calculateProgress();
-        return progress.getProgressPercentage();
-    }
 
     public void enrollInCourse(Course course) {
         if (!courses.contains(course)) {
@@ -79,17 +72,6 @@ public class Student extends Person {
         return courses;
     }
 
-    // Calculate progress (called by getAverageMarks)
-    private void calculateProgress() {
-        progress.addCourse(courses);
-        int completedCourses = 0;
-        for (Course course : courses) {
-            if (course.areAllLessonsCompleted()) {
-                completedCourses++;
-            }
-        }
-        progress.setProgressPercentage((completedCourses * 100) / courses.size());
-    }
 
     // Get the average progress percentage
     public void getAverageMarks() {
@@ -99,27 +81,81 @@ public class Student extends Person {
         
     }
 
-    // Get completed courses
     public ArrayList<Course> getCompletedCourses() {
         ArrayList<Course> completedCourses = new ArrayList<>();
+        
+        // Return early if there are no courses or marks
+        if (courses.isEmpty() || marks.isEmpty()) {
+            return completedCourses;
+        }
+        
         for (Course course : courses) {
-            if (course.areAllLessonsCompleted()) {  // Uses the updated method with null check
+            boolean courseCompleted = true;
+
+            for (Lesson lesson : course.getLessons()) {
+                boolean lessonCompleted = false;
+
+                // Check if the lesson is completed by finding a passing grade
+                for (Grade grade : marks) {
+                    if (grade != null && grade.getLessonId() != 0 && 
+                        lesson.getLessonId() != 0 && grade.getLessonId() == lesson.getLessonId() && 
+                        grade.getMarks() >= 5) {
+                        lessonCompleted = true;
+                        break; 
+                    }
+                }
+
+                if (!lessonCompleted) {
+                    courseCompleted = false;
+                    break; 
+                }
+            }
+
+           if (courseCompleted) {
                 completedCourses.add(course);
             }
         }
         return completedCourses;
     }
 
-
     public ArrayList<Course> getNotCompletedCourses() {
-        ArrayList<Course> notCompletedCourses = new ArrayList<>();
-        for (Course course : courses) {
-            if (!course.areAllLessonsCompleted()) {  // Uses the updated method with null check
-                notCompletedCourses.add(course);
-            }
-        }
+    ArrayList<Course> notCompletedCourses = new ArrayList<>();
+    
+    // Return early if there are no courses or marks
+    if (courses.isEmpty() || marks.isEmpty()) {
         return notCompletedCourses;
     }
+
+    for (Course course : courses) {
+        boolean courseCompleted = true;
+
+        for (Lesson lesson : course.getLessons()) {
+            boolean lessonCompleted = false;
+
+            // Check if the lesson is completed by finding a passing grade
+            for (Grade grade : marks) {
+                if (grade != null && grade.getLessonId() != 0 && 
+                    lesson.getLessonId() != 0 && grade.getLessonId() == lesson.getLessonId() && 
+                    grade.getMarks() >= 5) {
+                    lessonCompleted = true;
+                    break; 
+                }
+            }
+
+            if (!lessonCompleted) {
+                courseCompleted = false;
+                break; 
+            }
+        }
+
+        // Add course to notCompletedCourses only if not all lessons are completed
+        if (!courseCompleted) {
+            notCompletedCourses.add(course);
+        }
+    }
+    return notCompletedCourses;
+}
+
 
     public void getMarksForEachCourse() {
         for (Course course : courses) {
@@ -144,17 +180,10 @@ public class Student extends Person {
     }
 
     public void viewQuizResult() {
-        for (Course course : courses) {
-            System.out.println(course.getCourseName());
-            for (Lesson lesson : course.getLessons()) {
-                System.out.println("Lesson: " + lesson.getLessonTitle());
-                Quiz quiz = lesson.getQuiz();
-                if (quiz != null && quiz.getGrade() != null) {
-                    System.out.println("Grade: " + quiz.getGrade());
-                } else {
-                    System.out.println("No quiz or grade available.");
-                }
-            }
+        if (marks.isEmpty()) {
+            System.out.println("No quiz results available.");
+        } else {
+            marks.forEach(System.out::println);
         }
     }
 
@@ -206,12 +235,12 @@ public class Student extends Person {
             System.out.println("No quiz available for this lesson.");
             return;
         }
-        
-        if (quiz.getGrade() != null) {
-        System.out.println("You have already completed this quiz.");
-        
-        return;
-    }
+        for (Grade grade : marks) {
+            if (grade.getLessonId() == selectedLesson.getLessonId() && grade.getQuizId() == quiz.getQuiz_id() && grade.getStudentid() == getId()) {
+                System.out.println("You have already attempted this quiz.");
+                return;
+            }
+        }
 
         System.out.println("Do you want to start the quiz: " + quiz.getQuiz_title() + "? (yes/no)");
         scanner.nextLine();  // Consume newline
@@ -219,7 +248,10 @@ public class Student extends Person {
 
         if (response.equalsIgnoreCase("yes")) {
             System.out.println("Starting quiz: " + quiz.getQuiz_title());
-            quiz.answerQuestions();
+            int mark = quiz.answerQuestions();
+            if (mark != 0) {
+                marks.add(new Grade(selectedLesson.getLessonId(), mark ,  quiz.getQuiz_id(), getId()));
+            }
         } else {
             System.out.println("Quiz not started.");
         }

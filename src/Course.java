@@ -110,8 +110,6 @@ public class Course {
                 } // Collect questions and answers
                 else if (line.startsWith("question : ")) {
                     questions.add(line.substring(10).trim());
-                } else if (line.startsWith("answer : ")) {
-                    answers.add(line.substring(8).trim());
                 }
 
                 // When both questions and answers are collected, process them
@@ -227,7 +225,7 @@ public class Course {
     public boolean isCompleted() {
         int completedLessons = 0;
         for (Lesson lesson : lessons) {
-            if (lesson.isQuizPassedAndLessonCompleted()) {
+            if (lesson.isCompleted()) {
                 completedLessons++;
             }
         }

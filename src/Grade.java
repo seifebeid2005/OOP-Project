@@ -9,12 +9,22 @@ public class Grade {
     private int marks;
     private int quizId;
     private static final int MAX_MARKS = 2; // Assume each quiz is out of 100 marks
+    private long Studentid;
 
     // Constructor
-    public Grade(int lessonId, int marks, int quizId) {
+    public Grade(int lessonId, int marks, int quizId , long Studentid) {
         this.lessonId = lessonId;
         this.marks = marks;
         this.quizId = quizId;
+        this.Studentid = Studentid;
+    }
+
+    public long getStudentid() {
+        return Studentid;
+    }
+
+    public void setStudentid(long Studentid) {
+        this.Studentid = Studentid;
     }
 
     // Getters and Setters
@@ -42,10 +52,7 @@ public class Grade {
         this.marks = marks;
     }
 
-    // Get the grade percentage
-    public double getGradePercentage() {
-        return (double) marks / MAX_MARKS * 100; // Return percentage
-    }
+
 
     // Static Methods for Aggregation
     // Get all grades for a particular quiz
@@ -77,17 +84,6 @@ public class Grade {
         return totalMarks / (double) grades.size(); // Return average marks
     }
 
-    // Calculate average grade percentage for all grades
-    public static double calculateAveragePercentageForAllGrades(List<Grade> grades) {
-        if (grades.isEmpty()) {
-            return 0;
-        }
-        double totalPercentage = 0;
-        for (Grade grade : grades) {
-            totalPercentage += grade.getGradePercentage(); // Add grade percentage
-        }
-        return totalPercentage / grades.size(); // Return average percentage
-    }
 
     @Override
     public String toString() {
@@ -95,7 +91,7 @@ public class Grade {
                 + "Lesson ID=" + lessonId
                 + ", Marks=" + marks
                 + ", Quiz ID=" + quizId
-                + ", Percentage=" + getGradePercentage() + "%"
+                + ", Percentage=" + (marks * 100 / MAX_MARKS) + "%"
                 + '}';
     }
 }

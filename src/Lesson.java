@@ -46,7 +46,6 @@ public class Lesson {
     }
 
     public boolean isCompleted() {
-        isQuizPassedAndLessonCompleted();
         return isCompleted;
     }
 
@@ -193,19 +192,6 @@ public class Lesson {
         } else {
             System.out.println("No quiz set for this lesson.");
         }
-    }
-
-    // get is the quiz is completed with the passing score
-    public boolean isQuizPassedAndLessonCompleted() {
-        Quiz quiz = this.getQuiz();
-        if (quiz != null && quiz.getGrade() != null) {  // Null check for quiz and grade
-            Grade grade = quiz.getGrade();
-            if (grade.getMarks() >= Quiz.getPASSINGSCORE()) {
-                markAsCompleted();
-                return true;
-            }
-        }
-        return false;  // Return false if quiz or grade is null or marks are insufficient
     }
 
 
