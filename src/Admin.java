@@ -2016,19 +2016,17 @@ public class Admin extends Person {
                     bw.newLine();
                     bw.write("email : " + student.getEmail());
                     bw.newLine();
-                    bw.write("dateOfBirth : " + student.getDateOfBirth());
-                    bw.newLine();
-                    bw.write("age : " + student.getAge());
-                    bw.newLine();
                     bw.write("phone : " + student.getPhone());
                     bw.newLine();
                     bw.write("address : " + student.getAddress());
                     bw.newLine();
                     bw.write("username : " + student.getUsername());
                     bw.newLine();
-                    bw.write("schoolID : " + student.getSchoolID());
+                    bw.write("password : " + student.getPassword());
                     bw.newLine();
-                    bw.write("registrationDate : " + student.getRegistrationDate());
+                    bw.write("dateOfBirth : " + student.getDateOfBirth());
+                    bw.newLine();
+                    bw.write("schoolID : " + student.getSchoolID());
                     bw.newLine();
                     bw.newLine();
                 }
@@ -2046,19 +2044,17 @@ public class Admin extends Person {
                     bw.newLine();
                     bw.write("email : " + tutor.getEmail());
                     bw.newLine();
-                    bw.write("dateOfBirth : " + tutor.getDateOfBirth());
-                    bw.newLine();
-                    bw.write("age : " + tutor.getAge());
-                    bw.newLine();
                     bw.write("phone : " + tutor.getPhone());
                     bw.newLine();
                     bw.write("address : " + tutor.getAddress());
                     bw.newLine();
                     bw.write("username : " + tutor.getUsername());
                     bw.newLine();
-                    bw.write("schoolID : " + tutor.getSchoolID());
+                    bw.write("password : " + tutor.getPassword());
                     bw.newLine();
-                    bw.write("registrationDate : " + tutor.getDateAdded());
+                    bw.write("dateOfBirth : " + tutor.getDateOfBirth());
+                    bw.newLine();
+                    bw.write("schoolID : " + tutor.getSchoolID());
                     bw.newLine();
                     bw.newLine();
                 }
@@ -2070,16 +2066,18 @@ public class Admin extends Person {
 
     public void saveCourseToFile(String CoursePath, String lessonpath, String quizpath, String QustionsPath){
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(CoursePath))) {
+            Set<Course> uniqueCourses = new HashSet<>();
             for (School school : schools) {
-                for (Course course : school.getManage().getCourses()) {
-                    bw.write("courseName : " + course.getCourseName());
-                    bw.newLine();
-                    bw.write("courseDescription : " + course.getCourseDescription());
-                    bw.newLine();
-                    bw.write("courseIsActive : " + course.getCourseIsActive());
-                    bw.newLine();
-                    bw.newLine();
-                }
+                uniqueCourses.addAll(school.getManage().getCourses());
+            }
+            for (Course course : uniqueCourses) {
+                bw.write("courseName : " + course.getCourseName());
+                bw.newLine();
+                bw.write("courseDescription : " + course.getCourseDescription());
+                bw.newLine();
+                bw.write("courseIsActive : " + course.getCourseIsActive());
+                bw.newLine();
+                bw.newLine();
             }
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
