@@ -45,7 +45,6 @@ public class Student extends Person {
         System.out.println(getName() + " updated their profile.");
     }
 
-
     public void enrollInCourse(Course course) {
         if (!courses.contains(course)) {
             courses.add(course);
@@ -71,7 +70,6 @@ public class Student extends Person {
     public ArrayList<Course> getCourses() {
         return courses;
     }
-
 
     // Get the average progress percentage
     public void getAverageMarks() {
@@ -156,7 +154,6 @@ public class Student extends Person {
     return notCompletedCourses;
 }
 
-
     public void getMarksForEachCourse() {
         for (Course course : courses) {
             System.out.println("Course: " + course.getCourseName() + " - Progress: " + course.getCourseProgress());
@@ -187,6 +184,12 @@ public class Student extends Person {
         }
     }
 
+    public ArrayList<Grade> getgrade(){
+        return marks;
+    }
+    public void setgrade(Grade grade){
+        marks.add(grade);
+    }
 
     // Start quiz
     public void startQuiz() {

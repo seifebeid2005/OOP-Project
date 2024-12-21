@@ -20,6 +20,8 @@ public class main {
         String quizpath = "tx/Quiz.txt";
         String QustionsPath = "tx/Questions.txt";
         String StdWithCoursePath = "tx/StudentWithCourse.txt";
+        String tutorwithcoursePath = "tx/tutorAssign.txt";
+        String gradeFilepath = "tx/Grade.txt";
         admin.createSchoolFromFile(SchoolPath);
         admin.createStudentFromFile(StudentsPath);
         admin.createTutorFromFile(TutorPath);
@@ -28,6 +30,8 @@ public class main {
         admin.createQuizFromFile(quizpath);
         admin.createQuestionsFromFile(QustionsPath);
         admin.assignCourseToStudentFromFile(StdWithCoursePath);
+        admin.assignTutortocourse(tutorwithcoursePath);
+        admin.readLessonAndQuizFromFile(gradeFilepath);
 
         //check username and pass for security
         int trials = 0;
@@ -46,7 +50,7 @@ public class main {
             switch (choice) {
                 case 1 -> {
                     if (checkForSecurity(admin)) {
-                        AdminFunctions(admin, SchoolPath, StudentsPath, TutorPath, CoursePath, lessonpath, quizpath , QustionsPath); // Call Admin function
+                        AdminFunctions(admin, SchoolPath, StudentsPath, TutorPath, CoursePath, lessonpath, quizpath , QustionsPath , gradeFilepath); // Call Admin function
                     } else {
                         trials++;
                         System.out.println("Invalid username or password, please try again.");
@@ -78,8 +82,10 @@ public class main {
                             }
                         }
                     }
-                    case 4 -> TeacherFunctions();
+                    case 4 -> TeacherFunctions(admin);
                 case 5 -> {
+                saveAllChanges(admin, SchoolPath, StudentsPath, TutorPath, CoursePath, lessonpath, quizpath, QustionsPath , gradeFilepath);
+
                     System.out.println("See you later!");
                     return; // Exit the program
                 }
@@ -207,7 +213,7 @@ public class main {
     
     // ---------------------Each Role Functions---------------------
     // Function for Admin actions
-    public static void AdminFunctions(Admin admin, String pathfile, String pathfile2, String TutorPath, String coursepath, String lessonpath, String quizpath , String QustionsPath) {
+    public static void AdminFunctions(Admin admin, String pathfile, String pathfile2, String TutorPath, String coursepath, String lessonpath, String quizpath , String QustionsPath , String gradeFilepath) {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -237,7 +243,6 @@ public class main {
                     handleViewOperations(admin);
                     break;
                 case 5:
-                    saveAllChanges(admin, pathfile, pathfile2, TutorPath, coursepath, lessonpath, quizpath, QustionsPath);
                     System.out.println("Goodbye Admin");
                     return; // Exit from Admin functions
                 default:
@@ -356,10 +361,36 @@ public class main {
         }
     }
 
-    public static void TeacherFunctions() {
-        System.out.println("Welcome Teacher");
-        // Implement any teacher-specific logic or actions here
-    }
+    public static void TeacherFunctions(Admin admin) {
+            Scanner scanner = new Scanner(System.in);
+            boolean exit = false;
+
+            while (!exit) {
+                System.out.println("Welcome Teacher");
+                System.out.println("Please choose an option:");
+                System.out.println("1. View Students");
+                System.out.println("2. View Courses");
+                System.out.println("3. Exit");
+
+                int choice = scanner.nextInt();
+                scanner.nextLine(); // Consume the newline character
+
+                switch (choice) {
+                    case 1:
+                        // viewStudents();
+                        break;
+                    case 2:
+                    // admin.viewTutorCourses(1. , 1);            
+                     break;
+                    case 3:
+                        System.out.println("Exiting...");
+                        exit = true;
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+            }
+        }
 
     //----------------------Create Functions----------------------  
 
@@ -515,11 +546,12 @@ public class main {
         return student;
     }
     
-    public static void saveAllChanges(Admin admin, String SchoolPath, String StudentsPath, String TutorPath, String CoursePath, String lessonpath, String quizpath, String QustionsPath) {
+    public static void saveAllChanges(Admin admin, String SchoolPath, String StudentsPath, String TutorPath, String CoursePath, String lessonpath, String quizpath, String QustionsPath , String gradeFilepath) {
         admin.saveSchoolToFile(SchoolPath);
         admin.saveStudentToFile(StudentsPath);
         admin.saveTutorToFile(TutorPath);
         admin.saveCourseToFile(CoursePath, lessonpath, quizpath, QustionsPath);
+        admin.saveLessonAndQuizToFile(gradeFilepath);
     }
 
 }

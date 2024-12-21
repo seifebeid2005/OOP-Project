@@ -94,4 +94,14 @@ public class Grade {
                 + ", Percentage=" + (marks * 100 / MAX_MARKS) + "%"
                 + '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Grade) {
+            Grade grade = (Grade) obj;
+            return this.lessonId == grade.lessonId && this.marks == grade.marks && this.quizId == grade.quizId;
+        }
+        return false;
+    }
+    
 }

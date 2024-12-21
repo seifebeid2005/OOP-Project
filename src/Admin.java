@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -498,6 +497,33 @@ public class Admin extends Person {
         System.out.println("School not found.");
     }
 
+    // view tutor courses
+    public void viewTutorCourses(Long tutorId, int schoolID) {
+        for (School school : schools) {
+            if (school.getSchoolID() == schoolID) {
+                for (Tutor tutor : school.getManage().getTutors()) {
+                    if (tutor.getId().equals(tutorId)) {
+                        List<Course> courses = tutor.getCourses();
+                        if (courses.isEmpty()) {
+                            System.out.println("No courses found for the tutor ID " + tutorId + " in school ID " + schoolID);
+                        } else {
+                            System.out.println("Courses for tutor ID " + tutorId + " in school ID " + schoolID + ":");
+                            for (Course course : courses) {
+                                System.out.println(course);
+                            }
+                        }
+                        return;
+                    }
+                }
+                System.out.println("Tutor not found in the specified school.");
+                return;
+            }
+        }
+        System.out.println("School not found.");
+    }
+
+
+
     // ------------------- Student Method -------------------
 
     // Account creation for Student
@@ -724,15 +750,23 @@ public class Admin extends Person {
                 System.out.println("Tutors for the courses of student ID " + studentId + ":");
                 for (Course studentCourse : studentCourses) {
                     System.out.println("Course: " + studentCourse.getCourseName());
+                    boolean tutorFoundForCourse = false;  // Flag to track if any tutor is found for this course
+                    
                     for (School school : schools) {
                         for (Tutor tutor : school.getManage().getTutors()) {
+                            // Check if the tutor is assigned to the current course
                             if (tutor.getCourses().contains(studentCourse)) {
+                                if (!tutorFoundForCourse) {
+                                    tutorFoundForCourse = true;  // Set the flag to true
+                                }
                                 System.out.println(" - Tutor: " + tutor.getName() + " (Tutor ID: " + tutor.getId() + ")");
                             }
-                            else {
-                                System.out.println("No tutors found for the courses of student ID " + studentId);
-                            }
                         }
+                    }
+
+                    // If no tutor was found for this course, print the message
+                    if (!tutorFoundForCourse) {
+                        System.out.println("  No tutors found for course: " + studentCourse.getCourseName());
                     }
                 }
             }
@@ -1459,12 +1493,12 @@ public class Admin extends Person {
                     lessonName = "";
                     lessonDescription = "";
                     courseId = -1;
-                } else if (line.startsWith("lessonName : ")) {
-                    lessonName = line.substring(13).trim();
-                } else if (line.startsWith("lessonDescription : ")) {
-                    lessonDescription = line.substring(19).trim();
+                } else if (line.startsWith("name : ")) {
+                    lessonName = line.substring(7).trim();
+                } else if (line.startsWith("description : ")) {
+                    lessonDescription = line.substring(13).trim();
                 } else if (line.startsWith("courseId : ")) {
-                    courseId = Integer.parseInt(line.substring(11).trim());
+                    courseId = Integer.parseInt(line.substring(10).trim());
                 }
             }
         } catch (Exception e) {
@@ -1794,7 +1828,7 @@ public class Admin extends Person {
         } catch (Exception e) {
             System.out.println(e);
         }
-
+        
     }
 
     public void removeCourse() {
@@ -1824,21 +1858,65 @@ public class Admin extends Person {
     }
 
     //------------------- Chapter Method -------------------
-    public void addChapterToTutor(Long tutorId, int schoolID, Course course) {
+    public void addChapterToTutor(long tutorId, int schoolID, long courseId) {
         for (School school : schools) {
-            if (school.getSchoolID() == schoolID) {
-                for (Tutor tutor : school.getManage().getTutors()) {
+            if (school.getSchoolID() == schoolID) {  // Match school ID
+                Course course = school.getManage().findCourseById(courseId);  // Find the course by ID
+                if (course == null) {
+                    System.out.println("Course with ID " + courseId + " not found in school ID " + schoolID);
+                    return;
+                }
+                for (Tutor tutor : school.getManage().getTutors()) {  // Find the tutor
                     if (tutor.getId().equals(tutorId)) {
-                        tutor.addCourse(course);
+                        tutor.addCourse(course);  // Add course to tutor
                         System.out.println("Chapter added successfully to tutor ID " + tutorId + " in school ID " + schoolID);
                         return;
                     }
                 }
-                System.out.println("Tutor not found in the specified school.");
+                System.out.println("Tutor with ID " + tutorId + " not found in school ID " + schoolID);
                 return;
             }
         }
-        System.out.println("School not found.");
+        System.out.println("School with ID " + schoolID + " not found.");
+    }
+
+    public void assignTutortocourse(String filePath) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            long tutorId = 0;
+            int schoolID = 0;
+            long courseId = 0;
+
+            while ((line = br.readLine()) != null) {
+                line = line.trim();  // Remove extra spaces
+
+                if (line.isEmpty()) {  // Blank line indicates end of one block
+                    // Process the collected data
+                    if (tutorId != 0 && schoolID > 0 && courseId != 0) {
+                        addChapterToTutor(tutorId, schoolID, courseId);
+                    }
+
+                    // Reset values for the next block
+                    tutorId = 0;
+                    schoolID = 0;
+                    courseId = 0;
+                } else if (line.startsWith("schoolID : ")) {
+                    schoolID = Integer.parseInt(line.substring(11).trim());
+                } else if (line.startsWith("tutorID : ")) {
+                    tutorId = Long.parseLong(line.substring(10).trim());
+                } else if (line.startsWith("courseID : ")) {
+                    courseId = Long.parseLong(line.substring(10).trim());
+                }
+            }
+
+            // Process the last block in case the file doesn't end with a blank line
+            if (tutorId != 0 && schoolID > 0 && courseId != 0) {
+                addChapterToTutor(tutorId, schoolID, courseId);
+            }
+        } catch (Exception e) {
+            System.out.println("Error reading file: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     // Remove chapter from a tutor
@@ -2113,9 +2191,115 @@ public class Admin extends Person {
             System.out.println("Error writing to file: " + e.getMessage());
         }
     }
+   
+    public void readLessonAndQuizFromFile(String lessonQuizPath) {
+    try (BufferedReader lessonQuizReader = new BufferedReader(new FileReader(lessonQuizPath))) {
+        String line;
 
-    // toString override to include Admin-specific details
-    
+        // List to store the parsed grades
+        List<Grade> grades = new ArrayList<>();
+
+        int lessonId = 0;
+        int marks = 0;
+        int quizId = -1;  // Start with -1 to indicate that quiz ID is missing or invalid
+        long studentId = 0;
+
+        while ((line = lessonQuizReader.readLine()) != null) {
+            line = line.trim();
+
+            // Debugging: Print each line as it is read
+            System.out.println("Read line: '" + line + "'");
+
+            // Skip blank lines
+            if (line.isEmpty()) {
+                // Process the data if a full grade entry is complete
+                if (lessonId != 0 && marks != 0 && quizId != -1 && studentId != 0) {
+                    // Add the grade to the list if all data is valid
+                    Grade grade = new Grade(lessonId, marks, quizId, studentId);
+                    grades.add(grade);
+
+                    // Reset the values for the next grade entry
+                    lessonId = 0;
+                    marks = 0;
+                    quizId = -1;
+                    studentId = 0;
+                }
+                continue;  // Skip blank lines
+            }
+
+            // Check and parse each part based on the line content
+            if (line.startsWith("Lesson ID: ") && line.length() > 11) {
+                lessonId = Integer.parseInt(line.substring(11).trim());
+            } else if (line.startsWith("Marks: ") && line.length() > 7) {
+                marks = Integer.parseInt(line.substring(7).trim());
+            } else if (line.startsWith("Quiz ID: ") && line.length() > 10) {
+                String quizIdStr = line.substring(10).trim();
+                try {
+                    quizId = Integer.parseInt(quizIdStr);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid quiz ID format: '" + quizIdStr + "'");
+                    quizId = -1;  // Mark as invalid if not parsable
+                }
+            } else if (line.startsWith("Student ID: ") && line.length() > 12) {
+                studentId = Long.parseLong(line.substring(12).trim());
+            }
+        }
+
+        // Handle the last grade entry if the file doesn't end with a blank line
+        if (lessonId != 0 && marks != 0 && quizId != -1 && studentId != 0) {
+            // Add the grade to the list if all data is valid
+            Grade grade = new Grade(lessonId, marks, quizId, studentId);
+            grades.add(grade);
+        } else {
+            System.out.println("Incomplete grade entry found at the end of the file.");
+            System.out.println("Lesson ID: " + lessonId + ", Marks: " + marks + ", Quiz ID: " + quizId + ", Student ID: " + studentId);
+        }
+
+        // Optionally, update the students or school system with these grades
+        // For now, the grades are just stored in the list
+        System.out.println("Grades read successfully:");
+        for (Grade grade : grades) {
+            System.out.println(grade); // Assuming Grade has a toString method
+        }
+
+    } catch (IOException e) {
+        System.out.println("Error reading the file: " + e.getMessage());
+    } catch (NumberFormatException e) {
+        System.out.println("Error parsing a number: " + e.getMessage());
+    }
+}
+
+    public void saveLessonAndQuizToFile(String lessonQuizPath) {
+    try (BufferedWriter lessonQuizWriter = new BufferedWriter(new FileWriter(lessonQuizPath, true))) { // 'true' to append
+
+        for (School school : schools) {
+            for (Student student : school.getManage().getStudents()) {
+                List<Grade> grades = student.getgrade();
+
+                // Check if grades are available
+                if (grades != null && !grades.isEmpty()) {
+                    for (Grade grade : grades) {
+                        // Write each piece of data on a new line
+                        lessonQuizWriter.write("Lesson ID: " + grade.getLessonId());
+                        lessonQuizWriter.newLine(); // Move to the next line for the next piece of data
+                        lessonQuizWriter.write("Marks: " + grade.getMarks());
+                        lessonQuizWriter.newLine(); // Move to the next line for the next piece of data
+                        lessonQuizWriter.write("Quiz ID: " + grade.getQuizId());
+                        lessonQuizWriter.newLine(); // Move to the next line for the next piece of data
+                        lessonQuizWriter.write("Student ID: " + grade.getStudentid());
+                        lessonQuizWriter.newLine(); // Move to the next line for the next piece of data
+                        lessonQuizWriter.newLine(); // Blank line after each grade entry for readability
+                    }
+                }
+            }
+        }
+
+    } catch (IOException e) {
+        System.out.println("Error writing to file: " + e.getMessage());
+    }
+}
+
+
     @Override
     public String toString() {
         return "Admin { "
