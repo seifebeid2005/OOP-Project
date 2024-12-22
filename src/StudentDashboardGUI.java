@@ -187,7 +187,7 @@ public class StudentDashboardGUI extends JFrame {
     // Method to handle starting a quiz
     private void startQuiz() {
         if (currentStudent != null) {
-            currentStudent.startQuiz();
+            // currentStudent.startQuiz();
         }
     }
 

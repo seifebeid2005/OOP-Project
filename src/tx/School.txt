@@ -196,3 +196,12 @@ phoneNumber : EE
 username : EE
 password : EE
 
+schoolName : ss
+address : ss
+city : ss
+contactPerson : ss
+email : se@gmail.com
+phoneNumber : 1234567890
+username : 111ss
+password : scvghjkl
+

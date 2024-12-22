@@ -245,38 +245,7 @@ public class School {
     public void updateStudent(long Student_id) {
         manage.updateStudent(Student_id);
     }
-
-    // public void viewStudesByCriteria(String criteria, Object value) {
-    //     List<Student> filteredStudents = new ArrayList<>();
-    //     for (Student student : students) {
-    //         if (matchesCriteria(student, criteria, value)) {
-    //             filteredStudents.add(student);
-    //         }
-    //     }
-    //     if (filteredStudents.isEmpty()) {
-    //         System.out.println("No students found for the given criteria.");
-    //     } else {
-    //         for (Student student : filteredStudents) {
-    //             System.out.println(student);
-    //         }
-    //     }
-    // }
-    // Search for Students by Criteria
-    // private boolean matchesCriteria(Student student, String criteria, Object value) {
-    //     return switch (criteria.toLowerCase()) {
-    //         case "id" -> student.getId() == (int) value;
-    //         case "name" -> student.getName().equalsIgnoreCase((String) value);
-    //         case "email" -> student.getEmail().equalsIgnoreCase((String) value);
-    //         case "dateofbirth" -> student.getDateOfBirth().equals(value);
-    //         case "age" -> student.getAge() == (int) value;
-    //         case "phone" -> student.getPhone().equals(value);
-    //         case "address" -> student.getAddress().equalsIgnoreCase((String) value);
-    //         case "username" -> student.getUsername().equals(value);
-    //         case "schoolid" -> student.getSchoolID() == (int) value;
-    //         case "registrationdate" -> student.getRegistrationDate().equals(value);
-    //         default -> false;
-    //     };
-    // }
+    
     // View All Students
    
     public void viewStudents() {
@@ -362,76 +331,6 @@ public class School {
         manage.updateTutor(tutorId);
     }
 
-    // public void viewTutorsByCriteria(String criteria, Object value) {
-    //     List<Tutor> filteredTutors = new ArrayList<>();
-    //     for (Tutor tutor : tutors) {
-    //         if (matchesCriteria(tutor, criteria, value)) {
-    //             filteredTutors.add(tutor);
-    //         }
-    //     }
-    //     if (filteredTutors.isEmpty()) {
-    //         System.out.println("No tutors found for the given criteria.");
-    //     } else {
-    //         for (Tutor tutor : filteredTutors) {
-    //             System.out.println(tutor);
-    //         }
-    //     }
-    // }
-    // // Search for Tutors by Criteria
-    // private boolean matchesCriteria(Tutor tutor, String criteria, Object value) {
-    //     return switch (criteria.toLowerCase()) {
-    //         case "id" -> tutor.getId().equals(value);
-    //         case "name" -> tutor.getName().equalsIgnoreCase((String) value);
-    //         case "email" -> tutor.getEmail().equalsIgnoreCase((String) value);
-    //         case "dateofbirth" -> tutor.getDateOfBirth().equals(value);
-    //         case "age" -> tutor.getAge() == (int) value;
-    //         case "phone" -> tutor.getPhone().equals(value);
-    //         case "address" -> tutor.getAddress().equalsIgnoreCase((String) value);
-    //         case "username" -> tutor.getUsername().equals(value);
-    //         case "subjectarea" -> tutor.getSubjectArea().equalsIgnoreCase((String) value);
-    //         case "datejoined" -> tutor.getDateJoined().equals(value);
-    //         case "yearsofexperience" -> tutor.getYearsOfExperience() == (int) value;
-    //         default -> false;
-    //     };
-    // }
-    // // View All Tutors
-    // public void viewTutors() {
-    //     if (tutors.isEmpty()) {
-    //         System.out.println("No tutors to display.");
-    //     } else {
-    //         for (Tutor tutor : tutors) {
-    //             System.out.println(tutor);
-    //         }
-    //     }
-    // }
-    // Add chapter to a tutor
-    // public void addChapterToTutor(Long tutorId, Course course) {
-    //     for (Tutor tutor : tutors) {
-    //         if (tutor.getId().equals(tutorId)) {
-    //             tutor.addCourse(course);
-    //             System.out.println("Chapter added successfully to Tutor ID: " + tutorId);
-    //             return;
-    //         }
-    //     }
-    //     System.out.println("Tutor not found.");
-    // }
-    // View Students of a Tutor
-    // public void viewTutorStudents(Long tutorId) {
-
-    // String representation of the object
-    @Override
-    public String toString() {
-        return "\nschoolName : " + schoolName
-                + "\naddress : " + address
-                + "\ncity : " + city
-                + "\ncontactPerson : " + contactPerson
-                + "\nemail : " + email
-                + "\nphoneNumber : " + phoneNumber
-                + "\nuserName : " + userName
-                + "\npassword : " + password;
-    }
-
-
     // Assign courses to students
     public void assignCourseToStudent(Long studentId, Long courseId) {
         Student student = getManage().findStudentById(studentId);
@@ -489,11 +388,30 @@ public class School {
         }
     }
 
-    
-
     // Validate phone number format (basic example)
     public boolean validatePhoneNumber(String phoneNumber) {
         return phoneNumber.matches("\\d{11}"); // Assuming 10-digit phone numbers
+    }
+    
+    @Override
+    public String toString() {
+        return "\nschoolName : " + schoolName
+                + "\naddress : " + address
+                + "\ncity : " + city
+                + "\ncontactPerson : " + contactPerson
+                + "\nemail : " + email
+                + "\nphoneNumber : " + phoneNumber
+                + "\nuserName : " + userName
+                + "\npassword : " + password;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof School)) return false;
+        School school = (School) obj;
+        return schoolID == school.schoolID;
     }
 
 }

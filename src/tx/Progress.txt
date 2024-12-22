@@ -1,0 +1,260 @@
+Student {
+  Registration Date: 2024-12-22
+  School ID: 1
+  Marks: [Grade{Lesson ID=1, Marks=6, Quiz ID=1, Percentage=60%}]
+  Courses: [Course Details:
+----------------
+Course ID          : 1
+Course Name        : Database Management Systems
+Description        : Learn the principles of database management and SQL.
+Required Progress  : 1  lessons
+Active Status      : Active
+----------------, Course Details:
+----------------
+Course ID          : 2
+Course Name        : Software Engineering Principles
+Description        : Learn about software development methodologies and best practices.
+Required Progress  : 3  lessons
+Active Status      : Active
+----------------, Course Details:
+----------------
+Course ID          : 3
+Course Name        : Data Structures and Algorithms
+Description        : Understand data structures and algorithms to solve complex problems.
+Required Progress  : 2  lessons
+Active Status      : Inactive
+----------------]
+----------
+
+  ID: 1
+  Name: 'John Doe'
+  Email: 'johndoe@example.com'
+  Date Added: Sun Dec 22 10:28:24 EET 2024
+  Date of Birth: 2000-01-01
+  Phone: '1234567890'
+  Address: '123 Main St'
+  Username: '123'
+  Password: '123'
+}
+}
+Student {
+  Registration Date: 2024-12-22
+  School ID: 1
+  Marks: No marks available
+  Courses: [Course Details:
+----------------
+Course ID          : 1
+Course Name        : Database Management Systems
+Description        : Learn the principles of database management and SQL.
+Required Progress  : 1  lessons
+Active Status      : Active
+----------------, Course Details:
+----------------
+Course ID          : 2
+Course Name        : Software Engineering Principles
+Description        : Learn about software development methodologies and best practices.
+Required Progress  : 3  lessons
+Active Status      : Active
+----------------, Course Details:
+----------------
+Course ID          : 3
+Course Name        : Data Structures and Algorithms
+Description        : Understand data structures and algorithms to solve complex problems.
+Required Progress  : 2  lessons
+Active Status      : Inactive
+----------------]
+----------
+
+  ID: 2
+  Name: 'Sarah Brown'
+  Email: 'sarahbrown@example.com'
+  Date Added: Sun Dec 22 10:28:24 EET 2024
+  Date of Birth: 2000-01-06
+  Phone: '1234567895'
+  Address: '303 Birch St'
+  Username: 'sarahbrown'
+  Password: 'password6'
+}
+}
+Student {
+  Registration Date: 2024-12-22
+  School ID: 2
+  Marks: No marks available
+  Courses: [Course Details:
+----------------
+Course ID          : 1
+Course Name        : Database Management Systems
+Description        : Learn the principles of database management and SQL.
+Required Progress  : 1  lessons
+Active Status      : Active
+----------------, Course Details:
+----------------
+Course ID          : 2
+Course Name        : Software Engineering Principles
+Description        : Learn about software development methodologies and best practices.
+Required Progress  : 3  lessons
+Active Status      : Active
+----------------, Course Details:
+----------------
+Course ID          : 3
+Course Name        : Data Structures and Algorithms
+Description        : Understand data structures and algorithms to solve complex problems.
+Required Progress  : 2  lessons
+Active Status      : Inactive
+----------------]
+----------
+
+  ID: 3
+  Name: 'Jane Smith'
+  Email: 'janesmith@example.com'
+  Date Added: Sun Dec 22 10:28:24 EET 2024
+  Date of Birth: 2000-01-02
+  Phone: '1234567891'
+  Address: '456 Elm St'
+  Username: 'janesmith'
+  Password: 'password2'
+}
+}
+Student {
+  Registration Date: 2024-12-22
+  School ID: 2
+  Marks: No marks available
+  Courses: [Course Details:
+----------------
+Course ID          : 1
+Course Name        : Database Management Systems
+Description        : Learn the principles of database management and SQL.
+Required Progress  : 1  lessons
+Active Status      : Active
+----------------, Course Details:
+----------------
+Course ID          : 2
+Course Name        : Software Engineering Principles
+Description        : Learn about software development methodologies and best practices.
+Required Progress  : 3  lessons
+Active Status      : Active
+----------------, Course Details:
+----------------
+Course ID          : 3
+Course Name        : Data Structures and Algorithms
+Description        : Understand data structures and algorithms to solve complex problems.
+Required Progress  : 2  lessons
+Active Status      : Inactive
+----------------]
+----------
+
+  ID: 4
+  Name: 'Chris Green'
+  Email: 'chrisgreen@example.com'
+  Date Added: Sun Dec 22 10:28:24 EET 2024
+  Date of Birth: 2000-01-07
+  Phone: '1234567896'
+  Address: '404 Cedar St'
+  Username: 'chrisgreen'
+  Password: 'password7'
+}
+}
+Student {
+  Registration Date: 2024-12-22
+  School ID: 3
+  Marks: No marks available
+  Courses: [Course Details:
+----------------
+Course ID          : 1
+Course Name        : Database Management Systems
+Description        : Learn the principles of database management and SQL.
+Required Progress  : 1  lessons
+Active Status      : Active
+----------------, Course Details:
+----------------
+Course ID          : 2
+Course Name        : Software Engineering Principles
+Description        : Learn about software development methodologies and best practices.
+Required Progress  : 3  lessons
+Active Status      : Active
+----------------]
+----------
+
+  ID: 5
+  Name: 'Michael Johnson'
+  Email: 'michaeljohnson@example.com'
+  Date Added: Sun Dec 22 10:28:24 EET 2024
+  Date of Birth: 2000-01-03
+  Phone: '1234567892'
+  Address: '789 Oak St'
+  Username: 'michaeljohnson'
+  Password: 'password3'
+}
+}
+Student {
+  Registration Date: 2024-12-22
+  School ID: 3
+  Marks: No marks available
+  Courses: No courses enrolled
+----------
+
+  ID: 6
+  Name: 'Anna White'
+  Email: 'annawhite@example.com'
+  Date Added: Sun Dec 22 10:28:24 EET 2024
+  Date of Birth: 2000-01-08
+  Phone: '1234567897'
+  Address: '505 Spruce St'
+  Username: 'annawhite'
+  Password: 'password8'
+}
+}
+Student {
+  Registration Date: 2024-12-22
+  School ID: 4
+  Marks: No marks available
+  Courses: No courses enrolled
+----------
+
+  ID: 7
+  Name: 'Emily Davis'
+  Email: 'emilydavis@example.com'
+  Date Added: Sun Dec 22 10:28:24 EET 2024
+  Date of Birth: 2000-01-04
+  Phone: '1234567893'
+  Address: '101 Pine St'
+  Username: 'emilydavis'
+  Password: 'password4'
+}
+}
+Student {
+  Registration Date: 2024-12-22
+  School ID: 4
+  Marks: No marks available
+  Courses: No courses enrolled
+----------
+
+  ID: 8
+  Name: 'Robert Black'
+  Email: 'robertblack@example.com'
+  Date Added: Sun Dec 22 10:28:24 EET 2024
+  Date of Birth: 2000-01-09
+  Phone: '1234567898'
+  Address: '606 Fir St'
+  Username: 'robertblack'
+  Password: 'password9'
+}
+}
+Student {
+  Registration Date: 2024-12-22
+  School ID: 5
+  Marks: No marks available
+  Courses: No courses enrolled
+----------
+
+  ID: 9
+  Name: 'David Wilson'
+  Email: 'davidwilson@example.com'
+  Date Added: Sun Dec 22 10:28:24 EET 2024
+  Date of Birth: 2000-01-05
+  Phone: '1234567894'
+  Address: '202 Maple St'
+  Username: 'davidwilson'
+  Password: 'password5'
+}
+}

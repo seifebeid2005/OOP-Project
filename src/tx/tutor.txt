@@ -25,6 +25,15 @@ password : pass3456
 dateOfBirth : 1990-03-03
 schoolID : 1
 
+name : s
+email : seif@gmail.com
+phone : 01123455564
+address : 2005-09-09
+username : sskks
+password : ssssssssssss
+dateOfBirth : 2005-09-09
+schoolID : 1
+
 name : John Doe
 email : john.doe2@example.com
 phone : 124-456-7891

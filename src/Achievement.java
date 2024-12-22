@@ -39,25 +39,7 @@ public class Achievement {
         }
         this.achievementDescription = achievementDescription;
     }
-
-    @Override
-    public String toString() {
-        return "Achievement: " + achievementName + " - " + achievementDescription;
-    }
-
-    // Ensure Unique Achievement Names
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        Achievement that = (Achievement) obj;
-        return achievementName.equalsIgnoreCase(that.achievementName);
-    }
-
+    
     // Predefined Achievements
     public static Achievement quizMaster() {
         return new Achievement("Quiz Master", "Awarded for scoring 100% on all quizzes.");
@@ -70,7 +52,7 @@ public class Achievement {
     public static Achievement consistencyChampion() {
         return new Achievement("Consistency Champion", "Awarded for maintaining progress above 90%.");
     }
-
+    
     public static Achievement earlyBird() {
         return new Achievement("Early Bird", "Awarded for completing all courses before a deadline.");
     }
@@ -84,8 +66,26 @@ public class Achievement {
     }
 
     public static Achievement topPerformer() {
-        return new Achievement("Top Performer", "Awarded for consistently achieving an average progress above 95%.");
-    
-
+        return new Achievement("Top Performer", "Awarded for consistently achieving an average progress above 95%.");
     }
+    @Override
+    
+    public String toString() {
+        return "Achievement: " + achievementName + " - " + achievementDescription;
+    }
+        
+    // Ensure Unique Achievement Names
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Achievement that = (Achievement) obj;
+        return achievementName.equalsIgnoreCase(that.achievementName);
+    }
+
+
 }

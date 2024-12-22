@@ -11,7 +11,7 @@ public class main {
         Scanner sc = new Scanner(System.in);
         
         Admin admin = new Admin("123", "123");
-
+        // Load all data from files
         String SchoolPath = "tx/School.txt";
         String StudentsPath = "tx/Student.txt";
         String TutorPath = "tx/tutor.txt";
@@ -19,22 +19,11 @@ public class main {
         String lessonpath = "tx/Lesson.txt";
         String quizpath = "tx/Quiz.txt";
         String QustionsPath = "tx/Questions.txt";
-        String StdWithCoursePath = "tx/StudentWithCourse.txt";
-        String tutorwithcoursePath = "tx/tutorAssign.txt";
+        // String StdWithCoursePath = "tx/StudentWithCourse.txt";
+        // String tutorwithcoursePath = "tx/tutorAssign.txt";
         String gradeFilepath = "tx/Grade.txt";
         String ProgressPath = "tx/Progress.txt";
-        admin.createSchoolFromFile(SchoolPath);
-        admin.createStudentFromFile(StudentsPath);
-        admin.createTutorFromFile(TutorPath);
-        admin.createCourseFromFile(CoursePath, lessonpath, quizpath, QustionsPath);
-        admin.createLessonFromFile(lessonpath);
-        admin.createQuizFromFile(quizpath);
-        admin.createQuestionsFromFile(QustionsPath);
-        admin.assignCourseToStudentFromFile(StdWithCoursePath);
-        admin.assignTutortocourse(tutorwithcoursePath);
-        admin.readLessonAndQuizFromFile(gradeFilepath);
-        admin.readStudentProgressFromFile(ProgressPath);
-
+        LoadAllData(admin);
         //check username and pass for security
         int trials = 0;
         while (true) {
@@ -45,9 +34,19 @@ public class main {
             System.out.println("3. Student");
             System.out.println("4. tutor");
             System.out.println("5. Exit");
-
-            int choice = sc.nextInt();
-            sc.nextLine(); // Consume newline
+            int choice;
+            while (true) {
+                try {
+                    choice = Integer.parseInt(sc.nextLine());
+                    if (choice >= 1 && choice <= 5) {
+                        break;
+                    } else {
+                        System.out.println("Invalid choice, please enter a number between 1 and 5.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input, please enter a valid number.");
+                }
+            }
 
             switch (choice) {
                 case 1 -> {
@@ -84,7 +83,19 @@ public class main {
                             }
                         }
                     }
-                    case 4 -> TeacherFunctions(admin);
+                    case 4 -> {
+                        if (admin.getSchoolsData().isEmpty()) {
+                            System.out.println("No schools available. Please contact the admin to create a school.");
+                        } else {
+                            Tutor tutor = checkForSecurityForTutor(admin);
+                            if (tutor != null) {
+                                TeacherFunctions(admin , tutor);
+                            } else {
+                                trials++;
+                                System.out.println("Invalid username or password, please try again.");
+                            }
+                        }
+                    }
                 case 5 -> {
                 saveAllChanges(admin, SchoolPath, StudentsPath, TutorPath, CoursePath, lessonpath, quizpath, QustionsPath , gradeFilepath);
 
@@ -99,6 +110,32 @@ public class main {
             }
         }
     }
+    // ---------------------Load All Data---------------------
+    public static void LoadAllData(Admin admin ){
+        String SchoolPath = "tx/School.txt";
+        String StudentsPath = "tx/Student.txt";
+        String TutorPath = "tx/tutor.txt";
+        String CoursePath = "tx/Course.txt";
+        String lessonpath = "tx/Lesson.txt";
+        String quizpath = "tx/Quiz.txt";
+        String QustionsPath = "tx/Questions.txt";
+        String StdWithCoursePath = "tx/StudentWithCourse.txt";
+        String tutorwithcoursePath = "tx/tutorAssign.txt";
+        String gradeFilepath = "tx/Grade.txt";
+        String ProgressPath = "tx/Progress.txt";
+        admin.createSchoolFromFile(SchoolPath);
+        admin.createStudentFromFile(StudentsPath);
+        admin.createTutorFromFile(TutorPath);
+        admin.createCourseFromFile(CoursePath, lessonpath, quizpath, QustionsPath);
+        admin.createLessonFromFile(lessonpath);
+        admin.createQuizFromFile(quizpath);
+        admin.createQuestionsFromFile(QustionsPath);
+        admin.assignCourseToStudentFromFile(StdWithCoursePath);
+        admin.assignTutortocourse(tutorwithcoursePath);
+        admin.readLessonAndQuizFromFile(gradeFilepath);
+        admin.readStudentProgressFromFile(ProgressPath);
+
+    }
 
     // ---------------------Handle Operations---------------------
    
@@ -112,8 +149,19 @@ public class main {
         System.out.println("3. Add Teacher");
         System.out.println("4. Add Course");
 
-        int choice = sc.nextInt();
-        sc.nextLine(); // consume the remaining newline
+        int choice;
+        while (true) {
+            try {
+            choice = Integer.parseInt(sc.nextLine());
+            if (choice >= 1 && choice <= 4) {
+                break;
+            } else {
+                System.out.println("Invalid choice, please enter a number between 1 and 4.");
+            }
+            } catch (NumberFormatException e) {
+            System.out.println("Invalid input, please enter a valid number.");
+            }
+        }
 
         switch (choice) {
             case 1:
@@ -145,8 +193,19 @@ public class main {
         System.out.println("3. Update Teacher");
         System.out.println("4. Update Course");
 
-        int choice = sc.nextInt();
-        sc.nextLine(); // consume the remaining newline
+        int choice;
+        while (true) {
+            try {
+            choice = Integer.parseInt(sc.nextLine());
+            if (choice >= 1 && choice <= 4) {
+                break;
+            } else {
+                System.out.println("Invalid choice, please enter a number between 1 and 4.");
+            }
+            } catch (NumberFormatException e) {
+            System.out.println("Invalid input, please enter a valid number.");
+            }
+        }
 
         switch (choice) {
             case 1 -> admin.updateSchoolByCriteria();
@@ -169,9 +228,19 @@ public class main {
         System.out.println("2. Delete Student");
         System.out.println("3. Delete Teacher");
         System.out.println("4. Delete Course");
-
-        int choice = sc.nextInt();
-        sc.nextLine(); // consume the remaining newline
+        int choice;
+        while (true) {
+            try {
+            choice = Integer.parseInt(sc.nextLine());
+            if (choice >= 1 && choice <= 4) {
+                break;
+            } else {
+                System.out.println("Invalid choice, please enter a number between 1 and 4.");
+            }
+            } catch (NumberFormatException e) {
+            System.out.println("Invalid input, please enter a valid number.");
+            }
+        }
 
         switch (choice) {
             case 1:
@@ -202,7 +271,19 @@ public class main {
         System.out.println("3. View Teachers");
         System.out.println("4. View Courses");
 
-        int choice = sc.nextInt();
+        int choice;
+        while (true) {
+            try {
+            choice = Integer.parseInt(sc.nextLine());
+            if (choice >= 1 && choice <= 4) {
+                break;
+            } else {
+                System.out.println("Invalid choice, please enter a number between 1 and 4.");
+            }
+            } catch (NumberFormatException e) {
+            System.out.println("Invalid input, please enter a valid number.");
+            }
+        }
 
         switch (choice) {
             case 1 -> admin.viewSchools();
@@ -228,8 +309,19 @@ public class main {
             System.out.println("4. View Records");
             System.out.println("5. Exit");
 
-            int choice = sc.nextInt();
-            sc.nextLine(); // consume the remaining newline
+            int choice;
+            while (true) {
+                try {
+                    choice = Integer.parseInt(sc.nextLine());
+                    if (choice >= 1 && choice <= 5) {
+                        break;
+                    } else {
+                        System.out.println("Invalid choice, please enter a number between 1 and 5.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input, please enter a valid number.");
+                }
+            }
 
             switch (choice) {
                 case 1:
@@ -268,8 +360,19 @@ public class main {
             System.out.println("4. View Students");
             System.out.println("5. Exit");
 
-            int choice = sc.nextInt();
-            sc.nextLine(); // consume the remaining newline
+            int choice;
+            while (true) {
+                try {
+                    choice = Integer.parseInt(sc.nextLine());
+                    if (choice >= 1 && choice <= 5) {
+                        break;
+                    } else {
+                        System.out.println("Invalid choice, please enter a number between 1 and 5.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input, please enter a valid number.");
+                }
+            }
 
             switch (choice) {
                 case 1 -> Studentcreation(admin, StudentsPath);
@@ -303,7 +406,19 @@ public class main {
             System.out.println("7. See my not completed courses");
             System.out.println("8. Exit");
 
-            int choice = scanner.nextInt();
+            int choice;
+            while (true) {
+                try {
+                    choice = Integer.parseInt(scanner.nextLine());
+                    if (choice >= 0 && choice <= 8) {
+                        break;
+                    } else {
+                        System.out.println("Invalid choice, please enter a number between 0 and 8.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input, please enter a valid number.");
+                }
+            }
 
         switch (choice) {
             case 0:
@@ -371,7 +486,7 @@ public class main {
         }
     }
 
-    public static void TeacherFunctions(Admin admin) {
+    public static void TeacherFunctions(Admin admin , Tutor tutor) {
             Scanner scanner = new Scanner(System.in);
             boolean exit = false;
 
@@ -382,16 +497,29 @@ public class main {
                 System.out.println("2. View Courses");
                 System.out.println("3. Exit");
 
-                int choice = scanner.nextInt();
-                scanner.nextLine(); // Consume the newline character
+                int choice;
+                while (true) {
+                    try {
+                        choice = Integer.parseInt(scanner.nextLine());
+                        if (choice >= 1 && choice <= 3) {
+                            break;
+                        } else {
+                            System.out.println("Invalid choice, please enter a number between 1 and 3.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input, please enter a valid number.");
+                    }
+                }
 
                 switch (choice) {
                     case 1:
-                        // viewStudents();
+                    // match student with course
+                        admin.matchStudentCourseWithTutorCourse(tutor.getId());
                         break;
                     case 2:
-                    // admin.viewTutorCourses(1. , 1);            
-                     break;
+                    // print array of list
+                     System.out.println(tutor.getCourses());
+                        break;
                     case 3:
                         System.out.println("Exiting...");
                         exit = true;
@@ -411,8 +539,19 @@ public class main {
         System.out.println("1. Create School from terminal");
         System.out.println("2. Create School from file");
         Scanner sc = new Scanner(System.in);
-        int choice = sc.nextInt();
-        sc.nextLine(); // consume the remaining newline
+        int choice;
+        while (true) {
+            try {
+            choice = Integer.parseInt(sc.nextLine());
+            if (choice == 1 || choice == 2) {
+                break;
+            } else {
+                System.out.println("Invalid choice, please enter 1 or 2.");
+            }
+            } catch (NumberFormatException e) {
+            System.out.println("Invalid input, please enter a valid number.");
+            }
+        }
 
         switch (choice) {
             case 1 -> {
@@ -436,8 +575,19 @@ public class main {
         System.out.println("1. Create Student from terminal");
         System.out.println("2. Create Student from file ");
         Scanner sc = new Scanner(System.in);
-        int choice = sc.nextInt();
-        sc.nextLine(); // consume the remaining newline
+        int choice;
+        while (true) {
+            try {
+            choice = Integer.parseInt(sc.nextLine());
+            if (choice == 1 || choice == 2) {
+                break;
+            } else {
+                System.out.println("Invalid choice, please enter 1 or 2.");
+            }
+            } catch (NumberFormatException e) {
+            System.out.println("Invalid input, please enter a valid number.");
+            }
+        }
         switch (choice) {
             case 1 -> {
                 System.out.println("Creating Student from terminal...");
@@ -461,8 +611,19 @@ public class main {
         System.out.println("1. Create Teacher from terminal");
         System.out.println("2. Create Teacher from file");
         Scanner sc = new Scanner(System.in);
-        int choice = sc.nextInt();
-        sc.nextLine(); // consume the remaining newline
+        int choice;
+        while (true) {
+            try {
+            choice = Integer.parseInt(sc.nextLine());
+            if (choice == 1 || choice == 2) {
+                break;
+            } else {
+                System.out.println("Invalid choice, please enter 1 or 2.");
+            }
+            } catch (NumberFormatException e) {
+            System.out.println("Invalid input, please enter a valid number.");
+            }
+        }
 
         switch (choice) {
             case 1 -> {
@@ -485,7 +646,19 @@ public class main {
         System.out.println("1. Create Course from terminal");
         System.out.println("2. Create Course from file");
         Scanner sc = new Scanner(System.in);
-        int choice = sc.nextInt();
+        int choice;
+        while (true) {
+            try {
+            choice = Integer.parseInt(sc.nextLine());
+            if (choice == 1 || choice == 2) {
+                break;
+            } else {
+                System.out.println("Invalid choice, please enter 1 or 2.");
+            }
+            } catch (NumberFormatException e) {
+            System.out.println("Invalid input, please enter a valid number.");
+            }
+        }
         sc.nextLine();
         switch (choice) {
             case 1 -> {
@@ -556,6 +729,18 @@ public class main {
         return student;
     }
     
+    public static Tutor checkForSecurityForTutor(Admin admin) {
+        Tutor tutor ;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter your username: ");
+        String username = sc.nextLine();
+        System.out.println("Enter your password: ");
+        String password = sc.nextLine();
+
+        tutor =  admin.checkTutorLogin(username, password);
+        return tutor;
+    }
+
     public static void saveAllChanges(Admin admin, String SchoolPath, String StudentsPath, String TutorPath, String CoursePath, String lessonpath, String quizpath, String QustionsPath , String gradeFilepath) {
         admin.saveSchoolToFile(SchoolPath);
         admin.saveStudentToFile(StudentsPath);

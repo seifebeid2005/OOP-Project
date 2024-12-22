@@ -142,4 +142,14 @@ public class Tutor extends Person {
                 ", YearsOfExperience=" + getYearsOfExperience() +
                 ", CoursesCount=" + courses.size();
     }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Tutor)) return false;
+        Tutor tutor = (Tutor) obj;
+        return super.equals(obj) &&
+                dateJoined.equals(tutor.dateJoined) &&
+                roleEnum == tutor.roleEnum &&
+                schoolID == tutor.schoolID;
+    }
 }

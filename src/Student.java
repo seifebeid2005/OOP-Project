@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Student extends Person {
+public class Student extends Person implements Comparable<Student> {
 
     private final LocalDate registrationDate;
     private int schoolID;
@@ -190,6 +190,7 @@ public class Student extends Person {
     public ArrayList<Grade> getgrade(){
         return marks;
     }
+    
     public void setgrade(Grade grade){
         marks.add(grade);
     }
@@ -362,6 +363,7 @@ public class Student extends Person {
     public String getProgress() {
         return calculateProgress();
     }
+    
     public void setProgress(int progress) {
         this.progress = progress;
     }
@@ -380,4 +382,27 @@ public class Student extends Person {
                 super.toString() + "\n" +
                 "}";
     }
+    @Override
+    //equal
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Student student = (Student) obj;
+        return getId() == student.getId();
+    }
+    
+    @Override
+    public int compareTo(Student other) {
+        int nameComparison = this.getName().compareTo(other.getName());
+        if (nameComparison != 0) {
+            return nameComparison;
+        }
+        return this.getUsername().compareTo(other.getUsername());
+    }
+
+
 }

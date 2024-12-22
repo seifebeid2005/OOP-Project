@@ -89,4 +89,26 @@ public class AchievementManager {
         checkAndAwardTopPerformer(studentID);
         checkAndAwardSubjectMaster(studentID, "Mathematics"); // Example subject
     }
+
+    @Override
+    public String toString() {
+        return "AchievementManager{" +
+                "progress=" + progress +
+                ", uniqueAchievements=" + uniqueAchievements +
+                '}';
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        AchievementManager that = (AchievementManager) obj;
+        return Objects.equals(progress, that.progress) &&
+                Objects.equals(uniqueAchievements, that.uniqueAchievements);
+    }
+
 }

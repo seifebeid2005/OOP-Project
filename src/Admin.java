@@ -5,7 +5,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -13,7 +15,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-public class Admin extends Person {
+public class Admin extends Person implements Comparable<Admin> {
 
     private static Long idCounter = (long) 1.0;
 
@@ -78,6 +80,18 @@ public class Admin extends Person {
         }
         return null;
     }
+   
+    // checkTutorLogin
+    public Tutor checkTutorLogin(String username, String password) {
+        for (School school : schools) {
+            for (Tutor tutor : school.getManage().getTutors()) {
+                if (tutor.getUsername().equals(username) && tutor.getPassword().equals(password)) {
+                    return tutor;
+                }
+            }
+        }
+        return null;
+    }
     //------------------- Tutor Method -------------------
     
     // Add a Tutor to a specific school
@@ -97,53 +111,98 @@ public class Admin extends Person {
         Scanner input = new Scanner(System.in);
 
         System.out.println("Enter Tutor Name: ");
-        String name = input.nextLine();
+        String name;
+        while ((name = input.nextLine().trim()).isEmpty()) {
+            System.out.println("Name cannot be empty. Please enter a valid name:");
+        }
 
         System.out.println("Enter Tutor Email: ");
-        String email = input.nextLine();
+        String email;
+        while (!isValidEmail(email = input.nextLine().trim())) {
+            System.out.println("Invalid email format. Please enter a valid email:");
+        }
 
         System.out.println("Enter Tutor Date of Birth (YYYY-MM-DD): ");
-        LocalDate dateOfBirth = LocalDate.parse(input.nextLine());
+        LocalDate dateOfBirth;
+        while (true) {
+            try {
+                dateOfBirth = LocalDate.parse(input.nextLine().trim());
+                if (dateOfBirth.isAfter(LocalDate.now())) {
+                    System.out.println("Date of Birth cannot be in the future. Please try again:");
+                    continue;
+                }
+                break;
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please enter a valid date (YYYY-MM-DD):");
+            }
+        }
 
         System.out.println("Enter Tutor Phone: ");
-        String phone = input.nextLine();
+        String phone;
+        while (!isValidPhone(phone = input.nextLine().trim())) {
+            System.out.println("Invalid phone number. Please enter a valid phone number:");
+        }
 
         System.out.println("Enter Tutor Address: ");
-        String address = input.nextLine();
+        String address;
+        while ((address = input.nextLine().trim()).isEmpty()) {
+            System.out.println("Address cannot be empty. Please enter a valid address:");
+        }
 
         System.out.println("Enter Tutor Username: ");
-        String username = input.nextLine();
+        String username;
+        while ((username = input.nextLine().trim()).isEmpty()) {
+            System.out.println("Username cannot be empty. Please enter a valid username:");
+        }
 
         System.out.println("Enter Tutor Password: ");
-        String password = input.nextLine();
+        String password;
+        while ((password = input.nextLine().trim()).length() < 6) {
+            System.out.println("Password must be at least 6 characters long. Please enter a valid password:");
+        }
 
         System.out.println("Enter Tutor Role (1: LEAD_TUTOR, 2: ASSISTANT_TUTOR, 3: TUTOR): ");
-        int roleChoice = input.nextInt();
-        input.nextLine(); // Consume newline
+        int roleChoice;
         Tutor.Role roleEnum;
-        switch (roleChoice) {
-            case 1 ->
-                roleEnum = Tutor.Role.LEAD_TUTOR;
-            case 2 ->
-                roleEnum = Tutor.Role.ASSISTANT_TUTOR;
-            case 3 ->
-                roleEnum = Tutor.Role.TUTOR;
-            default -> {
-                System.out.println("Invalid choice. Defaulting to TUTOR.");
-                roleEnum = Tutor.Role.TUTOR;
+        while (true) {
+            try {
+                roleChoice = Integer.parseInt(input.nextLine().trim());
+                switch (roleChoice) {
+                    case 1 -> roleEnum = Tutor.Role.LEAD_TUTOR;
+                    case 2 -> roleEnum = Tutor.Role.ASSISTANT_TUTOR;
+                    case 3 -> roleEnum = Tutor.Role.TUTOR;
+                    default -> throw new IllegalArgumentException();
+                }
+                break;
+            } catch (Exception e) {
+                System.out.println("Invalid choice. Please enter 1, 2, or 3:");
             }
         }
 
         System.out.println("Enter Tutor School ID: ");
-        int schoolID = input.nextInt();
-        input.nextLine(); // Consume newline
+        int schoolID;
+        while (true) {
+            try {
+                schoolID = Integer.parseInt(input.nextLine().trim());
+                if (schoolID <= 0) {
+                    System.out.println("School ID must be a positive number. Please try again:");
+                    continue;
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid School ID:");
+            }
+        }
 
         // Create Tutor object and add to the list
-        Tutor tutor = new Tutor(name, email, dateOfBirth, phone, address, username, password,
-                roleEnum, schoolID);
+        Tutor tutor = new Tutor(name, email, dateOfBirth, phone, address, username, password, roleEnum, schoolID);
         addTutorToSchool(tutor, schoolID);
         System.out.println("Tutor account created successfully!");
+    }
 
+
+    private boolean isValidPhone(String phone) {
+        return phone.matches("\\d{11}|\\+\\d{1,3}\\d{9}");
     }
 
     // Create Tutor from file
@@ -1155,36 +1214,109 @@ public class Admin extends Person {
     }  //------------------- School Method -------------------
     //Create School
     public void createSchool() {
+        
+        String schoolName = "";
+        String address = "";
+        String city = "";
+        String contactPerson = "";
+        String email = "";
+        String phoneNumber = "";
+        String username = "";
+        String password = "";
+
         Scanner input = new Scanner(System.in);
 
+        while (true) {
         System.out.println("Enter School Name: ");
-        String schoolName = input.nextLine();
+        schoolName = input.nextLine().trim();
+        if (schoolName.isEmpty()) {
+            System.out.println("School name cannot be empty. Please enter a valid name.");
+        } else {
+            break;
+        }
+    }
 
-        System.out.println("Enter School Address: ");
-        String address = input.nextLine();
+    // Validate School Address
+        while (true) {
+            System.out.println("Enter School Address: ");
+            address = input.nextLine().trim();
+            if (address.isEmpty()) {
+                System.out.println("Address cannot be empty. Please enter a valid address.");
+            } else {
+                break;
+            }
+        }
 
-        System.out.println("Enter School City: ");
-        String city = input.nextLine();
+        // Validate City
+        while (true) {
+            System.out.println("Enter School City: ");
+            city = input.nextLine().trim();
+            if (city.isEmpty()) {
+                System.out.println("City cannot be empty. Please enter a valid city.");
+            } else {
+                break;
+            }
+       }
 
-        System.out.println("Enter Contact Person: ");
-        String contactPerson = input.nextLine();
+    // Validate Contact Person
+        while (true) {
+            System.out.println("Enter Contact Person: ");
+            contactPerson = input.nextLine().trim();
+            if (contactPerson.isEmpty()) {
+                System.out.println("Contact person cannot be empty. Please enter a valid name.");
+            } else {
+                break;
+            }
+        }
 
-        System.out.println("Enter Contact Email: ");
-        String email = input.nextLine();
+        // Validate Contact Email
+        while (true) {
+            System.out.println("Enter Contact Email: ");
+            email = input.nextLine().trim();
+            if (!isValidEmail(email)) {
+                System.out.println("Invalid email format. Please enter a valid email.");
+            } else {
+                break;
+            }
+        }
 
-        System.out.println("Enter Contact Phone: ");
-        String phoneNumber = input.nextLine();
+        // Validate Contact Phone Number
+        while (true) {
+            System.out.println("Enter Contact Phone: ");
+            phoneNumber = input.nextLine().trim();
+            if (!isValidPhoneNumber(phoneNumber)) {
+                System.out.println("Invalid phone number. Please enter a valid phone number.");
+            } else {
+                break;
+            }
+        }
 
-        System.out.println("Enter School Username: ");
-        String username = input.nextLine();
+    // Validate School Username
+        while (true) {
+            System.out.println("Enter School Username: ");
+            username = input.nextLine().trim();
+            if (username.isEmpty() || username.length() < 3) {
+                System.out.println("Username must be at least 3 characters long. Please enter a valid username.");
+            } else {
+                break;
+            }
+        }
 
-        System.out.println("Enter School Password: ");
-        String password = input.nextLine();
+        // Validate School Password
+        while (true) {
+            System.out.println("Enter School Password: ");
+            password = input.nextLine().trim();
+            if (password.length() < 6) {
+                System.out.println("Password must be at least 6 characters long. Please enter a valid password.");
+            } else {
+                break;
+            }
+        }
 
-        // Create School object and add to the list
-        School school = new School(schoolName, address, city, contactPerson, email, phoneNumber , username , password);
-        addSchool(school);
-        System.out.println("School created successfully!");
+    // Create School object and add to the list
+    School school = new School(schoolName, address, city, contactPerson, email, phoneNumber, username, password);
+    addSchool(school);
+    System.out.println("School created successfully!");
     }
 
     // create School from file
@@ -1968,6 +2100,50 @@ public class Admin extends Person {
         System.out.println("School not found.");
     }
 
+    // Match the student course ID and the tutor course ID to get the students for each school
+    public void matchStudentCourseWithTutorCourse(Long tutorId) {
+        for (School school : schools) {
+            Tutor tutor = school.getManage().findTutorById(tutorId);
+            if (tutor == null) {
+                continue;
+            }
+            
+
+            List<Course> tutorCourses = tutor.getCourses();
+            if (tutorCourses.isEmpty()) {
+                System.out.println("No courses found for tutor ID " + tutorId + " in school ID " + school.getSchoolID());
+                continue;
+            }
+
+            Set<Student> matchedStudents = new HashSet<>();
+            for (Course tutorCourse : tutorCourses) {
+                for (Student student : school.getManage().getStudents()) {
+                    if (student.getCourses().contains(tutorCourse)) {
+                        matchedStudents.add(student);
+                    }
+                }
+            }
+
+            if (matchedStudents.isEmpty()) {
+                System.out.println("No students found for the courses taught by tutor ID " 
+                    + tutorId + " in school ID " + school.getSchoolID());
+            } else {
+                System.out.println("Students for the courses taught by tutor ID " 
+                    + tutorId + " in school ID " + school.getSchoolID() + ":");
+                
+                for (Student student : matchedStudents) {
+                    System.out.println("------------------------------");
+                    System.out.println("Student ID    : " + student.getId());
+                    System.out.println("Name          : " + student.getName());
+                    System.out.println("Email         : " + student.getEmail());
+                    System.out.println("Phone         : " + student.getPhone());
+                    System.out.println("Address       : " + student.getAddress());
+                    System.out.println("------------------------------");
+                }
+            }
+        }
+    }
+
     //...........Admin Class.............
 
     // view how many students are in a school
@@ -2193,112 +2369,6 @@ public class Admin extends Person {
         }
     }
    
-//     public void readLessonAndQuizFromFile(String lessonQuizPath) {
-//     try (BufferedReader lessonQuizReader = new BufferedReader(new FileReader(lessonQuizPath))) {
-//         String line;
-
-//         // List to store the parsed grades
-//         List<Grade> grades = new ArrayList<>();
-
-//         int lessonId = 0;
-//         int marks = 0;
-//         int quizId = -1;  // Start with -1 to indicate that quiz ID is missing or invalid
-//         long studentId = 0;
-
-//         while ((line = lessonQuizReader.readLine()) != null) {
-//             line = line.trim();
-
-//             // Debugging: Print each line as it is read
-//             System.out.println("Read line: '" + line + "'");
-
-//             // Skip blank lines
-//             if (line.isEmpty()) {
-//                 // Process the data if a full grade entry is complete
-//                 if (lessonId != 0 && marks != 0 && quizId != -1 && studentId != 0) {
-//                     // Add the grade to the list if all data is valid
-//                     Grade grade = new Grade(lessonId, marks, quizId, studentId);
-//                     grades.add(grade);
-
-//                     // Reset the values for the next grade entry
-//                     lessonId = 0;
-//                     marks = 0;
-//                     quizId = -1;
-//                     studentId = 0;
-//                 }
-//                 continue;  // Skip blank lines
-//             }
-
-//             // Check and parse each part based on the line content
-//             if (line.startsWith("Lesson ID: ") && line.length() > 11) {
-//                 lessonId = Integer.parseInt(line.substring(11).trim());
-//             } else if (line.startsWith("Marks: ") && line.length() > 7) {
-//                 marks = Integer.parseInt(line.substring(7).trim());
-//             } else if (line.startsWith("Quiz ID: ") && line.length() > 10) {
-//                 String quizIdStr = line.substring(10).trim();
-//                 try {
-//                     quizId = Integer.parseInt(quizIdStr);
-//                 } catch (NumberFormatException e) {
-//                     System.out.println("Invalid quiz ID format: '" + quizIdStr + "'");
-//                     quizId = -1;  // Mark as invalid if not parsable
-//                 }
-//             } else if (line.startsWith("Student ID: ") && line.length() > 12) {
-//                 studentId = Long.parseLong(line.substring(12).trim());
-//             }
-//         }
-
-//         // Handle the last grade entry if the file doesn't end with a blank line
-//         if (lessonId != 0 && marks != 0 && quizId != -1 && studentId != 0) {
-//             // Add the grade to the list if all data is valid
-//             Grade grade = new Grade(lessonId, marks, quizId, studentId);
-//             grades.add(grade);
-//         } else {
-//             System.out.println("Incomplete grade entry found at the end of the file.");
-//             System.out.println("Lesson ID: " + lessonId + ", Marks: " + marks + ", Quiz ID: " + quizId + ", Student ID: " + studentId);
-//         }
-
-//         // Optionally, update the students or school system with these grades
-//         // For now, the grades are just stored in the list
-//         System.out.println("Grades read successfully:");
-//         for (Grade grade : grades) {
-//             System.out.println(grade); // Assuming Grade has a toString method
-//         }
-
-//     } catch (IOException e) {
-//         System.out.println("Error reading the file: " + e.getMessage());
-//     } catch (NumberFormatException e) {
-//         System.out.println("Error parsing a number: " + e.getMessage());
-//     }
-// }
-
-//     public void saveLessonAndQuizToFile(String lessonQuizPath) {
-//     try (BufferedWriter lessonQuizWriter = new BufferedWriter(new FileWriter(lessonQuizPath, true))) { // 'true' to append
-
-//         for (School school : schools) {
-//             for (Student student : school.getManage().getStudents()) {
-//                 List<Grade> grades = student.getgrade();
-
-//                 // Check if grades are available
-//                 if (grades != null && !grades.isEmpty()) {
-//                     for (Grade grade : grades) {
-//                         // Write each piece of data on a new line
-//                         lessonQuizWriter.write("Lesson ID: " + grade.getLessonId());
-//                         lessonQuizWriter.newLine(); // Move to the next line for the next piece of data
-//                         lessonQuizWriter.write("Marks: " + grade.getMarks());
-//                         lessonQuizWriter.newLine(); // Move to the next line for the next piece of data
-//                         lessonQuizWriter.write("Quiz ID: " + grade.getQuizId());
-//                         lessonQuizWriter.newLine(); // Move to the next line for the next piece of data
-//                         lessonQuizWriter.write("Student ID: " + grade.getStudentid());
-//                         lessonQuizWriter.newLine(); // Move to the next line for the next piece of data
-//                         lessonQuizWriter.newLine(); // Blank line after each grade entry for readability
-//                     }
-//                 }
-//             }
-//         }
-
-//     } catch (IOException e) {
-//         System.out.println("Error writing to file: " + e.getMessage());
-//     }
-// }
 
    // Save student progress to progress file
     public void saveStudentProgressToFile(String progressFilePath) {
@@ -2507,6 +2577,102 @@ public class Admin extends Person {
                 + ", ID = " + getId()
                 + ", DateAdded = " + getDateAdded()
                 + " }";
+    }
+
+    // interface comparible to see the same studnt names and the same stuidents username 
+
+    @Override
+    public int compareTo(Admin other) {
+        int nameComparison = this.getName().compareTo(other.getName());
+        if (nameComparison != 0) {
+            return nameComparison;
+        }
+        return this.getUsername().compareTo(other.getUsername());
+    }
+
+    // print the both student id for the same student name and the same student username
+    public void printSameStudentNamesAndUsernamesOrGrades() {
+        List<Student> students = new ArrayList<>();
+        
+        // Collect all students into a single list
+        for (School school : schools) {
+            students.addAll(school.getManage().getStudents());
+        }
+
+        // Find and print students with the same name
+        System.out.println("Students with the same name:");
+        findAndPrintDuplicates(students, "name");
+
+        // Find and print students with the same username
+        System.out.println("\nStudents with the same username:");
+        findAndPrintDuplicates(students, "username");
+
+        // Find and print students with the same grade
+        System.out.println("\nStudents with the same grade:");
+        findAndPrintDuplicates(students, "grade");
+    }
+
+    private void findAndPrintDuplicates(List<Student> students, String attribute) {
+        List<List<Student>> duplicateGroups = new ArrayList<>();
+        boolean[] visited = new boolean[students.size()]; // Track visited students
+
+        for (int i = 0; i < students.size(); i++) {
+            if (visited[i]) continue;
+
+            List<Student> group = new ArrayList<>();
+            Student current = students.get(i);
+            group.add(current);
+            visited[i] = true;
+
+            for (int j = i + 1; j < students.size(); j++) {
+                if (visited[j]) continue;
+
+                Student other = students.get(j);
+
+                boolean isDuplicate = false;
+                switch (attribute) {
+                    case "name":
+                        isDuplicate = current.getName().equals(other.getName());
+                        break;
+                    case "username":
+                        isDuplicate = current.getUsername().equals(other.getUsername());
+                        break;
+                    case "grade":
+                        for (Grade grade1 : current.getgrade()) {
+                            for (Grade grade2 : other.getgrade()) {
+                                if (grade1.getMarks() == grade2.getMarks()) {
+                                    isDuplicate = true;
+                                    break;
+                                }
+                            }
+                            if (isDuplicate) break;
+                        }
+                        break;
+                }
+
+                if (isDuplicate) {
+                    group.add(other);
+                    visited[j] = true;
+                }
+            }
+
+            if (group.size() > 1) {
+                duplicateGroups.add(group);
+            }
+        }
+
+        // Print the duplicate groups
+        if (duplicateGroups.isEmpty()) {
+            System.out.println("No duplicates found.");
+        } else {
+            for (List<Student> group : duplicateGroups) {
+                System.out.println("Group:");
+                for (Student student : group) {
+                    System.out.println("    ID: " + student.getId() + ", Name: " + student.getName() +
+                                    ", Username: " + student.getUsername());
+                }
+            }
+        }
     }
 
 }

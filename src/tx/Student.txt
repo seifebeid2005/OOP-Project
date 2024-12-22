@@ -16,6 +16,24 @@ password : password6
 dateOfBirth : 2000-01-06
 schoolID : 1
 
+name : s
+email : sss@gmailc.com
+phone : 0114695554
+address : ssadfghj'
+username : fghjkl'g
+password : ghjkl
+dateOfBirth : 2005-09-09
+schoolID : 1
+
+name : ss
+email : sei@gmail.com
+phone : 1234567890
+address : sdfghjk
+username : fghjk
+password : ghjkl
+dateOfBirth : 2005-09-09
+schoolID : 1
+
 name : Jane Smith
 email : janesmith@example.com
 phone : 1234567891
