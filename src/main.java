@@ -22,6 +22,7 @@ public class main {
         String StdWithCoursePath = "tx/StudentWithCourse.txt";
         String tutorwithcoursePath = "tx/tutorAssign.txt";
         String gradeFilepath = "tx/Grade.txt";
+        String ProgressPath = "tx/Progress.txt";
         admin.createSchoolFromFile(SchoolPath);
         admin.createStudentFromFile(StudentsPath);
         admin.createTutorFromFile(TutorPath);
@@ -32,6 +33,7 @@ public class main {
         admin.assignCourseToStudentFromFile(StdWithCoursePath);
         admin.assignTutortocourse(tutorwithcoursePath);
         admin.readLessonAndQuizFromFile(gradeFilepath);
+        admin.readStudentProgressFromFile(ProgressPath);
 
         //check username and pass for security
         int trials = 0;
@@ -74,8 +76,8 @@ public class main {
                             System.out.println("No schools available. Please contact the admin to create a school.");
                         } else {
                             Student Student = checkForSecurityForStudent(admin);
-                            if (Student.getId() != 0) {
-                                StudentFunctions(admin, Student);
+                            if (Student != null) {
+                                StudentFunctions(admin, Student,ProgressPath);
                             } else {
                                 trials++;
                                 System.out.println("Invalid username or password, please try again.");
@@ -284,7 +286,7 @@ public class main {
     }
     
     // Function for Student actions
-    public static void StudentFunctions(Admin admin, Student student) {
+    public static void StudentFunctions(Admin admin, Student student, String ProgressPath) {
          Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -322,10 +324,17 @@ public class main {
                 break;
             case 4:
                 // See my Quizzes to solve
-                student.startQuiz();
+                Progress progress = new Progress(); // Assuming you have a Progress class and a default constructor
+                AchievementManager achievementManager = new AchievementManager(progress);
+                student.startQuiz(achievementManager);
                 break;
             case 5:
                 // See my Grades
+                ArrayList<Student> studentsList = new ArrayList<>();
+                for(School school : admin.getSchools()){
+                    studentsList.addAll(school.getManage().getStudents());
+                }
+                saveStudentDetailsToFile(ProgressPath, studentsList);
                 student.viewQuizResult();
                 break;
             case 6:
@@ -351,6 +360,7 @@ public class main {
           
             case 8:
                 // Exit
+                
                 student.logout();
                 System.out.println("Exiting...");
                 return;
@@ -554,5 +564,26 @@ public class main {
         admin.saveLessonAndQuizToFile(gradeFilepath);
     }
 
+    // Save student details to file
+    public static void saveStudentDetailsToFile(String filePath, ArrayList<Student> students) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+            for (Student student : students) {
+                writer.println(student);
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving to file: " + e.getMessage());
+        }
+    }
+
+    // Save the changes that the school made to the file
+    public static void saveSchoolChangesToFile(String filePath, ArrayList<School> schools) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+            for (School school : schools) {
+                writer.println(school);
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving to file: " + e.getMessage());
+        }
+    }
 }
 

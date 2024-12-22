@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -2192,113 +2193,309 @@ public class Admin extends Person {
         }
     }
    
-    public void readLessonAndQuizFromFile(String lessonQuizPath) {
-    try (BufferedReader lessonQuizReader = new BufferedReader(new FileReader(lessonQuizPath))) {
-        String line;
+//     public void readLessonAndQuizFromFile(String lessonQuizPath) {
+//     try (BufferedReader lessonQuizReader = new BufferedReader(new FileReader(lessonQuizPath))) {
+//         String line;
 
-        // List to store the parsed grades
-        List<Grade> grades = new ArrayList<>();
+//         // List to store the parsed grades
+//         List<Grade> grades = new ArrayList<>();
 
-        int lessonId = 0;
-        int marks = 0;
-        int quizId = -1;  // Start with -1 to indicate that quiz ID is missing or invalid
-        long studentId = 0;
+//         int lessonId = 0;
+//         int marks = 0;
+//         int quizId = -1;  // Start with -1 to indicate that quiz ID is missing or invalid
+//         long studentId = 0;
 
-        while ((line = lessonQuizReader.readLine()) != null) {
-            line = line.trim();
+//         while ((line = lessonQuizReader.readLine()) != null) {
+//             line = line.trim();
 
-            // Debugging: Print each line as it is read
-            System.out.println("Read line: '" + line + "'");
+//             // Debugging: Print each line as it is read
+//             System.out.println("Read line: '" + line + "'");
 
-            // Skip blank lines
-            if (line.isEmpty()) {
-                // Process the data if a full grade entry is complete
-                if (lessonId != 0 && marks != 0 && quizId != -1 && studentId != 0) {
-                    // Add the grade to the list if all data is valid
-                    Grade grade = new Grade(lessonId, marks, quizId, studentId);
-                    grades.add(grade);
+//             // Skip blank lines
+//             if (line.isEmpty()) {
+//                 // Process the data if a full grade entry is complete
+//                 if (lessonId != 0 && marks != 0 && quizId != -1 && studentId != 0) {
+//                     // Add the grade to the list if all data is valid
+//                     Grade grade = new Grade(lessonId, marks, quizId, studentId);
+//                     grades.add(grade);
 
-                    // Reset the values for the next grade entry
-                    lessonId = 0;
-                    marks = 0;
-                    quizId = -1;
-                    studentId = 0;
+//                     // Reset the values for the next grade entry
+//                     lessonId = 0;
+//                     marks = 0;
+//                     quizId = -1;
+//                     studentId = 0;
+//                 }
+//                 continue;  // Skip blank lines
+//             }
+
+//             // Check and parse each part based on the line content
+//             if (line.startsWith("Lesson ID: ") && line.length() > 11) {
+//                 lessonId = Integer.parseInt(line.substring(11).trim());
+//             } else if (line.startsWith("Marks: ") && line.length() > 7) {
+//                 marks = Integer.parseInt(line.substring(7).trim());
+//             } else if (line.startsWith("Quiz ID: ") && line.length() > 10) {
+//                 String quizIdStr = line.substring(10).trim();
+//                 try {
+//                     quizId = Integer.parseInt(quizIdStr);
+//                 } catch (NumberFormatException e) {
+//                     System.out.println("Invalid quiz ID format: '" + quizIdStr + "'");
+//                     quizId = -1;  // Mark as invalid if not parsable
+//                 }
+//             } else if (line.startsWith("Student ID: ") && line.length() > 12) {
+//                 studentId = Long.parseLong(line.substring(12).trim());
+//             }
+//         }
+
+//         // Handle the last grade entry if the file doesn't end with a blank line
+//         if (lessonId != 0 && marks != 0 && quizId != -1 && studentId != 0) {
+//             // Add the grade to the list if all data is valid
+//             Grade grade = new Grade(lessonId, marks, quizId, studentId);
+//             grades.add(grade);
+//         } else {
+//             System.out.println("Incomplete grade entry found at the end of the file.");
+//             System.out.println("Lesson ID: " + lessonId + ", Marks: " + marks + ", Quiz ID: " + quizId + ", Student ID: " + studentId);
+//         }
+
+//         // Optionally, update the students or school system with these grades
+//         // For now, the grades are just stored in the list
+//         System.out.println("Grades read successfully:");
+//         for (Grade grade : grades) {
+//             System.out.println(grade); // Assuming Grade has a toString method
+//         }
+
+//     } catch (IOException e) {
+//         System.out.println("Error reading the file: " + e.getMessage());
+//     } catch (NumberFormatException e) {
+//         System.out.println("Error parsing a number: " + e.getMessage());
+//     }
+// }
+
+//     public void saveLessonAndQuizToFile(String lessonQuizPath) {
+//     try (BufferedWriter lessonQuizWriter = new BufferedWriter(new FileWriter(lessonQuizPath, true))) { // 'true' to append
+
+//         for (School school : schools) {
+//             for (Student student : school.getManage().getStudents()) {
+//                 List<Grade> grades = student.getgrade();
+
+//                 // Check if grades are available
+//                 if (grades != null && !grades.isEmpty()) {
+//                     for (Grade grade : grades) {
+//                         // Write each piece of data on a new line
+//                         lessonQuizWriter.write("Lesson ID: " + grade.getLessonId());
+//                         lessonQuizWriter.newLine(); // Move to the next line for the next piece of data
+//                         lessonQuizWriter.write("Marks: " + grade.getMarks());
+//                         lessonQuizWriter.newLine(); // Move to the next line for the next piece of data
+//                         lessonQuizWriter.write("Quiz ID: " + grade.getQuizId());
+//                         lessonQuizWriter.newLine(); // Move to the next line for the next piece of data
+//                         lessonQuizWriter.write("Student ID: " + grade.getStudentid());
+//                         lessonQuizWriter.newLine(); // Move to the next line for the next piece of data
+//                         lessonQuizWriter.newLine(); // Blank line after each grade entry for readability
+//                     }
+//                 }
+//             }
+//         }
+
+//     } catch (IOException e) {
+//         System.out.println("Error writing to file: " + e.getMessage());
+//     }
+// }
+
+   // Save student progress to progress file
+    public void saveStudentProgressToFile(String progressFilePath) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(progressFilePath))) {
+            for (School school : schools) {
+                for (Student student : school.getManage().getStudents()) {
+                    bw.write("Student ID: " + student.getId());
+                    bw.newLine();
+                    bw.write("Student Name: " + student.getName());
+                    bw.newLine();
+                    bw.write("School ID: " + student.getSchoolID());
+                    bw.newLine();
+                    bw.write("Progress: " + student.getProgress());
+                    bw.newLine();
+                    bw.newLine();
                 }
-                continue;  // Skip blank lines
             }
-
-            // Check and parse each part based on the line content
-            if (line.startsWith("Lesson ID: ") && line.length() > 11) {
-                lessonId = Integer.parseInt(line.substring(11).trim());
-            } else if (line.startsWith("Marks: ") && line.length() > 7) {
-                marks = Integer.parseInt(line.substring(7).trim());
-            } else if (line.startsWith("Quiz ID: ") && line.length() > 10) {
-                String quizIdStr = line.substring(10).trim();
-                try {
-                    quizId = Integer.parseInt(quizIdStr);
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid quiz ID format: '" + quizIdStr + "'");
-                    quizId = -1;  // Mark as invalid if not parsable
-                }
-            } else if (line.startsWith("Student ID: ") && line.length() > 12) {
-                studentId = Long.parseLong(line.substring(12).trim());
-            }
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
         }
-
-        // Handle the last grade entry if the file doesn't end with a blank line
-        if (lessonId != 0 && marks != 0 && quizId != -1 && studentId != 0) {
-            // Add the grade to the list if all data is valid
-            Grade grade = new Grade(lessonId, marks, quizId, studentId);
-            grades.add(grade);
-        } else {
-            System.out.println("Incomplete grade entry found at the end of the file.");
-            System.out.println("Lesson ID: " + lessonId + ", Marks: " + marks + ", Quiz ID: " + quizId + ", Student ID: " + studentId);
-        }
-
-        // Optionally, update the students or school system with these grades
-        // For now, the grades are just stored in the list
-        System.out.println("Grades read successfully:");
-        for (Grade grade : grades) {
-            System.out.println(grade); // Assuming Grade has a toString method
-        }
-
-    } catch (IOException e) {
-        System.out.println("Error reading the file: " + e.getMessage());
-    } catch (NumberFormatException e) {
-        System.out.println("Error parsing a number: " + e.getMessage());
     }
-}
 
-    public void saveLessonAndQuizToFile(String lessonQuizPath) {
-    try (BufferedWriter lessonQuizWriter = new BufferedWriter(new FileWriter(lessonQuizPath, true))) { // 'true' to append
+    // Read student progress from progress file
+    public void readStudentProgressFromFile(String progressFilePath) {
+        try (BufferedReader br = new BufferedReader(new FileReader(progressFilePath))) {
+            String line;
+            long studentId = 0;
+            String studentName = "";
+            int schoolId = 0;
+            int progress = 0;
 
-        for (School school : schools) {
-            for (Student student : school.getManage().getStudents()) {
-                List<Grade> grades = student.getgrade();
+            while ((line = br.readLine()) != null) {
+                line = line.trim();  // Remove leading and trailing whitespace
 
-                // Check if grades are available
-                if (grades != null && !grades.isEmpty()) {
-                    for (Grade grade : grades) {
-                        // Write each piece of data on a new line
-                        lessonQuizWriter.write("Lesson ID: " + grade.getLessonId());
-                        lessonQuizWriter.newLine(); // Move to the next line for the next piece of data
-                        lessonQuizWriter.write("Marks: " + grade.getMarks());
-                        lessonQuizWriter.newLine(); // Move to the next line for the next piece of data
-                        lessonQuizWriter.write("Quiz ID: " + grade.getQuizId());
-                        lessonQuizWriter.newLine(); // Move to the next line for the next piece of data
-                        lessonQuizWriter.write("Student ID: " + grade.getStudentid());
-                        lessonQuizWriter.newLine(); // Move to the next line for the next piece of data
-                        lessonQuizWriter.newLine(); // Blank line after each grade entry for readability
+                if (line.isEmpty()) {
+                    // Process the collected data
+                    if (studentId != 0 && !studentName.isEmpty() && schoolId != 0) {
+                        // Update the student progress
+                        for (School school : schools) {
+                            if (school.getSchoolID() == schoolId) {
+                                Student student = school.getManage().findStudentById(studentId);
+                                if (student != null) {
+                                    student.setProgress(progress);
+                                    System.out.println("Progress updated for student ID " + studentId + " in school ID " + schoolId);
+                                } else {
+                                    System.out.println("Student with ID " + studentId + " not found in school ID " + schoolId);
+                                }
+                                break;
+                            }
+                        }
+                    } else {
+                        System.out.println("Skipping invalid or incomplete student progress entry.");
+                    }
+
+                    // Reset variables for the next student progress entry
+                    studentId = 0;
+                    studentName = "";
+                    schoolId = 0;
+                    progress = 0;
+                } else if (line.startsWith("Student ID: ")) {
+                    studentId = Long.parseLong(line.substring(12).trim());
+                } else if (line.startsWith("Student Name: ")) {
+                    studentName = line.substring(14).trim();
+                } else if (line.startsWith("School ID: ")) {
+                    schoolId = Integer.parseInt(line.substring(11).trim());
+                } else if (line.startsWith("Progress: ")) {
+                    progress = Integer.parseInt(line.substring(10).trim());
+                }
+            }
+
+            // Process the last student progress entry if file doesn't end with a blank line
+            if (studentId != 0 && !studentName.isEmpty() && schoolId != 0) {
+                // Update the student progress
+                for (School school : schools) {
+                    if (school.getSchoolID() == schoolId) {
+                        Student student = school.getManage().findStudentById(studentId);
+                        if (student != null) {
+                            student.setProgress(progress);
+                            System.out.println("Progress updated for student ID " + studentId + " in school ID " + schoolId);
+                        } else {
+                            System.out.println("Student with ID " + studentId + " not found in school ID " + schoolId);
+                        }
+                        break;
                     }
                 }
             }
+        } catch (Exception e) {
+            System.out.println("Error reading file: " + e.getMessage());
+            e.printStackTrace();
         }
-
-    } catch (IOException e) {
-        System.out.println("Error writing to file: " + e.getMessage());
     }
-}
 
+    public void saveLessonAndQuizToFile(String lessonQuizPath) {
+        try {
+            // Step 1: Read existing entries into a set
+            Set<String> existingEntries = new HashSet<>();
+            try (BufferedReader reader = new BufferedReader(new FileReader(lessonQuizPath))) {
+                StringBuilder entry = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    line = line.trim();
+                    if (line.isEmpty()) {
+                        existingEntries.add(entry.toString().trim());
+                        entry.setLength(0); // Reset for the next entry
+                    } else {
+                        entry.append(line).append("\n");
+                    }
+                }
+                if (entry.length() > 0) {
+                    existingEntries.add(entry.toString().trim());
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found. A new one will be created.");
+            }
+
+            // Step 2: Write new entries
+            try (BufferedWriter lessonQuizWriter = new BufferedWriter(new FileWriter(lessonQuizPath, true))) {
+                for (School school : schools) {
+                    for (Student student : school.getManage().getStudents()) {
+                        List<Grade> grades = student.getgrade();
+                        if (grades != null && !grades.isEmpty()) {
+                            for (Grade grade : grades) {
+                                String newEntry = String.format(
+                                        "lessonId : %d\nmarks : %d\nquizId : %d\nstudentId : %d\n",
+                                        grade.getLessonId(),
+                                        grade.getMarks(),
+                                        grade.getQuizId(),
+                                        grade.getStudentid()
+                                );
+
+                                if (!existingEntries.contains(newEntry.trim())) {
+                                    existingEntries.add(newEntry.trim());
+                                    lessonQuizWriter.write(newEntry);
+                                    lessonQuizWriter.newLine();
+                                    System.out.println("Grade added for Student ID: " + grade.getStudentid());
+                                } else {
+                                    System.out.println("Duplicate grade found for Student ID: " + grade.getStudentid() + ". Skipping.");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+    public void readLessonAndQuizFromFile(String filePath) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            int lessonId = 0, marks = 0, quizId = 0;
+            long studentId = 0;
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                line = line.trim(); // Remove leading and trailing whitespace
+                if (line.isEmpty()) {
+                    // Process the parsed data
+                    boolean studentFound = false; // Track if a student is found
+                    for (School school : schools) {
+                        for (Student student : school.getManage().getStudents()) {
+                            if (student.getId() == studentId) {
+                                student.setgrade(new Grade(lessonId, marks, quizId, studentId));
+                                System.out.println("Grade added successfully for student ID " + studentId);
+                                studentFound = true;
+                                break; // Exit student loop after adding grade
+                            }
+                        }
+                        if (studentFound) {
+                            break; // Exit school loop if student is found
+
+                                            }}
+                    if (!studentFound) {
+                        System.out.println("Student with ID " + studentId + " not found.");
+                    }
+                    // Reset variables for the next grade entry
+                    lessonId = 0;
+                    marks = 0;
+                    quizId = 0;
+                    studentId = 0;
+                } else if (line.startsWith("lessonId : ")) {
+                    lessonId = Integer.parseInt(line.substring(11).trim());
+                } else if (line.startsWith("marks : ")) {
+                    marks = Integer.parseInt(line.substring(7).trim());
+                } else if (line.startsWith("quizId : ")) {
+                    quizId = Integer.parseInt(line.substring(8).trim());
+                } else if (line.startsWith("studentId : ")) {
+                    studentId = Long.parseLong(line.substring(11).trim());
+                } else {
+                    System.out.println("Unexpected line format: " + line);
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
 
     @Override
     public String toString() {

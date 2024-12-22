@@ -1,5 +1,7 @@
+import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Student extends Person {
@@ -9,6 +11,7 @@ public class Student extends Person {
     private static long lastGeneratedID = 1; // Change from Long to long
     private ArrayList<Grade> marks;
     private ArrayList<Course> courses;
+    private int progress; // Declare the progress variable
 
     // Default constructor
     public Student() {
@@ -192,7 +195,7 @@ public class Student extends Person {
     }
 
     // Start quiz
-    public void startQuiz() {
+    public void startQuiz(AchievementManager achievementManager) {
         if (courses.isEmpty()) {
             System.out.println("No courses available.");
             return;
@@ -238,8 +241,11 @@ public class Student extends Person {
             System.out.println("No quiz available for this lesson.");
             return;
         }
+
         for (Grade grade : marks) {
-            if (grade.getLessonId() == selectedLesson.getLessonId() && grade.getQuizId() == quiz.getQuiz_id() && grade.getStudentid() == getId()) {
+            if (grade.getLessonId() == selectedLesson.getLessonId()
+                    && grade.getQuizId() == quiz.getQuiz_id()
+                    && grade.getStudentid() == getId()) {
                 System.out.println("You have already attempted this quiz.");
                 return;
             }
@@ -253,13 +259,113 @@ public class Student extends Person {
             System.out.println("Starting quiz: " + quiz.getQuiz_title());
             int mark = quiz.answerQuestions();
             if (mark != 0) {
-                marks.add(new Grade(selectedLesson.getLessonId(), mark ,  quiz.getQuiz_id(), getId()));
+                marks.add(new Grade(selectedLesson.getLessonId(), mark, quiz.getQuiz_id(), getId()));
+                System.out.println("You scored " + mark + " on this quiz.");
+
+                // Calculate and display progress
+                updateCourseProgress(selectedCourse);
+
+                // Award achievements
+                achievementManager.awardAllAchievements(getId());
             }
         } else {
             System.out.println("Quiz not started.");
         }
     }
 
+// Method to calculate and update course progress
+    private void updateCourseProgress(Course selectedCourse) {
+        int totalQuizzes = selectedCourse.getLessons().size(); // Each lesson has one quiz
+        int completedQuizzes = 0;
+
+        for (Lesson lesson : selectedCourse.getLessons()) {
+            Quiz quiz = lesson.getQuiz();
+            if (quiz != null) {
+                for (Grade grade : marks) {
+                    if (grade.getLessonId() == lesson.getLessonId()
+                            && grade.getQuizId() == quiz.getQuiz_id()
+                            && grade.getStudentid() == getId()) {
+                        completedQuizzes++;
+                        break;
+                    }
+                }
+            }
+        }
+
+        double progressPercentage = (double) completedQuizzes / totalQuizzes * 100;
+        System.out.printf("Your progress in the course '%s' is %.2f%% (%d/%d quizzes completed).\n",
+                selectedCourse.getCourseName(), progressPercentage, completedQuizzes, totalQuizzes);
+    }
+
+    public void saveProgressInFile() {
+        File file = new File("progress.txt");
+        List<String> lines = new ArrayList<>();
+        boolean studentFound = false;
+
+        // Read existing progress data
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",", 2);
+                if (parts.length == 2 && Long.parseLong(parts[0]) == getId()) {
+                    // Update progress for the current student
+                    line = getId() + "," + calculateProgress();
+                    studentFound = true;
+                }
+                lines.add(line);
+            }
+        } catch (FileNotFoundException e) {
+            // File doesn't exist yet; it will be created
+        } catch (IOException e) {
+            System.err.println("Error reading progress file: " + e.getMessage());
+            return;
+        }
+
+        // If student ID was not found, add a new entry
+        if (!studentFound) {
+            lines.add(getId() + "," + calculateProgress());
+        }
+
+        // Write updated progress data back to the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+            System.out.println("Progress saved successfully.");
+        } catch (IOException e) {
+            System.err.println("Error writing to progress file: " + e.getMessage());
+        }
+    }
+
+
+    private String calculateProgress() {
+        int totalQuizzes = 0;
+        int completedQuizzes = 0;
+
+        for (Course course : courses) {
+            for (Lesson lesson : course.getLessons()) {
+                totalQuizzes++;
+                for (Grade grade : marks) {
+                    if (grade.getLessonId() == lesson.getLessonId() && grade.getMarks() >= 5) {
+                        completedQuizzes++;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return totalQuizzes == 0 ? "0" : String.valueOf((completedQuizzes * 100) / totalQuizzes);
+    }
+
+    // get progress 
+    public String getProgress() {
+        return calculateProgress();
+    }
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+    
     @Override
     public String toString() {
         String courseList = courses.isEmpty() ? "No courses enrolled" : courses.toString();

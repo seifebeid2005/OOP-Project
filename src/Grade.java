@@ -8,7 +8,7 @@ public class Grade {
     private int lessonId;
     private int marks;
     private int quizId;
-    private static final int MAX_MARKS = 2; // Assume each quiz is out of 100 marks
+    private static final int MAX_MARKS = 10; // Assume each quiz is out of 100 marks
     private long Studentid;
 
     // Constructor

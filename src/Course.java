@@ -287,6 +287,16 @@ public class Course {
         return null;
     }
 
+    public int getCompletedLessonsCount() {
+        int completedLessons = 0;
+        for (Lesson lesson : lessons) {
+            if (lesson.isCompleted()) {
+                completedLessons++;
+            }
+        }
+        return completedLessons;
+    }
+
     // Display course info
     @Override
     public String toString() {

@@ -1,10 +1,5 @@
-Lesson ID: 1
-Marks: 6
-Quiz ID: 1
-Student ID: 1
-
-Lesson ID: 1
-Marks: 6
-Quiz ID: 1
-Student ID: 1
+lessonId : 1
+marks : 6
+quizId : 1
+studentId : 1
 
