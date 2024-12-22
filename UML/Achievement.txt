@@ -19,3 +19,6 @@ Achievement
   + topPerformer(): Achievement (static)
   + toString(): String
   + equals(Object): boolean
+
+  Achievement "1" -- "0..*" User : awardedTo
+  User "0..*" -- "1" Achievement : earns

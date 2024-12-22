@@ -36,3 +36,8 @@ Student
   + String toString()
   + boolean equals(Object)
   + int compareTo(Student)
+
+  Relationship Table
+    Student "1" -- "0..*" Grade
+    Student "1" -- "0..*" Course
+    Student "1" -- "0..*" Achievement

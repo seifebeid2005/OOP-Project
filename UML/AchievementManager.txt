@@ -14,3 +14,7 @@ AchievementManager
   + getAllAchievements(): List<Achievement>
   + toString(): String
   + equals(Object): boolean
+
+  AchievementManager "1" *-- "1" Progress
+  AchievementManager "1" *-- "many" Achievement
+  AchievementManager "1" *-- "many" Student

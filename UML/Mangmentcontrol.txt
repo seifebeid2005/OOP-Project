@@ -43,3 +43,12 @@ Class ManagementControl
 + sortTutorsByJoiningDate(): void
 + viewStudentDetails(studentId: long): void
 + findCourseByName(courseName: String): Course
+
+Relationships
+-------------
+ManagementControl "1" --> "*" Tutor
+ManagementControl "1" --> "*" Student
+ManagementControl "1" --> "*" Course
+ManagementControl "1" --> "*" Lesson
+ManagementControl "1" --> "*" Quiz
+ManagementControl "1" --> "*" Question

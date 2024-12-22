@@ -18,3 +18,10 @@
 | + displayAllAchievements():   |
 |   void                        |
 ---------------------------------
+
+---------------------------------
+|        Relationships          |
+---------------------------------
+| UserAchievement 1..* -------- 1 Achievement |
+| UserAchievement * -------- 1 Student        |
+---------------------------------

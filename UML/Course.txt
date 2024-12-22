@@ -38,3 +38,9 @@
     + int getCompletedLessonsCount()
     + String toString()
     + void viewStudents()
+
++ ArrayList<Student> students
++ void addStudent(Student student)
++ void removeStudent(long studentId)
++ Student findStudentById(long studentId)
++ ArrayList<Student> getStudents()

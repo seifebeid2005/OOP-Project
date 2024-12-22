@@ -94,3 +94,18 @@
 | + readLessonAndQuizFromFile(filePath: String): void |
 | + printSameStudentNamesAndUsernamesOrGrades(): void |
 +-------------------------------------+
+
++-------------------------------------+
+|            Relationships            |
++-------------------------------------+
+| - Admin "1" <--> "0..*" School      |
+| - Admin "1" <--> "0..*" Tutor       |
+| - Admin "1" <--> "0..*" Student     |
+| - School "1" <--> "0..*" Tutor      |
+| - School "1" <--> "0..*" Student    |
+| - Tutor "1" <--> "0..*" Course      |
+| - Student "1" <--> "0..*" Course    |
+| - Course "1" <--> "0..*" Lesson     |
+| - Course "1" <--> "0..*" Quiz       |
+| - Lesson "1" <--> "0..*" Quiz       |
++-------------------------------------+

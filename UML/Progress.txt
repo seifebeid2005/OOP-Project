@@ -18,3 +18,7 @@
  - findCourseById(long courseId): Finds a course by its ID.
  - getOverallProgressLevel(): Returns the overall progress level as a string.
  
+
+ Relationships:
+ - Progress "1" --- "0..*" Course: A progress can have zero or more courses.
+ - Course "1" --- "0..*" Lesson: A course can have zero or more lessons.
