@@ -46,20 +46,4 @@
  | + toString(): String          |
  +-------------------------------+
 
- +-------------------------------+
- |         Relationships         |
- +-------------------------------+
- | - friends: List<Person>       |
- | - colleagues: List<Person>    |
- | - family: List<Person>        |
- +-------------------------------+
- | + addFriend(Person): void     |
- | + removeFriend(Person): void  |
- | + addColleague(Person): void  |
- | + removeColleague(Person): void|
- | + addFamilyMember(Person): void|
- | + removeFamilyMember(Person): void|
- | + getFriends(): List<Person>  |
- | + getColleagues(): List<Person>|
- | + getFamily(): List<Person>   |
- +-------------------------------+
+
