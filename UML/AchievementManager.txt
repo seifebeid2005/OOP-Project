@@ -1,0 +1,16 @@
+AchievementManager
+  - progress: Progress
+  - uniqueAchievements: List<Achievement>
+  
+  + AchievementManager(Progress)
+  + addAchievement(Achievement): void
+  - isAchievementUnique(Achievement): boolean
+  + checkAndAwardQuizMaster(Student): boolean
+  + checkAndAwardEarlyBird(Student): boolean
+  + checkAndAwardPerfectAttendance(Student): boolean
+  + checkAndAwardTopPerformer(Student): boolean
+  + awardAllAchievements(Student): List<Achievement>
+  + viewAllAchievements(): void
+  + getAllAchievements(): List<Achievement>
+  + toString(): String
+  + equals(Object): boolean

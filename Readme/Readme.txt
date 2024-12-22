@@ -1,4 +1,10 @@
-Project Overview
+--------------------------------------------------------------------------------------
+To start the program, open the Main file for terminal use and the Homepage for the GUI.
+--------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------
+                                Project Overview
+--------------------------------------------------------------------------------------
 This is a Java-based edu Management System that provides different functionalities based on the role of the user. The system is designed to handle multiple roles: Admin, Student, Tutor, and School. Each role has its own set of privileges and actions that can be performed within the system.
 
 Admin can manage schools, users, and other administrative tasks.
@@ -41,3 +47,5 @@ For Student: Students can access information related to their profile, courses, 
 For Tutor: Tutors can view courses they teach and the students they are assigned to.
 
 For School: Schools can view courses and various other school-specific information.
+
+

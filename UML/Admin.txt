@@ -1,63 +1,96 @@
-+---------------------------------------------+
-|                   Admin                     |
-+---------------------------------------------+
-| - roleEnum: Role                            |
-| - schools: ArrayList<School> (static)       |
-+---------------------------------------------+
-| + Admin(...)                                |
-| + getRoleEnum(): Role                       |
-| + getSchools(): List<School> (static)       |
-| + addTutorToSchool(Tutor, int): void        |
-| + createTutorAccount(): void                |
-| + removeTutorByCriteria(): void             |
-| - removeTutorById(Long, int): void          |
-| - removeTutorByName(String, int): void      |
-| - removeTutorByEmail(String, int): void     |
-| - removeTutorByUsername(String, int): void  |
-| + updateTutor(Long, String, ...): void      |
-| + updateTutorById(): void                   |
-| + assignTutorRole(Long, Role, int): void    |
-| + viewTutorsByCriteria(String, Object, int): void |
-| - matchesCriteria(Tutor, String, Object): boolean |
-| + viewTutors(): void                        |
-| + createStudentAccount(): void              |
-| + addStudent(Student, int): void            |
-| + removeStudentByCriteria(): void           |
-| - removeStudentById(Long, int): void        |
-| - removeStudentByName(String, int): void    |
-| - removeStudentByEmail(String, int): void   |
-| - removeStudentByUsername(String, int): void|
-| + updateStudent(Long, String, ...): void    |
-| + updateStudentById(): void                 |
-| + viewStudentsByCriteria(String, Object, int): void |
-| - matchesCriteria(Student, String, Object): boolean |
-| + viewStudents(): void                      |
-| + searchSchoolById(int): School             |
-| + searchStudentById(Long, int): Student     |
-| + createSchool(): void                      |
-| + addSchool(School): void                   |
-| + viewSchools(): void                       |
-| + updateSchool(int, String, ...): void      |
-| + updateSchoolByCriteria(): void            |
-| + viewSchoolsByCriteria(String, Object): void |
-| - matchesCriteria(School, String, Object): boolean |
-| + removeSchool(int): void                   |
-| + activateSchool(int): void                 |
-| + viewStudentsBySchool(int): void           |
-| + viewTutorsBySchool(int): void             |
-| + addChapterToTutor(Long, int, Course): void|
-| + removeChapterFromTutor(Long, int, int): void |
-| + viewChaptersByTutor(Long): void           |
-| + viewChaptersByTutorAndSchool(Long, int): void |
-| + viewStudentCountBySchool(int): void       |
-| + viewTutorCountBySchool(int): void         |
-| + viewSchoolCount(): void                   |
-| + viewChapterCountByTutor(Long, int): void  |
-| + viewChapterCount(): void                  |
-| + viewStudentCount(): void                  |
-| + viewTutorCount(): void                    |
-| + compareStudentCountBySchool(int, int): void |
-| + compareTutorCountBySchool(int, int): void |
-| + compareSchoolCount(int): void             |
-| + toString(): String                        |
-+---------------------------------------------+
++-------------------------------------+
+|               Admin                 |
++-------------------------------------+
+| - idCounter: Long                   |
+| - roleEnum: Role                    |
+| - schools: ArrayList<School>        |
++-------------------------------------+
+| + Admin(username: String, password: String) |
+| + Admin(name: String, email: String, roleEnum: Role, dateOfBirth: LocalDate, phone: String, address: String, username: String, password: String) |
+| + getSchoolsData(): ArrayList<String> |
+| + getRoleEnum(): Role               |
+| + getSchools(): List<School>        |
+| + checkLogin(username: String, password: String): boolean |
+| + checkSchoolLogin(username: String, password: String): int |
+| + checkStudentLogin(username: String, password: String): Student |
+| + checkTutorLogin(username: String, password: String): Tutor |
+| + addTutorToSchool(tutor: Tutor, schoolID: int): void |
+| + createTutorAccount(): void        |
+| + createTutorFromFile(filePath: String): void |
+| + removeTutorByCriteria(): void     |
+| + removeTutorById(id: Long, schoolID: int): void |
+| + removeTutorByName(name: String, schoolID: int): void |
+| + removeTutorByEmail(email: String, schoolID: int): void |
+| + removeTutorByUsername(username: String, schoolID: int): void |
+| + updateTutor(tutorId: Long, newName: String, newEmail: String, newPhone: String, newAddress: String): void |
+| + updateTutorById(): void           |
+| + assignTutorRole(tutorId: Long, roleEnum: Tutor.Role, schoolID: int): void |
+| + viewTutorsByCriteria(criteria: String, value: Object, schoolID: int): void |
+| + viewTutors(): void                |
+| + removeTutor(tutorId: Long, schoolID: int): void |
+| + viewTutorCourses(tutorId: Long, schoolID: int): void |
+| + createStudentAccount(): void      |
+| + createStudentFromFile(filePath2: String): void |
+| + getStudentCoursesById(studentId: Long): void |
+| + getStudentLessonsById(studentId: Long): void |
+| + getTutorsForStudentCourses(studentId: Long): void |
+| + addStudent(student: Student, schoolID: int): void |
+| + removeStudentByCriteria(): void   |
+| + removeStudentById(id: Long, schoolID: int): void |
+| + removeStudentByName(name: String, schoolID: int): void |
+| + removeStudentByEmail(email: String, schoolID: int): void |
+| + removeStudentByUsername(username: String, schoolID: int): void |
+| + updateStudent(studentId: Long, newName: String, newEmail: String, newPhone: String, newAddress: String, newSchoolID: int, newCurrentLevel: int, schoolID: int): void |
+| + updateStudentById(): void         |
+| + viewStudentsByCriteria(criteria: String, value: Object, schoolID: int): void |
+| + viewStudents(): void              |
+| + searchSchoolById(schoolID: int): School |
+| + searchStudentById(studentId: Long): Student |
+| + createSchool(): void              |
+| + createSchoolFromFile(filePath: String): void |
+| + addSchool(school: School): void   |
+| + viewSchools(): void               |
+| + updateSchool(schoolID: int, newName: String, newAddress: String, newCity: String, newContactPerson: String, newEmail: String, newPhoneNumber: String): void |
+| + updateSchoolByCriteria(): void    |
+| + viewSchoolsByCriteria(criteria: String, value: Object): void |
+| + removeSchool(): void              |
+| + activateSchool(schoolID: int): void |
+| + viewStudentsBySchool(schoolID: int): void |
+| + viewTutorsBySchool(schoolID: int): void |
+| + createLesson(): void              |
+| + createLessonFromFile(filePath: String): void |
+| + viewLessons(): void               |
+| + createQuiz(): void                |
+| + createQuizFromFile(filePath: String): void |
+| + createQuestionsFromFile(filePath: String): void |
+| + assignCourseToStudentFromFile(filePath: String): void |
+| + CreateCourse(): void              |
+| + createCourseFromFile(coursefilePath: String, lessonfilePath: String, QuizFilepath: String, QustionsPath: String): void |
+| + removeCourse(): void              |
+| + viewCourses(): void               |
+| + addChapterToTutor(tutorId: long, schoolID: int, courseId: long): void |
+| + assignTutortocourse(filePath: String): void |
+| + removeChapterFromTutor(tutorId: Long, schoolID: int, chapterId: int): void |
+| + viewChaptersByTutor(tutorId: Long): void |
+| + viewChaptersByTutorAndSchool(tutorId: Long, schoolID: int): void |
+| + matchStudentCourseWithTutorCourse(tutorId: Long): void |
+| + viewStudentCountBySchool(schoolID: int): void |
+| + viewTutorCountBySchool(schoolID: int): void |
+| + viewSchoolCount(): void           |
+| + viewChapterCountByTutor(tutorId: Long, schoolID: int): void |
+| + viewChapterCount(): void          |
+| + viewStudentCount(): void          |
+| + viewTutorCount(): void            |
+| + compareStudentCountBySchool(schoolID: int, studentCount: int): void |
+| + compareTutorCountBySchool(schoolID: int, tutorCount: int): void |
+| + compareSchoolCount(schoolCount: int): void |
+| + saveSchoolToFile(schoolPath: String): void |
+| + saveStudentToFile(StudentsPath: String): void |
+| + saveTutorToFile(TutorPath: String): void |
+| + saveCourseToFile(CoursePath: String, lessonpath: String, quizpath: String, QustionsPath: String): void |
+| + saveStudentProgressToFile(progressFilePath: String): void |
+| + readStudentProgressFromFile(progressFilePath: String): void |
+| + saveLessonAndQuizToFile(lessonQuizPath: String): void |
+| + readLessonAndQuizFromFile(filePath: String): void |
+| + printSameStudentNamesAndUsernamesOrGrades(): void |
++-------------------------------------+

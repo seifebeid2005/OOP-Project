@@ -1,31 +1,38 @@
-+----------------------------------+
-|             Student              |
-+----------------------------------+
-| - registrationDate: LocalDate    |
-| - schoolID: int                  |
-| - lastGeneratedID: int (static)  |
-| - marks: ArrayList<Grade>        |
-| - courses: ArrayList<Course>     |
-| - progress: Progress             |
-+----------------------------------+
-| + Student(String, String, ...)   |
-| + login(): void                  |
-| + logout(): void                 |
-| + register(): void               |
-| + updateProfile(): void          |
-| + getProgressPercentage(): double|
-| + enrollInCourse(Course): void   |
-| + getRegistrationDate(): LocalDate |
-| + getSchoolID(): Integer         |
-| + setSchoolID(Integer): void     |
-| + getCourses(): ArrayList<Course>|
-| + getAverageMarks(): double      |
-| + getCompletedCourses(): ArrayList<Course> |
-| + getNotCompletedCourses(): ArrayList<Course> |
-| + getMarksForEachCourse(): void  |
-| + toString(): String             |
-+----------------------------------+
-| - validateSchoolID(Integer): void|
-| - calculateProgress(): void      |
-| - generateAutoID(): long (static)|
-+----------------------------------+
+Student 
+  - LocalDate registrationDate
+  - int schoolID
+  - static long lastGeneratedID
+  - ArrayList<Grade> marks
+  - ArrayList<Course> courses
+  - ArrayList<Achievement> userAchievements
+  - int progress
+  + Student()
+  + Student(String, String, LocalDate, int, String, String, String, String)
+  + void login()
+  + void logout()
+  + void register()
+  + void updateProfile()
+  + void enrollInCourse(Course)
+  + LocalDate getRegistrationDate()
+  + Integer getSchoolID()
+  + void setSchoolID(Integer)
+  + ArrayList<Course> getCourses()
+  + void getAverageMarks()
+  + ArrayList<Course> getCompletedCourses()
+  + void getMarksForEachCourse()
+  + void viewCourses()
+  + void viewLessons()
+  + void viewQuizResult()
+  + ArrayList<Grade> getgrade()
+  + void setgrade(Grade)
+  + void startQuiz(AchievementManager)
+  + void checkAndAwardAchievementsBasedOnMarks()
+  + void saveProgressInFile()
+  + String calculateProgress()
+  + String getProgress()
+  + void setProgress(int)
+  + void viewProgress()
+  + void viewAllAchievements(AchievementManager)
+  + String toString()
+  + boolean equals(Object)
+  + int compareTo(Student)

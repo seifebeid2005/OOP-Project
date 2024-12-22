@@ -1,47 +1,46 @@
-+---------------------------------------+
-|                Question               |
-+---------------------------------------+
-| - questionId: long                    |
-| - quiz_id: int                        |
-| - question_text: String               |
-| - A: String                           |
-| - B: String                           |
-| - C: String                           |
-| - D: String                           |
-| - correct_answer: CorrectAnswer       |
-| - answer: String                      |
-+---------------------------------------+
-| + Question(int, String, String, ...)  |
-| + getQuestion_id(): long              |
-| + setQuestion_id(long): void          |
-| + getQuiz_id(): int                   |
-| + setQuiz_id(int): void               |
-| + getQuestion_text(): String          |
-| + setQuestion_text(String): void      |
-| + getOption_a(): String               |
-| + setOption_a(String): void           |
-| + getOption_b(): String               |
-| + setOption_b(String): void           |
-| + getOption_c(): String               |
-| + setOption_c(String): void           |
-| + getOption_d(): String               |
-| + setOption_d(String): void           |
-| + getCorrect_answer(): CorrectAnswer  |
++-----------------------------+
+|          Question           |
++-----------------------------+
+| - questionId: long          |
+| - lastGeneratedID: long     |
+| - quiz_id: int              |
+| - question_text: String     |
+| - A: String                 |
+| - B: String                 |
+| - C: String                 |
+| - D: String                 |
+| - correct_answer: CorrectAnswer |
+| - answer: String            |
++-----------------------------+
+| + Question(...)             |
+| + getQuestion_id(): long    |
+| + setQuestion_id(long): void|
+| + getQuiz_id(): int         |
+| + setQuiz_id(int): void     |
+| + getQuestion_text(): String|
+| + setQuestion_text(String): void |
+| + getOption_a(): String     |
+| + setOption_a(String): void |
+| + getOption_b(): String     |
+| + setOption_b(String): void |
+| + getOption_c(): String     |
+| + setOption_c(String): void |
+| + getOption_d(): String     |
+| + setOption_d(String): void |
+| + getCorrect_answer(): CorrectAnswer |
 | + setCorrect_answer(CorrectAnswer): void |
-| + getAnswer(): String                 |
-| + setAnswer(String): void             |
-| + isCorrect(): boolean                |
-| + toString(): String                  |
-+---------------------------------------+
-| - static generateRandomID(): long     |
-+---------------------------------------+
+| + getAnswer(): String       |
+| + setAnswer(String): void   |
+| + isCorrect(): boolean      |
+| + toString(): String        |
++-----------------------------+
 
-Enumerations:
-+------------------------+
-| CorrectAnswer          |
-+------------------------+
-| A                     |
-| B                     |
-| C                     |
-| D                     |
-+------------------------+
+enum CorrectAnswer
++-----------------------------+
+|         CorrectAnswer       |
++-----------------------------+
+| A                           |
+| B                           |
+| C                           |
+| D                           |
++-----------------------------+

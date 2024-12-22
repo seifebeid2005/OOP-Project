@@ -1,31 +1,29 @@
-+----------------------------------------+
-|                 Quiz                   |
-+----------------------------------------+
-| - quiz_id: int                         |
-| - quiz_title: String                   |
-| - lesson_id: int                       |
-| - tutor_name: String                   |
-| - questions: List<Question>            |
-| - grade: Grade                         |
-| - static NUMBER_OF_QUESTIONS: int      |
-| - static PASSING_SCORE: int            |
-+----------------------------------------+
-| + Quiz(int, String, int, int, float)   |
-| + getQuiz_id(): int                    |
-| + setQuiz_id(int): void                |
-| + getQuiz_title(): String              |
-| + setQuiz_title(String): void          |
-| + getLesson_id(): int                  |
-| + setLesson_id(int): void              |
-| + getTutor_name(): String              |
-| + setTutor_name(String): void          |
-| + getNumberOfQuestions(): int          |
-| + getPassingScore(): float             |
-| + addQuestion(Scanner): void           |
-| + removeQuestion(int): void            |
-| + editQuestion(int, Scanner): void     |
-| + viewQuestions(): void                |
-| + answerQuestions(Scanner): void       |
-| + getGrade(): int                      |
-| + toString(): String                   |
-+----------------------------------------+
+
+---------------------------------
+|            Quiz               |
+---------------------------------
+| - quiz_id: int                |
+| - lastGeneratedID: int        |
+| - quiz_title: String          |
+| - lesson_id: int              |
+| - MAX_QUESTIONS: int          |
+| - questions: List<Question>   |
+| - PASSINGSCORE: int           |
+---------------------------------
+| + Quiz(String, int)           |
+| + startQuizTimer(): void      |
+| + isQuizTimeOver(): boolean   |
+| + getPASSINGSCORE(): int      |
+| + getQuiz_id(): int           |
+| + getQuiz_title(): String     |
+| + setQuiz_title(String): void |
+| + getLesson_id(): int         |
+| + setLesson_id(int): void     |
+| + addQuestionToQuiz(Question): void |
+| + removeQuestionById(long): void    |
+| + viewQuizQuestions(): void         |
+| + isQuizReady(): boolean            |
+| + answerQuestions(): int            |
+| + getQuestions(): List<Question>    |
+| + toString(): String                |
+---------------------------------

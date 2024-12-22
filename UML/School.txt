@@ -1,46 +1,61 @@
-+----------------------------------+
-|             School               |
-+----------------------------------+
-| - schoolID: int                  |
-| - schoolName: String             |
-| - address: String                |
-| - city: String                   |
-| - contactPerson: String          |
-| - email: String                  |
-| - phoneNumber: String            |
-| - manage: ManagementControl      |
-+----------------------------------+
-| + School()                       |
-| + School(int, String, ...)       |
+
+---------------------------------
+|            School             |
+---------------------------------
+| - schoolID: int               |
+| - idCounter: static int       |
+| - schoolName: String          |
+| - address: String             |
+| - city: String                |
+| - contactPerson: String       |
+| - email: String               |
+| - phoneNumber: String         |
+| - manage: ManagementControl   |
+| - userName: String            |
+| - password: String            |
+---------------------------------
+| + School()                    |
+| + School(String, String, ...) |
 | + getManage(): ManagementControl |
-| + getSchoolID(): int             |
-| + setSchoolID(int): void         |
-| + getSchoolName(): String        |
-| + setSchoolName(String): void    |
-| + getAddress(): String           |
-| + setAddress(String): void       |
-| + getCity(): String              |
-| + setCity(String): void          |
-| + getContactPerson(): String     |
+| + getTutorsData(): String     |
+| + getStudentsData(): String   |
+| + getCoursesData(): String    |
+| + getLessonsData(): String    |
+| + getQuizzesData(): String    |
+| + getQuestionsData(): String  |
+| + getSchoolID(): int          |
+| + getId(): Integer            |
+| + setSchoolID(int): void      |
+| + getSchoolName(): String     |
+| + setSchoolName(String): void |
+| + getAddress(): String        |
+| + setAddress(String): void    |
+| + getCity(): String           |
+| + setCity(String): void       |
+| + getContactPerson(): String  |
 | + setContactPerson(String): void |
-| + getEmail(): String             |
-| + setEmail(String): void         |
-| + getPhoneNumber(): String       |
-| + setPhoneNumber(String): void   |
+| + getEmail(): String          |
+| + setEmail(String): void      |
+| + getPhoneNumber(): String    |
+| + setPhoneNumber(String): void |
+| + getUserName(): String       |
+| + setUserName(String): void   |
+| + getPassword(): String       |
+| + setPassword(String): void   |
 | + updateContactDetails(String, String, String): void |
-| + getFullAddress(): String       |
-| + createStudentAccount(): void   |
-| + addStudent(Student): void      |
-| + removeStudentById(Long): void  |
-| + updateStudent(long): void      |
-| + viewStudents(): void           |
-| + addTutor(Tutor): void          |
-| + createTutorAccount(): void     |
-| + removeTutorById(Long): void    |
-| + updateTutor(Long): void        |
-| + viewStudentsOfTutor(Long): void|
-| + areAllChaptersAssignedToTutors(): void |
-| + validateEmail(String): boolean |
+| + getFullAddress(): String    |
+| + createStudentAccount(): void |
+| + addStudent(Student): void   |
+| + removeStudentById(Long): void |
+| + updateStudent(long): void   |
+| + viewStudents(): void        |
+| + addTutor(Tutor): void       |
+| + createTutorAccount(): void  |
+| + removeTutorById(Long): void |
+| + updateTutor(Long): void     |
+| + assignCourseToStudent(Long, Long): void |
+| + assignCourseToStudentFromFile(String): void |
 | + validatePhoneNumber(String): boolean |
-| + toString(): String             |
-+----------------------------------+
+| + toString(): String          |
+| + equals(Object): boolean     |
+---------------------------------

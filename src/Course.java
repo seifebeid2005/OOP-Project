@@ -1,7 +1,9 @@
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Date;
 
 public class Course {
 
@@ -12,6 +14,7 @@ public class Course {
     private String courseDescription;
     private Integer courseRequiredProgress = lessons.size();
     private Boolean courseIsActive;
+    private Date courseDeadline = new Date(System.currentTimeMillis() + 14L * 24 * 60 * 60 * 1000); // 14 days from now
 
     // Constructors
     public Course(String courseName, String courseDescription, Boolean courseIsActive) {
@@ -148,6 +151,7 @@ public class Course {
     public ArrayList<Lesson> getLessons() {
         return new ArrayList<>(lessons); // Return a copy to maintain encapsulation
     }
+    
     public void viewLessons() {
         for (Lesson lesson : lessons) {
             System.out.println(lesson);
@@ -221,6 +225,17 @@ public class Course {
         this.courseIsActive = courseIsActive;
     }
 
+    public Date getCourseDeadline() {
+        return courseDeadline;
+    }
+
+    public void setCourseDeadline(Date courseDeadline) {
+        if (courseDeadline == null) {
+            throw new IllegalArgumentException("Course Deadline cannot be null.");
+        }
+        this.courseDeadline = courseDeadline;
+    }
+    
     // Check if course is completed
     public boolean isCompleted() {
         int completedLessons = 0;
@@ -296,6 +311,7 @@ public class Course {
         }
         return completedLessons;
     }
+
 
     // Display course info
     @Override

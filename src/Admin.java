@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -2578,8 +2577,6 @@ public class Admin extends Person implements Comparable<Admin> {
                 + ", DateAdded = " + getDateAdded()
                 + " }";
     }
-
-    // interface comparible to see the same studnt names and the same stuidents username 
 
     @Override
     public int compareTo(Admin other) {

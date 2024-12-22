@@ -1,23 +1,47 @@
-+--------------------------------+
-|              Person            |
-+--------------------------------+
-| - id: int                      |
-| - name: String                 |
-| - age: int                     |
-| - email: String                |
-| - DateAdded: Date              |
-+--------------------------------+
-| + Person(id: int, name: String,|
-| age: int, email: String)       |
-| + getId(): int                 |
-| + getName(): String            |
-| + getAge(): int                |
-| + getEmail(): String           |
-| + getDateAdded(): Date         |
-| + setId(id: int): void         |
-| + setName(name: String): void  |
-| + setAge(age: int): void       |
-| + setEmail(email: String): void|
-| + setDateAdded(DateAdded: Date)|
-| + toString(): String           |
-+--------------------------------+
+
+ +-------------------------------+
+ |            Person             |
+ +-------------------------------+
+ | - id: Long                    |
+ | - name: String                |
+ | - email: String               |
+ | - dateAdded: Date             |
+ | - dateOfBirth: LocalDate      |
+ | - phone: String               |
+ | - address: String             |
+ | - username: String            |
+ | - password: String            |
+ +-------------------------------+
+ | + Person()                    |
+ | + Person(Long, String, String,|
+ |   LocalDate, String, String,  |
+ |   String, String)             |
+ | + Person(String, String)      |
+ | + validateName(String): void  |
+ | + validateEmail(String): void |
+ | + validateDateOfBirth(        |
+ |   LocalDate): void            |
+ | + validatePhone(String): void |
+ | + validateAddress(String): void|
+ | + validateUsername(String): void|
+ | + validatePassword(String): void|
+ | + getId(): Long               |
+ | + getName(): String           |
+ | + setName(String): void       |
+ | + getEmail(): String          |
+ | + setEmail(String): void      |
+ | + getDateAdded(): Date        |
+ | + getDateOfBirth(): LocalDate |
+ | + setDateOfBirth(LocalDate): void|
+ | + getAge(): int               |
+ | + getPhone(): String          |
+ | + setPhone(String): void      |
+ | + getAddress(): String        |
+ | + setAddress(String): void    |
+ | + getUsername(): String       |
+ | + setUsername(String): void   |
+ | + getPassword(): String       |
+ | + setPassword(String): void   |
+ | - hashPassword(String): String|
+ | + toString(): String          |
+ +-------------------------------+

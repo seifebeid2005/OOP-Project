@@ -11,4 +11,5 @@ def clear_class_files(directory):
             os.remove(file_path)
 
 # Example usage
+# add your own directory path
 clear_class_files('d:/Coding/OOP/OOP-Project/src')

@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 
 public class Progress {
@@ -20,6 +19,13 @@ public class Progress {
         courses.add(course);
         System.out.println("Course " + course.getCourseName() + " added to progress.");
     }
+    // add array of courses
+    public void addCourses(ArrayList<Course> courses) {
+        for (Course course : courses) {
+            addCourse(course);
+        }
+    }
+
 
     // Get all courses in progress
     public ArrayList<Course> getCourses() {

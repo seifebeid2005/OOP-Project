@@ -1,0 +1,45 @@
+Class ManagementControl
+-----------------------
+- tutors: ArrayList<Tutor>
+- students: ArrayList<Student>
+- courses: ArrayList<Course>
+
++ getTutors(): ArrayList<Tutor>
++ getStudents(): ArrayList<Student>
++ getCourses(): ArrayList<Course>
++ getLessons(): ArrayList<Lesson>
++ getQuizzes(): ArrayList<Quiz>
++ getQuestions(): ArrayList<Question>
++ getTutorsData(): String
++ getStudentsData(): String
++ getCoursesData(): String
++ getLessonsData(): String
++ getQuizzesData(): String
++ getQuestionsData(): String
++ addTutor(tutor: Tutor): void
++ removeTutor(id: Long): void
++ findTutorById(id: Long): Tutor
++ listTutors(): void
++ updateTutor(tutorId: long): void
++ addStudent(student: Student): void
++ removeStudent(id: long): void
++ findStudentById(id: long): Student
++ listStudents(): void
++ updateStudent(studentId: long): void
++ addCourse(course: Course): void
++ removeCourse(course: Course): void
++ findCourseById(id: long): Course
++ listCourses(): void
++ listAll(): void
++ searchStudents(criteria: String): void
++ searchTutors(criteria: String): void
++ searchCourses(criteria: String): void
++ searchTutorsByCourse(courseName: String): void
++ searchStudentsByCourse(courseName: String): void
++ sortStudentsByName(): void
++ sortTutorsByName(): void
++ sortCoursesByName(): void
++ sortStudentsByRegistrationDate(): void
++ sortTutorsByJoiningDate(): void
++ viewStudentDetails(studentId: long): void
++ findCourseByName(courseName: String): Course

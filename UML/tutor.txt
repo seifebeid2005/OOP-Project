@@ -1,0 +1,33 @@
+---------------------------------
+|            Tutor              |
+---------------------------------
+| - lastGeneratedID: long       |
+| - dateJoined: LocalDate       |
+| - roleEnum: Role              |
+| - schoolID: int               |
+| - courses: ArrayList<Course>  |
+---------------------------------
+| + Tutor()                     |
+| + Tutor(name: String, email: String, dateOfBirth: LocalDate, phone: String, address: String, username: String, password: String, roleEnum: Role, schoolID: int) |
+| + getDateJoined(): LocalDate  |
+| + setDateJoined(dateJoined: LocalDate): void |
+| + getRoleEnum(): Role         |
+| + setRoleEnum(roleEnum: Role): void |
+| + getSchoolID(): int          |
+| + getYearsOfExperience(): int |
+| + addCourse(course: Course): void |
+| + removeCourse(courseId: long): void |
+| + getCourses(): List<Course>  |
+| + viewAllCourses(): void      |
+| + findCourseById(courseId: long): Course |
+| + viewStudentDetails(courseName: String): void |
+| + findCourseByName(courseName: String): Course |
+| + findTutorByCourseId(courseId: long): Tutor |
+| + toString(): String          |
+| + equals(obj: Object): boolean|
+---------------------------------
+| enum Role                     |
+| - LEAD_TUTOR                  |
+| - ASSISTANT_TUTOR             |
+| - TUTOR                       |
+---------------------------------

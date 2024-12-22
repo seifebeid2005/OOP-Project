@@ -1,24 +1,20 @@
-+-----------------------------------------+
-|                 Progress                |
-+-----------------------------------------+
-| - progressId: long                      |
-| - courses: ArrayList<Course>            |
-| - progressPercentage: int               |
-+-----------------------------------------+
-| + addCourse(ArrayList<Course>): void    |
-| + getCourses(): ArrayList<Course>       |
-| + getProgressPercentage(): int          |
-| + setProgressPercentage(int): void      |
-| + checkAndMarkCourseCompletion(long): void |
-| + getCompletedCourses(): ArrayList<Course> |
-| + getNotCompletedCourses(): ArrayList<Course> |
-| + markLessonAsCompleted(long, long): void |
-| + markLessonAsIncomplete(long, long): void |
-| + getOverallProgressLevel(): String     |
-| + getCourseProgressLevel(long): String  |
-| + getProgressId(): long                 |
-| + setProgressId(long): void             |
-| + displayCourseProgressLevels(): void   |
-+-----------------------------------------+
-| - findCourseById(long): Course          |
-+-----------------------------------------+
+      Progress
+ Attributes:
+ - progressId: Unique identifier for the progress.
+ - courses: List of courses in progress.
+ - progressPercentage: Overall progress percentage.
+ 
+ Methods:
+ - addCourse(Course course): Adds a course to the progress.
+ - addCourses(ArrayList<Course> courses): Adds multiple courses to the progress.
+ - getCourses(): Returns a list of all courses in progress.
+ - getCompletedCourses(): Returns a list of completed courses.
+ - getNotCompletedCourses(): Returns a list of not completed courses.
+ - calculateProgressPercentage(): Calculates and updates the overall progress percentage.
+ - getProgressPercentage(): Returns the overall progress percentage.
+ - markLessonAsCompleted(long courseId, long lessonId): Marks a lesson as completed.
+ - markLessonAsIncomplete(long courseId, long lessonId): Marks a lesson as incomplete.
+ - checkAndMarkCourseCompletion(long courseId): Checks and marks a course as completed if all lessons are completed.
+ - findCourseById(long courseId): Finds a course by its ID.
+ - getOverallProgressLevel(): Returns the overall progress level as a string.
+ 

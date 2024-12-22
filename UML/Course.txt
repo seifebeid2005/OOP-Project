@@ -1,33 +1,40 @@
-+-----------------------------+
-|           Course            |
-+-----------------------------+
-| - courseId: long            |
-| - lessons: ArrayList<Lesson>|
-| - courseName: String        |
-| - courseDescription: String |
-| - courseRequiredProgress: Integer |
-| - courseIsActive: Boolean   |
-+-----------------------------+
-| + Course()                  |
-| + Course(long, String, String, Boolean) |
-| + addLesson(Lesson): void   |
-| + getLessons(): ArrayList<Lesson> |
-| + removeLesson(long): void  |
-| + setCourseId(long): void   |
-| + getCourseId(): long       |
-| + setCourseName(String): void |
-| + getCourseName(): String   |
-| + setCourseDescription(String): void |
-| + getCourseDescription(): String |
-| + setCourseRequiredProgress(Integer): void |
-| + getCourseRequiredProgress(): Integer |
-| + setCourseIsActive(Boolean): void |
-| + getCourseIsActive(): Boolean |
-| + isCompleted(): boolean    |
-| + markAsCompleted(): void   |
-| + getCourseProgress(): int  |
-| + areAllLessonsCompleted(): boolean |
-| + markLessonAsCompleted(long): void |
-| + markLessonAsIncomplete(long): void |
-| + findLessonById(long): Lesson |
-+-----------------------------+
+            Course 
+    - long courseId
+    - static long nextCourseId
+    - ArrayList<Lesson> lessons
+    - String courseName
+    - String courseDescription
+    - Integer courseRequiredProgress
+    - Boolean courseIsActive
+    - Date courseDeadline
+
+    + Course(String courseName, String courseDescription, Boolean courseIsActive)
+    + void addLesson(Lesson lesson)
+    + void createLesson()
+    + void addLessonsFromFile(String filePath)
+    + void createQuizFromFile(String filePath, String quizName)
+    + ArrayList<Lesson> getLessons()
+    + void viewLessons()
+    + void removeLesson(long lessonId)
+    + void setCourseId(long courseId)
+    + long getCourseId()
+    + String getCourseName()
+    + void setCourseName(String courseName)
+    + String getCourseDescription()
+    + void setCourseDescription(String courseDescription)
+    + Integer getCourseRequiredProgress()
+    + void setCourseRequiredProgress(Integer courseRequiredProgress)
+    + Boolean getCourseIsActive()
+    + void setCourseIsActive(Boolean courseIsActive)
+    + Date getCourseDeadline()
+    + void setCourseDeadline(Date courseDeadline)
+    + boolean isCompleted()
+    + void markAsCompleted()
+    + int getCourseProgress()
+    + boolean areAllLessonsCompleted()
+    + void markLessonAsCompleted(long lessonId)
+    + void markLessonAsIncomplete(long lessonId)
+    + Lesson findLessonById(long lessonId)
+    + int getCompletedLessonsCount()
+    + String toString()
+    + void viewStudents()

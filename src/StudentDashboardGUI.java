@@ -214,7 +214,7 @@ public class StudentDashboardGUI extends JFrame {
     // Method to handle viewing not completed courses
     private void notCompletedCourses() {
         if (currentStudent != null) {
-            ArrayList<Course> notCompletedCourses = currentStudent.getNotCompletedCourses();
+            ArrayList<Course> notCompletedCourses = currentStudent.getCompletedCourses();
             if (notCompletedCourses.isEmpty()) {
                 System.out.println("You have completed all your courses.");
             } else {

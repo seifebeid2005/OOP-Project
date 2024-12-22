@@ -1,5 +1,5 @@
 
-import java.time.LocalDate;
+
 import java.util.*;
 
 public class AchievementManager {
@@ -15,9 +15,8 @@ public class AchievementManager {
     public void addAchievement(Achievement achievement) {
         if (isAchievementUnique(achievement)) {
             uniqueAchievements.add(achievement);
-            System.out.println("✅ Achievement added: " + achievement.getAchievementName());
         } else {
-            System.out.println("⚠ Achievement already exists: " + achievement.getAchievementName());
+        
         }
     }
 
@@ -31,69 +30,74 @@ public class AchievementManager {
     }
 
     // Check for Quiz Master
-    public void checkAndAwardQuizMaster(long studentID) {
-        boolean allQuizzesPerfect = progress.getCourses().stream()
-                .allMatch(course -> course.getCourseProgress() == 100);
+    public boolean checkAndAwardQuizMaster(Student student) {
+        boolean allQuizzesCompleted = progress.getCourses().stream()
+                .allMatch(course -> course.areAllLessonsCompleted());
 
-        if (allQuizzesPerfect) {
+        if (allQuizzesCompleted) {
             addAchievement(Achievement.quizMaster());
-            new UserAchievement(studentID, Achievement.quizMaster());
+            return true;            
         }
+        return false;
     }
 
     // Check for Early Bird (Deadline is Today for demo)
-    public void checkAndAwardEarlyBird(long studentID) {
-        LocalDate deadline = LocalDate.now();
-        if (progress.getCourses().stream().allMatch(Course::isCompleted)) {
+    public boolean checkAndAwardEarlyBird(Student student) {
+        Date today = new Date();
+        boolean allCoursesCompleted = progress.getCourses().stream()
+                .allMatch(course -> ((Date) course.getCourseDeadline()).equals(today));
+
+        if (allCoursesCompleted) {
             addAchievement(Achievement.earlyBird());
-            new UserAchievement(studentID, Achievement.earlyBird());
+            return true;
         }
+        return false;
     }
 
     // Check for Perfect Attendance
-    public void checkAndAwardPerfectAttendance(long studentID) {
+    public boolean checkAndAwardPerfectAttendance(Student student) {
         boolean allLessonsCompleted = progress.getCourses().stream()
                 .allMatch(course -> course.areAllLessonsCompleted());
 
         if (allLessonsCompleted) {
             addAchievement(Achievement.perfectAttendance());
-            new UserAchievement(studentID, Achievement.perfectAttendance());
+            return true;
         }
-    }
-
-    // Check for Subject Master
-    public void checkAndAwardSubjectMaster(long studentID, String subject) {
-        Course targetCourse = progress.getCourses().stream()
-                .filter(course -> course.getCourseName().equalsIgnoreCase(subject))
-                .findFirst().orElse(null);
-
-        if (targetCourse != null && targetCourse.getCourseProgress() == 100) {
-            addAchievement(Achievement.subjectMaster(subject));
-            new UserAchievement(studentID, Achievement.subjectMaster(subject));
-        }
+        return false;
     }
 
     // Check for Top Performer
-    public void checkAndAwardTopPerformer(long studentID) {
+    public boolean checkAndAwardTopPerformer(Student student) {
         if (progress.getProgressPercentage() > 95) {
             addAchievement(Achievement.topPerformer());
-            new UserAchievement(studentID, Achievement.topPerformer());
+            new UserAchievement(student.getId(), Achievement.topPerformer());
+            return true;
         }
+        return false;
     }
 
     // Award all achievements
-    public void awardAllAchievements(long studentID) {
-        checkAndAwardQuizMaster(studentID);
-        checkAndAwardEarlyBird(studentID);
-        checkAndAwardPerfectAttendance(studentID);
-        checkAndAwardTopPerformer(studentID);
-        checkAndAwardSubjectMaster(studentID, "Mathematics"); // Example subject
+    public List<Achievement>  awardAllAchievements(Student student) {
+        List<Achievement> awardedAchievements = new ArrayList<>();
+        if (checkAndAwardQuizMaster(student)) {
+            awardedAchievements.add(Achievement.quizMaster());
+        }
+        if (checkAndAwardEarlyBird(student)) {
+            awardedAchievements.add(Achievement.earlyBird());
+        }
+        if (checkAndAwardPerfectAttendance(student)) {
+            awardedAchievements.add(Achievement.perfectAttendance());
+        }
+        if (checkAndAwardTopPerformer(student)) {
+            awardedAchievements.add(Achievement.topPerformer());
+        }
+        return awardedAchievements;
     }
 
-    public void viewAchievements() {
-        System.out.println("🏆 Achievements:");
-        uniqueAchievements.forEach(System.out::println);
-    }
+    // public void viewAchievements() {
+    //     System.out.println("🏆 Achievements:");
+    //     uniqueAchievements.forEach(System.out::println);
+    // }
 
     public void viewAllAchievements() {
         System.out.println("🏆 All Achievements:");

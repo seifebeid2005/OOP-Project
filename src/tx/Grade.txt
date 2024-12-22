@@ -1,5 +1,5 @@
 lessonId : 1
-marks : 9
+marks : 7
 quizId : 1
 studentId : 1
 

@@ -1,32 +1,21 @@
-// UML
-// +---------------------------------------------+
-// | Achievement                                 |
-// +---------------------------------------------+
-// | - achievementID: long                       |
-// | - achievementName: String                   | 
-// | - achievementDescription: String            |
-// | - achievementDateAchieved: LocalDateTime     |
-// | - studentID: long                           |
-// | - type: String                              |
-// +---------------------------------------------+
-// | + Achievement(achievementName: String,      |
-// | achievementDescription: String,             |
-// | achievementDateAchieved: LocalDateTime,     |
-// | studentID: long, type: String)              |
-// | + generateUniqueID(): long                  |
-// | + isValidType(type: String): boolean        |
-// | + getType(): String                         |
-// | + setType(type: String): void               |
-// | + getAchievementID(): long                  |
-// | + getAchievementName(): String              |
-// | + setAchievementName(achievementName:       |
-// | String): void                              |
-// | + getAchievementDescription(): String       |
-// | + setAchievementDescription(achievementDescription: String): void |
-// | + getAchievementDateAchieved(): LocalDateTime |
-// | + setAchievementDateAchieved(achievementDateAchieved: LocalDateTime): void |
-// | + getStudentID(): long                      |
-// | + setStudentID(studentID: long): void       |
-// | + equals(obj: Object): boolean              |
-// | + toString(): String                        |
-// +---------------------------------------------+
+Achievement
+  - idCounter: long (static)
+  - achievementID: long
+  - achievementName: String
+  - achievementDescription: String
+  
+  + Achievement(String, String)
+  + getAchievementID(): long
+  + getAchievementName(): String
+  + setAchievementName(String): void
+  + getAchievementDescription(): String
+  + setAchievementDescription(String): void
+  + quizMaster(): Achievement (static)
+  + courseLord(): Achievement (static)
+  + consistencyChampion(): Achievement (static)
+  + earlyBird(): Achievement (static)
+  + perfectAttendance(): Achievement (static)
+  + subjectMaster(String): Achievement (static)
+  + topPerformer(): Achievement (static)
+  + toString(): String
+  + equals(Object): boolean

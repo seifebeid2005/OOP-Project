@@ -1052,7 +1052,7 @@ public class AdminFunctionsGUI extends JFrame {
     
             // Determine headers based on file type
             if (fileName.equals("tx/tutor.txt")) {
-                headers = new String[]{"Tutor Name", "Email", "Phone", "Address", "Username", "Password", "Subject Area", "Date of Birth", "Role", "School ID"};
+                headers = new String[]{"Tutor Name", "Email", "Phone", "Address", "Username", "Password",  "Date of Birth","Subject Area" ,  "Role", "School ID"};
             } else if (fileName.equals("tx/student.txt")) {
                 headers = new String[]{"Student Name", "Email", "Phone", "Address", "Username", "Password", "School ID", "Date of Birth"};
             } else if (fileName.equals("tx/school.txt")) {

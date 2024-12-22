@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class Student extends Person implements Comparable<Student> {
     private static long lastGeneratedID = 1; // Change from Long to long
     private ArrayList<Grade> marks;
     private ArrayList<Course> courses;
+    private ArrayList<Achievement> userAchievements = new ArrayList<>();
     private int progress; // Declare the progress variable
 
     // Default constructor
@@ -119,43 +121,6 @@ public class Student extends Person implements Comparable<Student> {
         return completedCourses;
     }
 
-    public ArrayList<Course> getNotCompletedCourses() {
-    ArrayList<Course> notCompletedCourses = new ArrayList<>();
-    
-    // Return early if there are no courses or marks
-    if (courses.isEmpty() || marks.isEmpty()) {
-        return notCompletedCourses;
-    }
-
-    for (Course course : courses) {
-        boolean courseCompleted = true;
-
-        for (Lesson lesson : course.getLessons()) {
-            boolean lessonCompleted = false;
-
-            // Check if the lesson is completed by finding a passing grade
-            for (Grade grade : marks) {
-                if (grade != null && grade.getLessonId() != 0 && 
-                    lesson.getLessonId() != 0 && grade.getLessonId() == lesson.getLessonId() && 
-                    grade.getMarks() >= 5) {
-                    lessonCompleted = true;
-                    break; 
-                }
-            }
-
-            if (!lessonCompleted) {
-                courseCompleted = false;
-                break; 
-            }
-        }
-
-        // Add course to notCompletedCourses only if not all lessons are completed
-        if (!courseCompleted) {
-            notCompletedCourses.add(course);
-        }
-    }
-    return notCompletedCourses;
-}
 
     public void getMarksForEachCourse() {
         for (Course course : courses) {
@@ -267,10 +232,31 @@ public class Student extends Person implements Comparable<Student> {
                 updateCourseProgress(selectedCourse);
 
                 // Award achievements
-                achievementManager.awardAllAchievements(getId());
             }
+        // Award achievements
+        List<Achievement> achievements = achievementManager.awardAllAchievements(this);
+        userAchievements.addAll(achievements);
         } else {
             System.out.println("Quiz not started.");
+        }
+    }
+    
+    public void checkAndAwardAchievementsBasedOnMarks() {
+        AchievementManager achievementManager = new AchievementManager(new Progress());
+        if (!marks.isEmpty()) {
+            System.out.println("Checking achievements based on marks...");
+            List<Achievement> achievements = achievementManager.awardAllAchievements(this);
+            if (!achievements.isEmpty()) {
+                userAchievements.addAll(achievements);
+                System.out.println("Achievements awarded based on marks:");
+                for (Achievement achievement : achievements) {
+                    System.out.println(achievement);
+                }
+            } else {
+                System.out.println("No new achievements awarded.");
+            }
+        } else {
+            System.out.println("No marks available to evaluate achievements.");
         }
     }
 
@@ -372,9 +358,6 @@ public class Student extends Person implements Comparable<Student> {
         System.out.println("Progress: " + calculateProgress() + "%");
     }
 
-    public void viewAchievements(AchievementManager achievementManager) {
-        achievementManager.viewAchievements();
-    }
 
     public void viewAllAchievements(AchievementManager achievementManager) {
         achievementManager.viewAllAchievements();

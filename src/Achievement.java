@@ -1,5 +1,3 @@
-
-
 public class Achievement {
 
     private static long idCounter = 1000; // Starting ID

@@ -403,11 +403,10 @@ public class main {
             System.out.println("4. See my Quizzes to solve");
             System.out.println("5. See my Grades");
             System.out.println("6. See my completed courses");
-            System.out.println("7. See my not completed courses");
-            System.out.println("8. See my progress");
-            System.out.println("9. See my achievements");
-            System.out.println("10. See all the possible achievements");
-            System.out.println("11. Exit");
+            System.out.println("7. See my progress");
+            System.out.println("8. See my achievements");
+            System.out.println("9. See all the possible achievements");
+            System.out.println("10. Exit");
             int choice;
             while (true) {
                 try {
@@ -441,8 +440,7 @@ public class main {
                 break;
             case 4:
                 // See my Quizzes to solve
-                Progress progress = new Progress(); // Assuming you have a Progress class and a default constructor
-                AchievementManager achievementManager = new AchievementManager(progress);
+                AchievementManager achievementManager = new AchievementManager(new Progress());
                 student.startQuiz(achievementManager);
                 break;
             case 5:
@@ -464,30 +462,19 @@ public class main {
                     completedCourses.forEach(course -> System.out.println(course.getCourseName()));
                 }
                 break;
+        
             case 7:
-                // See my not completed courses
-                ArrayList<Course> notCompletedCourses = student.getNotCompletedCourses();
-                if (notCompletedCourses.isEmpty()) {
-                    System.out.println("You have completed all your courses.");
-                } else {
-                    System.out.println("Not Completed Courses:");
-                    notCompletedCourses.forEach(course -> System.out.println(course.getCourseName()));
-                }
-                break;
-          
-            case 8:
                 // See my progress
                 student.viewProgress();
                 break;
-            case 9:
+            case 8:
                 // See my achievements
-                student.viewAchievements(new AchievementManager(new Progress()));
+                student.checkAndAwardAchievementsBasedOnMarks();
                 break;
-            case 10:
-                // See all the possible achievements
+            case 9:
                 student.viewAllAchievements(new AchievementManager(new Progress()));
                 break;
-            case 11:
+            case 10:
                 System.out.println("Exiting...");
                 return;
             default:

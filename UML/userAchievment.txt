@@ -1,0 +1,20 @@
+---------------------------------
+|        UserAchievement        |
+---------------------------------
+| - achievementHistory: List    |
+| - studentID: long             |
+| - achievement: Achievement    |
+| - dateAwarded: Date           |
+---------------------------------
+| + UserAchievement(long,       |
+|   Achievement)                |
+| + getStudentID(): long        |
+| + getAchievement():           |
+|   Achievement                 |
+| + getDateAwarded(): Date      |
+| + toString(): String          |
+| + getAchievementsByStudent(   |
+|   long): List<UserAchievement>|
+| + displayAllAchievements():   |
+|   void                        |
+---------------------------------
