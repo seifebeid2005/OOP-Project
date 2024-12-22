@@ -90,6 +90,31 @@ public class AchievementManager {
         checkAndAwardSubjectMaster(studentID, "Mathematics"); // Example subject
     }
 
+    public void viewAchievements() {
+        System.out.println("🏆 Achievements:");
+        uniqueAchievements.forEach(System.out::println);
+    }
+
+    public void viewAllAchievements() {
+        System.out.println("🏆 All Achievements:");
+        for (Achievement achievement : getAllAchievements()) {
+            System.out.println(achievement);
+        }
+    }
+
+    public List<Achievement> getAllAchievements() {
+        return List.of(
+                Achievement.quizMaster(),
+                Achievement.courseLord(),
+                Achievement.consistencyChampion(),
+                Achievement.earlyBird(),
+                Achievement.perfectAttendance(),
+                Achievement.subjectMaster("Mathematics"),
+                Achievement.topPerformer()
+        );
+    }
+
+
     @Override
     public String toString() {
         return "AchievementManager{" +

@@ -1,35 +1,35 @@
 Student {
   Registration Date: 2024-12-22
   School ID: 1
-  Marks: [Grade{Lesson ID=1, Marks=6, Quiz ID=1, Percentage=60%}]
+  Marks: [Grade{Lesson ID=1, Marks=6, Quiz ID=1, Percentage=60%}, Grade{Lesson ID=2, Marks=7, Quiz ID=2, Percentage=70%}]
   Courses: [Course Details:
 ----------------
 Course ID          : 1
-Course Name        : Database Management Systems
-Description        : Learn the principles of database management and SQL.
+Course Name        : Software Engineering Principles
+Description        : Learn about software development methodologies and best practices.
 Required Progress  : 1  lessons
 Active Status      : Active
 ----------------, Course Details:
 ----------------
 Course ID          : 2
-Course Name        : Software Engineering Principles
-Description        : Learn about software development methodologies and best practices.
+Course Name        : Mobile App Development
+Description        : Build mobile applications using modern frameworks.
 Required Progress  : 3  lessons
 Active Status      : Active
 ----------------, Course Details:
 ----------------
 Course ID          : 3
-Course Name        : Data Structures and Algorithms
-Description        : Understand data structures and algorithms to solve complex problems.
+Course Name        : Introduction to Java
+Description        : Learn the basics of Java programming.
 Required Progress  : 2  lessons
-Active Status      : Inactive
+Active Status      : Active
 ----------------]
 ----------
 
   ID: 1
   Name: 'John Doe'
   Email: 'johndoe@example.com'
-  Date Added: Sun Dec 22 10:28:24 EET 2024
+  Date Added: Sun Dec 22 21:02:12 EET 2024
   Date of Birth: 2000-01-01
   Phone: '1234567890'
   Address: '123 Main St'
@@ -44,31 +44,31 @@ Student {
   Courses: [Course Details:
 ----------------
 Course ID          : 1
-Course Name        : Database Management Systems
-Description        : Learn the principles of database management and SQL.
+Course Name        : Software Engineering Principles
+Description        : Learn about software development methodologies and best practices.
 Required Progress  : 1  lessons
 Active Status      : Active
 ----------------, Course Details:
 ----------------
 Course ID          : 2
-Course Name        : Software Engineering Principles
-Description        : Learn about software development methodologies and best practices.
+Course Name        : Mobile App Development
+Description        : Build mobile applications using modern frameworks.
 Required Progress  : 3  lessons
 Active Status      : Active
 ----------------, Course Details:
 ----------------
 Course ID          : 3
-Course Name        : Data Structures and Algorithms
-Description        : Understand data structures and algorithms to solve complex problems.
+Course Name        : Introduction to Java
+Description        : Learn the basics of Java programming.
 Required Progress  : 2  lessons
-Active Status      : Inactive
+Active Status      : Active
 ----------------]
 ----------
 
   ID: 2
   Name: 'Sarah Brown'
   Email: 'sarahbrown@example.com'
-  Date Added: Sun Dec 22 10:28:24 EET 2024
+  Date Added: Sun Dec 22 21:02:12 EET 2024
   Date of Birth: 2000-01-06
   Phone: '1234567895'
   Address: '303 Birch St'
@@ -78,36 +78,107 @@ Active Status      : Inactive
 }
 Student {
   Registration Date: 2024-12-22
-  School ID: 2
+  School ID: 1
   Marks: No marks available
   Courses: [Course Details:
 ----------------
 Course ID          : 1
-Course Name        : Database Management Systems
-Description        : Learn the principles of database management and SQL.
+Course Name        : Software Engineering Principles
+Description        : Learn about software development methodologies and best practices.
 Required Progress  : 1  lessons
 Active Status      : Active
 ----------------, Course Details:
 ----------------
 Course ID          : 2
-Course Name        : Software Engineering Principles
-Description        : Learn about software development methodologies and best practices.
+Course Name        : Mobile App Development
+Description        : Build mobile applications using modern frameworks.
 Required Progress  : 3  lessons
 Active Status      : Active
 ----------------, Course Details:
 ----------------
 Course ID          : 3
-Course Name        : Data Structures and Algorithms
-Description        : Understand data structures and algorithms to solve complex problems.
+Course Name        : Introduction to Java
+Description        : Learn the basics of Java programming.
 Required Progress  : 2  lessons
-Active Status      : Inactive
+Active Status      : Active
 ----------------]
 ----------
 
   ID: 3
+  Name: 's'
+  Email: 'sss@gmailc.com'
+  Date Added: Sun Dec 22 21:02:12 EET 2024
+  Date of Birth: 2005-09-09
+  Phone: '0114695554'
+  Address: 'ssadfghj''
+  Username: 'fghjkl'g'
+  Password: 'ghjkl'
+}
+}
+Student {
+  Registration Date: 2024-12-22
+  School ID: 1
+  Marks: No marks available
+  Courses: [Course Details:
+----------------
+Course ID          : 1
+Course Name        : Software Engineering Principles
+Description        : Learn about software development methodologies and best practices.
+Required Progress  : 1  lessons
+Active Status      : Active
+----------------, Course Details:
+----------------
+Course ID          : 2
+Course Name        : Mobile App Development
+Description        : Build mobile applications using modern frameworks.
+Required Progress  : 3  lessons
+Active Status      : Active
+----------------, Course Details:
+----------------
+Course ID          : 3
+Course Name        : Introduction to Java
+Description        : Learn the basics of Java programming.
+Required Progress  : 2  lessons
+Active Status      : Active
+----------------]
+----------
+
+  ID: 4
+  Name: 'ss'
+  Email: 'sei@gmail.com'
+  Date Added: Sun Dec 22 21:02:12 EET 2024
+  Date of Birth: 2005-09-09
+  Phone: '1234567890'
+  Address: 'sdfghjk'
+  Username: 'fghjk'
+  Password: 'ghjkl'
+}
+}
+Student {
+  Registration Date: 2024-12-22
+  School ID: 2
+  Marks: No marks available
+  Courses: [Course Details:
+----------------
+Course ID          : 1
+Course Name        : Software Engineering Principles
+Description        : Learn about software development methodologies and best practices.
+Required Progress  : 1  lessons
+Active Status      : Active
+----------------, Course Details:
+----------------
+Course ID          : 2
+Course Name        : Mobile App Development
+Description        : Build mobile applications using modern frameworks.
+Required Progress  : 3  lessons
+Active Status      : Active
+----------------]
+----------
+
+  ID: 5
   Name: 'Jane Smith'
   Email: 'janesmith@example.com'
-  Date Added: Sun Dec 22 10:28:24 EET 2024
+  Date Added: Sun Dec 22 21:02:12 EET 2024
   Date of Birth: 2000-01-02
   Phone: '1234567891'
   Address: '456 Elm St'
@@ -119,34 +190,13 @@ Student {
   Registration Date: 2024-12-22
   School ID: 2
   Marks: No marks available
-  Courses: [Course Details:
-----------------
-Course ID          : 1
-Course Name        : Database Management Systems
-Description        : Learn the principles of database management and SQL.
-Required Progress  : 1  lessons
-Active Status      : Active
-----------------, Course Details:
-----------------
-Course ID          : 2
-Course Name        : Software Engineering Principles
-Description        : Learn about software development methodologies and best practices.
-Required Progress  : 3  lessons
-Active Status      : Active
-----------------, Course Details:
-----------------
-Course ID          : 3
-Course Name        : Data Structures and Algorithms
-Description        : Understand data structures and algorithms to solve complex problems.
-Required Progress  : 2  lessons
-Active Status      : Inactive
-----------------]
+  Courses: No courses enrolled
 ----------
 
-  ID: 4
+  ID: 6
   Name: 'Chris Green'
   Email: 'chrisgreen@example.com'
-  Date Added: Sun Dec 22 10:28:24 EET 2024
+  Date Added: Sun Dec 22 21:02:12 EET 2024
   Date of Birth: 2000-01-07
   Phone: '1234567896'
   Address: '404 Cedar St'
@@ -158,27 +208,13 @@ Student {
   Registration Date: 2024-12-22
   School ID: 3
   Marks: No marks available
-  Courses: [Course Details:
-----------------
-Course ID          : 1
-Course Name        : Database Management Systems
-Description        : Learn the principles of database management and SQL.
-Required Progress  : 1  lessons
-Active Status      : Active
-----------------, Course Details:
-----------------
-Course ID          : 2
-Course Name        : Software Engineering Principles
-Description        : Learn about software development methodologies and best practices.
-Required Progress  : 3  lessons
-Active Status      : Active
-----------------]
+  Courses: No courses enrolled
 ----------
 
-  ID: 5
+  ID: 7
   Name: 'Michael Johnson'
   Email: 'michaeljohnson@example.com'
-  Date Added: Sun Dec 22 10:28:24 EET 2024
+  Date Added: Sun Dec 22 21:02:12 EET 2024
   Date of Birth: 2000-01-03
   Phone: '1234567892'
   Address: '789 Oak St'
@@ -193,10 +229,10 @@ Student {
   Courses: No courses enrolled
 ----------
 
-  ID: 6
+  ID: 8
   Name: 'Anna White'
   Email: 'annawhite@example.com'
-  Date Added: Sun Dec 22 10:28:24 EET 2024
+  Date Added: Sun Dec 22 21:02:12 EET 2024
   Date of Birth: 2000-01-08
   Phone: '1234567897'
   Address: '505 Spruce St'
@@ -211,10 +247,10 @@ Student {
   Courses: No courses enrolled
 ----------
 
-  ID: 7
+  ID: 9
   Name: 'Emily Davis'
   Email: 'emilydavis@example.com'
-  Date Added: Sun Dec 22 10:28:24 EET 2024
+  Date Added: Sun Dec 22 21:02:12 EET 2024
   Date of Birth: 2000-01-04
   Phone: '1234567893'
   Address: '101 Pine St'
@@ -229,10 +265,10 @@ Student {
   Courses: No courses enrolled
 ----------
 
-  ID: 8
+  ID: 10
   Name: 'Robert Black'
   Email: 'robertblack@example.com'
-  Date Added: Sun Dec 22 10:28:24 EET 2024
+  Date Added: Sun Dec 22 21:02:12 EET 2024
   Date of Birth: 2000-01-09
   Phone: '1234567898'
   Address: '606 Fir St'
@@ -247,10 +283,10 @@ Student {
   Courses: No courses enrolled
 ----------
 
-  ID: 9
+  ID: 11
   Name: 'David Wilson'
   Email: 'davidwilson@example.com'
-  Date Added: Sun Dec 22 10:28:24 EET 2024
+  Date Added: Sun Dec 22 21:02:12 EET 2024
   Date of Birth: 2000-01-05
   Phone: '1234567894'
   Address: '202 Maple St'

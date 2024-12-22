@@ -68,8 +68,9 @@ public class Achievement {
     public static Achievement topPerformer() {
         return new Achievement("Top Performer", "Awarded for consistently achieving an average progress above 95%.");
     }
+
+
     @Override
-    
     public String toString() {
         return "Achievement: " + achievementName + " - " + achievementDescription;
     }

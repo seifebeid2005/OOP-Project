@@ -404,13 +404,15 @@ public class main {
             System.out.println("5. See my Grades");
             System.out.println("6. See my completed courses");
             System.out.println("7. See my not completed courses");
-            System.out.println("8. Exit");
-
+            System.out.println("8. See my progress");
+            System.out.println("9. See my achievements");
+            System.out.println("10. See all the possible achievements");
+            System.out.println("11. Exit");
             int choice;
             while (true) {
                 try {
                     choice = Integer.parseInt(scanner.nextLine());
-                    if (choice >= 0 && choice <= 8) {
+                    if (choice >= 0 && choice <= 11) {
                         break;
                     } else {
                         System.out.println("Invalid choice, please enter a number between 0 and 8.");
@@ -474,9 +476,18 @@ public class main {
                 break;
           
             case 8:
-                // Exit
-                
-                student.logout();
+                // See my progress
+                student.viewProgress();
+                break;
+            case 9:
+                // See my achievements
+                student.viewAchievements(new AchievementManager(new Progress()));
+                break;
+            case 10:
+                // See all the possible achievements
+                student.viewAllAchievements(new AchievementManager(new Progress()));
+                break;
+            case 11:
                 System.out.println("Exiting...");
                 return;
             default:

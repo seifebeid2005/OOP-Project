@@ -367,6 +367,18 @@ public class Student extends Person implements Comparable<Student> {
     public void setProgress(int progress) {
         this.progress = progress;
     }
+
+    public void viewProgress() {
+        System.out.println("Progress: " + calculateProgress() + "%");
+    }
+
+    public void viewAchievements(AchievementManager achievementManager) {
+        achievementManager.viewAchievements();
+    }
+
+    public void viewAllAchievements(AchievementManager achievementManager) {
+        achievementManager.viewAllAchievements();
+    }
     
     @Override
     public String toString() {
